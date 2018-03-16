@@ -13,8 +13,8 @@ namespace Redaxscript\Admin\Controller;
 
 class Common
 {
-	public function __call()
+	public function __call($name, $arguments)
 	{
-		return 'to be implemented: ' . __CLASS__;
+		return 'to be implemented: ' . __CLASS__ . ' ' . $name . ' ' . implode($arguments, ' ,');
 	}
 }

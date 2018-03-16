@@ -11,7 +11,7 @@ namespace Redaxscript\Admin\View;
  * @author Henry Ruhs
  */
 
-class GroupTable extends ViewAbstract implements ViewInterface
+class ExtraTable extends ViewAbstract implements ViewInterface
 {
 	/**
 	 * render the view
