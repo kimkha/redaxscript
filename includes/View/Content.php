@@ -2,7 +2,6 @@
 namespace Redaxscript\View;
 
 use function Redaxscript\Admin\View\Helper\admin_dock;
-use function Redaxscript\View\Helper\byline;
 use Redaxscript\Config;
 use Redaxscript\Content as BaseContent;
 use Redaxscript\Db;
@@ -41,7 +40,6 @@ class Content extends ViewAbstract
 		return ob_get_clean();
 	}
 }
-
 
 /**
  * contents
@@ -223,7 +221,14 @@ function contents()
 				$output .= '<div class="rs-box-content">' . $parser->getOutput() . '</div>';
 				if ($byline == 1)
 				{
-					$output .= byline('articles', $id, $author, $date);
+					$bylineHelper = new Helper\Byline();
+					$output .= $bylineHelper->render(
+					[
+						'table' => 'articles',
+						'id' => $id,
+						'author' => $author,
+						'date' => $date
+					]);
 				}
 				$output .= Module\Hook::trigger('contentFragmentEnd', $r);
 
@@ -239,7 +244,7 @@ function contents()
 				$counter++;
 			}
 		}
-
+		echo 'test';
 		/* handle access */
 
 		if ($lastTable == 'categories')
@@ -285,8 +290,12 @@ function contents()
 			else if ($comments > 0)
 			{
 				$articleModel = new Model\Article();
-				$route = $articleModel->getRouteById($articleId);
-				comments($articleId, $route);
+				$comment = new Comment($registry, $language);
+				$comment->render(
+				[
+					'articleId' => $articleId,
+					'route' => $articleModel->getRouteById($articleId)
+				]);
 
 				/* comment form */
 

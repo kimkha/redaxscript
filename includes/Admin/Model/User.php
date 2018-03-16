@@ -1,6 +1,7 @@
 <?php
 namespace Redaxscript\Admin\Model;
 
+use Redaxscript\Db;
 use Redaxscript\Model as BaseModel;
 
 /**
@@ -15,32 +16,18 @@ use Redaxscript\Model as BaseModel;
 
 class User extends BaseModel\User
 {
-	public function updateLastSeen()
-	{
-		return admin_last_update();
-	}
-}
+	/**
+	 * @param string $userId id of the user
+	 *
+	 * @return bool
+	 */
 
-/**
- * admin last update
- *
- * @since 1.2.1
- * @deprecated 2.0.0
- *
- * @package Redaxscript
- * @category Admin
- * @author Henry Ruhs
- */
-
-function admin_last_update()
-{
-	$registry = Registry::getInstance();
-	if ($registry->get('myId'))
+	public function updateLastSeen(string $userId = null)
 	{
-		Db::forTablePrefix('users')
-			->where('id', $registry->get('myId'))
+		return Db::forTablePrefix('users')
+			->where('id', $userId)
 			->findOne()
-			->set('last', $registry->get('now'))
+			->set('last', time())
 			->save();
 	}
 }

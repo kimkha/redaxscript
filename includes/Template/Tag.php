@@ -280,7 +280,7 @@ class Tag
 			$adminRouter = new Admin\Router\Router(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
 			$adminRouter->init();
 			$adminContent = $adminRouter->routeContent();
-			if ($adminContent !== true)
+			if ($adminContent)
 			{
 				return $adminContent;
 			}
@@ -300,7 +300,7 @@ class Tag
 		$router = new Router\Router(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
 		$router->init();
 		$routerContent = $router->routeContent();
-		if ($routerContent !== true)
+		if ($routerContent)
 		{
 			return $routerContent;
 		}

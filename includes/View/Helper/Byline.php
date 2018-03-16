@@ -30,9 +30,7 @@ class Byline
 
 	public function render(array $optionArray = []) : string
 	{
-		ob_start();
-		byline($optionArray['table'], $optionArray['id'], $optionArray['author'], $optionArray['date']);
-		return ob_get_clean();
+		return byline($optionArray['table'], $optionArray['id'], $optionArray['author'], $optionArray['date']);
 	}
 }
 

@@ -76,7 +76,7 @@ class Router extends RouterAbstract
 			if (!$adminParameter || $adminParameter == 'view' && $tableParameter == 'users' || $this->_registry->get('cronUpdate'))
 			{
 				$userModel = new Admin\Model\User();
-				$userModel->updateLastSeen();
+				$userModel->updateLastSeen($this->_registry->get('myId'));
 			}
 
 			/* handle post */

@@ -8,7 +8,6 @@ use Redaxscript\Registry;
 use Redaxscript\Model;
 use Redaxscript\Module;
 use Redaxscript\Validator;
-use function Redaxscript\View\Helper\byline;
 use function Redaxscript\View\Helper\pagination;
 
 /**
@@ -36,7 +35,7 @@ class Comment extends ViewAbstract
 	public function render(array $optionArray = []) : string
 	{
 		ob_start();
-		commens($optionArray['article'], $optionArray['route']);
+		comments($optionArray['articleId'], $optionArray['route']);
 		return ob_get_clean();
 	}
 }
@@ -52,10 +51,10 @@ function comments($article, $route)
 
 	$comments = Db::forTablePrefix('comments')
 		->where(
-			[
-				'status' => 1,
-				'article' => $article
-			])
+		[
+			'status' => 1,
+			'article' => $article
+		])
 		->whereLanguageIs($registry->get('language'))
 		->orderGlobal('rank');
 
@@ -133,7 +132,14 @@ function comments($article, $route)
 				/* collect box output */
 
 				$output .= '<div class="rs-box-comment">' . $text . '</div>';
-				$output .= byline('comments', $id, $author, $date);
+				$bylineHelper = new Helper\Byline();
+				$output .= $bylineHelper->render(
+				[
+					'table' => 'comments',
+					'id' => $id,
+					'author' => $author,
+					'date' => $date
+				]);
 				$output .= Module\Hook::trigger('commentFragmentEnd', $r);
 
 				/* admin dock */
