@@ -1,4 +1,63 @@
 <?php
+namespace Redaxscript\Admin\Model;
+
+use Redaxscript\Admin;
+use Redaxscript\Config;
+use Redaxscript\Controller;
+use Redaxscript\Db;
+use Redaxscript\Filter;
+use Redaxscript\Language;
+use Redaxscript\Registry;
+use Redaxscript\Request;
+use Redaxscript\Validator;
+
+/**
+ * parent class to provide the admin content model
+ *
+ * @since 4.0.0
+ *
+ * @package Redaxscript
+ * @category Admin
+ * @author Henry Ruhs
+ */
+
+class Content
+{
+	public function create()
+	{
+		return admin_process();
+	}
+
+	public function update()
+	{
+		return admin_process();
+	}
+
+	public function move()
+	{
+		return admin_move();
+	}
+
+	public function sort()
+	{
+		return admin_sort();
+	}
+
+	public function status($status)
+	{
+		return admin_status($status);
+	}
+
+	public function install()
+	{
+		return admin_install();
+	}
+
+	public function delete()
+	{
+		return admin_delete();
+	}
+}
 
 /**
  * admin process
@@ -13,18 +72,17 @@
 
 function admin_process()
 {
-	$registry = Redaxscript\Registry::getInstance();
-	$request = Redaxscript\Request::getInstance();
-	$language = Redaxscript\Language::getInstance();
-	$config = Redaxscript\Config::getInstance();
-	$aliasFilter = new Redaxscript\Filter\Alias();
-	$emailFilter = new Redaxscript\Filter\Email();
-	$urlFilter = new Redaxscript\Filter\Url();
-	$htmlFilter = new Redaxscript\Filter\Html();
-	$aliasValidator = new Redaxscript\Validator\Alias();
-	$loginValidator = new Redaxscript\Validator\Login();
-	$specialFilter = new Redaxscript\Filter\Special;
-	$messenger = new Redaxscript\Admin\Messenger($registry);
+	$registry = Registry::getInstance();
+	$request = Request::getInstance();
+	$language = Language::getInstance();
+	$config = Config::getInstance();
+	$aliasFilter = new Filter\Alias();
+	$emailFilter = new Filter\Email();
+	$urlFilter = new Filter\Url();
+	$htmlFilter = new Filter\Html();
+	$aliasValidator = new Validator\Alias();
+	$loginValidator = new Validator\Login();
+	$specialFilter = new Filter\Special;
 	$filter = $registry->get('filter');
 	$tableParameter = $registry->get('tableParameter');
 	$idParameter = $registry->get('idParameter');
@@ -97,10 +155,10 @@ function admin_process()
 				if ($_POST['access'])
 				{
 					$access = array_map(
-					[
-						$specialFilter,
-						'sanitize'
-					], $_POST['access']);
+						[
+							$specialFilter,
+							'sanitize'
+						], $_POST['access']);
 					$access_string = implode(', ', $access);
 				}
 				if (!$access_string)
@@ -125,7 +183,7 @@ function admin_process()
 		$comments = $r['comments'] = $specialFilter->sanitize($_POST['comments']);
 		if ($category && !$idParameter)
 		{
-			$status = $r['status'] = Redaxscript\Db::forTablePrefix('categories')->where('id', $category)->findOne()->status;
+			$status = $r['status'] = Db::forTablePrefix('categories')->where('id', $category)->findOne()->status;
 		}
 	}
 	if ($tableParameter == 'articles' || $tableParameter == 'extras')
@@ -149,7 +207,7 @@ function admin_process()
 	}
 	if ($tableParameter == 'comments' && !$idParameter)
 	{
-		$status = $r['status'] = Redaxscript\Db::forTablePrefix('articles')->where('id', $article)->findOne()->status;
+		$status = $r['status'] = Db::forTablePrefix('articles')->where('id', $article)->findOne()->status;
 	}
 	if ($tableParameter == 'comments' || $tableParameter == 'users')
 	{
@@ -161,22 +219,22 @@ function admin_process()
 	if ($tableParameter == 'groups' && (!$idParameter || $idParameter > 1))
 	{
 		$groups_array =
-		[
-			'categories',
-			'articles',
-			'extras',
-			'comments',
-			'groups',
-			'users',
-			'modules'
-		];
+			[
+				'categories',
+				'articles',
+				'extras',
+				'comments',
+				'groups',
+				'users',
+				'modules'
+			];
 		foreach ($groups_array as $value)
 		{
 			$$value = array_map(
-			[
-				$specialFilter,
-				'sanitize'
-			], $_POST[$value]);
+				[
+					$specialFilter,
+					'sanitize'
+				], $_POST[$value]);
 			$groups_string = implode(', ', $$value);
 			if (!$groups_string)
 			{
@@ -206,7 +264,7 @@ function admin_process()
 		}
 		else
 		{
-			$user = $r['user'] = Redaxscript\Db::forTablePrefix($tableParameter)->where('id', $idParameter)->findOne()->user;
+			$user = $r['user'] = Db::forTablePrefix($tableParameter)->where('id', $idParameter)->findOne()->user;
 		}
 		$password_check = $password_confirm = 1;
 		if (!$_POST['password'] && !$_POST['password_confirm'])
@@ -220,7 +278,7 @@ function admin_process()
 		$password = $specialFilter->sanitize($_POST['password']);
 		if ($password_check == 1 && $password_confirm == 1)
 		{
-			$passwordHash = new Redaxscript\Hash($config);
+			$passwordHash = new Hash($config);
 			$passwordHash->init($password);
 			$r['password'] = $passwordHash->getHash();
 		}
@@ -231,10 +289,10 @@ function admin_process()
 		if (!$idParameter || $idParameter > 1)
 		{
 			$groups = array_map(
-			[
-				$specialFilter,
-				'sanitize'
-			], $_POST['groups']);
+				[
+					$specialFilter,
+					'sanitize'
+				], $_POST['groups']);
 			$groups_string = implode(', ', $groups);
 			if (!$groups_string)
 			{
@@ -261,17 +319,17 @@ function admin_process()
 			}
 			if ($tableParameter == 'categories')
 			{
-				$opponent_id = Redaxscript\Db::forTablePrefix('articles')->where('alias', $alias)->findOne()->id;
+				$opponent_id = Db::forTablePrefix('articles')->where('alias', $alias)->findOne()->id;
 			}
 			if ($tableParameter == 'articles')
 			{
-				$opponent_id = Redaxscript\Db::forTablePrefix('categories')->where('alias', $alias)->findOne()->id;
+				$opponent_id = Db::forTablePrefix('categories')->where('alias', $alias)->findOne()->id;
 			}
 			if ($opponent_id)
 			{
 				$error = $language->get('alias_exists');
 			}
-			if ($tableParameter != 'groups' && $aliasValidator->validate($alias, Redaxscript\Validator\Alias::MODE_GENERAL) == Redaxscript\Validator\ValidatorInterface::PASSED || $aliasValidator->validate($alias, Redaxscript\Validator\Alias::MODE_DEFAULT) == Redaxscript\Validator\ValidatorInterface::PASSED)
+			if ($tableParameter != 'groups' && $aliasValidator->validate($alias, Validator\Alias::MODE_GENERAL) == Validator\ValidatorInterface::PASSED || $aliasValidator->validate($alias, Validator\Alias::MODE_DEFAULT) == Validator\ValidatorInterface::PASSED)
 			{
 				$error = $language->get('alias_incorrect');
 			}
@@ -285,8 +343,8 @@ function admin_process()
 			}
 			else
 			{
-				$alias_id = Redaxscript\Db::forTablePrefix($tableParameter)->where('id', $idParameter)->findOne()->alias;
-				$id_alias = Redaxscript\Db::forTablePrefix($tableParameter)->where('alias', $alias)->findOne()->id;
+				$alias_id = Db::forTablePrefix($tableParameter)->where('id', $idParameter)->findOne()->alias;
+				$id_alias = Db::forTablePrefix($tableParameter)->where('alias', $alias)->findOne()->id;
 			}
 			if ($id_alias && strcasecmp($alias_id, $alias) < 0)
 			{
@@ -326,14 +384,14 @@ function admin_process()
 		}
 		else
 		{
-			$user_id = Redaxscript\Db::forTablePrefix($tableParameter)->where('id', $idParameter)->findOne()->user;
-			$id_user = Redaxscript\Db::forTablePrefix($tableParameter)->where('user', $user)->findOne()->id;
+			$user_id = Db::forTablePrefix($tableParameter)->where('id', $idParameter)->findOne()->user;
+			$id_user = Db::forTablePrefix($tableParameter)->where('user', $user)->findOne()->id;
 		}
 		if ($id_user && strcasecmp($user_id, $user) < 0)
 		{
 			$error = $language->get('user_exists');
 		}
-		if ($loginValidator->validate($user) == Redaxscript\Validator\ValidatorInterface::FAILED)
+		if ($loginValidator->validate($user) == Validator\ValidatorInterface::FAILED)
 		{
 			$error = $language->get('user_incorrect');
 		}
@@ -343,7 +401,7 @@ function admin_process()
 			{
 				$error = $language->get('password_empty');
 			}
-			if ($password_confirm == 0 || $loginValidator->validate($password) == Redaxscript\Validator\ValidatorInterface::FAILED)
+			if ($password_confirm == 0 || $loginValidator->validate($password) == Validator\ValidatorInterface::FAILED)
 			{
 				$error = $language->get('password_incorrect');
 			}
@@ -352,7 +410,7 @@ function admin_process()
 
 	/* validate last post */
 
-	$emailValidator = new Redaxscript\Validator\Email();
+	$emailValidator = new Validator\Email();
 	switch ($tableParameter)
 	{
 		case 'comments':
@@ -361,7 +419,7 @@ function admin_process()
 				$error = $language->get('author_empty');
 			}
 		case 'users':
-			if ($emailValidator->validate($email) == Redaxscript\Validator\ValidatorInterface::FAILED)
+			if ($emailValidator->validate($email) == Validator\ValidatorInterface::FAILED)
 			{
 				$error = $language->get('email_incorrect');
 			}
@@ -380,10 +438,6 @@ function admin_process()
 		{
 			$route .= '/edit/' . $tableParameter . '/' . $idParameter;
 		}
-
-		/* show error */
-
-		return $messenger->setRoute($language->get('back'), $route)->error($error, $language->get('error_occurred'));
 	}
 
 	/* handle success */
@@ -421,19 +475,15 @@ function admin_process()
 		/* query new */
 
 		case 'new':
-			Redaxscript\Db::forTablePrefix($registry->get('tableParameter'))
+			Db::forTablePrefix($registry->get('tableParameter'))
 				->create()
 				->set($r)
 				->save();
 
-			/* show success */
-
-			return $messenger->setRoute($language->get('continue'), $route)->doRedirect()->success($language->get('operation_completed'));
-
 		/* query edit */
 
 		case 'edit':
-			Redaxscript\Db::forTablePrefix($registry->get('tableParameter'))
+			Db::forTablePrefix($registry->get('tableParameter'))
 				->whereIdIs($registry->get('idParameter'))
 				->findOne()
 				->set($r)
@@ -443,40 +493,40 @@ function admin_process()
 
 			if ($tableParameter == 'categories')
 			{
-				$categoryChildren = Redaxscript\Db::forTablePrefix($tableParameter)->where('parent', $idParameter);
+				$categoryChildren = Db::forTablePrefix($tableParameter)->where('parent', $idParameter);
 				$categoryArray = array_merge($categoryChildren->findFlatArray(),
-				[
-					$idParameter
-				]);
-				$articleChildren = Redaxscript\Db::forTablePrefix('articles')->whereIn('category', $categoryArray);
+					[
+						$idParameter
+					]);
+				$articleChildren = Db::forTablePrefix('articles')->whereIn('category', $categoryArray);
 				$articleArray = $articleChildren->findFlatArray();
 				if (count($articleArray) > 0)
 				{
-					Redaxscript\Db::forTablePrefix('comments')
+					Db::forTablePrefix('comments')
 						->whereIn('article', $articleArray)
 						->findMany()
 						->set(
-						[
-							'status' => $status,
-							'access' => $access
-						])
+							[
+								'status' => $status,
+								'access' => $access
+							])
 						->save();
 				}
 				$categoryChildren
 					->findMany()
 					->set(
-					[
-						'status' => $status,
-						'access' => $access
-					])
+						[
+							'status' => $status,
+							'access' => $access
+						])
 					->save();
 				$articleChildren
 					->findMany()
 					->set(
-					[
-						'status' => $status,
-						'access' => $access
-					])
+						[
+							'status' => $status,
+							'access' => $access
+						])
 					->save();
 			}
 
@@ -488,32 +538,28 @@ function admin_process()
 				{
 					$status = 0;
 				}
-				Redaxscript\Db::forTablePrefix('comments')
+				Db::forTablePrefix('comments')
 					->where('article', $idParameter)
 					->findMany()
 					->set(
-					[
-						'status' => $status,
-						'access' => $access
-					])
+						[
+							'status' => $status,
+							'access' => $access
+						])
 					->save();
 			}
 
 			if ($tableParameter == 'users' && $idParameter == $registry->get('myId'))
 			{
-				$auth = new Redaxscript\Auth($request);
+				$auth = new Auth($request);
 				$auth->init();
 				$auth->setUser('name', $name);
 				$auth->setUser('email', $email);
 				$auth->setUser('language', $r['language']);
 				$auth->save();
-				$request = Redaxscript\Request::getInstance();
+				$request = Request::getInstance();
 				$request->setSession('language', $r['language']);
 			}
-
-			/* show success */
-
-			return $messenger->setRoute($language->get('continue'), $route)->doRedirect()->success($language->get('operation_completed'));
 	}
 }
 
@@ -530,17 +576,17 @@ function admin_process()
 
 function admin_move()
 {
-	$registry = Redaxscript\Registry::getInstance();
-	$language = Redaxscript\Language::getInstance();
+	$registry = Registry::getInstance();
+	$language = Language::getInstance();
 	$adminParameter = $registry->get('adminParameter');
 	$tableParameter = $registry->get('tableParameter');
 	$idParameter = $registry->get('idParameter');
 
 	/* retrieve rank */
 
-	$rank_asc = Redaxscript\Db::forTablePrefix($tableParameter)->min('rank');
-	$rank_desc = Redaxscript\Db::forTablePrefix($tableParameter)->max('rank');
-	$rank_old = Redaxscript\Db::forTablePrefix($tableParameter)->where('id', $idParameter)->findOne()->rank;
+	$rank_asc = Db::forTablePrefix($tableParameter)->min('rank');
+	$rank_desc = Db::forTablePrefix($tableParameter)->max('rank');
+	$rank_old = Db::forTablePrefix($tableParameter)->where('id', $idParameter)->findOne()->rank;
 
 	/* calculate new rank */
 
@@ -553,17 +599,12 @@ function admin_move()
 	{
 		$rank_new = $rank_old + 1;
 	}
-	$id = Redaxscript\Db::forTablePrefix($tableParameter)->where('rank', $rank_new)->findOne()->id;
+	$id = Db::forTablePrefix($tableParameter)->where('rank', $rank_new)->findOne()->id;
 
 	/* query rank */
 
-	Redaxscript\Db::forTablePrefix($tableParameter)->where('id', $id)->findOne()->set('rank', $rank_old)->save();
-	Redaxscript\Db::forTablePrefix($tableParameter)->where('id', $idParameter)->findOne()->set('rank', $rank_new)->save();
-
-	/* show success */
-
-	$messenger = new Redaxscript\Admin\Messenger($registry);
-	return $messenger->setRoute($language->get('continue'), 'admin/view/' . $tableParameter)->doRedirect()->success($language->get('operation_completed'));
+	Db::forTablePrefix($tableParameter)->where('id', $id)->findOne()->set('rank', $rank_old)->save();
+	Db::forTablePrefix($tableParameter)->where('id', $idParameter)->findOne()->set('rank', $rank_new)->save();
 }
 
 /**
@@ -579,14 +620,14 @@ function admin_move()
 
 function admin_sort()
 {
-	$registry = Redaxscript\Registry::getInstance();
-	$language = Redaxscript\Language::getInstance();
+	$registry = Registry::getInstance();
+	$language = Language::getInstance();
 	$tableParameter = $registry->get('tableParameter');
 	if ($tableParameter == 'categories' || $tableParameter == 'articles' || $tableParameter == 'extras' || $tableParameter == 'comments')
 	{
 		/* query general select */
 
-		$result = Redaxscript\Db::forTablePrefix($tableParameter)->orderByAsc('rank')->findArray();
+		$result = Db::forTablePrefix($tableParameter)->orderByAsc('rank')->findArray();
 
 		/* build select array */
 
@@ -644,18 +685,13 @@ function admin_sort()
 
 		foreach ($update_array as $key => $value)
 		{
-			Redaxscript\Db::forTablePrefix($tableParameter)
+			Db::forTablePrefix($tableParameter)
 				->where('id', $value)
 				->findOne()
 				->set('rank', ++$key)
 				->save();
 		}
 	}
-
-	/* show success */
-
-	$messenger = new Redaxscript\Admin\Messenger($registry);
-	return $messenger->setRoute($language->get('continue'), 'admin/view/' . $tableParameter)->doRedirect()->success($language->get('operation_completed'));
 }
 
 /**
@@ -669,15 +705,16 @@ function admin_sort()
  * @author Henry Ruhs
  *
  * @param int $input
+ * @return string
  */
 
 function admin_status($input)
 {
-	$registry = Redaxscript\Registry::getInstance();
-	$language = Redaxscript\Language::getInstance();
+	$registry = Registry::getInstance();
+	$language = Language::getInstance();
 	$tableParameter = $registry->get('tableParameter');
 	$idParameter = $registry->get('idParameter');
-	Redaxscript\Db::forTablePrefix($tableParameter)
+	Db::forTablePrefix($tableParameter)
 		->where('id', $idParameter)
 		->findMany()
 		->set('status', $input)
@@ -687,16 +724,16 @@ function admin_status($input)
 
 	if ($tableParameter == 'categories')
 	{
-		$categoryChildren = Redaxscript\Db::forTablePrefix($tableParameter)->where('parent', $idParameter);
+		$categoryChildren = Db::forTablePrefix($tableParameter)->where('parent', $idParameter);
 		$categoryArray = array_merge($categoryChildren->findFlatArray(),
-		[
-			$idParameter
-		]);
-		$articleChildren = Redaxscript\Db::forTablePrefix('articles')->whereIn('category', $categoryArray);
+			[
+				$idParameter
+			]);
+		$articleChildren = Db::forTablePrefix('articles')->whereIn('category', $categoryArray);
 		$articleArray = $articleChildren->findFlatArray();
 		if (count($articleArray) > 0)
 		{
-			Redaxscript\Db::forTablePrefix('comments')
+			Db::forTablePrefix('comments')
 				->whereIn('article', $articleArray)
 				->findMany()
 				->set('status', $input)
@@ -710,17 +747,12 @@ function admin_status($input)
 
 	if ($tableParameter == 'articles')
 	{
-		Redaxscript\Db::forTablePrefix('comments')
+		Db::forTablePrefix('comments')
 			->where('article', $idParameter)
 			->findMany()
 			->set('status', $input)
 			->save();
 	}
-
-	/* show success */
-
-	$messenger = new Redaxscript\Admin\Messenger($registry);
-	return $messenger->setRoute($language->get('continue'), 'admin/view/' . $tableParameter)->doRedirect()->success($language->get('operation_completed'));
 }
 
 /**
@@ -736,10 +768,10 @@ function admin_status($input)
 
 function admin_install()
 {
-	$registry = Redaxscript\Registry::getInstance();
-	$request = Redaxscript\Request::getInstance();
-	$language = Redaxscript\Language::getInstance();
-	$config = Redaxscript\Config::getInstance();
+	$registry = Registry::getInstance();
+	$request = Request::getInstance();
+	$language = Language::getInstance();
+	$config = Config::getInstance();
 	$adminParameter = $registry->get('adminParameter');
 	$tableParameter = $registry->get('tableParameter');
 	$aliasParameter = $registry->get('aliasParameter');
@@ -749,10 +781,10 @@ function admin_install()
 
 		if (is_dir('modules' . DIRECTORY_SEPARATOR . $aliasParameter))
 		{
-			$module = Redaxscript\Db::forTablePrefix('modules')->where('alias', $aliasParameter)->findOne()->id;
+			$module = Db::forTablePrefix('modules')->where('alias', $aliasParameter)->findOne()->id;
 			if (($adminParameter == 'install' && !$module) || ($adminParameter == 'uninstall' && $module))
 			{
-				$moduleClass = 'Redaxscript\Modules\\' . $aliasParameter . '\\' . $aliasParameter;
+				$moduleClass = 'Modules\\' . $aliasParameter . '\\' . $aliasParameter;
 				$module = new $moduleClass($registry, $request, $language, $config);
 
 				/* method exists */
@@ -760,19 +792,14 @@ function admin_install()
 				if (method_exists($module, $adminParameter))
 				{
 					call_user_func(
-					[
-						$module,
-						$adminParameter
-					]);
+						[
+							$module,
+							$adminParameter
+						]);
 				}
 			}
 		}
 	}
-
-	/* show success */
-
-	$messenger = new Redaxscript\Admin\Messenger($registry);
-	return $messenger->setRoute($language->get('continue'), 'admin/view/' . $tableParameter . '#' . $aliasParameter)->doRedirect()->success($language->get('operation_completed'));
 }
 
 /**
@@ -788,15 +815,15 @@ function admin_install()
 
 function admin_delete()
 {
-	$registry = Redaxscript\Registry::getInstance();
-	$request = Redaxscript\Request::getInstance();
-	$language = Redaxscript\Language::getInstance();
-	$settingModel = new Redaxscript\Model\Setting();
+	$registry = Registry::getInstance();
+	$request = Request::getInstance();
+	$language = Language::getInstance();
+	$settingModel = new Admin\Model\Setting();
 	$tableParameter = $registry->get('tableParameter');
 	$idParameter = $registry->get('idParameter');
 	if ($tableParameter == 'categories' || $tableParameter == 'articles' || $tableParameter == 'extras' || $tableParameter == 'comments' || $tableParameter == 'groups' || $tableParameter == 'users')
 	{
-		Redaxscript\Db::forTablePrefix($tableParameter)
+		Db::forTablePrefix($tableParameter)
 			->where('id', $idParameter)
 			->findMany()
 			->delete();
@@ -806,16 +833,16 @@ function admin_delete()
 
 	if ($tableParameter == 'categories')
 	{
-		$categoryChildren = Redaxscript\Db::forTablePrefix($tableParameter)->where('parent', $idParameter);
+		$categoryChildren = Db::forTablePrefix($tableParameter)->where('parent', $idParameter);
 		$categoryArray = array_merge($categoryChildren->findFlatArray(),
-		[
-			$idParameter
-		]);
-		$articleChildren = Redaxscript\Db::forTablePrefix('articles')->whereIn('category', $categoryArray);
+			[
+				$idParameter
+			]);
+		$articleChildren = Db::forTablePrefix('articles')->whereIn('category', $categoryArray);
 		$articleArray = $articleChildren->findFlatArray();
 		if (count($articleArray) > 0)
 		{
-			Redaxscript\Db::forTablePrefix('comments')
+			Db::forTablePrefix('comments')
 				->whereIn('article', $articleArray)
 				->findMany()
 				->delete();
@@ -825,7 +852,7 @@ function admin_delete()
 
 		/* reset the extras */
 
-		Redaxscript\Db::forTablePrefix('extras')
+		Db::forTablePrefix('extras')
 			->whereIn('category', $categoryArray)
 			->findMany()
 			->set('category', 0)
@@ -836,14 +863,14 @@ function admin_delete()
 
 	if ($tableParameter == 'articles')
 	{
-		Redaxscript\Db::forTablePrefix('comments')
+		Db::forTablePrefix('comments')
 			->where('article', $idParameter)
 			->findMany()
 			->delete();
 
 		/* reset the extras */
 
-		Redaxscript\Db::forTablePrefix('extras')
+		Db::forTablePrefix('extras')
 			->where('article', $idParameter)
 			->findMany()
 			->set('article', 0)
@@ -853,7 +880,7 @@ function admin_delete()
 
 		if ($idParameter == $settingModel->get('homepage'))
 		{
-			Redaxscript\Db::forTablePrefix('settings')
+			Db::forTablePrefix('settings')
 				->where('name', 'homepage')
 				->findOne()
 				->set('value', 0)
@@ -865,7 +892,8 @@ function admin_delete()
 
 	if ($tableParameter == 'users' && $idParameter == $registry->get('myId'))
 	{
-		$logoutController = new Redaxscript\Controller\Logout($registry, $request, $language);
+		// todo: move this to the router
+		$logoutController = new Controller\Logout($registry, $request, $language);
 		return $logoutController->process();
 	}
 
@@ -878,104 +906,5 @@ function admin_delete()
 		{
 			$route .= '/view/' . $tableParameter;
 		}
-
-		/* show success */
-
-		$messenger = new Redaxscript\Admin\Messenger($registry);
-		return $messenger->setRoute($language->get('continue'), $route)->doRedirect()->success($language->get('operation_completed'));
-	}
-}
-
-/**
- * admin update
- *
- * @since 1.2.1
- * @deprecated 2.0.0
- *
- * @package Redaxscript
- * @category Admin
- * @author Henry Ruhs
- */
-
-function admin_update()
-{
-	$registry = Redaxscript\Registry::getInstance();
-	$language = Redaxscript\Language::getInstance();
-	$tableParameter = $registry->get('tableParameter');
-	if ($tableParameter == 'settings')
-	{
-		$specialFilter = new Redaxscript\Filter\Special();
-		$emailFilter = new Redaxscript\Filter\Email();
-
-		/* clean post */
-
-		$r['language'] = $specialFilter->sanitize($_POST['language']);
-		$r['template'] = $specialFilter->sanitize($_POST['template']);
-		$r['title'] = $_POST['title'];
-		$r['author'] = $_POST['author'];
-		$r['copyright'] = $_POST['copyright'];
-		$r['description'] = $_POST['description'];
-		$r['keywords'] = $_POST['keywords'];
-		$r['robots'] = $specialFilter->sanitize($_POST['robots']);
-		$r['email'] = $emailFilter->sanitize($_POST['email']);
-		$r['subject'] = $_POST['subject'];
-		$r['notification'] = $specialFilter->sanitize($_POST['notification']);
-		$r['charset'] = !$r['charset'] ? 'utf-8' : $r['charset'];
-		$r['divider'] = $_POST['divider'];
-		$r['time'] = $_POST['time'];
-		$r['date'] = $_POST['date'];
-		$r['homepage'] = $specialFilter->sanitize($_POST['homepage']);
-		$r['limit'] = !$specialFilter->sanitize($_POST['limit']) ? 10 : $specialFilter->sanitize($_POST['limit']);
-		$r['order'] = $specialFilter->sanitize($_POST['order']);
-		$r['pagination'] = $specialFilter->sanitize($_POST['pagination']);
-		$r['moderation'] = $specialFilter->sanitize($_POST['moderation']);
-		$r['registration'] = $specialFilter->sanitize($_POST['registration']);
-		$r['verification'] = $specialFilter->sanitize($_POST['verification']);
-		$r['recovery'] = $specialFilter->sanitize($_POST['recovery']);
-		$r['captcha'] = $specialFilter->sanitize($_POST['captcha']);
-
-		/* update settings */
-
-		foreach ($r as $key => $value)
-		{
-			if ($value == 'select')
-			{
-				$value = null;
-			}
-			Redaxscript\Db::forTablePrefix($tableParameter)
-				->where('name', $key)
-				->findOne()
-				->set('value', $value)
-				->save();
-		}
-
-		/* show success */
-
-		$messenger = new Redaxscript\Admin\Messenger($registry);
-		return $messenger->setRoute($language->get('continue'), 'admin/edit/settings')->doRedirect()->success($language->get('operation_completed'));
-	}
-}
-
-/**
- * admin last update
- *
- * @since 1.2.1
- * @deprecated 2.0.0
- *
- * @package Redaxscript
- * @category Admin
- * @author Henry Ruhs
- */
-
-function admin_last_update()
-{
-	$registry = Redaxscript\Registry::getInstance();
-	if ($registry->get('myId'))
-	{
-		Redaxscript\Db::forTablePrefix('users')
-			->where('id', $registry->get('myId'))
-			->findOne()
-			->set('last', $registry->get('now'))
-			->save();
 	}
 }

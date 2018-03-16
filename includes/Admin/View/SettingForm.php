@@ -1,9 +1,9 @@
 <?php
 namespace Redaxscript\Admin\View;
 
+use Redaxscript\Admin;
 use Redaxscript\Admin\Html\Form as AdminForm;
 use Redaxscript\Html;
-use Redaxscript\Model;
 use Redaxscript\Module;
 
 /**
@@ -29,7 +29,7 @@ class SettingForm extends ViewAbstract implements ViewInterface
 	public function render() : string
 	{
 		$output = Module\Hook::trigger('adminSettingFormStart');
-		$settingModel = new Model\Setting();
+		$settingModel = new Admin\Model\Setting();
 		$helperOption = new Helper\Option($this->_language);
 
 		/* html elements */

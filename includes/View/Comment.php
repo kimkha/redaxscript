@@ -1,34 +1,61 @@
 <?php
+namespace Redaxscript\View;
+
+use function Redaxscript\Admin\View\Helper\admin_dock;
+use Redaxscript\Db;
+use Redaxscript\Language;
+use Redaxscript\Registry;
+use Redaxscript\Model;
+use Redaxscript\Module;
+use Redaxscript\Validator;
+use function Redaxscript\View\Helper\byline;
+use function Redaxscript\View\Helper\pagination;
 
 /**
- * comments
+ * children class to create the comment
  *
- * @since 1.2.1
- * @deprecated 2.0.0
+ * @since 4.0.0
  *
  * @package Redaxscript
- * @category Comments
+ * @category View
  * @author Henry Ruhs
- *
- * @param int $article
- * @param string $route
  */
+
+class Comment extends ViewAbstract
+{
+	/**
+	 * render the view
+	 *
+	 * @param array $optionArray options of the form
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return string
+	 */
+
+	public function render(array $optionArray = []) : string
+	{
+		ob_start();
+		commens($optionArray['article'], $optionArray['route']);
+		return ob_get_clean();
+	}
+}
 
 function comments($article, $route)
 {
-	$registry = Redaxscript\Registry::getInstance();
-	$language = Redaxscript\Language::getInstance();
-	$output = Redaxscript\Module\Hook::trigger('commentStart');
-	$settingModel = new Redaxscript\Model\Setting();
+	$registry = Registry::getInstance();
+	$language = Language::getInstance();
+	$output = Module\Hook::trigger('commentStart');
+	$settingModel = new Model\Setting();
 
 	/* query comments */
 
-	$comments = Redaxscript\Db::forTablePrefix('comments')
+	$comments = Db::forTablePrefix('comments')
 		->where(
-		[
-			'status' => 1,
-			'article' => $article
-		])
+			[
+				'status' => 1,
+				'article' => $article
+			])
 		->whereLanguageIs($registry->get('language'))
 		->orderGlobal('rank');
 
@@ -70,14 +97,14 @@ function comments($article, $route)
 
 	else if ($result)
 	{
-		$accessValidator = new Redaxscript\Validator\Access();
+		$accessValidator = new Validator\Access();
 		foreach ($result as $r)
 		{
 			$access = $r['access'];
 
 			/* access granted */
 
-			if ($accessValidator->validate($access, $registry->get('myGroups')) === Redaxscript\Validator\ValidatorInterface::PASSED)
+			if ($accessValidator->validate($access, $registry->get('myGroups')) === Validator\ValidatorInterface::PASSED)
 			{
 				if ($r)
 				{
@@ -92,7 +119,7 @@ function comments($article, $route)
 
 				/* collect headline output */
 
-				$output .= Redaxscript\Module\Hook::trigger('commentFragmentStart', $r) . '<h3 id="comment-' . $id . '" class="rs-title-comment">';
+				$output .= Module\Hook::trigger('commentFragmentStart', $r) . '<h3 id="comment-' . $id . '" class="rs-title-comment">';
 				if ($url)
 				{
 					$output .= '<a href="' . $url . '" rel="nofollow">' . $author . '</a>';
@@ -107,7 +134,7 @@ function comments($article, $route)
 
 				$output .= '<div class="rs-box-comment">' . $text . '</div>';
 				$output .= byline('comments', $id, $author, $date);
-				$output .= Redaxscript\Module\Hook::trigger('commentFragmentEnd', $r);
+				$output .= Module\Hook::trigger('commentFragmentEnd', $r);
 
 				/* admin dock */
 
@@ -136,7 +163,7 @@ function comments($article, $route)
 	{
 		$output = '<div class="rs-box-comment">' . $error . $language->get('point') . '</div>';
 	}
-	$output .= Redaxscript\Module\Hook::trigger('commentEnd');
+	$output .= Module\Hook::trigger('commentEnd');
 	echo $output;
 
 	/* call pagination as needed */

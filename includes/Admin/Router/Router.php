@@ -75,42 +75,51 @@ class Router extends RouterAbstract
 
 			if (!$adminParameter || $adminParameter == 'view' && $tableParameter == 'users' || $this->_registry->get('cronUpdate'))
 			{
-				admin_last_update();
+				$userModel = new Admin\Model\User();
+				$userModel->updateLastSeen();
 			}
 
 			/* handle post */
 
 			if ($this->_request->getPost('Redaxscript\Admin\View\CategoryForm'))
 			{
-				return admin_process();
+				$contentModel = new Admin\Model\Content();
+				$contentModel->create();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\ArticleForm'))
 			{
-				return admin_process();
+				$contentModel = new Admin\Model\Content();
+				$contentModel->create();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\ExtraForm'))
 			{
-				return admin_process();
+				$contentModel = new Admin\Model\Content();
+				$contentModel->create();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\CommentForm'))
 			{
-				return admin_process();
+				$contentModel = new Admin\Model\Content();
+				$contentModel->create();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\UserForm'))
 			{
-				return admin_process();
+				$contentModel = new Admin\Model\Content();
+				$contentModel->create();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\GroupForm'))
 			{
-				return admin_process();
+				$contentModel = new Admin\Model\Content();
+				$contentModel->create();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\ModuleForm'))
 			{
-				return admin_process();
+				$contentModel = new Admin\Model\Content();
+				$contentModel->create();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\SettingForm'))
 			{
-				return admin_update();
+				$contentModel = new Admin\Model\Content();
+				$contentModel->create();
 			}
 
 			/* handle route */
@@ -129,27 +138,33 @@ class Router extends RouterAbstract
 			}
 			if ($adminParameter === 'delete')
 			{
-				return admin_delete();
+				$contentModel = new Admin\Model\Content();
+				$contentModel->delete();
 			}
 			if ($adminParameter === 'up' || $adminParameter === 'down')
 			{
-				return admin_move();
+				$contentModel = new Admin\Model\Content();
+				$contentModel->move();
 			}
 			if ($adminParameter === 'sort')
 			{
-				return admin_sort();
+				$contentModel = new Admin\Model\Content();
+				$contentModel->sort();
 			}
 			if ($adminParameter === 'publish' || $adminParameter === 'enable')
 			{
-				return admin_status(1);
+				$contentModel = new Admin\Model\Content();
+				$contentModel->status(1);
 			}
 			if ($adminParameter === 'unpublish' || $adminParameter === 'disable')
 			{
-				return admin_status(0);
+				$contentModel = new Admin\Model\Content();
+				$contentModel->status(0);
 			}
 			if ($adminParameter === 'install' || $adminParameter === 'uninstall')
 			{
-				return admin_install();
+				$contentModel = new Admin\Model\Content();
+				$contentModel->install();
 			}
 		}
 		return $this->_registry->get('adminRouterBreak');
@@ -297,31 +312,38 @@ class Router extends RouterAbstract
 		ob_start();
 		if ($tableParameter == 'categories')
 		{
-			admin_contents_list();
+			$contentTable = new Admin\View\ContentTable($this->_registry, $this->_language);
+			return $contentTable->render();
 		}
 		if ($tableParameter == 'articles')
 		{
-			admin_contents_list();
+			$contentTable = new Admin\View\ContentTable($this->_registry, $this->_language);
+			return $contentTable->render();
 		}
 		if ($tableParameter == 'extras')
 		{
-			admin_contents_list();
+			$contentTable = new Admin\View\ContentTable($this->_registry, $this->_language);
+			return $contentTable->render();
 		}
 		if ($tableParameter == 'comments')
 		{
-			admin_contents_list();
+			$contentTable = new Admin\View\ContentTable($this->_registry, $this->_language);
+			return $contentTable->render();
 		}
 		if ($tableParameter == 'users')
 		{
-			admin_users_list();
+			$userTable = new Admin\View\UserTable($this->_registry, $this->_language);
+			return $userTable->render();
 		}
 		if ($tableParameter == 'groups')
 		{
-			admin_groups_list();
+			$groupTable = new Admin\View\GroupTable($this->_registry, $this->_language);
+			return $groupTable->render();
 		}
 		if ($tableParameter == 'modules')
 		{
-			admin_modules_list();
+			$moduleTable = new Admin\View\ModuleTable($this->_registry, $this->_language);
+			return $moduleTable->render();
 		}
 		return ob_get_clean();
 	}

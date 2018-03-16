@@ -6,7 +6,7 @@ use Redaxscript\Filesystem;
 use Redaxscript\Language;
 
 /**
- * helper class to provide various options
+ * helper class to create various options
  *
  * @since 3.0.0
  *

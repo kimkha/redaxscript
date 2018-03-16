@@ -1,21 +1,43 @@
 <?php
+namespace Redaxscript\Admin\View\Helper;
+
+use Redaxscript\Language;
+use Redaxscript\Module;
+use Redaxscript\Registry;
 
 /**
- * admin panel list
+ * helper class to create the admin panel
  *
- * @since 1.2.1
- * @deprecated 2.0.0
+ * @since 4.0.0
  *
  * @package Redaxscript
- * @category Admin
+ * @category View
  * @author Henry Ruhs
  */
 
+class Panel
+{
+	/**
+	 * render the view
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return string
+	 */
+
+	public function render() : string
+	{
+		ob_start();
+		admin_panel_list();
+		return ob_get_clean();
+	}
+}
+
 function admin_panel_list()
 {
-	$registry = Redaxscript\Registry::getInstance();
-	$language = Redaxscript\Language::getInstance();
-	$output = Redaxscript\Module\Hook::trigger('adminPanelStart');
+	$registry = Registry::getInstance();
+	$language = Language::getInstance();
+	$output = Module\Hook::trigger('adminPanelStart');
 
 	/* define access variables */
 
@@ -139,7 +161,7 @@ function admin_panel_list()
 		if ($modules_access == 1)
 		{
 			$output .= '<li><a href="' . $registry->get('parameterRoute') . 'admin/view/modules" class="rs-admin-link-panel">' . $language->get('modules') . '</a>';
-			$moduleArray = Redaxscript\Module\Hook::collect('adminPanelModule');
+			$moduleArray = Module\Hook::collect('adminPanelModule');
 			if ($moduleArray)
 			{
 				foreach ($moduleArray as $key => $value)
@@ -173,35 +195,35 @@ function admin_panel_list()
 	$notificationSystemArray = [];
 	$notificationHasArray = [];
 	$orderArray =
-	[
-		'success',
-		'info',
-		'warning',
-		'error'
-	];
+		[
+			'success',
+			'info',
+			'warning',
+			'error'
+		];
 	if ($registry->get('myId') == 1)
 	{
 		$notificationSystemArray =
-		[
-			'error' =>
 			[
-				$language->get('system') =>
-				[
-					!is_dir('cache') ? $language->get('directory_not_found') . $language->get('colon') . ' cache' . $language->get('point') : null
-				]
-			],
-			'warning' =>
-			[
-				$language->get('system') =>
-				[
-					is_file('console.php') ? $language->get('file_remove') . ' console.php' . $language->get('point') : null,
-					is_file('install.php') ? $language->get('file_remove') . ' install.php' . $language->get('point') : null,
-					is_writable('config.php') ? $language->get('file_permission_revoke') . ' config.php' . $language->get('point') : null
-				]
-			]
-		];
+				'error' =>
+					[
+						$language->get('system') =>
+							[
+								!is_dir('cache') ? $language->get('directory_not_found') . $language->get('colon') . ' cache' . $language->get('point') : null
+							]
+					],
+				'warning' =>
+					[
+						$language->get('system') =>
+							[
+								is_file('console.php') ? $language->get('file_remove') . ' console.php' . $language->get('point') : null,
+								is_file('install.php') ? $language->get('file_remove') . ' install.php' . $language->get('point') : null,
+								is_writable('config.php') ? $language->get('file_permission_revoke') . ' config.php' . $language->get('point') : null
+							]
+					]
+			];
 	}
-	$notificationModuleArray = Redaxscript\Module\Hook::collect('adminPanelNotification');
+	$notificationModuleArray = Module\Hook::collect('adminPanelNotification');
 	if ($notificationModuleArray)
 	{
 		$notificationArray = array_merge_recursive($notificationModuleArray, $notificationSystemArray);
@@ -265,160 +287,6 @@ function admin_panel_list()
 	{
 		$output = '<ul class="rs-admin-js-list-panel rs-admin-list-panel rs-admin-has-column' . $counter . ' rs-admin-fn-clearfix">' . $output . '</ul>';
 	}
-	$output .= Redaxscript\Module\Hook::trigger('adminPanelEnd');
+	$output .= Module\Hook::trigger('adminPanelEnd');
 	echo $output;
-}
-
-/**
- * admin dock
- *
- * @since 1.2.1
- * @deprecated 2.0.0
- *
- * @package Redaxscript
- * @category Admin
- * @author Henry Ruhs
- *
- * @param string $table
- * @param int $id
- * @return string
- */
-
-function admin_dock($table, $id)
-{
-	$registry = Redaxscript\Registry::getInstance();
-	$language = Redaxscript\Language::getInstance();
-	$output = Redaxscript\Module\Hook::trigger('adminDockStart');
-
-	/* define access variables */
-
-	$edit = $registry->get($table . 'Edit');
-	$delete = $registry->get($table . 'Delete');
-
-	/* collect output */
-
-	if ($edit == 1 || $delete == 1)
-	{
-		$output .= '<div class="rs-admin-wrapper-dock"><div class="rs-admin-js-dock rs-admin-box-dock rs-admin-fn-clearfix">';
-		if ($edit == 1)
-		{
-			$output .= '<a href="' . $registry->get('parameterRoute') . 'admin/unpublish/' . $table . '/' . $id . '/' . $registry->get('token') . '" class="rs-admin-link-dock rs-admin-link-unpublish" data-description="'. $language->get('unpublish') . '">' . $language->get('unpublish') . '</a>';
-			$output .= '<a href="' . $registry->get('parameterRoute') . 'admin/edit/' . $table . '/' . $id . '" class="rs-admin-link-dock rs-admin-link-edit" data-description="'. $language->get('edit') . '">' . $language->get('edit') . '</a>';
-		}
-		if ($delete == 1)
-		{
-			$output .= '<a href="' . $registry->get('parameterRoute') . 'admin/delete/' . $table . '/' . $id . '/' . $registry->get('token') . '" class="rs-admin-js-confirm rs-admin-link-dock rs-admin-link-delete" data-description="'. $language->get('delete') . '">' . $language->get('delete') . '</a>';
-		}
-		$output .= '</div></div>';
-	}
-	$output .= Redaxscript\Module\Hook::trigger('adminDockEnd');
-	return $output;
-}
-
-/**
- * admin control
- *
- * @since 2.0.0
- * @deprecated 2.0.0
- *
- * @package Redaxscript
- * @category Admin
- * @author Henry Ruhs
- *
- * @param string $type
- * @param string $table
- * @param int $id
- * @param string $alias
- * @param int $status
- * @param string $new
- * @param string $edit
- * @param string $delete
- * @return string
- */
-
-function admin_control($type, $table, $id, $alias, $status, $new, $edit, $delete)
-{
-	$registry = Redaxscript\Registry::getInstance();
-	$language = Redaxscript\Language::getInstance();
-	$output = Redaxscript\Module\Hook::trigger('adminControlStart');
-
-	/* define access variables */
-
-	if ($type == 'access' && $id == 1)
-	{
-		$delete = 0;
-	}
-	if ($type == 'modules_not_installed')
-	{
-		$edit = $delete = 0;
-	}
-
-	/* collect modules output */
-
-	if ($new == 1 && $type == 'modules_not_installed')
-	{
-		$output .= '<li class="rs-admin-item-control rs-admin-item-install"><a href="' . $registry->get('parameterRoute') . 'admin/install/' . $table . '/' . $alias . '/' . $registry->get('token') . '">' . $language->get('install') . '</a></li>';
-	}
-
-	/* collect contents output */
-
-	if ($type == 'contents')
-	{
-		if ($status == 2)
-		{
-			$output .= '<li class="rs-admin-item-control rs-admin-item-future-posting"><span>' . $language->get('future_posting') . '</span></li>';
-		}
-		if ($edit == 1)
-		{
-			if ($status == 1)
-			{
-				$output .= '<li class="rs-admin-item-control rs-admin-item-unpublish"><a href="' . $registry->get('parameterRoute') . 'admin/unpublish/' . $table . '/' . $id . '/' . $registry->get('token') . '">' . $language->get('unpublish') . '</a></li>';
-			}
-			else if ($status == 0)
-			{
-				$output .= '<li class="rs-admin-item-control rs-admin-item-publish"><a href="' . $registry->get('parameterRoute') . 'admin/publish/' . $table . '/' . $id . '/' . $registry->get('token') . '">' . $language->get('publish') . '</a></li>';
-			}
-		}
-	}
-
-	/* collect access and system output */
-
-	if ($edit == 1 && ($type == 'access' && $id > 1 || $type == 'modules_installed'))
-	{
-		if ($status == 1)
-		{
-			$output .= '<li class="rs-admin-item-control rs-admin-item-disable"><a href="' . $registry->get('parameterRoute') . 'admin/disable/' . $table . '/' . $id . '/' . $registry->get('token') . '">' . $language->get('disable') . '</a></li>';
-		}
-		else if ($status == 0)
-		{
-			$output .= '<li class="rs-admin-item-control rs-admin-item-enable"><a href="' . $registry->get('parameterRoute') . 'admin/enable/' . $table . '/' . $id . '/' . $registry->get('token') . '">' . $language->get('enable') . '</a></li>';
-		}
-	}
-
-	/* collect general edit and delete output */
-
-	if ($edit == 1)
-	{
-		$output .= '<li class="rs-admin-item-control rs-admin-item-edit"><a href="' . $registry->get('parameterRoute') . 'admin/edit/' . $table . '/' . $id . '">' . $language->get('edit') . '</a></li>';
-	}
-	if ($delete == 1)
-	{
-		if ($type == 'modules_installed')
-		{
-			$output .= '<li class="rs-admin-item-control rs-admin-item-uninstall"><a href="' . $registry->get('parameterRoute') . 'admin/uninstall/' . $table . '/' . $alias . '/' . $registry->get('token') . '" class="rs-admin-js-confirm">' . $language->get('uninstall') . '</a></li>';
-		}
-		else
-		{
-			$output .= '<li class="rs-admin-item-control rs-admin-item-delete"><a href="' . $registry->get('parameterRoute') . 'admin/delete/' . $table . '/' . $id . '/' . $registry->get('token') . '" class="rs-admin-js-confirm">' . $language->get('delete') . '</a></li>';
-		}
-	}
-
-	/* collect list output */
-
-	if ($output)
-	{
-		$output = '<ul class="rs-admin-list-control">' . $output . '</ul>';
-	}
-	$output .= Redaxscript\Module\Hook::trigger('adminControlEnd');
-	return $output;
 }
