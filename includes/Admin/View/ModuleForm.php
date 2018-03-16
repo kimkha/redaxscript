@@ -13,7 +13,7 @@ use Redaxscript\Module;
  * @since 3.0.0
  *
  * @package Redaxscript
- * @category Admin
+ * @category View
  * @author Henry Ruhs
  */
 

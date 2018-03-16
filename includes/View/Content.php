@@ -1,7 +1,6 @@
 <?php
 namespace Redaxscript\View;
 
-use function Redaxscript\Admin\View\Helper\admin_dock;
 use Redaxscript\Config;
 use Redaxscript\Content as BaseContent;
 use Redaxscript\Db;
@@ -35,285 +34,272 @@ class Content extends ViewAbstract
 
 	public function render() : string
 	{
+		//TODO: refactor -> constructor with instances
 		ob_start();
-		contents();
-		return ob_get_clean();
-	}
-}
+		$registry = Registry::getInstance();
+		$request = Request::getInstance();
+		$language = Language::getInstance();
+		$config = Config::getInstance();
+		$output = Module\Hook::trigger('contentStart');
+		$aliasValidator = new Validator\Alias();
+		$settingModel = new Model\Setting();
+		$lastId = $registry->get('lastId');
+		$lastTable = $registry->get('lastTable');
+		$categoryId = $registry->get('categoryId');
+		$articleId = $registry->get('articleId');
+		$firstParameter = $registry->get('firstParameter');
 
-/**
- * contents
- *
- * @since 1.2.1
- * @deprecated 2.0.0
- *
- * @package Redaxscript
- * @category Content
- * @author Henry Ruhs
- */
+		//TODO: refactor -> to article models
+		/* query articles */
 
-function contents()
-{
-	$registry = Registry::getInstance();
-	$request = Request::getInstance();
-	$language = Language::getInstance();
-	$config = Config::getInstance();
-	$output = Module\Hook::trigger('contentStart');
-	$aliasValidator = new Validator\Alias();
-	$settingModel = new Model\Setting();
-	$lastId = $registry->get('lastId');
-	$lastTable = $registry->get('lastTable');
-	$categoryId = $registry->get('categoryId');
-	$articleId = $registry->get('articleId');
-	$firstParameter = $registry->get('firstParameter');
+		$articles = Db::forTablePrefix('articles')->where('status', 1);
+		$articles->whereLanguageIs($registry->get('language'));
 
-	/* query articles */
+		/* handle sibling */
 
-	$articles = Db::forTablePrefix('articles')->where('status', 1);
-	$articles->whereLanguageIs($registry->get('language'));
-
-	/* handle sibling */
-
-	if ($lastId)
-	{
-		$sibling = Db::forTablePrefix($lastTable)->where('id', $lastId)->findOne()->sibling;
-
-		/* query sibling collection */
-
-		$sibling_array = Db::forTablePrefix($lastTable)->whereIn('sibling',
-			[
-				$lastId,
-				$sibling > 0 ? $sibling : null
-			])
-			->where('language', $registry->get('language'))->select('id')->findFlatArray();
-
-		/* process sibling array */
-
-		foreach ($sibling_array as $value)
+		if ($lastId)
 		{
-			$id_array[] = $value;
-		}
-	}
+			$sibling = Db::forTablePrefix($lastTable)->where('id', $lastId)->findOne()->sibling;
 
-	/* handle article */
+			/* query sibling collection */
 
-	if ($articleId)
-	{
-		$id_array[] = $sibling;
-		$id_array[] = $articleId;
-		$articles->whereIn('id', $id_array);
-	}
+			$sibling_array = Db::forTablePrefix($lastTable)->whereIn('sibling',
+				[
+					$lastId,
+					$sibling > 0 ? $sibling : null
+				])
+				->where('language', $registry->get('language'))->select('id')->findFlatArray();
 
-	/* else handle category */
+			/* process sibling array */
 
-	else if ($categoryId)
-	{
-		if (!$id_array)
-		{
-			if ($sibling > 0)
+			foreach ($sibling_array as $value)
 			{
-				$id_array[] = $sibling;
-			}
-			else
-			{
-				$id_array[] = $categoryId;
+				$id_array[] = $value;
 			}
 		}
-		$articles->whereIn('category', $id_array)->orderGlobal('rank');
 
-		/* handle sub parameter */
+		/* handle article */
+
+		if ($articleId)
+		{
+			$id_array[] = $sibling;
+			$id_array[] = $articleId;
+			$articles->whereIn('id', $id_array);
+		}
+
+		/* else handle category */
+
+		else if ($categoryId)
+		{
+			if (!$id_array)
+			{
+				if ($sibling > 0)
+				{
+					$id_array[] = $sibling;
+				}
+				else
+				{
+					$id_array[] = $categoryId;
+				}
+			}
+			$articles->whereIn('category', $id_array)->orderGlobal('rank');
+
+			/* handle sub parameter */
+
+			$result = $articles->findArray();
+			if ($result)
+			{
+				$num_rows = count($result);
+				$sub_maximum = ceil($num_rows / $settingModel->get('limit'));
+				$sub_active = $registry->get('lastSubParameter');
+
+				/* sub parameter */
+
+				if ($registry->get('lastSubParameter') > $sub_maximum || !$registry->get('lastSubParameter'))
+				{
+					$sub_active = 1;
+				}
+				else
+				{
+					$offset_string = ($sub_active - 1) * $settingModel->get('limit') . ', ';
+				}
+			}
+			$articles->limit($offset_string . $settingModel->get('limit'));
+		}
+		else
+		{
+			$articles->limit(0);
+		}
+
+		/* query result */
 
 		$result = $articles->findArray();
-		if ($result)
+		$num_rows_active = count($result);
+
+		/* handle error */
+
+		if ($categoryId && !$num_rows)
 		{
-			$num_rows = count($result);
-			$sub_maximum = ceil($num_rows / $settingModel->get('limit'));
-			$sub_active = $registry->get('lastSubParameter');
-
-			/* sub parameter */
-
-			if ($registry->get('lastSubParameter') > $sub_maximum || !$registry->get('lastSubParameter'))
-			{
-				$sub_active = 1;
-			}
-			else
-			{
-				$offset_string = ($sub_active - 1) * $settingModel->get('limit') . ', ';
-			}
+			$error = $language->get('article_no');
 		}
-		$articles->limit($offset_string . $settingModel->get('limit'));
-	}
-	else
-	{
-		$articles->limit(0);
-	}
-
-	/* query result */
-
-	$result = $articles->findArray();
-	$num_rows_active = count($result);
-
-	/* handle error */
-
-	if ($categoryId && !$num_rows)
-	{
-		$error = $language->get('article_no');
-	}
-	else if (!$result || !$num_rows_active || $registry->get('contentError'))
-	{
-		$error = $language->get('content_not_found');
-	}
-
-	/* collect output */
-
-	else if ($result)
-	{
-		$articleModel = new Model\Article();
-		$accessValidator = new Validator\Access();
-		foreach ($result as $r)
+		else if (!$result || !$num_rows_active || $registry->get('contentError'))
 		{
-			$access = $r['access'];
+			$error = $language->get('content_not_found');
+		}
 
-			/* access granted */
+		/* collect output */
 
-			if ($accessValidator->validate($access, $registry->get('myGroups')) === Validator\ValidatorInterface::PASSED)
+		else if ($result)
+		{
+			$articleModel = new Model\Article();
+			$accessValidator = new Validator\Access();
+			foreach ($result as $r)
 			{
-				if ($r)
+				$access = $r['access'];
+
+				/* access granted */
+
+				if ($accessValidator->validate($access, $registry->get('myGroups')) === Validator\ValidatorInterface::PASSED)
 				{
-					foreach ($r as $key => $value)
+					if ($r)
 					{
-						if ($key !== 'language')
+						foreach ($r as $key => $value)
 						{
-							$$key = $value;
+							if ($key !== 'language')
+							{
+								$$key = $value;
+							}
 						}
 					}
-				}
-				if ($lastTable == 'categories' || !$registry->get('fullRoute') || $aliasValidator->validate($firstParameter, Validator\Alias::MODE_DEFAULT) == Validator\ValidatorInterface::PASSED)
-				{
-					$route = $articleModel->getRouteById($id);
-				}
-
-				/* parser */
-
-				$parser = new BaseContent\Parser($registry, $request, $language, $config);
-				$parser->process($text, $route);
-
-				/* collect headline output */
-
-				$output .= Module\Hook::trigger('contentFragmentStart', $r);
-				if ($headline == 1)
-				{
-					$output .= '<h2 class="rs-title-content" id="article-' . $alias . '">';
-					if ($lastTable == 'categories' || !$registry->get('fullRoute') || $aliasValidator->validate($firstParameter, Validator\Alias::MODE_DEFAULT) == Validator\ValidatorInterface::PASSED
-					)
+					if ($lastTable == 'categories' || !$registry->get('fullRoute') || $aliasValidator->validate($firstParameter, Validator\Alias::MODE_DEFAULT) == Validator\ValidatorInterface::PASSED)
 					{
-						$output .= '<a href="' . $registry->get('parameterRoute') . $route . '">' . $title . '</a>';
+						$route = $articleModel->getRouteById($id);
 					}
-					else
+
+					/* parser */
+
+					$parser = new BaseContent\Parser($registry, $request, $language, $config);
+					$parser->process($text, $route);
+
+					/* collect headline output */
+
+					$output .= Module\Hook::trigger('contentFragmentStart', $r);
+					if ($headline == 1)
 					{
-						$output .= $title;
+						$output .= '<h2 class="rs-title-content" id="article-' . $alias . '">';
+						if ($lastTable == 'categories' || !$registry->get('fullRoute') || $aliasValidator->validate($firstParameter, Validator\Alias::MODE_DEFAULT) == Validator\ValidatorInterface::PASSED
+						)
+						{
+							$output .= '<a href="' . $registry->get('parameterRoute') . $route . '">' . $title . '</a>';
+						}
+						else
+						{
+							$output .= $title;
+						}
+						$output .= '</h2>';
 					}
-					$output .= '</h2>';
+
+					/* collect box output */
+
+					$output .= '<div class="rs-box-content">' . $parser->getOutput() . '</div>';
+					if ($byline == 1)
+					{
+						$bylineHelper = new Helper\Byline();
+						$output .= $bylineHelper->render(
+							[
+								'table' => 'articles',
+								'id' => $id,
+								'author' => $author,
+								'date' => $date
+							]);
+					}
+					$output .= Module\Hook::trigger('contentFragmentEnd', $r);
+
+					/* admin dock */
+
+					if ($registry->get('loggedIn') == $registry->get('token') && $firstParameter != 'logout')
+					{
+						//$output .= admin_dock('articles', $id);
+					}
 				}
-
-				/* collect box output */
-
-				$output .= '<div class="rs-box-content">' . $parser->getOutput() . '</div>';
-				if ($byline == 1)
+				else
 				{
-					$bylineHelper = new Helper\Byline();
-					$output .= $bylineHelper->render(
-					[
-						'table' => 'articles',
-						'id' => $id,
-						'author' => $author,
-						'date' => $date
-					]);
-				}
-				$output .= Module\Hook::trigger('contentFragmentEnd', $r);
-
-				/* admin dock */
-
-				if ($registry->get('loggedIn') == $registry->get('token') && $firstParameter != 'logout')
-				{
-					$output .= admin_dock('articles', $id);
+					$counter++;
 				}
 			}
-			else
+
+			/* handle access */
+
+			if ($lastTable == 'categories')
 			{
-				$counter++;
+				if ($num_rows_active == $counter)
+				{
+					$error = $language->get('access_no');
+				}
 			}
-		}
-		echo 'test';
-		/* handle access */
-
-		if ($lastTable == 'categories')
-		{
-			if ($num_rows_active == $counter)
+			else if ($lastTable == 'articles' && $counter == 1)
 			{
 				$error = $language->get('access_no');
 			}
 		}
-		else if ($lastTable == 'articles' && $counter == 1)
+
+		/* handle error */
+
+		if ($error)
 		{
-			$error = $language->get('access_no');
+			/* show error */
+
+			$messenger = new Messenger($registry);
+			echo $messenger->error($error, $language->get('something_wrong'));
 		}
-	}
-
-	/* handle error */
-
-	if ($error)
-	{
-		/* show error */
-
-		$messenger = new Messenger($registry);
-		echo $messenger->error($error, $language->get('something_wrong'));
-	}
-	else
-	{
-		$output .= Module\Hook::trigger('contentEnd');
-		echo $output;
-
-		/* call comments as needed */
-
-		if ($articleId)
+		else
 		{
-			/* comments replace */
+			$output .= Module\Hook::trigger('contentEnd');
+			echo $output;
 
-			if ($comments == 1 && $registry->get('commentReplace'))
+			/* call comments as needed */
+
+			if ($articleId)
 			{
-				Module\Hook::trigger('commentReplace');
-			}
+				/* comments replace */
 
-			/* else native comments */
-
-			else if ($comments > 0)
-			{
-				$articleModel = new Model\Article();
-				$comment = new Comment($registry, $language);
-				$comment->render(
-				[
-					'articleId' => $articleId,
-					'route' => $articleModel->getRouteById($articleId)
-				]);
-
-				/* comment form */
-
-				if ($comments == 1 || ($registry->get('commentNew') && $comments == 3))
+				if ($comments == 1 && $registry->get('commentReplace'))
 				{
-					$commentForm = new CommentForm($registry, $language);
-					echo $commentForm->render($articleId);
+					Module\Hook::trigger('commentReplace');
+				}
+
+				/* else native comments */
+
+				else if ($comments > 0)
+				{
+					$articleModel = new Model\Article();
+					$comment = new Comment($registry, $language);
+					$comment->render(
+						[
+							'articleId' => $articleId,
+							'route' => $articleModel->getRouteById($articleId)
+						]);
+
+					/* comment form */
+
+					if ($comments == 1 || ($registry->get('commentNew') && $comments == 3))
+					{
+						$commentForm = new CommentForm($registry, $language);
+						echo $commentForm->render($articleId);
+					}
 				}
 			}
 		}
-	}
 
-	/* call pagination as needed */
+		/* call pagination as needed */
 
-	if ($sub_maximum > 1 && $settingModel->get('pagination') == 1)
-	{
-		$categoryModel = new Model\Category();
-		$route = $categoryModel->getRouteById($categoryId);
-		pagination($sub_active, $sub_maximum, $route);
+		if ($sub_maximum > 1 && $settingModel->get('pagination') == 1)
+		{
+			$categoryModel = new Model\Category();
+			$route = $categoryModel->getRouteById($categoryId);
+			//TODO: refactor to pagination class
+			//pagination($sub_active, $sub_maximum, $route);
+		}
+		return ob_get_clean();
 	}
 }

@@ -1,6 +1,7 @@
 parameters:
 	bootstrap: includes\bootstrap.php
 	excludes_analyse:
+	- includes/Admin/Controller
 	- includes/Admin/Router/Router.php
 	- includes/Admin/View
 	- includes/Asset/Transport.php
@@ -65,17 +66,8 @@ parameters:
 	- includes/Validator/Email.php
 	- includes/Validator/Login.php
 	- includes/Validator/Url.php
-	- includes/View/CommentForm.php
-	- includes/View/InstallForm.php
-	- includes/View/LoginForm.php
-	- includes/View/RecoverForm.php
-	- includes/View/RegisterForm.php
-	- includes/View/ResetForm.php
-	- includes/View/ResultList.php
-	- includes/View/SearchForm.php
-	- includes/View/SystemStatus.php
+	- includes/View
 	- includes/Auth.php
-	- includes/Breadcrumb.php
 	- includes/Config.php
 	- includes/Db.php
 	- includes/Hash.php
@@ -83,11 +75,6 @@ parameters:
 	- includes/Mailer.php
 	- includes/Messenger.php
 	- includes/Singleton.php
-	- includes/admin_admin.php
-	- includes/admin_list.php
-	- includes/admin_query.php
-	- includes/comments.php
-	- includes/contents.php
 	- modules/Archive
 	- modules/CallHome
 	- modules/Contact

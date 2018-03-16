@@ -10,19 +10,23 @@ use Redaxscript\Model as BaseModel;
  * @since 4.0.0
  *
  * @package Redaxscript
- * @category Admin
+ * @category Model
  * @author Henry Ruhs
  */
 
 class User extends BaseModel\User
 {
 	/**
+	 * update last by id
+	 *
+	 * @since 4.0.0
+	 *
 	 * @param string $userId id of the user
 	 *
 	 * @return bool
 	 */
 
-	public function updateLastSeen(string $userId = null)
+	public function updateLastById(string $userId = null)
 	{
 		return Db::forTablePrefix('users')
 			->where('id', $userId)

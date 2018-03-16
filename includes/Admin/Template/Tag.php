@@ -10,7 +10,7 @@ use Redaxscript\Template\Tag as BaseTag;
  * @since 4.0.0
  *
  * @package Redaxscript
- * @category Admin
+ * @category Template
  * @author Henry Ruhs
  */
 

@@ -76,50 +76,50 @@ class Router extends RouterAbstract
 			if (!$adminParameter || $adminParameter == 'view' && $tableParameter == 'users' || $this->_registry->get('cronUpdate'))
 			{
 				$userModel = new Admin\Model\User();
-				$userModel->updateLastSeen($this->_registry->get('myId'));
+				$userModel->updateLastById($this->_registry->get('myId'));
 			}
 
 			/* handle post */
 
 			if ($this->_request->getPost('Redaxscript\Admin\View\CategoryForm'))
 			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->create();
+				$categoryController = new Admin\Controller\Category($this->_registry, $this->_request, $this->_language);
+				return $categoryController->process();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\ArticleForm'))
 			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->create();
+				$articleController = new Admin\Controller\Article($this->_registry, $this->_request, $this->_language);
+				return $articleController->process();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\ExtraForm'))
 			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->create();
+				$extraController = new Admin\Controller\Extra($this->_registry, $this->_request, $this->_language);
+				return $extraController->process();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\CommentForm'))
 			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->create();
+				$commentController = new Admin\Controller\Comment($this->_registry, $this->_request, $this->_language);
+				return $commentController->process();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\UserForm'))
 			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->create();
+				$userController = new Admin\Controller\User($this->_registry, $this->_request, $this->_language);
+				return $userController->process();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\GroupForm'))
 			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->create();
+				$groupController = new Admin\Controller\Group($this->_registry, $this->_request, $this->_language);
+				return $groupController->process();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\ModuleForm'))
 			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->create();
+				$moduleController = new Admin\Controller\Module($this->_registry, $this->_request, $this->_language);
+				return $moduleController->process();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\SettingForm'))
 			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->create();
+				$settingController = new Admin\Controller\Setting($this->_registry, $this->_request, $this->_language);
+				return $settingController->process();
 			}
 
 			/* handle route */
@@ -136,35 +136,26 @@ class Router extends RouterAbstract
 			{
 				return $this->_renderEdit();
 			}
-			if ($adminParameter === 'delete')
+
+			/* handle common */
+
+			$commonController = new Admin\Controller\Common($this->_registry, $this->_request, $this->_language);
+			$commonArray =
+			[
+				'up',
+				'down',
+				'sort',
+				'enable',
+				'disable',
+				'publish',
+				'unpublish',
+				'install',
+				'uninstall',
+				'delete'
+			];
+			if (in_array($adminParameter, $commonArray))
 			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->delete();
-			}
-			if ($adminParameter === 'up' || $adminParameter === 'down')
-			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->move();
-			}
-			if ($adminParameter === 'sort')
-			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->sort();
-			}
-			if ($adminParameter === 'publish' || $adminParameter === 'enable')
-			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->status(1);
-			}
-			if ($adminParameter === 'unpublish' || $adminParameter === 'disable')
-			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->status(0);
-			}
-			if ($adminParameter === 'install' || $adminParameter === 'uninstall')
-			{
-				$contentModel = new Admin\Model\Content();
-				$contentModel->install();
+				return $commonController->$adminParameter();
 			}
 		}
 		return $this->_registry->get('adminRouterBreak');
@@ -309,26 +300,25 @@ class Router extends RouterAbstract
 
 		/* handle table */
 
-		ob_start();
 		if ($tableParameter == 'categories')
 		{
-			$contentTable = new Admin\View\ContentTable($this->_registry, $this->_language);
-			return $contentTable->render();
+			$categoryTable = new Admin\View\CategoryTable($this->_registry, $this->_language);
+			return $categoryTable->render();
 		}
 		if ($tableParameter == 'articles')
 		{
-			$contentTable = new Admin\View\ContentTable($this->_registry, $this->_language);
-			return $contentTable->render();
+			$articleTable = new Admin\View\ArticleTable($this->_registry, $this->_language);
+			return $articleTable->render();
 		}
 		if ($tableParameter == 'extras')
 		{
-			$contentTable = new Admin\View\ContentTable($this->_registry, $this->_language);
-			return $contentTable->render();
+			$extraTable = new Admin\View\ExtraTable($this->_registry, $this->_language);
+			return $extraTable->render();
 		}
 		if ($tableParameter == 'comments')
 		{
-			$contentTable = new Admin\View\ContentTable($this->_registry, $this->_language);
-			return $contentTable->render();
+			$commentTable = new Admin\View\CommentTable($this->_registry, $this->_language);
+			return $commentTable->render();
 		}
 		if ($tableParameter == 'users')
 		{
@@ -345,7 +335,6 @@ class Router extends RouterAbstract
 			$moduleTable = new Admin\View\ModuleTable($this->_registry, $this->_language);
 			return $moduleTable->render();
 		}
-		return ob_get_clean();
 	}
 
 	/**

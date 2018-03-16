@@ -27,266 +27,259 @@ class Panel
 
 	public function render() : string
 	{
-		ob_start();
-		admin_panel_list();
-		return ob_get_clean();
-	}
-}
+		$registry = Registry::getInstance();
+		$language = Language::getInstance();
+		$output = Module\Hook::trigger('adminPanelStart');
 
-function admin_panel_list()
-{
-	$registry = Registry::getInstance();
-	$language = Language::getInstance();
-	$output = Module\Hook::trigger('adminPanelStart');
+		/* define access variables */
 
-	/* define access variables */
-
-	if ($registry->get('categoriesNew') || $registry->get('categoriesEdit') || $registry->get('categoriesDelete'))
-	{
-		$categories_access = $contents_access = 1;
-	}
-	if ($registry->get('articlesNew') || $registry->get('articlesEdit') || $registry->get('articlesDelete'))
-	{
-		$articles_access = $contents_access = 1;
-	}
-	if ($registry->get('extrasNew') || $registry->get('extrasEdit') || $registry->get('extrasDelete'))
-	{
-		$extras_access = $contents_access = 1;
-	}
-	if ($registry->get('commentsNew') || $registry->get('commentsEdit') || $registry->get('commentsDelete'))
-	{
-		$comments_access = $contents_access = 1;
-	}
-	if ($registry->get('usersNew') || $registry->get('usersEdit') || $registry->get('usersDelete'))
-	{
-		$users_access = $access_access = 1;
-	}
-	if ($registry->get('groupsNew') || $registry->get('groupsEdit') || $registry->get('groupsDelete'))
-	{
-		$groups_access = $access_access = 1;
-	}
-	if ($registry->get('modulesInstall') || $registry->get('modulesEdit') || $registry->get('modulesUninstall'))
-	{
-		$modules_access = $system_access = 1;
-	}
-	if ($registry->get('settingsEdit'))
-	{
-		$settings_access = $system_access = 1;
-	}
-
-	/* collect contents output */
-
-	$counter = 1;
-	if ($contents_access == 1)
-	{
-		$counter++;
-		$output .= '<li class="rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-content"><span class="rs-admin-text-panel rs-admin-text-content">' . $language->get('contents') . '</span><ul class="rs-admin-list-panel-children rs-admin-list-contents">';
-		if ($categories_access == 1)
+		if ($registry->get('categoriesNew') || $registry->get('categoriesEdit') || $registry->get('categoriesDelete'))
 		{
-			$output .= '<li><span class="rs-admin-text-panel-group"><a href="' . $registry->get('parameterRoute') . 'admin/view/categories" class="rs-admin-link-panel' . ($registry->get('categoriesNew') ? ' rs-admin-link-view' : null) . '">' . $language->get('categories') . '</a>';
-			if ($registry->get('categoriesNew'))
-			{
-				$output .= '<a title="' . $language->get('category_new') . '" href="' . $registry->get('parameterRoute') . 'admin/new/categories" class="rs-admin-link-panel' . ($registry->get('categoriesNew') ? ' rs-admin-link-new' : null) . '">' . $language->get('category_new') . '</a>';
-			}
-			$output .= '</span></li>';
+			$categories_access = $contents_access = 1;
 		}
-		if ($articles_access == 1)
+		if ($registry->get('articlesNew') || $registry->get('articlesEdit') || $registry->get('articlesDelete'))
 		{
-			$output .= '<li><span class="rs-admin-text-panel-group"><a href="' . $registry->get('parameterRoute') . 'admin/view/articles" class="rs-admin-link-panel' . ($registry->get('articlesNew') ? ' rs-admin-link-view' : null) . '">' . $language->get('articles') . '</a>';
-			if ($registry->get('articlesNew'))
-			{
-				$output .= '<a title="' . $language->get('article_new') . '" href="' . $registry->get('parameterRoute') . 'admin/new/articles" class="rs-admin-link-panel' . ($registry->get('articlesNew') ? ' rs-admin-link-new' : null) . '">' . $language->get('article_new') . '</a>';
-			}
-			$output .= '</span></li>';
+			$articles_access = $contents_access = 1;
 		}
-		if ($extras_access == 1)
+		if ($registry->get('extrasNew') || $registry->get('extrasEdit') || $registry->get('extrasDelete'))
 		{
-			$output .= '<li><span class="rs-admin-text-panel-group"><a href="' . $registry->get('parameterRoute') . 'admin/view/extras" class="rs-admin-link-panel' . ($registry->get('extrasNew') ? ' rs-admin-link-view' : null) . '">' . $language->get('extras') . '</a>';
-			if ($registry->get('extrasNew'))
-			{
-				$output .= '<a title="' . $language->get('extra_new') . '" href="' . $registry->get('parameterRoute') . 'admin/new/extras" class="rs-admin-link-panel' . ($registry->get('extrasNew') ? ' rs-admin-link-new' : null) . '">' . $language->get('extra_new') . '</a>';
-			}
-			$output .= '</span></li>';
+			$extras_access = $contents_access = 1;
 		}
-		if ($comments_access == 1)
+		if ($registry->get('commentsNew') || $registry->get('commentsEdit') || $registry->get('commentsDelete'))
 		{
-			$output .= '<li><span class="rs-admin-text-panel-group"><a href="' . $registry->get('parameterRoute') . 'admin/view/comments" class="rs-admin-link-panel' . ($registry->get('commentsNew') ? ' rs-admin-link-view' : null) . '">' . $language->get('comments') . '</a>';
-			if ($registry->get('commentsNew'))
-			{
-				$output .= '<a title="' . $language->get('comment_new') . '" href="' . $registry->get('parameterRoute') . 'admin/new/comments" class="rs-admin-link-panel' . ($registry->get('commentsNew') ? ' rs-admin-link-new' : null) . '">' . $language->get('comment_new') . '</a>';
-			}
-			$output .= '</span></li>';
+			$comments_access = $contents_access = 1;
 		}
-		$output .= '</ul></li>';
-	}
+		if ($registry->get('usersNew') || $registry->get('usersEdit') || $registry->get('usersDelete'))
+		{
+			$users_access = $access_access = 1;
+		}
+		if ($registry->get('groupsNew') || $registry->get('groupsEdit') || $registry->get('groupsDelete'))
+		{
+			$groups_access = $access_access = 1;
+		}
+		if ($registry->get('modulesInstall') || $registry->get('modulesEdit') || $registry->get('modulesUninstall'))
+		{
+			$modules_access = $system_access = 1;
+		}
+		if ($registry->get('settingsEdit'))
+		{
+			$settings_access = $system_access = 1;
+		}
 
-	/* collect access output */
+		/* collect contents output */
 
-	if ($access_access == 1)
-	{
-		$counter++;
-		$output .= '<li class="rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-access"><span class="rs-admin-text-panel rs-admin-text-access">' . $language->get('access') . '</span><ul class="rs-admin-list-panel-children rs-admin-list-access">';
+		$counter = 1;
+		if ($contents_access == 1)
+		{
+			$counter++;
+			$output .= '<li class="rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-content"><span class="rs-admin-text-panel rs-admin-text-content">' . $language->get('contents') . '</span><ul class="rs-admin-list-panel-children rs-admin-list-contents">';
+			if ($categories_access == 1)
+			{
+				$output .= '<li><span class="rs-admin-text-panel-group"><a href="' . $registry->get('parameterRoute') . 'admin/view/categories" class="rs-admin-link-panel' . ($registry->get('categoriesNew') ? ' rs-admin-link-view' : null) . '">' . $language->get('categories') . '</a>';
+				if ($registry->get('categoriesNew'))
+				{
+					$output .= '<a title="' . $language->get('category_new') . '" href="' . $registry->get('parameterRoute') . 'admin/new/categories" class="rs-admin-link-panel' . ($registry->get('categoriesNew') ? ' rs-admin-link-new' : null) . '">' . $language->get('category_new') . '</a>';
+				}
+				$output .= '</span></li>';
+			}
+			if ($articles_access == 1)
+			{
+				$output .= '<li><span class="rs-admin-text-panel-group"><a href="' . $registry->get('parameterRoute') . 'admin/view/articles" class="rs-admin-link-panel' . ($registry->get('articlesNew') ? ' rs-admin-link-view' : null) . '">' . $language->get('articles') . '</a>';
+				if ($registry->get('articlesNew'))
+				{
+					$output .= '<a title="' . $language->get('article_new') . '" href="' . $registry->get('parameterRoute') . 'admin/new/articles" class="rs-admin-link-panel' . ($registry->get('articlesNew') ? ' rs-admin-link-new' : null) . '">' . $language->get('article_new') . '</a>';
+				}
+				$output .= '</span></li>';
+			}
+			if ($extras_access == 1)
+			{
+				$output .= '<li><span class="rs-admin-text-panel-group"><a href="' . $registry->get('parameterRoute') . 'admin/view/extras" class="rs-admin-link-panel' . ($registry->get('extrasNew') ? ' rs-admin-link-view' : null) . '">' . $language->get('extras') . '</a>';
+				if ($registry->get('extrasNew'))
+				{
+					$output .= '<a title="' . $language->get('extra_new') . '" href="' . $registry->get('parameterRoute') . 'admin/new/extras" class="rs-admin-link-panel' . ($registry->get('extrasNew') ? ' rs-admin-link-new' : null) . '">' . $language->get('extra_new') . '</a>';
+				}
+				$output .= '</span></li>';
+			}
+			if ($comments_access == 1)
+			{
+				$output .= '<li><span class="rs-admin-text-panel-group"><a href="' . $registry->get('parameterRoute') . 'admin/view/comments" class="rs-admin-link-panel' . ($registry->get('commentsNew') ? ' rs-admin-link-view' : null) . '">' . $language->get('comments') . '</a>';
+				if ($registry->get('commentsNew'))
+				{
+					$output .= '<a title="' . $language->get('comment_new') . '" href="' . $registry->get('parameterRoute') . 'admin/new/comments" class="rs-admin-link-panel' . ($registry->get('commentsNew') ? ' rs-admin-link-new' : null) . '">' . $language->get('comment_new') . '</a>';
+				}
+				$output .= '</span></li>';
+			}
+			$output .= '</ul></li>';
+		}
+
+		/* collect access output */
+
+		if ($access_access == 1)
+		{
+			$counter++;
+			$output .= '<li class="rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-access"><span class="rs-admin-text-panel rs-admin-text-access">' . $language->get('access') . '</span><ul class="rs-admin-list-panel-children rs-admin-list-access">';
+			if ($registry->get('myId'))
+			{
+				$output .= '<li><a href="' . $registry->get('parameterRoute') . 'admin/edit/users/' . $registry->get('myId') . '" class="rs-admin-link-panel">' . $language->get('profile') . '</a></li>';
+			}
+			if ($users_access == 1)
+			{
+				$output .= '<li><span class="rs-admin-text-panel-group"><a href="' . $registry->get('parameterRoute') . 'admin/view/users" class="rs-admin-link-panel' . ($registry->get('usersNew') ? ' rs-admin-link-view' : null) . '">' . $language->get('users') . '</a>';
+				if ($registry->get('usersNew'))
+				{
+					$output .= '<a title="' . $language->get('user_new') . '" href="' . $registry->get('parameterRoute') . 'admin/new/users" class="rs-admin-link-panel' . ($registry->get('usersNew') ? ' rs-admin-link-new' : null) . '">' . $language->get('user_new') . '</a>';
+				}
+				$output .= '</span></li>';
+			}
+			if ($groups_access == 1)
+			{
+				$output .= '<li><span class="rs-admin-text-panel-group"><a href="' . $registry->get('parameterRoute') . 'admin/view/groups" class="rs-admin-link-panel' . ($registry->get('groupsNew') ? ' rs-admin-link-view' : null) . '">' . $language->get('groups') . '</a>';
+				if ($registry->get('groupsNew'))
+				{
+					$output .= '<a title="' . $language->get('group_new') . '" href="' . $registry->get('parameterRoute') . 'admin/new/groups" class="rs-admin-link-panel' . ($registry->get('groupsNew') ? ' rs-admin-link-new' : null) . '">' . $language->get('group_new') . '</a>';
+				}
+				$output .= '</span></li>';
+			}
+			$output .= '</ul></li>';
+		}
+
+		/* collect system output */
+
+		if ($system_access == 1)
+		{
+			$counter++;
+			$outputModule = null;
+			$output .= '<li class="rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-system"><span class="rs-admin-text-panel rs-admin-text-system">' . $language->get('system') . '</span><ul class="rs-admin-list-panel-children rs-admin-list-panel-children-system">';
+			if ($modules_access == 1)
+			{
+				$output .= '<li><a href="' . $registry->get('parameterRoute') . 'admin/view/modules" class="rs-admin-link-panel">' . $language->get('modules') . '</a>';
+				$moduleArray = Module\Hook::collect('adminPanelModule');
+				if ($moduleArray)
+				{
+					foreach ($moduleArray as $key => $value)
+					{
+						$outputModule .= '<li><a href="' . $registry->get('parameterRoute') . $value . '" class="rs-admin-link-panel">' . $key. '</a></li>';
+					}
+					$output .= '<ul class="rs-admin-js-list-panel-children rs-admin-list-panel-children">' . $outputModule . '</ul>';
+				}
+				$output .= '</li>';
+			}
+			if ($settings_access == 1)
+			{
+				$output .= '<li><a href="' . $registry->get('parameterRoute') . 'admin/edit/settings" class="rs-admin-link-panel">' . $language->get('settings') . '</a></li>';
+			}
+			$output .= '</ul></li>';
+		}
+
+		/* collect profile output */
+
 		if ($registry->get('myId'))
 		{
-			$output .= '<li><a href="' . $registry->get('parameterRoute') . 'admin/edit/users/' . $registry->get('myId') . '" class="rs-admin-link-panel">' . $language->get('profile') . '</a></li>';
+			$counter++;
+			$output .= '<li class="rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile"><a href="' . $registry->get('parameterRoute') . 'admin/edit/users/' . $registry->get('myId') . '" class="rs-admin-link-panel rs-admin-link-profile">' . $language->get('profile') . '</a></li>';
 		}
-		if ($users_access == 1)
-		{
-			$output .= '<li><span class="rs-admin-text-panel-group"><a href="' . $registry->get('parameterRoute') . 'admin/view/users" class="rs-admin-link-panel' . ($registry->get('usersNew') ? ' rs-admin-link-view' : null) . '">' . $language->get('users') . '</a>';
-			if ($registry->get('usersNew'))
-			{
-				$output .= '<a title="' . $language->get('user_new') . '" href="' . $registry->get('parameterRoute') . 'admin/new/users" class="rs-admin-link-panel' . ($registry->get('usersNew') ? ' rs-admin-link-new' : null) . '">' . $language->get('user_new') . '</a>';
-			}
-			$output .= '</span></li>';
-		}
-		if ($groups_access == 1)
-		{
-			$output .= '<li><span class="rs-admin-text-panel-group"><a href="' . $registry->get('parameterRoute') . 'admin/view/groups" class="rs-admin-link-panel' . ($registry->get('groupsNew') ? ' rs-admin-link-view' : null) . '">' . $language->get('groups') . '</a>';
-			if ($registry->get('groupsNew'))
-			{
-				$output .= '<a title="' . $language->get('group_new') . '" href="' . $registry->get('parameterRoute') . 'admin/new/groups" class="rs-admin-link-panel' . ($registry->get('groupsNew') ? ' rs-admin-link-new' : null) . '">' . $language->get('group_new') . '</a>';
-			}
-			$output .= '</span></li>';
-		}
-		$output .= '</ul></li>';
-	}
 
-	/* collect system output */
+		/* collect notification output */
 
-	if ($system_access == 1)
-	{
-		$counter++;
-		$outputModule = null;
-		$output .= '<li class="rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-system"><span class="rs-admin-text-panel rs-admin-text-system">' . $language->get('system') . '</span><ul class="rs-admin-list-panel-children rs-admin-list-panel-children-system">';
-		if ($modules_access == 1)
-		{
-			$output .= '<li><a href="' . $registry->get('parameterRoute') . 'admin/view/modules" class="rs-admin-link-panel">' . $language->get('modules') . '</a>';
-			$moduleArray = Module\Hook::collect('adminPanelModule');
-			if ($moduleArray)
-			{
-				foreach ($moduleArray as $key => $value)
-				{
-					$outputModule .= '<li><a href="' . $registry->get('parameterRoute') . $value . '" class="rs-admin-link-panel">' . $key. '</a></li>';
-				}
-				$output .= '<ul class="rs-admin-js-list-panel-children rs-admin-list-panel-children">' . $outputModule . '</ul>';
-			}
-			$output .= '</li>';
-		}
-		if ($settings_access == 1)
-		{
-			$output .= '<li><a href="' . $registry->get('parameterRoute') . 'admin/edit/settings" class="rs-admin-link-panel">' . $language->get('settings') . '</a></li>';
-		}
-		$output .= '</ul></li>';
-	}
-
-	/* collect profile output */
-
-	if ($registry->get('myId'))
-	{
-		$counter++;
-		$output .= '<li class="rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile"><a href="' . $registry->get('parameterRoute') . 'admin/edit/users/' . $registry->get('myId') . '" class="rs-admin-link-panel rs-admin-link-profile">' . $language->get('profile') . '</a></li>';
-	}
-
-	/* collect notification output */
-
-	$outputNotification = null;
-	$counterNotification = 0;
-	$moduleLastKey = null;
-	$notificationSystemArray = [];
-	$notificationHasArray = [];
-	$orderArray =
-		[
-			'success',
-			'info',
-			'warning',
-			'error'
-		];
-	if ($registry->get('myId') == 1)
-	{
-		$notificationSystemArray =
+		$outputNotification = null;
+		$counterNotification = 0;
+		$moduleLastKey = null;
+		$notificationSystemArray = [];
+		$notificationHasArray = [];
+		$orderArray =
 			[
-				'error' =>
-					[
-						$language->get('system') =>
-							[
-								!is_dir('cache') ? $language->get('directory_not_found') . $language->get('colon') . ' cache' . $language->get('point') : null
-							]
-					],
-				'warning' =>
-					[
-						$language->get('system') =>
-							[
-								is_file('console.php') ? $language->get('file_remove') . ' console.php' . $language->get('point') : null,
-								is_file('install.php') ? $language->get('file_remove') . ' install.php' . $language->get('point') : null,
-								is_writable('config.php') ? $language->get('file_permission_revoke') . ' config.php' . $language->get('point') : null
-							]
-					]
+				'success',
+				'info',
+				'warning',
+				'error'
 			];
-	}
-	$notificationModuleArray = Module\Hook::collect('adminPanelNotification');
-	if ($notificationModuleArray)
-	{
-		$notificationArray = array_merge_recursive($notificationModuleArray, $notificationSystemArray);
-	}
-	else
-	{
-		$notificationArray = $notificationSystemArray;
-	}
-	foreach ($notificationArray as $typeKey => $typeValue)
-	{
-		foreach ($typeValue as $notificationKey => $notificationValue)
+		if ($registry->get('myId') == 1)
 		{
-			if (array_filter($notificationValue))
+			$notificationSystemArray =
+				[
+					'error' =>
+						[
+							$language->get('system') =>
+								[
+									!is_dir('cache') ? $language->get('directory_not_found') . $language->get('colon') . ' cache' . $language->get('point') : null
+								]
+						],
+					'warning' =>
+						[
+							$language->get('system') =>
+								[
+									is_file('console.php') ? $language->get('file_remove') . ' console.php' . $language->get('point') : null,
+									is_file('install.php') ? $language->get('file_remove') . ' install.php' . $language->get('point') : null,
+									is_writable('config.php') ? $language->get('file_permission_revoke') . ' config.php' . $language->get('point') : null
+								]
+						]
+				];
+		}
+		$notificationModuleArray = Module\Hook::collect('adminPanelNotification');
+		if ($notificationModuleArray)
+		{
+			$notificationArray = array_merge_recursive($notificationModuleArray, $notificationSystemArray);
+		}
+		else
+		{
+			$notificationArray = $notificationSystemArray;
+		}
+		foreach ($notificationArray as $typeKey => $typeValue)
+		{
+			foreach ($typeValue as $notificationKey => $notificationValue)
 			{
-				$outputNotification .= '<li class="rs-admin-item-panel-notification rs-admin-item-note rs-admin-is-' . $typeKey . '">';
-				$moduleLastKey = null;
-				foreach ($notificationValue as $value)
+				if (array_filter($notificationValue))
 				{
-					if ($moduleLastKey !== $notificationKey)
+					$outputNotification .= '<li class="rs-admin-item-panel-notification rs-admin-item-note rs-admin-is-' . $typeKey . '">';
+					$moduleLastKey = null;
+					foreach ($notificationValue as $value)
 					{
-						$outputNotification .= '<h3 class="rs-admin-title-panel-notification">' . $notificationKey . '</h3>';
+						if ($moduleLastKey !== $notificationKey)
+						{
+							$outputNotification .= '<h3 class="rs-admin-title-panel-notification">' . $notificationKey . '</h3>';
+						}
+						$moduleLastKey = $notificationKey;
+						if (is_array($value) && array_key_exists('text', $value) && array_key_exists('attr', $value))
+						{
+							$notificationHasArray[$typeKey] = 'rs-admin-has-' . $typeKey;
+							$outputNotification .= '<a href="' . $value['attr']['href'] . '" target="' . $value['attr']['target'] . '" class="rs-admin-link-panel-notification">' . $value['text'] . '</a>';
+						}
+						else if ($value)
+						{
+							$notificationHasArray[$typeKey] = 'rs-admin-has-' . $typeKey;
+							$outputNotification .= '<span class="rs-admin-text-panel-notification">' . $value . '</span>';
+						}
+						if (is_string($value))
+						{
+							$counterNotification++;
+						}
 					}
-					$moduleLastKey = $notificationKey;
-					if (is_array($value) && array_key_exists('text', $value) && array_key_exists('attr', $value))
-					{
-						$notificationHasArray[$typeKey] = 'rs-admin-has-' . $typeKey;
-						$outputNotification .= '<a href="' . $value['attr']['href'] . '" target="' . $value['attr']['target'] . '" class="rs-admin-link-panel-notification">' . $value['text'] . '</a>';
-					}
-					else if ($value)
-					{
-						$notificationHasArray[$typeKey] = 'rs-admin-has-' . $typeKey;
-						$outputNotification .= '<span class="rs-admin-text-panel-notification">' . $value . '</span>';
-					}
-					if (is_string($value))
-					{
-						$counterNotification++;
-					}
+					$outputNotification .= '</li>';
 				}
-				$outputNotification .= '</li>';
 			}
 		}
+		uksort($notificationHasArray, function($key1, $key2) use ($orderArray)
+		{
+			return (array_search($key1, $orderArray) > array_search($key2, $orderArray));
+		});
+		if ($counterNotification)
+		{
+			$counter++;
+			$output .= '<li class="rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-notification ' . implode(' ', $notificationHasArray) . '"><span class="rs-admin-text-panel rs-admin-text-notification">' . ($counterNotification ? '<small class="rs-admin-text-notification-counter">' . $counterNotification . '</small>' : null) . $language->get('notifications') . '</span>';
+			$output .= '<ul class="rs-admin-list-panel-children rs-admin-list-panel-notification">' . $outputNotification . '</ul></li>';
+		}
+
+		/* collect logout */
+
+		$output .= '<li class="rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout"><a href="' . $registry->get('parameterRoute') . 'logout" class="rs-admin-link-panel rs-admin-link-logout">' . $language->get('logout') . '</a></li>';
+
+		/* collect list output */
+
+		if ($output)
+		{
+			$output = '<ul class="rs-admin-js-list-panel rs-admin-list-panel rs-admin-has-column' . $counter . ' rs-admin-fn-clearfix">' . $output . '</ul>';
+		}
+		$output .= Module\Hook::trigger('adminPanelEnd');
+		return $output;
 	}
-	uksort($notificationHasArray, function($key1, $key2) use ($orderArray)
-	{
-		return (array_search($key1, $orderArray) > array_search($key2, $orderArray));
-	});
-	if ($counterNotification)
-	{
-		$counter++;
-		$output .= '<li class="rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-notification ' . implode(' ', $notificationHasArray) . '"><span class="rs-admin-text-panel rs-admin-text-notification">' . ($counterNotification ? '<small class="rs-admin-text-notification-counter">' . $counterNotification . '</small>' : null) . $language->get('notifications') . '</span>';
-		$output .= '<ul class="rs-admin-list-panel-children rs-admin-list-panel-notification">' . $outputNotification . '</ul></li>';
-	}
-
-	/* collect logout */
-
-	$output .= '<li class="rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout"><a href="' . $registry->get('parameterRoute') . 'logout" class="rs-admin-link-panel rs-admin-link-logout">' . $language->get('logout') . '</a></li>';
-
-	/* collect list output */
-
-	if ($output)
-	{
-		$output = '<ul class="rs-admin-js-list-panel rs-admin-list-panel rs-admin-has-column' . $counter . ' rs-admin-fn-clearfix">' . $output . '</ul>';
-	}
-	$output .= Module\Hook::trigger('adminPanelEnd');
-	echo $output;
 }
