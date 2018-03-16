@@ -25,6 +25,9 @@ class Pagination
 
 	public function render(array $optionArray = []) : string
 	{
+		//'current' => 5000,
+		//'total' => 10000,
+		//'route' => 'preview/pagination'
 		return 'to be implemented: ' . __CLASS__ . ' ' . implode($optionArray, ' ,');
 	}
 }
