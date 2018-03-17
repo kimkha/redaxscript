@@ -29,7 +29,7 @@ class LightGallery extends Config
 		'alias' => 'LightGallery',
 		'author' => 'Redaxmedia',
 		'description' => 'Javascript powered light gallery',
-		'version' => '3.3.2'
+		'version' => '4.0.0'
 	];
 
 	/**
