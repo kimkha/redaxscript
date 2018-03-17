@@ -21,6 +21,7 @@
 		<whitelist processUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">includes</directory>
 			<exclude>
+				<file>includes/Bootstrap/Config.php</file>
 				<file>includes/bootstrap.php</file>
 				<file>console.php</file>
 				<file>index.php</file>
