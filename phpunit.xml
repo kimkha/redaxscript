@@ -166,12 +166,6 @@
 			<file>tests/phpunit/AutoloaderTest.php</file>
 		</testsuite>
 
-		<!-- breadcrumb -->
-
-		<testsuite name="breadcrumb">
-			<file>tests/phpunit/BreadcrumbTest.php</file>
-		</testsuite>
-
 		<!-- captcha -->
 
 		<testsuite name="captcha">

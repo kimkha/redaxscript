@@ -30,9 +30,10 @@
 	<rule ref="Generic.PHP.NoSilencedErrors" />
 	<rule ref="Generic.Strings.UnnecessaryStringConcat" />
 
-	<!-- inherit from drupal -->
+	<!-- inherit from slevomat -->
 
-	<rule ref="Drupal.Classes.UnusedUseStatement" />
+	<rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Namespaces/ReferenceUsedNamesOnlySniff.php" />
+	<rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Namespaces/UnusedUsesSniff.php" />
 
 	<!-- inherit from psr1 -->
 
