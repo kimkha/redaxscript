@@ -22,12 +22,12 @@ class Category
 	 *
 	 * @param string $categoryAlias
 	 *
-	 * @return int
+	 * @return int|null
 	 */
 
-	public function getIdByAlias(string $categoryAlias = null) : int
+	public function getIdByAlias(string $categoryAlias = null) : ?int
 	{
-		return Db::forTablePrefix('categories')->select('id')->where('alias', $categoryAlias)->findOne()->id | 0;
+		return Db::forTablePrefix('categories')->select('id')->where('alias', $categoryAlias)->findOne()->id;
 	}
 
 	/**

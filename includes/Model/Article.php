@@ -22,12 +22,12 @@ class Article
 	 *
 	 * @param string $articleAlias
 	 *
-	 * @return int
+	 * @return int|null
 	 */
 
-	public function getIdByAlias(string $articleAlias = null) : int
+	public function getIdByAlias(string $articleAlias = null) : ?int
 	{
-		return Db::forTablePrefix('articles')->select('id')->where('alias', $articleAlias)->findOne()->id | 0;
+		return Db::forTablePrefix('articles')->select('id')->where('alias', $articleAlias)->findOne()->id;
 	}
 
 	/**

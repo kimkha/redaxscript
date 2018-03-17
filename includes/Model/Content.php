@@ -27,14 +27,14 @@ class Content
 	{
 		$table = null;
 		$categoryModel = new Category();
-		if ($categoryModel->getIdByAlias($alias) > 0)
+		if ($categoryModel->getIdByAlias($alias))
 		{
 			$table = 'categories';
 		}
 		else
 		{
 			$articleModel = new Article();
-			if ($articleModel->getIdByAlias($alias) > 0)
+			if ($articleModel->getIdByAlias($alias))
 			{
 				$table = 'articles';
 			}

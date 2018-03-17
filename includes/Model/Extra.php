@@ -16,6 +16,42 @@ use Redaxscript\Db;
 class Extra
 {
 	/**
+	 * get the extra array by language
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $language
+	 *
+	 * @return array
+	 */
+
+	public function getArrayByLanguage(string $language = null) : array
+	{
+		return Db::forTablePrefix('extras')
+			->whereLanguageIs($language)
+			->findArray();
+	}
+
+	/**
+	 * get the extra array by alias and language
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $extraAlias alias of the extra
+	 * @param string $language
+	 *
+	 * @return array
+	 */
+
+	public function getArrayByAliasAndLanguage(string $extraAlias = null, string $language = null) : array
+	{
+		return Db::forTablePrefix('extras')
+			->where('alias', $extraAlias)
+			->whereLanguageIs($language)
+			->findArray();
+	}
+
+	/**
 	 * publish each extra by date
 	 *
 	 * @since 3.3.0

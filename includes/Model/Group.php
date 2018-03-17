@@ -22,11 +22,11 @@ class Group
 	 *
 	 * @param string $groupAlias
 	 *
-	 * @return int
+	 * @return int|null
 	 */
 
-	public function getIdByAlias(string $groupAlias = null) : int
+	public function getIdByAlias(string $groupAlias = null) : ?int
 	{
-		return Db::forTablePrefix('groups')->select('id')->where('alias', $groupAlias)->findOne()->id | 0;
+		return Db::forTablePrefix('groups')->select('id')->where('alias', $groupAlias)->findOne()->id;
 	}
 }
