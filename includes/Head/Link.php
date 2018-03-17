@@ -147,7 +147,7 @@ class Link extends HeadAbstract
 	 * @return string|null
 	 */
 
-	public function render()
+	public function render() : ?string
 	{
 		$output = null;
 

@@ -44,7 +44,7 @@ class Resolver extends Parameter
 	 * @return string|null
 	 */
 
-	public function getLite()
+	public function getLite() : ?string
 	{
 		return $this->_getRoute('lite');
 	}
@@ -57,7 +57,7 @@ class Resolver extends Parameter
 	 * @return string|null
 	 */
 
-	public function getFull()
+	public function getFull() : ?string
 	{
 		return $this->_getRoute('full');
 	}
@@ -72,7 +72,7 @@ class Resolver extends Parameter
 	 * @return string|null
 	 */
 
-	protected function _getRoute(string $type = 'lite')
+	protected function _getRoute(string $type = 'lite') : ?string
 	{
 		$output = null;
 		$adminParameter = $this->getAdmin();

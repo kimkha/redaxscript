@@ -188,7 +188,7 @@ class Hook
 	 * @return string|null
 	 */
 
-	public static function trigger($eventName = null, $parameterArray = [])
+	public static function trigger($eventName = null, $parameterArray = []) : ?string
 	{
 		$output = null;
 

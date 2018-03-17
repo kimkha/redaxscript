@@ -25,7 +25,7 @@ class Comment
 	 * @return string|null
 	 */
 
-	public function getRouteById(int $commentId = null)
+	public function getRouteById(int $commentId = null) : ?string
 	{
 		$route = null;
 		$commentArray = Db::forTablePrefix('comments')

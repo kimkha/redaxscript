@@ -40,7 +40,7 @@ class Category
 	 * @return string|null
 	 */
 
-	public function getRouteById(int $categoryId = null)
+	public function getRouteById(int $categoryId = null) : ?string
 	{
 		$route = null;
 		$categoryArray = Db::forTablePrefix('categories')

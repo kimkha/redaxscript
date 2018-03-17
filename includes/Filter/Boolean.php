@@ -23,7 +23,7 @@ class Boolean implements FilterInterface
 	 * @return bool|null
 	 */
 
-	public function sanitize(string $boolean = null)
+	public function sanitize(string $boolean = null) : ?bool
 	{
 		return filter_var($boolean, FILTER_VALIDATE_BOOLEAN,
 		[

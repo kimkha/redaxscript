@@ -40,7 +40,7 @@ class Article
 	 * @return string|null
 	 */
 
-	public function getRouteById(int $articleId = null)
+	public function getRouteById(int $articleId = null) : ?string
 	{
 		$route = null;
 		$articleArray = Db::forTablePrefix('articles')

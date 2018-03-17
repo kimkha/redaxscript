@@ -21,10 +21,10 @@ class Tag extends BaseTag
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return string|null
+	 * @return string
 	 */
 
-	public static function panel()
+	public static function panel() : string
 	{
 		$panel = new Helper\Panel();
 		return $panel->render();

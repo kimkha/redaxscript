@@ -297,7 +297,7 @@ class Messenger
 	 * @return string|null
 	 */
 
-	protected function _renderAction(string $type = null)
+	protected function _renderAction(string $type = null) : ?string
 	{
 		$output = null;
 		if ($this->_actionArray['text'] && ($this->_actionArray['route'] || $this->_actionArray['url']))
