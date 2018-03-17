@@ -72,7 +72,7 @@ class DirectoryLister extends Config
 	 * @return string|null
 	 */
 
-	public function render(string $directory = null, array $optionArray = [])
+	public function render(string $directory = null, array $optionArray = []) : ?string
 	{
 		$output = null;
 		$outputItem = null;
@@ -141,7 +141,7 @@ class DirectoryLister extends Config
 	 * @return string|null
 	 */
 
-	protected function _renderParent(string $rootDirectory = null, string $parentDirectory = null, array $optionArray = [])
+	protected function _renderParent(string $rootDirectory = null, string $parentDirectory = null, array $optionArray = []) : ?string
 	{
 		$queryString = $rootDirectory !== $parentDirectory ? '&directory=' . $parentDirectory : null;
 
@@ -180,7 +180,7 @@ class DirectoryLister extends Config
 	 * @return string|null
 	 */
 
-	protected function _renderItem(string $directory = null, array $optionArray = [])
+	protected function _renderItem(string $directory = null, array $optionArray = []) : ?string
 	{
 		$outputItem = null;
 		$settingModel = new Model\Setting();
