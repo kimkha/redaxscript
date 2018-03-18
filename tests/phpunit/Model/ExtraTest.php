@@ -57,12 +57,13 @@ class ExtraTest extends TestCaseAbstract
 				'status' => 1
 			])
 			->save();
-		Db::forTablePrefix('extras')
+		$extraThree = Db::forTablePrefix('extras')
 			->create()
 			->set(
 			[
 				'title' => 'Extra Three',
 				'alias' => 'extra-three',
+				'language' => 'en',
 				'rank' => 3,
 				'status' => 1
 			])
@@ -73,6 +74,8 @@ class ExtraTest extends TestCaseAbstract
 			[
 				'title' => 'Extra Four',
 				'alias' => 'extra-four',
+				'language' => 'de',
+				'sibling' => $extraThree->id,
 				'rank' => 4,
 				'status' => 2,
 				'date' => '2036-01-01 00:00:00'
@@ -84,6 +87,8 @@ class ExtraTest extends TestCaseAbstract
 			[
 				'title' => 'Extra Five',
 				'alias' => 'extra-five',
+				'language' => 'fr',
+				'sibling' => $extraThree->id,
 				'rank' => 5,
 				'status' => 2,
 				'date' => '2037-01-01 00:00:00'
@@ -105,6 +110,32 @@ class ExtraTest extends TestCaseAbstract
 	}
 
 	/**
+	 * providerExtraGetArray
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return array
+	 */
+
+	public function providerExtraGetArray() : array
+	{
+		return $this->getProvider('tests/provider/Model/extra_get_array.json');
+	}
+
+	/**
+	 * providerExtraGetArrayAlias
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return array
+	 */
+
+	public function providerExtraGetArrayAlias() : array
+	{
+		return $this->getProvider('tests/provider/Model/extra_get_array_alias.json');
+	}
+
+	/**
 	 * providerExtraPublishDate
 	 *
 	 * @since 3.3.0
@@ -115,6 +146,71 @@ class ExtraTest extends TestCaseAbstract
 	public function providerExtraPublishDate() : array
 	{
 		return $this->getProvider('tests/provider/Model/extra_publish_date.json');
+	}
+
+	/**
+	 * testGetArrayByLanguage
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $language
+	 * @param array $expectArray
+	 *
+	 * @dataProvider providerExtraGetArray
+	 */
+
+	public function testGetArrayByLanguage(string $language = null, array $expectArray = null)
+	{
+		/* setup */
+
+		$extraModel = new Model\Extra();
+
+		/* actual */
+
+		$extraArray = $extraModel->getArrayByLanguage($language);
+		$actualArray = [];
+
+		/* process extra */
+
+		foreach ($extraArray as $valueArray)
+		{
+			foreach ($valueArray as $key => $value)
+			{
+				if ($key === 'alias')
+				{
+					$actualArray[] = $value;
+				}
+			}
+		}
+		$this->assertEquals($expectArray, $actualArray);
+	}
+
+	/**
+	 * testGetArrayByLanguageAndAlias
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $extraAlias
+	 * @param string $language
+	 * @param string $expect
+	 *
+	 * @dataProvider providerExtraGetArrayAlias
+	 */
+
+	public function testGetArrayByLanguageAndAlias(string $extraAlias = null, string $language = null, string $expect = null)
+	{
+		/* setup */
+
+		$extraModel = new Model\Extra();
+
+		/* actual */
+
+		$actualArray = $extraModel->getArrayByAliasAndLanguage($extraAlias, $language);
+
+		/* compare */
+
+		$this->markTestSkipped('implement sibling handling in model!');
+		$this->assertEquals($expect, $actualArray['alias']);
 	}
 
 	/**
