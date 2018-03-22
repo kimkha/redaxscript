@@ -76,9 +76,7 @@ class ExtraTest extends TestCaseAbstract
 				'alias' => 'extra-four',
 				'language' => 'de',
 				'sibling' => $extraThree->id,
-				'rank' => 4,
-				'status' => 2,
-				'date' => '2036-01-01 00:00:00'
+				'rank' => 4
 			])
 			->save();
 		Db::forTablePrefix('extras')
@@ -89,7 +87,27 @@ class ExtraTest extends TestCaseAbstract
 				'alias' => 'extra-five',
 				'language' => 'fr',
 				'sibling' => $extraThree->id,
-				'rank' => 5,
+				'rank' => 5
+			])
+			->save();
+		Db::forTablePrefix('extras')
+			->create()
+			->set(
+			[
+				'title' => 'Extra Six',
+				'alias' => 'extra-six',
+				'rank' => 6,
+				'status' => 2,
+				'date' => '2036-01-01 00:00:00'
+			])
+			->save();
+		Db::forTablePrefix('extras')
+			->create()
+			->set(
+			[
+				'title' => 'Extra Seven',
+				'alias' => 'extra-seven',
+				'rank' => 7,
 				'status' => 2,
 				'date' => '2037-01-01 00:00:00'
 			])
@@ -149,7 +167,7 @@ class ExtraTest extends TestCaseAbstract
 	}
 
 	/**
-	 * testGetArrayByLanguage
+	 * testGetArray
 	 *
 	 * @since 4.0.0
 	 *
@@ -159,7 +177,7 @@ class ExtraTest extends TestCaseAbstract
 	 * @dataProvider providerExtraGetArray
 	 */
 
-	public function testGetArrayByLanguage(string $language = null, array $expectArray = null)
+	public function testGetArray(string $language = null, array $expectArray = null)
 	{
 		/* setup */
 
@@ -167,7 +185,7 @@ class ExtraTest extends TestCaseAbstract
 
 		/* actual */
 
-		$extraArray = $extraModel->getArrayByLanguage($language);
+		$extraArray = $extraModel->getArray($language);
 		$actualArray = [];
 
 		/* process extra */
@@ -186,7 +204,7 @@ class ExtraTest extends TestCaseAbstract
 	}
 
 	/**
-	 * testGetArrayByLanguageAndAlias
+	 * testGetArrayByAlias
 	 *
 	 * @since 4.0.0
 	 *
@@ -197,7 +215,7 @@ class ExtraTest extends TestCaseAbstract
 	 * @dataProvider providerExtraGetArrayAlias
 	 */
 
-	public function testGetArrayByLanguageAndAlias(string $extraAlias = null, string $language = null, string $expect = null)
+	public function testGetArrayByAlias(string $extraAlias = null, string $language = null, string $expect = null)
 	{
 		/* setup */
 
@@ -205,11 +223,11 @@ class ExtraTest extends TestCaseAbstract
 
 		/* actual */
 
-		$actualArray = $extraModel->getArrayByAliasAndLanguage($extraAlias, $language);
+		$actualArray = $extraModel->getArrayByAlias($extraAlias, $language);
 
 		/* compare */
 
-		$this->markTestSkipped('implement sibling handling in model!');
+		$this->markTestSkipped('implement sibling handling in model');
 		$this->assertEquals($expect, $actualArray['alias']);
 	}
 

@@ -114,13 +114,15 @@ class Tag
 	 *
 	 * @since 2.3.0
 	 *
+	 * @param array $optionArray options of the breadcrumb
+	 *
 	 * @return string
 	 */
 
-	public static function breadcrumb() : string
+	public static function breadcrumb(array $optionArray = []) : string
 	{
 		$breadcrumb = new View\Helper\Breadcrumb(Registry::getInstance(), Language::getInstance());
-		$breadcrumb->init();
+		$breadcrumb->init($optionArray);
 		return $breadcrumb->render();
 	}
 
@@ -314,13 +316,15 @@ class Tag
 	 * @since 4.0.0
 	 *
 	 * @param string $extraAlias
+	 * @param array $optionArray options of the extra
 	 *
 	 * @return string|null
 	 */
 
-	public static function extra(string $extraAlias = null)
+	public static function extra(string $extraAlias = null, array $optionArray = [])
 	{
-		$extra = new View\Extra(Registry::getInstance(), Language::getInstance());
+		$extra = new View\Extra(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
+		$extra->init($optionArray);
 		return $extra->render($extraAlias);
 	}
 
@@ -374,7 +378,7 @@ class Tag
 	 * @return string|null
 	 */
 
-	public static function navigation($type = null, array $optionArray = [])
+	public static function navigation(string $type = null, array $optionArray = [])
 	{
 		if ($type == 'articles')
 		{
