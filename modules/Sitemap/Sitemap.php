@@ -65,7 +65,7 @@ class Sitemap extends Config
 
 		/* query articles */
 
-		$categoryArray = $this->_getArticleByCategoryArray();
+		$categoryArray = $this->_getCategoryArrayByLanguage($this->_registry->get('language'));
 
 		/* process articles */
 
@@ -111,19 +111,21 @@ class Sitemap extends Config
 	}
 
 	/**
-	 * get article by category array
+	 * get category array by language
 	 *
 	 * @since 3.3.0
+	 *
+	 * @param string $language
 	 *
 	 * @return array
 	 */
 
-	protected function _getArticleByCategoryArray() : array
+	protected function _getCategoryArrayByLanguage(string $language = null) : array
 	{
 		$categoryArray = [];
 		$articles = Db::forTablePrefix('articles')
 			->where('status', 1)
-			->whereLanguageIs($this->_registry->get('language'))
+			->whereLanguageIs($language)
 			->whereNull('access')
 			->orderByDesc('category')
 			->findMany();

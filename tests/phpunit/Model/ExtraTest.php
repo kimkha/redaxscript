@@ -128,56 +128,56 @@ class ExtraTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerExtraGetArray
+	 * providerGetResult
 	 *
 	 * @since 4.0.0
 	 *
 	 * @return array
 	 */
 
-	public function providerExtraGetArray() : array
+	public function providerGetResult() : array
 	{
-		return $this->getProvider('tests/provider/Model/extra_get_array.json');
+		return $this->getProvider('tests/provider/Model/extra_get_result.json');
 	}
 
 	/**
-	 * providerExtraGetArrayAlias
+	 * providerGetResultAlias
 	 *
 	 * @since 4.0.0
 	 *
 	 * @return array
 	 */
 
-	public function providerExtraGetArrayAlias() : array
+	public function providerGetResultAlias() : array
 	{
-		return $this->getProvider('tests/provider/Model/extra_get_array_alias.json');
+		return $this->getProvider('tests/provider/Model/extra_get_result_alias.json');
 	}
 
 	/**
-	 * providerExtraPublishDate
+	 * providerPublishDate
 	 *
 	 * @since 3.3.0
 	 *
 	 * @return array
 	 */
 
-	public function providerExtraPublishDate() : array
+	public function providerPublishDate() : array
 	{
 		return $this->getProvider('tests/provider/Model/extra_publish_date.json');
 	}
 
 	/**
-	 * testGetArray
+	 * testGetResultByLanguage
 	 *
 	 * @since 4.0.0
 	 *
 	 * @param string $language
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerExtraGetArray
+	 * @dataProvider providerGetResult
 	 */
 
-	public function testGetArray(string $language = null, array $expectArray = null)
+	public function testGetResultByLanguage(string $language = null, array $expectArray = null)
 	{
 		/* setup */
 
@@ -185,26 +185,20 @@ class ExtraTest extends TestCaseAbstract
 
 		/* actual */
 
-		$extraArray = $extraModel->getArray($language);
+		$extraArray = $extraModel->getResultByLanguage($language);
 		$actualArray = [];
 
 		/* process extra */
 
-		foreach ($extraArray as $valueArray)
+		foreach ($extraArray as $key => $value)
 		{
-			foreach ($valueArray as $key => $value)
-			{
-				if ($key === 'alias')
-				{
-					$actualArray[] = $value;
-				}
-			}
+			$actualArray[] = $value->alias;
 		}
 		$this->assertEquals($expectArray, $actualArray);
 	}
 
 	/**
-	 * testGetArrayByAlias
+	 * testGetResultByAliasAndLanguage
 	 *
 	 * @since 4.0.0
 	 *
@@ -212,10 +206,10 @@ class ExtraTest extends TestCaseAbstract
 	 * @param string $language
 	 * @param string $expect
 	 *
-	 * @dataProvider providerExtraGetArrayAlias
+	 * @dataProvider providerGetResultAlias
 	 */
 
-	public function testGetArrayByAlias(string $extraAlias = null, string $language = null, string $expect = null)
+	public function testGetResultByAliasAndLanguage(string $extraAlias = null, string $language = null, string $expect = null)
 	{
 		/* setup */
 
@@ -223,7 +217,7 @@ class ExtraTest extends TestCaseAbstract
 
 		/* actual */
 
-		$actualArray = $extraModel->getArrayByAlias($extraAlias, $language);
+		$actualArray = $extraModel->getResultByAliasAndLanguage($extraAlias, $language);
 
 		/* compare */
 
@@ -239,7 +233,7 @@ class ExtraTest extends TestCaseAbstract
 	 * @param string $date
 	 * @param int $expect
 	 *
-	 * @dataProvider providerExtraPublishDate
+	 * @dataProvider providerPublishDate
 	 */
 
 	public function testPublishByDate(string $date = null, int $expect = null)

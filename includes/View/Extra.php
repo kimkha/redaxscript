@@ -145,21 +145,21 @@ class Extra extends ViewAbstract
 
 		/* query extras */
 
-		$extras = $extraAlias ? $extraModel->getArrayByAlias($extraAlias, $language) : $extraModel->getArray($language);
+		$extras = $extraAlias ? $extraModel->getResultByAliasAndLanguage($extraAlias, $language) : $extraModel->getResultByLanguage($language);
 
 		/* process extras */
 
 		foreach ($extras as $value)
 		{
-			if ($accessValidator->validate($value['access'], $myGroups) === Validator\ValidatorInterface::PASSED)
+			if ($accessValidator->validate($value->access, $myGroups) === Validator\ValidatorInterface::PASSED)
 			{
-				if (intval($value['headline']) === 1)
+				if (intval($value->headline) === 1)
 				{
 					$output .= $titleElement
-						->attr('id', 'extra-' . $value['alias'])
-						->text($value['title']);
+						->attr('id', 'extra-' . $value->alias)
+						->text($value->title);
 				}
-				$contentParser->process($value['text']);
+				$contentParser->process($value->text);
 				$output .= $boxElement->html($contentParser->getOutput());
 
 				/* admin dock */

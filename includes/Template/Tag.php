@@ -281,11 +281,7 @@ class Tag
 		{
 			$adminRouter = new Admin\Router\Router(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
 			$adminRouter->init();
-			$adminContent = $adminRouter->routeContent();
-			if ($adminContent)
-			{
-				return $adminContent;
-			}
+			return $adminRouter->routeContent();
 		}
 	}
 

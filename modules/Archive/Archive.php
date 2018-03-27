@@ -65,7 +65,7 @@ class Archive extends Config
 
 		/* query articles */
 
-		$monthArray = $this->_getArticleByMonthArray();
+		$monthArray = $this->_getMonthArrayByLanguage($this->_registry->get('language'));
 
 		/* process articles */
 
@@ -112,19 +112,21 @@ class Archive extends Config
 	}
 
 	/**
-	 * get article by month array
+	 * get month array by language
 	 *
 	 * @since 3.3.0
+	 *
+	 * @param string $language
 	 *
 	 * @return array
 	 */
 
-	protected function _getArticleByMonthArray() : array
+	protected function _getMonthArrayByLanguage(string $language = null) : array
 	{
 		$monthArray = [];
 		$articles = Db::forTablePrefix('articles')
 			->where('status', 1)
-			->whereLanguageIs($this->_registry->get('language'))
+			->whereLanguageIs($language)
 			->whereNull('access')
 			->orderByDesc('date')
 			->findMany();
