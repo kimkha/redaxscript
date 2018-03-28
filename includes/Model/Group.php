@@ -20,7 +20,7 @@ class Group
 	 *
 	 * @since 3.3.0
 	 *
-	 * @param string $groupAlias
+	 * @param string $groupAlias alias of the group
 	 *
 	 * @return int|null
 	 */

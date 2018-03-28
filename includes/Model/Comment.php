@@ -20,7 +20,7 @@ class Comment
 	 *
 	 * @since 3.3.0
 	 *
-	 * @param int $commentId
+	 * @param int $commentId identifier of the comment
 	 *
 	 * @return string|null
 	 */

@@ -164,7 +164,7 @@ class Tag
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string $table
+	 * @param string $table name of the table
 	 *
 	 * @return string
 	 */
@@ -311,7 +311,7 @@ class Tag
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $extraAlias
+	 * @param string $extraAlias alias of the extra
 	 * @param array $optionArray options of the extra
 	 *
 	 * @return string|null
@@ -368,8 +368,8 @@ class Tag
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string $type
-	 * @param array $optionArray
+	 * @param string $type type of the navigation
+	 * @param array $optionArray options of the navigation
 	 *
 	 * @return string|null
 	 */

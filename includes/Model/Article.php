@@ -20,7 +20,7 @@ class Article
 	 *
 	 * @since 3.3.0
 	 *
-	 * @param string $articleAlias
+	 * @param string $articleAlias alias of the article
 	 *
 	 * @return int|null
 	 */
@@ -35,7 +35,7 @@ class Article
 	 *
 	 * @since 3.3.0
 	 *
-	 * @param int $articleId
+	 * @param int $articleId identifier of the article
 	 *
 	 * @return string|null
 	 */

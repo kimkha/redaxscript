@@ -18,13 +18,13 @@ class Comment extends ViewAbstract
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param array $optionArray options of the comment
+	 * @param array $installArray options of the comment
 	 *
 	 * @return string
 	 */
 
-	public function render(array $optionArray = []) : string
+	public function render(array $installArray = []) : string
 	{
-		return 'to be implemented: ' . __CLASS__ . ' ' . implode($optionArray, ' ,');
+		return 'to be implemented: ' . __CLASS__ . ' ' . implode($installArray, ' ,');
 	}
 }

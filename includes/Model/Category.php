@@ -20,7 +20,7 @@ class Category
 	 *
 	 * @since 3.3.0
 	 *
-	 * @param string $categoryAlias
+	 * @param string $categoryAlias alias of the category
 	 *
 	 * @return int|null
 	 */
@@ -35,7 +35,7 @@ class Category
 	 *
 	 * @since 3.3.0
 	 *
-	 * @param int $categoryId
+	 * @param int $categoryId identifier of the category
 	 *
 	 * @return string|null
 	 */

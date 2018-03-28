@@ -123,7 +123,8 @@ class Extra extends ViewAbstract
 		$accessValidator = new Validator\Access();
 		$extraModel = new Model\Extra();
 		$contentParser = new Content\Parser($this->_registry, $this->_request, $this->_language, $this->_config);
-		$adminDock = new Admin\View\Helper\Dock();
+		$adminDock = new Admin\View\Helper\Dock($this->_registry, $this->_language);
+		$adminDock->init();
 		$language = $this->_registry->get('language');
 		$loggedIn = $this->_registry->get('loggedIn');
 		$token = $this->_registry->get('token');
@@ -166,7 +167,7 @@ class Extra extends ViewAbstract
 
 				if ($loggedIn === $token && $firstParameter !== 'logout')
 				{
-					$output .= $adminDock->render();
+					$output .= $adminDock->render('extras', $value->id);
 				}
 			}
 		}
