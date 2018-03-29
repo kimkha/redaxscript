@@ -2,6 +2,8 @@
 namespace Redaxscript\Admin\Template;
 
 use Redaxscript\Admin\View\Helper;
+use Redaxscript\Language;
+use Redaxscript\Registry;
 use Redaxscript\Template\Tag as BaseTag;
 
 /**
@@ -26,7 +28,7 @@ class Tag extends BaseTag
 
 	public static function panel() : string
 	{
-		$panel = new Helper\Panel();
+		$panel = new Helper\Panel(Registry::getInstance(), Language::getInstance());
 		return $panel->render();
 	}
 }

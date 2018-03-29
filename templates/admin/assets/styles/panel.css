@@ -233,32 +233,32 @@
 			position: relative;
 		}
 
-		&.rs-admin-has-column1 > .rs-admin-item-panel
+		&[data-column="1"] > .rs-admin-item-panel
 		{
 			width: 100%;
 		}
 
-		&.rs-admin-has-column2 > .rs-admin-item-panel
+		&[data-column="2"] > .rs-admin-item-panel
 		{
 			width: 50%;
 		}
 
-		&.rs-admin-has-column3 > .rs-admin-item-panel
+		&[data-column="3"] > .rs-admin-item-panel
 		{
 			width: 33.33%;
 		}
 
-		&.rs-admin-has-column4 > .rs-admin-item-panel
+		&[data-column="4"] > .rs-admin-item-panel
 		{
 			width: 25%;
 		}
 
-		&.rs-admin-has-column5 > .rs-admin-item-panel
+		&[data-column="5"] > .rs-admin-item-panel
 		{
 			width: 20%;
 		}
 
-		&.rs-admin-has-column6 > .rs-admin-item-panel
+		&[data-column="6"] > .rs-admin-item-panel
 		{
 			width: 16.66%;
 		}
