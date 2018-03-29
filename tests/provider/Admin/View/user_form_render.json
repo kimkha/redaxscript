@@ -1,7 +1,8 @@
 [
 	[
 		{
-			"usersNew": false
+			"usersNew": false,
+			"myId": false
 		},
 		0,
 		{
@@ -11,7 +12,8 @@
 	],
 	[
 		{
-			"usersNew": true
+			"usersNew": true,
+			"myId": false
 		},
 		0,
 		{
@@ -22,7 +24,8 @@
 	[
 		{
 			"usersEdit": false,
-			"usersDelete": false
+			"usersDelete": false,
+			"myId": false
 		},
 		1,
 		{
@@ -35,6 +38,7 @@
 			"usersEdit": true,
 			"usersDelete": true,
 			"groupsEdit": true,
+			"myId": false,
 			"token": "ffd845f78510f02580d329127bab3dd1aa7f4453"
 		},
 		2,
