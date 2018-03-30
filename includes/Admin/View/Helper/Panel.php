@@ -238,7 +238,6 @@ class Panel
 	{
 		$output = null;
 		$parameterRoute = $this->_registry->get('parameterRoute');
-		$categoriesNew = $this->_registry->get('categoriesNew');
 		$contentArray =
 		[
 			'categories',
@@ -268,6 +267,7 @@ class Panel
 
 		foreach ($contentArray as $type)
 		{
+			$tableNew = $this->_registry->get($type . 'New');
 			if ($this->_hasPermission($type))
 			{
 				$listElement->append(
@@ -284,7 +284,7 @@ class Panel
 										->attr('href', $parameterRoute . 'admin/view/' . $type)
 										->text($this->_language->get($type))
 								)
-								->append($categoriesNew ? $linkElement
+								->append($tableNew ? $linkElement
 									->copy()
 									->addClass($this->_optionArray['className']['link']['new'])
 									->attr('href', $parameterRoute . 'admin/new/' . $type)
@@ -306,8 +306,7 @@ class Panel
 					->addClass($this->_optionArray['className']['text']['content'])
 					->text($this->_language->get('contents'))
 				. $listElement
-			)
-			->append($listElement);
+			);
 		return $output;
 	}
 
