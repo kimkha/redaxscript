@@ -115,8 +115,6 @@ class Panel
 		$output = Module\Hook::trigger('adminPanelStart');
 		$outputItem = null;
 
-		$counter = 1;
-
 		/* html elements */
 
 		$listElement = new Html\Element();
@@ -129,21 +127,17 @@ class Panel
 
 		if ($this->_hasPermission('contents'))
 		{
-			$counter++;
 			$outputItem .= $this->_renderContent();
 		}
 		if ($this->_hasPermission('profile'))
 		{
-			$counter++;
 			$outputItem .= $this->_renderProfile();
 		}
 		$outputItem .= $this->_renderLogout();
 
 		/* collect output */
 
-		$output .= $listElement
-			->append($outputItem)
-			->attr('data-column', $counter);
+		$output .= $listElement->append($outputItem);
 		$output .= Module\Hook::trigger('adminPanelEnd');
 		return $output;
 	}
@@ -161,65 +155,39 @@ class Panel
 	protected function _hasPermission(string $type = null)
 	{
 		$permissionArray = [];
-		$categoriesNew = $this->_registry->get('categoriesNew');
-		$categoriesEdit = $this->_registry->get('categoriesEdit');
-		$categoriesDelete = $this->_registry->get('categoriesDelete');
-		$articlesNew = $this->_registry->get('articlesNew');
-		$articlesEdit = $this->_registry->get('articlesEdit');
-		$articlesDelete = $this->_registry->get('articlesDelete');
-		$extrasNew = $this->_registry->get('extrasNew');
-		$extrasEdit = $this->_registry->get('extrasEdit');
-		$extrasDelete = $this->_registry->get('extrasDelete');
-		$commentsNew = $this->_registry->get('commentsNew');
-		$commentsEdit = $this->_registry->get('commentsEdit');
-		$commentsDelete = $this->_registry->get('commentsDelete');
-		$usersNew = $this->_registry->get('usersNew');
-		$usersEdit = $this->_registry->get('usersEdit');
-		$usersDelete = $this->_registry->get('usersDelete');
-		$groupsNew = $this->_registry->get('groupsNew');
-		$groupsEdit = $this->_registry->get('groupsEdit');
-		$groupsDelete = $this->_registry->get('groupsDelete');
-		$modulesInstall = $this->_registry->get('modulesInstall');
-		$modulesEdit = $this->_registry->get('modulesEdit');
-		$modulesUninstall = $this->_registry->get('modulesUninstall');
-		$settingsEdit = $this->_registry->get('settingsEdit');
-		$myId = $this->_registry->get('myId');
-
-		/* handle permission */
-
-		if ($categoriesNew || $categoriesEdit || $categoriesDelete)
+		if ($this->_registry->get('categoriesEdit'))
 		{
 			$permissionArray['categories'] = $permissionArray['contents'] = true;
 		}
-		if ($articlesNew || $articlesEdit || $articlesDelete)
+		if ($this->_registry->get('articlesEdit'))
 		{
 			$permissionArray['articles'] = $permissionArray['contents'] = true;
 		}
-		if ($extrasNew || $extrasEdit || $extrasDelete)
+		if ($this->_registry->get('extrasEdit'))
 		{
 			$permissionArray['extras'] = $permissionArray['contents'] = true;
 		}
-		if ($commentsNew || $commentsEdit || $commentsDelete)
+		if ($this->_registry->get('commentsEdit'))
 		{
 			$permissionArray['comments'] = $permissionArray['contents'] = true;
 		}
-		if ($usersNew || $usersEdit || $usersDelete)
+		if ($this->_registry->get('usersEdit'))
 		{
 			$permissionArray['users'] = $permissionArray['access'] = true;
 		}
-		if ($groupsNew || $groupsEdit || $groupsDelete)
+		if ($this->_registry->get('groupsEdit'))
 		{
 			$permissionArray['groups'] = $permissionArray['access'] = true;
 		}
-		if ($modulesInstall || $modulesEdit || $modulesUninstall)
+		if ($this->_registry->get('modulesEdit'))
 		{
 			$permissionArray['modules'] = $permissionArray['system'] = true;
 		}
-		if ($settingsEdit)
+		if ($this->_registry->get('settingsEdit'))
 		{
 			$permissionArray['settings'] = $permissionArray['system'] = true;
 		}
-		if ($myId)
+		if ($this->_registry->get('myId'))
 		{
 			$permissionArray['profile'] = true;
 		}
@@ -277,7 +245,7 @@ class Panel
 							$textElement
 								->copy()
 								->addClass($this->_optionArray['className']['text']['group'])
-								->html(
+								->append(
 									$linkElement
 										->copy()
 										->addClass($this->_optionArray['className']['link']['view'])
@@ -305,8 +273,8 @@ class Panel
 					->copy()
 					->addClass($this->_optionArray['className']['text']['content'])
 					->text($this->_language->get('contents'))
-				. $listElement
-			);
+			)
+			->append($listElement);
 		return $output;
 	}
 

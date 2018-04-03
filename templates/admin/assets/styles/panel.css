@@ -227,40 +227,12 @@
 {
 	.rs-admin-list-panel
 	{
+		display: flex;
+
 		& > .rs-admin-item-panel
 		{
-			float: left;
+			flex: 1;
 			position: relative;
-		}
-
-		&[data-column="1"] > .rs-admin-item-panel
-		{
-			width: 100%;
-		}
-
-		&[data-column="2"] > .rs-admin-item-panel
-		{
-			width: 50%;
-		}
-
-		&[data-column="3"] > .rs-admin-item-panel
-		{
-			width: 33.33%;
-		}
-
-		&[data-column="4"] > .rs-admin-item-panel
-		{
-			width: 25%;
-		}
-
-		&[data-column="5"] > .rs-admin-item-panel
-		{
-			width: 20%;
-		}
-
-		&[data-column="6"] > .rs-admin-item-panel
-		{
-			width: 16.66%;
 		}
 	}
 

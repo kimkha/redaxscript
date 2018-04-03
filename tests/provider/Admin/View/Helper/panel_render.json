@@ -26,7 +26,7 @@
 			"myId": false
 		},
 		{},
-		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel rs-admin-fn-clearfix\" data-column=\"1\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
+		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel rs-admin-fn-clearfix\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
 	],
 	[
 		{
@@ -55,7 +55,7 @@
 			"myId": 1
 		},
 		{},
-		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel rs-admin-fn-clearfix\" data-column=\"2\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
+		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel rs-admin-fn-clearfix\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
 	],
 	[
 		{
@@ -84,7 +84,7 @@
 			"myId": 1
 		},
 		{},
-		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel rs-admin-fn-clearfix\" data-column=\"3\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-content\"><span class=\"rs-admin-text-panel rs-admin-text-content\">Contents</span><ul class=\"rs-admin-list-panel-children rs-admin-list-contents\"><li><span class=\"rs-admin-text-panel-group\"><a class=\"rs-admin-link-panel rs-admin-link-view\" href=\"admin/view/categories\">Categories</a></span></li></ul></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
+		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel rs-admin-fn-clearfix\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-content\"><span class=\"rs-admin-text-panel rs-admin-text-content\">Contents</span><ul class=\"rs-admin-list-panel-children rs-admin-list-contents\"><li><span class=\"rs-admin-text-panel-group\"><a class=\"rs-admin-link-panel rs-admin-link-view\" href=\"admin/view/categories\">Categories</a></span></li></ul></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
 	],
 	[
 		{
@@ -113,6 +113,6 @@
 			"myId": 1
 		},
 		{},
-		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel rs-admin-fn-clearfix\" data-column=\"3\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-content\"><span class=\"rs-admin-text-panel rs-admin-text-content\">Contents</span><ul class=\"rs-admin-list-panel-children rs-admin-list-contents\"><li><span class=\"rs-admin-text-panel-group\"><a class=\"rs-admin-link-panel rs-admin-link-view\" href=\"admin/view/categories\">Categories</a><a class=\"rs-admin-link-panel rs-admin-link-new\" href=\"admin/new/categories\">New</a></span></li></ul></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
+		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel rs-admin-fn-clearfix\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-content\"><span class=\"rs-admin-text-panel rs-admin-text-content\">Contents</span><ul class=\"rs-admin-list-panel-children rs-admin-list-contents\"><li><span class=\"rs-admin-text-panel-group\"><a class=\"rs-admin-link-panel rs-admin-link-view\" href=\"admin/view/categories\">Categories</a><a class=\"rs-admin-link-panel rs-admin-link-new\" href=\"admin/new/categories\">New</a></span></li></ul></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
 	]
 ]
