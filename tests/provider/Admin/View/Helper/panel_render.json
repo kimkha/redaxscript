@@ -26,7 +26,7 @@
 			"myId": false
 		},
 		{},
-		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel rs-admin-fn-clearfix\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
+		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
 	],
 	[
 		{
@@ -55,7 +55,7 @@
 			"myId": 1
 		},
 		{},
-		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel rs-admin-fn-clearfix\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
+		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
 	],
 	[
 		{
@@ -84,7 +84,7 @@
 			"myId": 1
 		},
 		{},
-		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel rs-admin-fn-clearfix\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-content\"><span class=\"rs-admin-text-panel rs-admin-text-content\">Contents</span><ul class=\"rs-admin-list-panel-children rs-admin-list-contents\"><li><span class=\"rs-admin-text-panel-group\"><a class=\"rs-admin-link-panel rs-admin-link-view\" href=\"admin/view/categories\">Categories</a></span></li></ul></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
+		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-content\"><span class=\"rs-admin-text-panel rs-admin-text-content\">Contents</span><ul class=\"rs-admin-list-panel-children rs-admin-list-contents\"><li><span class=\"rs-admin-text-panel-group\"><a class=\"rs-admin-link-panel rs-admin-link-view\" href=\"admin/view/categories\">Categories</a></span></li></ul></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
 	],
 	[
 		{
@@ -113,6 +113,64 @@
 			"myId": 1
 		},
 		{},
-		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel rs-admin-fn-clearfix\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-content\"><span class=\"rs-admin-text-panel rs-admin-text-content\">Contents</span><ul class=\"rs-admin-list-panel-children rs-admin-list-contents\"><li><span class=\"rs-admin-text-panel-group\"><a class=\"rs-admin-link-panel rs-admin-link-view\" href=\"admin/view/categories\">Categories</a><a class=\"rs-admin-link-panel rs-admin-link-new\" href=\"admin/new/categories\">New</a></span></li></ul></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
+		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-content\"><span class=\"rs-admin-text-panel rs-admin-text-content\">Contents</span><ul class=\"rs-admin-list-panel-children rs-admin-list-contents\"><li><span class=\"rs-admin-text-panel-group\"><a class=\"rs-admin-link-panel rs-admin-link-view\" href=\"admin/view/categories\">Categories</a><a class=\"rs-admin-link-panel rs-admin-link-new\" href=\"admin/new/categories\">New</a></span></li></ul></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
+	],
+	[
+		{
+			"categoriesNew": false,
+			"categoriesEdit": false,
+			"categoriesDelete": false,
+			"articlesNew": false,
+			"articlesEdit": false,
+			"articlesDelete": false,
+			"extrasNew": false,
+			"extrasEdit": false,
+			"extrasDelete": false,
+			"commentsNew": false,
+			"commentsEdit": false,
+			"commentsDelete": false,
+			"usersNew": false,
+			"usersEdit": true,
+			"usersDelete": false,
+			"groupsNew": false,
+			"groupsEdit": false,
+			"groupsDelete": false,
+			"modulesInstall": false,
+			"modulesEdit": false,
+			"modulesUninstall": false,
+			"settingsEdit": false,
+			"myId": 1
+		},
+		{},
+		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-access\"><span class=\"rs-admin-text-panel rs-admin-text-access\">Access</span><ul class=\"rs-admin-list-panel-children rs-admin-list-access\"><li><span class=\"rs-admin-text-panel-group\"><a class=\"rs-admin-link-panel rs-admin-link-view\" href=\"admin/view/users\">Users</a></span></li></ul></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
+	],
+	[
+		{
+			"categoriesNew": false,
+			"categoriesEdit": false,
+			"categoriesDelete": false,
+			"articlesNew": false,
+			"articlesEdit": false,
+			"articlesDelete": false,
+			"extrasNew": false,
+			"extrasEdit": false,
+			"extrasDelete": false,
+			"commentsNew": false,
+			"commentsEdit": false,
+			"commentsDelete": false,
+			"usersNew": true,
+			"usersEdit": true,
+			"usersDelete": true,
+			"groupsNew": false,
+			"groupsEdit": false,
+			"groupsDelete": false,
+			"modulesInstall": false,
+			"modulesEdit": false,
+			"modulesUninstall": false,
+			"settingsEdit": false,
+			"myId": 1
+		},
+		{},
+		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-access\"><span class=\"rs-admin-text-panel rs-admin-text-access\">Access</span><ul class=\"rs-admin-list-panel-children rs-admin-list-access\"><li><span class=\"rs-admin-text-panel-group\"><a class=\"rs-admin-link-panel rs-admin-link-view\" href=\"admin/view/users\">Users</a><a class=\"rs-admin-link-panel rs-admin-link-new\" href=\"admin/new/users\">New</a></span></li></ul></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
 	]
 ]
