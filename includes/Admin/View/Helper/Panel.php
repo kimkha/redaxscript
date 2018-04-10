@@ -48,12 +48,14 @@ class Panel
 			[
 				'panel' => 'rs-admin-js-list-panel rs-admin-list-panel',
 				'content' => 'rs-admin-list-panel-children rs-admin-list-contents',
-				'access' => 'rs-admin-list-panel-children rs-admin-list-access'
+				'access' => 'rs-admin-list-panel-children rs-admin-list-access',
+				'system' => 'rs-admin-list-panel-children rs-admin-list-system'
 			],
 			'item' =>
 			[
 				'content' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-content',
 				'access' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-access',
+				'system' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-system',
 				'profile' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile',
 				'logout' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout'
 			],
@@ -61,6 +63,7 @@ class Panel
 			[
 				'content' => 'rs-admin-text-panel rs-admin-text-content',
 				'access' => 'rs-admin-text-panel rs-admin-text-access',
+				'system' => 'rs-admin-text-panel rs-admin-text-system',
 				'group' => 'rs-admin-text-panel-group'
 			],
 			'link' =>
@@ -135,6 +138,10 @@ class Panel
 		if ($this->_hasPermission('access'))
 		{
 			$outputItem .= $this->_renderAccess();
+		}
+		if ($this->_hasPermission('system'))
+		{
+			$outputItem .= $this->_renderSystem();
 		}
 		if ($this->_hasPermission('profile'))
 		{
@@ -286,7 +293,7 @@ class Panel
 	}
 
 	/**
-	 * render the content
+	 * render the access
 	 *
 	 * @since 4.0.0
 	 *
@@ -362,6 +369,76 @@ class Panel
 					->copy()
 					->addClass($this->_optionArray['className']['text']['access'])
 					->text($this->_language->get('access'))
+			)
+			->append($listElement);
+		return $output;
+	}
+
+	/**
+	 * render the system
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return string|null
+	 */
+
+	protected function _renderSystem() : ?string
+	{
+		$output = null;
+		$parameterRoute = $this->_registry->get('parameterRoute');
+		$systemArray =
+		[
+			'modules',
+			'settings'
+		];
+
+		/* html elements */
+
+		$listElement = new Html\Element();
+		$listElement->init('ul',
+		[
+			'class' => $this->_optionArray['className']['list']['system']
+		]);
+		$itemElement = new Html\Element();
+		$itemElement->init('li');
+		$linkElement = new Html\Element();
+		$linkElement->init('a',
+		[
+			'class' => $this->_optionArray['className']['link']['panel']
+		]);
+		$textElement = new Html\Element();
+		$textElement->init('span');
+
+		/* process system */
+
+		foreach ($systemArray as $type)
+		{
+			if ($this->_hasPermission($type))
+			{
+				$listElement->append(
+					$itemElement
+						->copy()
+						->html(
+							$linkElement
+								->copy()
+								->addClass($this->_optionArray['className']['link']['panel'])
+								->attr('href', $type === 'settings' ?  $parameterRoute . 'admin/edit/settings' : $parameterRoute . 'admin/view/' . $type)
+								->text($this->_language->get($type))
+						)
+				);
+			}
+		}
+
+		/* collect output */
+
+		$output .= $itemElement
+			->copy()
+			->addClass($this->_optionArray['className']['item']['system'])
+			->html(
+				$textElement
+					->copy()
+					->addClass($this->_optionArray['className']['text']['system'])
+					->text($this->_language->get('system'))
 			)
 			->append($listElement);
 		return $output;

@@ -172,5 +172,34 @@
 		},
 		{},
 		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-access\"><span class=\"rs-admin-text-panel rs-admin-text-access\">Access</span><ul class=\"rs-admin-list-panel-children rs-admin-list-access\"><li><span class=\"rs-admin-text-panel-group\"><a class=\"rs-admin-link-panel rs-admin-link-view\" href=\"admin/view/users\">Users</a><a class=\"rs-admin-link-panel rs-admin-link-new\" href=\"admin/new/users\">New</a></span></li></ul></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
+	],
+	[
+		{
+			"categoriesNew": false,
+			"categoriesEdit": false,
+			"categoriesDelete": false,
+			"articlesNew": false,
+			"articlesEdit": false,
+			"articlesDelete": false,
+			"extrasNew": false,
+			"extrasEdit": false,
+			"extrasDelete": false,
+			"commentsNew": false,
+			"commentsEdit": false,
+			"commentsDelete": false,
+			"usersNew": false,
+			"usersEdit": false,
+			"usersDelete": false,
+			"groupsNew": false,
+			"groupsEdit": false,
+			"groupsDelete": false,
+			"modulesInstall": true,
+			"modulesEdit": true,
+			"modulesUninstall": true,
+			"settingsEdit": true,
+			"myId": 1
+		},
+		{},
+		"<ul class=\"rs-admin-js-list-panel rs-admin-list-panel\"><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-system\"><span class=\"rs-admin-text-panel rs-admin-text-system\">System</span><ul class=\"rs-admin-list-panel-children rs-admin-list-system\"><li><a class=\"rs-admin-link-panel\" href=\"admin/view/modules\">Modules</a></li><li><a class=\"rs-admin-link-panel\" href=\"admin/edit/settings\">Settings</a></li></ul></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile\"><a href=\"admin/edit/users/1\" class=\"rs-admin-link-panel rs-admin-link-profile\">Profile</a></li><li class=\"rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout\"><a href=\"logout\" class=\"rs-admin-link-panel rs-admin-link-logout\">Logout</a></li></ul>"
 	]
 ]
