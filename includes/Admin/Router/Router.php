@@ -65,7 +65,7 @@ class Router extends RouterAbstract
 				{
 					return $this->_errorToken();
 				}
-				if ($this->_routeGuard() || $this->_authGuard())
+				if ($this->_authGuard())
 				{
 					return $this->_errorAccess();
 				}
@@ -190,69 +190,6 @@ class Router extends RouterAbstract
 	}
 
 	/**
-	 * route guard
-	 *
-	 * @since 3.3.0
-	 *
-	 * @return bool
-	 */
-
-	protected function _routeGuard() : bool
-	{
-		$adminParameter = $this->getAdmin();
-		$tableParameter = $this->getTable();
-		$idParameter = $this->getId();
-		$aliasParameter = $this->getAlias();
-		$adminArray =
-		[
-			'new',
-			'view',
-			'edit',
-			'up',
-			'down',
-			'sort',
-			'publish',
-			'unpublish',
-			'enable',
-			'disable',
-			'install',
-			'uninstall',
-			'delete'
-		];
-		$tableArray =
-		[
-			'categories',
-			'articles',
-			'extras',
-			'comments',
-			'groups',
-			'users',
-			'modules',
-			'settings'
-		];
-		$idArray =
-		[
-			'edit',
-			'up',
-			'down',
-			'publish',
-			'unpublish',
-			'enable',
-			'disable'
-		];
-		$aliasArray =
-		[
-			'install',
-			'uninstall'
-		];
-		$invalidAdmin = !in_array($adminParameter, $adminArray);
-		$invalidTable = !in_array($tableParameter, $tableArray);
-		$invalidId = in_array($adminParameter, $idArray) && !$idParameter && !$tableParameter === 'settings';
-		$invalidAlias = in_array($adminParameter, $aliasArray) && !$aliasParameter;
-		return $invalidAdmin || $invalidTable || $invalidId || $invalidAlias;
-	}
-
-	/**
 	 * auth guard
 	 *
 	 * @since 3.3.0
@@ -291,10 +228,10 @@ class Router extends RouterAbstract
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return string
+	 * @return string|bool
 	 */
 
-	protected function _renderView() : string
+	protected function _renderView()
 	{
 		$tableParameter = $this->getTable();
 
@@ -335,6 +272,7 @@ class Router extends RouterAbstract
 			$moduleTable = new Admin\View\ModuleTable($this->_registry, $this->_language);
 			return $moduleTable->render();
 		}
+		return false;
 	}
 
 	/**
@@ -342,10 +280,10 @@ class Router extends RouterAbstract
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return string
+	 * @return string|bool
 	 */
 
-	protected function _renderNew() : string
+	protected function _renderNew()
 	{
 		$tableParameter = $this->getTable();
 
@@ -381,6 +319,7 @@ class Router extends RouterAbstract
 			$groupForm = new Admin\View\GroupForm($this->_registry, $this->_language);
 			return $groupForm->render();
 		}
+		return false;
 	}
 
 	/**
@@ -388,10 +327,10 @@ class Router extends RouterAbstract
 	 *
 	 * @since 3.3.0
 	 *
-	 * @return string
+	 * @return string|bool
 	 */
 
-	protected function _renderEdit() : string
+	protected function _renderEdit()
 	{
 		$tableParameter = $this->getTable();
 		$idParameter = $this->getId();
@@ -438,6 +377,7 @@ class Router extends RouterAbstract
 			$settingForm = new Admin\View\SettingForm($this->_registry, $this->_language);
 			return $settingForm->render();
 		}
+		return false;
 	}
 
 	/**
