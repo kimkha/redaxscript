@@ -30,6 +30,18 @@
 	<rule ref="Generic.PHP.NoSilencedErrors" />
 	<rule ref="Generic.Strings.UnnecessaryStringConcat" />
 
+	<!-- inherit from pheromone -->
+
+	<rule ref="vendor/pheromone/phpcs-security-audit/Security/Sniffs/BadFunctions/AssertsSniff.php" />
+	<rule ref="vendor/pheromone/phpcs-security-audit/Security/Sniffs/BadFunctions/BackticksSniff.php" />
+	<rule ref="vendor/pheromone/phpcs-security-audit/Security/Sniffs/BadFunctions/CryptoFunctionsSniff.php" />
+	<rule ref="vendor/pheromone/phpcs-security-audit/Security/Sniffs/BadFunctions/EasyRFISniff.php" />
+	<rule ref="vendor/pheromone/phpcs-security-audit/Security/Sniffs/BadFunctions/ErrorHandlingSniff.php" />
+	<rule ref="vendor/pheromone/phpcs-security-audit/Security/Sniffs/BadFunctions/FringeFunctionsSniff.php" />
+	<rule ref="vendor/pheromone/phpcs-security-audit/Security/Sniffs/BadFunctions/PhpinfosSniff.php" />
+	<rule ref="vendor/pheromone/phpcs-security-audit/Security/Sniffs/BadFunctions/SQLFunctionsSniff.php" />
+	<rule ref="vendor/pheromone/phpcs-security-audit/Security/Sniffs/Misc/BadCorsHeaderSniff.php" />
+
 	<!-- inherit from slevomat -->
 
 	<rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/Sniffs/Namespaces/ReferenceUsedNamesOnlySniff.php" />
