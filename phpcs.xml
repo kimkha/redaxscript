@@ -8,5 +8,5 @@
 
 	<!-- inherit from redaxmedia -->
 
-	<rule ref="vendor/redaxmedia/php-coding-standard/ruleset.xml" />
+	<rule ref="vendor/redaxmedia/php-coding-standard/phpcs.xml" />
 </ruleset>
