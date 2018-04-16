@@ -18,7 +18,7 @@ class Boolean implements FilterInterface
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string $boolean boolean
+	 * @param string $boolean
 	 *
 	 * @return bool|null
 	 */

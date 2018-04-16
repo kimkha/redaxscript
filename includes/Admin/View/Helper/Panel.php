@@ -163,7 +163,7 @@ class Panel
 	 *
 	 * @param string $type
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 
 	protected function _hasPermission(string $type = null)
