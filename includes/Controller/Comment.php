@@ -254,7 +254,7 @@ class Comment extends ControllerAbstract
 		$settingModel = new Model\Setting();
 		$urlArticle = $this->_registry->get('root') . '/' . $this->_registry->get('parameterRoute') . $mailArray['route'];
 
-		/* html elements */
+		/* html element */
 
 		$linkElement = new Html\Element();
 		$linkElement->init('a');

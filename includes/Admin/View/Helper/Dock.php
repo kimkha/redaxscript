@@ -105,20 +105,23 @@ class Dock
 		$parameterRoute = $this->_registry->get('parameterRoute');
 		$token = $this->_registry->get('token');
 
-		/* html elements */
+		/* html element */
 
-		$wrapperElement = new Html\Element();
-		$wrapperElement->init('div',
-		[
-			'class' => $this->_optionArray['className']['wrapper']
-		]);
-		$boxElement = new Html\Element();
-		$boxElement->init('div',
-		[
-			'class' => $this->_optionArray['className']['box']
-		]);
-		$linkUnpublishElement = new Html\Element();
-		$linkUnpublishElement
+		$element = new Html\Element();
+		$wrapperElement = $element
+			->copy()
+			->init('div',
+			[
+				'class' => $this->_optionArray['className']['wrapper']
+			]);
+		$boxElement = $element
+			->copy()
+			->init('div',
+			[
+				'class' => $this->_optionArray['className']['box']
+			]);
+		$linkUnpublishElement = $element
+			->copy()
 			->init('a',
 			[
 				'href' => $parameterRoute . 'admin/unpublish/' . $table . '/' . $id . '/' . $token,
@@ -126,8 +129,8 @@ class Dock
 				'data-description' => $this->_language->get('unpublish')
 			])
 			->text($this->_language->get('unpublish'));
-		$linkEditElement = new Html\Element();
-		$linkEditElement
+		$linkEditElement = $element
+			->copy()
 			->init('a',
 			[
 				'href' => $parameterRoute . 'admin/edit/' . $table . '/' . $id,
@@ -135,8 +138,8 @@ class Dock
 				'data-description' => $this->_language->get('edit')
 			])
 			->text($this->_language->get('edit'));
-		$linkDeleteElement = new Html\Element();
-		$linkDeleteElement
+		$linkDeleteElement = $element
+			->copy()
 			->init('a',
 			[
 				'href' => $parameterRoute . 'admin/delete/' . $table . '/' . $id . '/' . $token,

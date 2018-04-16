@@ -121,7 +121,7 @@ class Panel
 		$output = Module\Hook::trigger('adminPanelStart');
 		$outputItem = null;
 
-		/* html elements */
+		/* html element */
 
 		$listElement = new Html\Element();
 		$listElement->init('ul',
@@ -228,22 +228,23 @@ class Panel
 			'comments'
 		];
 
-		/* html elements */
+		/* html element */
 
-		$listElement = new Html\Element();
-		$listElement->init('ul',
-		[
-			'class' => $this->_optionArray['className']['list']['content']
-		]);
-		$itemElement = new Html\Element();
-		$itemElement->init('li');
-		$linkElement = new Html\Element();
-		$linkElement->init('a',
-		[
-			'class' => $this->_optionArray['className']['link']['panel']
-		]);
-		$textElement = new Html\Element();
-		$textElement->init('span');
+		$element = new Html\Element();
+		$listElement = $element
+			->copy()
+			->init('ul',
+			[
+				'class' => $this->_optionArray['className']['list']['content']
+			]);
+		$itemElement = $element->copy()->init('li');
+		$linkElement = $element
+			->copy()
+			->init('a',
+			[
+				'class' => $this->_optionArray['className']['link']['panel']
+			]);
+		$textElement = $element->copy()->init('span');
 
 		/* process content */
 
@@ -310,22 +311,23 @@ class Panel
 			'groups'
 		];
 
-		/* html elements */
+		/* html element */
 
-		$listElement = new Html\Element();
-		$listElement->init('ul',
-		[
-			'class' => $this->_optionArray['className']['list']['access']
-		]);
-		$itemElement = new Html\Element();
-		$itemElement->init('li');
-		$linkElement = new Html\Element();
-		$linkElement->init('a',
-		[
-			'class' => $this->_optionArray['className']['link']['panel']
-		]);
-		$textElement = new Html\Element();
-		$textElement->init('span');
+		$element = new Html\Element();
+		$listElement = $element
+			->copy()
+			->init('ul',
+			[
+				'class' => $this->_optionArray['className']['list']['access']
+			]);
+		$itemElement = $element->copy()->init('li');
+		$linkElement = $element
+			->copy()
+			->init('a',
+			[
+				'class' => $this->_optionArray['className']['link']['panel']
+			]);
+		$textElement = $element->copy()->init('span');
 
 		/* process access */
 
@@ -392,22 +394,23 @@ class Panel
 			'settings'
 		];
 
-		/* html elements */
+		/* html element */
 
-		$listElement = new Html\Element();
-		$listElement->init('ul',
-		[
-			'class' => $this->_optionArray['className']['list']['system']
-		]);
-		$itemElement = new Html\Element();
-		$itemElement->init('li');
-		$linkElement = new Html\Element();
-		$linkElement->init('a',
-		[
-			'class' => $this->_optionArray['className']['link']['panel']
-		]);
-		$textElement = new Html\Element();
-		$textElement->init('span');
+		$element = new Html\Element();
+		$listElement = $element
+			->copy()
+			->init('ul',
+			[
+				'class' => $this->_optionArray['className']['list']['system']
+			]);
+		$itemElement = $element->copy()->init('li');
+		$linkElement = $element
+			->copy()
+			->init('a',
+			[
+				'class' => $this->_optionArray['className']['link']['panel']
+			]);
+		$textElement = $element->copy()->init('span');
 
 		/* process system */
 
@@ -458,20 +461,23 @@ class Panel
 		$parameterRoute = $this->_registry->get('parameterRoute');
 		$myId = $this->_registry->get('myId');
 
-		/* html elements */
+		/* html element */
 
-		$itemElement = new Html\Element();
-		$itemElement->init('li',
-		[
-			'class' => $this->_optionArray['className']['item']['profile']
-		]);
-		$linkElement = new Html\Element();
-		$linkElement->init('a',
-		[
-			'href' => $parameterRoute . 'admin/edit/users/' . $myId,
-			'class' => $this->_optionArray['className']['link']['profile']
-		])
-		->text($this->_language->get('profile'));
+		$element = new Html\Element();
+		$itemElement = $element
+			->copy()
+			->init('li',
+			[
+				'class' => $this->_optionArray['className']['item']['profile']
+			]);
+		$linkElement = $element
+			->copy()
+			->init('a',
+			[
+				'href' => $parameterRoute . 'admin/edit/users/' . $myId,
+				'class' => $this->_optionArray['className']['link']['profile']
+			])
+			->text($this->_language->get('profile'));
 
 		/* collect item output */
 
@@ -492,20 +498,23 @@ class Panel
 		$output = null;
 		$parameterRoute = $this->_registry->get('parameterRoute');
 
-		/* html elements */
+		/* html element */
 
-		$itemElement = new Html\Element();
-		$itemElement->init('li',
-		[
-			'class' => $this->_optionArray['className']['item']['logout']
-		]);
-		$linkElement = new Html\Element();
-		$linkElement->init('a',
-		[
-			'href' => $parameterRoute . 'logout',
-			'class' => $this->_optionArray['className']['link']['logout']
-		])
-		->text($this->_language->get('logout'));
+		$element = new Html\Element();
+		$itemElement = $element
+			->copy()
+			->init('li',
+			[
+				'class' => $this->_optionArray['className']['item']['logout']
+			]);
+		$linkElement = $element
+			->copy()
+			->init('a',
+			[
+				'href' => $parameterRoute . 'logout',
+				'class' => $this->_optionArray['className']['link']['logout']
+			])
+			->text($this->_language->get('logout'));
 
 		/* collect item output */
 

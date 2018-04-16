@@ -2,23 +2,19 @@
 namespace Redaxscript;
 
 $language = Language::getInstance();
-$tableElement = new Html\Element();
-$tableElement->init('table',
-[
-	'class' => $admin ? 'rs-admin-table-default' : 'rs-table-default'
-]);
-$theadElement = new Html\Element();
-$theadElement->init('thead');
-$tfootElement = new Html\Element();
-$tfootElement->init('tfoot');
-$tbodyElement = new Html\Element();
-$tbodyElement->init('tbody');
-$captionElement = new Html\Element();
-$captionElement->init('caption');
-$thElement = new Html\Element();
-$thElement->init('th');
-$tdElement = new Html\Element();
-$tdElement->init('td');
+$element = new Html\Element();
+$tableElement = $element
+	->copy()
+	->init('table',
+	[
+		'class' => $admin ? 'rs-admin-table-default' : 'rs-table-default'
+	]);
+$theadElement = $element->copy()->init('thead');
+$tfootElement = $element->copy()->init('tfoot');
+$tbodyElement = $element->copy()->init('tbody');
+$captionElement = $element->copy()->init('caption');
+$thElement = $element->copy()->init('th');
+$tdElement = $element->copy()->init('td');
 $outputHead = null;
 $outputFoot = null;
 $outputBody = null;

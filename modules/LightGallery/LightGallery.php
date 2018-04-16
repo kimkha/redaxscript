@@ -87,7 +87,7 @@ class LightGallery extends Config
 		$output = null;
 		$outputItem = null;
 
-		/* html elements */
+		/* html element */
 
 		$listElement = new Html\Element();
 		$listElement->init('ul',
@@ -146,17 +146,17 @@ class LightGallery extends Config
 	{
 		$outputItem = null;
 
-		/* html elements */
+		/* html element */
 
-		$imageElement = new Html\Element();
-		$imageElement->init('img',
-		[
-			'class' => $this->_configArray['className']['image']
-		]);
-		$linkElement = new Html\Element();
-		$linkElement->init('a');
-		$itemElement = new Html\Element();
-		$itemElement->init('li');
+		$element = new Html\Element();
+		$itemElement = $element->copy()->init('li');
+		$linkElement = $element->copy()->init('a');
+		$imageElement = $element
+			->copy()
+			->init('img',
+			[
+				'class' => $this->_configArray['className']['image']
+			]);
 
 		/* gallery filesystem */
 

@@ -131,18 +131,21 @@ class Extra extends ViewAbstract
 		$firstParameter = $this->_registry->get('firstParameter');
 		$myGroups = $this->_registry->get('myGroups');
 
-		/* html elements */
+		/* html element */
 
-		$titleElement = new Html\Element();
-		$titleElement->init($this->_optionArray['tag']['title'],
-		[
-			'class' => $this->_optionArray['className']['title']
-		]);
-		$boxElement = new Html\Element();
-		$boxElement->init($this->_optionArray['tag']['box'],
-		[
-			'class' => $this->_optionArray['className']['box']
-		]);
+		$element = new Html\Element();
+		$titleElement = $element
+			->copy()
+			->init($this->_optionArray['tag']['title'],
+			[
+				'class' => $this->_optionArray['className']['title']
+			]);
+		$boxElement = $element
+			->copy()
+			->init($this->_optionArray['tag']['box'],
+			[
+				'class' => $this->_optionArray['className']['box']
+			]);
 
 		/* query extras */
 

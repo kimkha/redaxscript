@@ -321,7 +321,7 @@ class Contact extends Module\Module
 	{
 		$settingModel = new Model\Setting();
 
-		/* html elements */
+		/* html element */
 
 		$linkElement = new Html\Element();
 		$linkElement->init('a');

@@ -75,23 +75,27 @@ class FeedReader extends Config
 		$counter = 0;
 		$output = null;
 
-		/* html elements */
+		/* html element */
 
-		$titleElement = new Html\Element();
-		$titleElement->init('h3',
-		[
-			'class' => $this->_configArray['className']['title']
-		]);
-		$linkElement = new Html\Element();
-		$linkElement->init('a',
-		[
-			'target' => '_blank'
-		]);
-		$boxElement = new Html\Element();
-		$boxElement->init('div',
-		[
-			'class' => $this->_configArray['className']['box']
-		]);
+		$element = new Html\Element();
+		$titleElement = $element
+			->copy()
+			->init('h3',
+			[
+				'class' => $this->_configArray['className']['title']
+			]);
+		$boxElement = $element
+			->copy()
+			->init('div',
+			[
+				'class' => $this->_configArray['className']['box']
+			]);
+		$linkElement = $element
+			->copy()
+			->init('a',
+			[
+				'target' => '_blank'
+			]);
 
 		/* load result */
 

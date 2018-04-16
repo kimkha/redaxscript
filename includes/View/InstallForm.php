@@ -30,7 +30,7 @@ class InstallForm extends ViewAbstract
 	{
 		$output = Module\Hook::trigger('installFormStart');
 
-		/* html elements */
+		/* html element */
 
 		$titleElement = new Html\Element();
 		$titleElement

@@ -83,17 +83,17 @@ class Category extends NavigationAbstract
 		$contentModel = new Model\Content();
 		$accessValidator = new Validator\Access();
 
-		/* html elements */
+		/* html element */
 
-		$listElement = new Html\Element();
-		$listElement->init('ul',
-		[
-			'class' => $optionArray['className']['list']
-		]);
-		$itemElement = new Html\Element();
-		$itemElement->init('li');
-		$linkElement = new Html\Element();
-		$linkElement->init('a');
+		$element = new Html\Element();
+		$listElement = $element
+			->copy()
+			->init('ul',
+			[
+				'class' => $optionArray['className']['list']
+			]);
+		$itemElement = $element->copy()->init('li');
+		$linkElement = $element->copy()->init('a');
 
 		/* collect item output */
 

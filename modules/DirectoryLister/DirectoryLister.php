@@ -77,7 +77,7 @@ class DirectoryLister extends Config
 		$output = null;
 		$outputItem = null;
 
-		/* html elements */
+		/* html element */
 
 		$listElement = new Html\Element();
 		$listElement->init('ul',
@@ -145,15 +145,16 @@ class DirectoryLister extends Config
 	{
 		$queryString = $rootDirectory !== $parentDirectory ? '&directory=' . $parentDirectory : null;
 
-		/* html elements */
+		/* html element */
 
-		$linkElement = new Html\Element();
-		$linkElement->init('a',
-		[
-			'class' => $this->_configArray['className']['link']
-		]);
-		$itemElement = new Html\Element();
-		$itemElement->init('li');
+		$element = new Html\Element();
+		$itemElement = $element->copy()->init('li');
+		$linkElement = $element
+			->copy()
+			->init('a',
+			[
+				'class' => $this->_configArray['className']['link']
+			]);
 
 		/* collect item output */
 
@@ -185,25 +186,28 @@ class DirectoryLister extends Config
 		$outputItem = null;
 		$settingModel = new Model\Setting();
 
-		/* html elements */
+		/* html element */
 
-		$linkElement = new Html\Element();
-		$linkElement->init('a',
-		[
-			'class' => $this->_configArray['className']['link']
-		]);
-		$textSizeElement = new Html\Element();
-		$textSizeElement->init('span',
-		[
-			'class' => $this->_configArray['className']['textSize']
-		]);
-		$textDateElement = new Html\Element();
-		$textDateElement->init('span',
-		[
-			'class' => $this->_configArray['className']['textDate']
-		]);
-		$itemElement = new Html\Element();
-		$itemElement->init('li');
+		$element = new Html\Element();
+		$itemElement = $element->copy()->init('li');
+		$linkElement = $element
+			->copy()
+			->init('a',
+			[
+				'class' => $this->_configArray['className']['link']
+			]);
+		$textSizeElement = $element
+			->copy()
+			->init('span',
+			[
+				'class' => $this->_configArray['className']['textSize']
+			]);
+		$textDateElement = $element
+			->copy()
+			->init('span',
+			[
+				'class' => $this->_configArray['className']['textDate']
+			]);
 
 		/* lister filesystem */
 

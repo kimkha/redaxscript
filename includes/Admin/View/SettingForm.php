@@ -32,14 +32,15 @@ class SettingForm extends ViewAbstract implements ViewInterface
 		$settingModel = new Admin\Model\Setting();
 		$helperOption = new Helper\Option($this->_language);
 
-		/* html elements */
+		/* html element */
 
 		$titleElement = new Html\Element();
-		$titleElement->init('h2',
-		[
-			'class' => 'rs-admin-title-content',
-		]);
-		$titleElement->text($this->_language->get('settings'));
+		$titleElement
+			->init('h2',
+			[
+				'class' => 'rs-admin-title-content',
+			])
+			->text($this->_language->get('settings'));
 		$formElement = new AdminForm($this->_registry, $this->_language);
 		$formElement->init(
 		[

@@ -46,22 +46,23 @@ class Sitemap extends Config
 		$outputItem = null;
 		$articleModel = new Model\Article();
 
-		/* html elements */
+		/* html element */
 
-		$titleElement = new Html\Element();
-		$titleElement->init('h3',
-		[
-			'class' => $this->_configArray['className']['title']
-		]);
-		$linkElement = new Html\Element();
-		$linkElement->init('a');
-		$itemElement = new Html\Element();
-		$itemElement->init('li');
-		$listElement = new Html\Element();
-		$listElement->init('ul',
-		[
-			'class' => $this->_configArray['className']['list']
-		]);
+		$element = new Html\Element();
+		$titleElement = $element
+			->copy()
+			->init('h3',
+			[
+				'class' => $this->_configArray['className']['title']
+			]);
+		$listElement = $element
+			->copy()
+			->init('ul',
+			[
+				'class' => $this->_configArray['className']['list']
+			]);
+		$itemElement = $element->copy()->init('li');
+		$linkElement = $element->copy()->init('a');
 
 		/* query articles */
 
