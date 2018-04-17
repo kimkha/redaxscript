@@ -42,7 +42,6 @@ class TestDummy extends Module\Notification
 	{
 		$notificationArray =
 		[
-			'info' => 'Info',
 			'success' =>
 			[
 				'text' => 'Success',
@@ -53,7 +52,8 @@ class TestDummy extends Module\Notification
 				]
 			],
 			'warning' => 'Warning',
-			'error' => 'Error'
+			'error' => 'Error',
+			'info' => 'Info'
 		];
 		foreach ($notificationArray as $key => $message)
 		{

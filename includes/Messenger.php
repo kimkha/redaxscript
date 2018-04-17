@@ -53,9 +53,9 @@ class Messenger
 			'noteArray' =>
 			[
 				'success' => 'rs-is-success',
-				'info' => 'rs-is-info',
 				'warning' => 'rs-is-warning',
-				'error' => 'rs-is-error'
+				'error' => 'rs-is-error',
+				'info' => 'rs-is-info'
 			]
 		]
 	];

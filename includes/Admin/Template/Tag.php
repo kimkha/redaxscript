@@ -4,7 +4,6 @@ namespace Redaxscript\Admin\Template;
 use Redaxscript\Admin\View\Helper;
 use Redaxscript\Language;
 use Redaxscript\Registry;
-use Redaxscript\Template\Tag as BaseTag;
 
 /**
  * parent class to provide admin template tags
@@ -16,7 +15,7 @@ use Redaxscript\Template\Tag as BaseTag;
  * @author Henry Ruhs
  */
 
-class Tag extends BaseTag
+class Tag
 {
 	/**
 	 * panel

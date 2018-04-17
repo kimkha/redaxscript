@@ -12,8 +12,6 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
- *
- * @runTestsInSeparateProcesses
  */
 
 class NotificationTest extends TestCaseAbstract
@@ -39,6 +37,10 @@ class NotificationTest extends TestCaseAbstract
 		/* actual */
 
 		$actualArray = $module->getNotification('error');
+
+		/* teardown */
+
+		$module->clearNotification('error');
 
 		/* compare */
 
@@ -67,6 +69,11 @@ class NotificationTest extends TestCaseAbstract
 		/* actual */
 
 		$actualArray = $module->getNotification();
+
+		/* teardown */
+
+		$module->clearNotification('success');
+		$module->clearNotification('error');
 
 		/* compare */
 

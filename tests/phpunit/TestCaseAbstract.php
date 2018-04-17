@@ -144,6 +144,10 @@ abstract class TestCaseAbstract extends PHPUnit\Framework\TestCase
 	public function uninstallTestDummy()
 	{
 		$testDummy = new TestDummy\TestDummy($this->_registry, $this->_request, $this->_language, $this->_config);
+		$testDummy->clearNotification('success');
+		$testDummy->clearNotification('warning');
+		$testDummy->clearNotification('error');
+		$testDummy->clearNotification('info');
 		$testDummy->uninstall();
 	}
 
