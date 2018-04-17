@@ -82,9 +82,7 @@ class DbTest extends TestCaseAbstract
 
 	public function tearDown()
 	{
-		$installer = $this->installerFactory();
-		$installer->init();
-		$installer->rawDrop();
+		$this->dropDatabase();
 		$this->_config->set('dbType', $this->_configArray['dbType']);
 		$this->_config->set('dbPassword', $this->_configArray['dbPassword']);
 	}

@@ -12,6 +12,8 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @runTestsInSeparateProcesses
  */
 
 class NotificationTest extends TestCaseAbstract
@@ -32,7 +34,7 @@ class NotificationTest extends TestCaseAbstract
 			'name' => 'Test Dummy',
 			'alias' => 'TestDummy'
 		]);
-		$module->setNotification('error', 'testValue');
+		$module->setNotification('error', 'Error');
 
 		/* actual */
 
@@ -40,8 +42,7 @@ class NotificationTest extends TestCaseAbstract
 
 		/* compare */
 
-		$this->markTestSkipped('need to be fixed');
-		$this->assertEquals('testValue', $actualArray['Test Dummy'][0]);
+		$this->assertEquals('Error', $actualArray['Test Dummy'][0]);
 	}
 
 	/**
@@ -60,8 +61,8 @@ class NotificationTest extends TestCaseAbstract
 			'name' => 'Test Dummy',
 			'alias' => 'TestDummy'
 		]);
-		$module->setNotification('success', 'testValue');
-		$module->setNotification('error', 'testValue');
+		$module->setNotification('success', 'Success');
+		$module->setNotification('error', 'Error');
 
 		/* actual */
 
@@ -69,8 +70,8 @@ class NotificationTest extends TestCaseAbstract
 
 		/* compare */
 
-		$this->assertArrayHasKey('success', $actualArray);
-		$this->assertArrayHasKey('error', $actualArray);
+		$this->assertEquals('Error', $actualArray['error']['Test Dummy'][0]);
+		$this->assertEquals('Success', $actualArray['success']['Test Dummy'][0]);
 	}
 
 	/**

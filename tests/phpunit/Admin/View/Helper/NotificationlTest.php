@@ -3,7 +3,6 @@ namespace Redaxscript\Tests\Admin\View\Helper;
 
 use Redaxscript\Admin\View\Helper;
 use Redaxscript\Module;
-use Redaxscript\Modules\TestDummy;
 use Redaxscript\Tests\TestCaseAbstract;
 
 /**
@@ -27,11 +26,8 @@ class NotificationTest extends TestCaseAbstract
 	public function setUp()
 	{
 		parent::setUp();
-		$installer = $this->installerFactory();
-		$installer->init();
-		$installer->rawCreate();
-		$testDummy = new TestDummy\TestDummy($this->_registry, $this->_request, $this->_language, $this->_config);
-		$testDummy->install();
+		$this->createDatabase();
+		$this->installTestDummy();
 	}
 
 	/**
@@ -42,9 +38,8 @@ class NotificationTest extends TestCaseAbstract
 
 	public function tearDown()
 	{
-		$installer = $this->installerFactory();
-		$installer->init();
-		$installer->rawDrop();
+		$this->uninstallTestDummy();
+		$this->dropDatabase();
 	}
 
 	/**

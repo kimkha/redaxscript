@@ -2,7 +2,6 @@
 namespace Redaxscript\Tests\Module;
 
 use Redaxscript\Module;
-use Redaxscript\Modules\TestDummy;
 use Redaxscript\Tests\TestCaseAbstract;
 
 /**
@@ -13,6 +12,8 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @runTestsInSeparateProcesses
  */
 
 class HookTest extends TestCaseAbstract
@@ -26,11 +27,8 @@ class HookTest extends TestCaseAbstract
 	public function setUp()
 	{
 		parent::setUp();
-		$installer = $this->installerFactory();
-		$installer->init();
-		$installer->rawCreate();
-		$testDummy = new TestDummy\TestDummy($this->_registry, $this->_request, $this->_language, $this->_config);
-		$testDummy->install();
+		$this->createDatabase();
+		$this->installTestDummy();
 	}
 
 	/**
@@ -41,9 +39,21 @@ class HookTest extends TestCaseAbstract
 
 	public function tearDown()
 	{
-		$installer = $this->installerFactory();
-		$installer->init();
-		$installer->rawDrop();
+		$this->uninstallTestDummy();
+		$this->dropDatabase();
+	}
+
+	/**
+	 * providerCollect
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return array
+	 */
+
+	public function providerCollect() : array
+	{
+		return $this->getProvider('tests/provider/Module/hook_collect.json');
 	}
 
 	/**
@@ -95,60 +105,25 @@ class HookTest extends TestCaseAbstract
 	 * testCollect
 	 *
 	 * @since 2.4.0
+	 *
+	 * @param array $expectArray
+	 *
+	 * @dataProvider providerCollect
 	 */
 
-	public function testCollect()
+	public function testCollect(array $expectArray = [])
 	{
 		/* setup */
 
 		Module\Hook::construct($this->_registry, $this->_request, $this->_language, $this->_config);
 		Module\Hook::init();
 
-		/* expect and actual */
+		/* actual */
 
-		$expectArray = [
-			'info' =>
-			[
-				'Test Dummy' =>
-				[
-					0 => 'Info'
-				]
-			],
-			'success' =>
-			[
-				'Test Dummy' =>
-				[
-					0 =>
-					[
-						'text' => 'Success',
-						'attr' =>
-						[
-							'href' => 'http://localhost',
-							'target' => '_blank'
-						]
-					]
-				]
-			],
-			'warning' =>
-			[
-				'Test Dummy' =>
-				[
-					0 => 'Warning'
-				]
-			],
-			'error' =>
-			[
-				'Test Dummy' =>
-				[
-					0 => 'Error'
-				]
-			]
-		];
 		$actualArray = Module\Hook::collect('adminNotification');
 
 		/* compare */
 
-		$this->markTestSkipped('need to be fixed');
 		$this->assertEquals($expectArray, $actualArray);
 	}
 
