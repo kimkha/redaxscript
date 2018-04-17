@@ -286,28 +286,6 @@ class DbTest extends TestCaseAbstract
 	}
 
 	/**
-	 * testFindFlatArray
-	 *
-	 * @since 2.4.0
-	 */
-
-	public function testFindFlatArray()
-	{
-		/* expect and actual */
-
-		$expectArray =
-		[
-			1,
-			2
-		];
-		$actualArray = Db::forTablePrefix('articles')->findFlatArray();
-
-		/* compare */
-
-		$this->assertEquals($expectArray, $actualArray);
-	}
-
-	/**
 	 * testOrderGlobal
 	 *
 	 * @since 2.2.0

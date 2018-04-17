@@ -76,14 +76,14 @@ class Demo extends Config
 	}
 
 	/**
-	 * adminPanelNotification
+	 * adminNotification
 	 *
 	 * @since 3.0.0
 	 *
 	 * @return array|bool
 	 */
 
-	public function adminPanelNotification()
+	public function adminNotification()
 	{
 		$auth = new Auth($this->_request);
 		$auth->init();

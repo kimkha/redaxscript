@@ -262,29 +262,6 @@ class Db extends ORM
 	}
 
 	/**
-	 * find a flat array
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param string $key key of the item
-	 *
-	 * @return array
-	 */
-
-	public function findFlatArray(string $key = 'id') : array
-	{
-		$flatArray = [];
-		foreach ($this->findArray() as $valueArray)
-		{
-			if (is_array($valueArray) && array_key_exists($key, $valueArray))
-			{
-				$flatArray[] = $valueArray[$key];
-			}
-		}
-		return $flatArray;
-	}
-
-	/**
 	 * order according to global setting
 	 *
 	 * @since 3.3.0

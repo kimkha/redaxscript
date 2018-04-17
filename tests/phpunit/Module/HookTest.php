@@ -41,8 +41,6 @@ class HookTest extends TestCaseAbstract
 
 	public function tearDown()
 	{
-		$testDummy = new TestDummy\TestDummy($this->_registry, $this->_request, $this->_language, $this->_config);
-		$testDummy->uninstall();
 		$installer = $this->installerFactory();
 		$installer->init();
 		$installer->rawDrop();
@@ -108,7 +106,7 @@ class HookTest extends TestCaseAbstract
 
 		/* actual */
 
-		$actualArray = Module\Hook::collect('adminPanelNotification');
+		$actualArray = Module\Hook::collect('adminNotification');
 
 		/* compare */
 

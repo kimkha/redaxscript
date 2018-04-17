@@ -31,16 +31,26 @@ class TestDummy extends Module\Notification
 	];
 
 	/**
-	 * adminPanelNotification
+	 * adminNotification
 	 *
 	 * @since 3.1.0
 	 *
 	 * @return array|bool
 	 */
 
-	public function adminPanelNotification()
+	public function adminNotification()
 	{
-		$this->setNotification('info', 'Test Dummy');
+		$notificationArray =
+		[
+			'info',
+			'success',
+			'warning',
+			'error'
+		];
+		foreach ($notificationArray as $value)
+		{
+			$this->setNotification($value, 'Test Dummy');
+		}
 		return $this->getNotification();
 	}
 
