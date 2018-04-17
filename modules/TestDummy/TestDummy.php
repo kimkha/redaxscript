@@ -42,14 +42,22 @@ class TestDummy extends Module\Notification
 	{
 		$notificationArray =
 		[
-			'info',
-			'success',
-			'warning',
-			'error'
+			'info' => 'Info',
+			'success' =>
+			[
+				'text' => 'Success',
+				'attr' =>
+				[
+					'href' => 'http://localhost',
+					'target' => '_blank'
+				]
+			],
+			'warning' => 'Warning',
+			'error' => 'Error'
 		];
-		foreach ($notificationArray as $value)
+		foreach ($notificationArray as $key => $message)
 		{
-			$this->setNotification($value, 'Test Dummy');
+			$this->setNotification($key, $message);
 		}
 		return $this->getNotification();
 	}

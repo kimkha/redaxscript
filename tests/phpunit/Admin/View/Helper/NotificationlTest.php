@@ -2,6 +2,8 @@
 namespace Redaxscript\Tests\Admin\View\Helper;
 
 use Redaxscript\Admin\View\Helper;
+use Redaxscript\Module;
+use Redaxscript\Modules\TestDummy;
 use Redaxscript\Tests\TestCaseAbstract;
 
 /**
@@ -16,6 +18,35 @@ use Redaxscript\Tests\TestCaseAbstract;
 
 class NotificationTest extends TestCaseAbstract
 {
+	/**
+	 * setUp
+	 *
+	 * @since 3.1.0
+	 */
+
+	public function setUp()
+	{
+		parent::setUp();
+		$installer = $this->installerFactory();
+		$installer->init();
+		$installer->rawCreate();
+		$testDummy = new TestDummy\TestDummy($this->_registry, $this->_request, $this->_language, $this->_config);
+		$testDummy->install();
+	}
+
+	/**
+	 * tearDown
+	 *
+	 * @since 3.1.0
+	 */
+
+	public function tearDown()
+	{
+		$installer = $this->installerFactory();
+		$installer->init();
+		$installer->rawDrop();
+	}
+
 	/**
 	 * providerRender
 	 *
@@ -44,6 +75,8 @@ class NotificationTest extends TestCaseAbstract
 	{
 		/* setup */
 
+		Module\Hook::construct($this->_registry, $this->_request, $this->_language, $this->_config);
+		Module\Hook::init();
 		$adminNotification = new Helper\Notification($this->_language);
 		$adminNotification->init($optionArray);
 

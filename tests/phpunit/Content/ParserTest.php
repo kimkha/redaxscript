@@ -2,7 +2,7 @@
 namespace Redaxscript\Tests\Content;
 
 use Redaxscript\Content;
-use Redaxscript\Module\Hook;
+use Redaxscript\Module;
 use Redaxscript\Modules\TestDummy;
 use Redaxscript\Tests\TestCaseAbstract;
 
@@ -204,8 +204,8 @@ class ParserTest extends TestCaseAbstract
 	{
 		/* setup */
 
-		Hook::construct($this->_registry, $this->_request, $this->_language, $this->_config);
-		Hook::init();
+		Module\Hook::construct($this->_registry, $this->_request, $this->_language, $this->_config);
+		Module\Hook::init();
 		$parser = new Content\Parser($this->_registry, $this->_request, $this->_language, $this->_config);
 		$parser->process($content);
 

@@ -1,7 +1,9 @@
 <?php
 namespace Redaxscript\Admin\View\Helper;
 
+use Redaxscript\Html;
 use Redaxscript\Language;
+use Redaxscript\Module;
 
 /**
  * helper class to create the admin notification
@@ -31,6 +33,21 @@ class Notification
 
 	protected $_optionArray =
 	[
+		'className' =>
+		[
+			'list' => 'rs-admin-list-notification',
+			'item' => 'rs-admin-item-notification rs-admin-item-note',
+			'title' => 'rs-admin-title-notification',
+			'link' => 'rs-admin-link-notification',
+			'text' => 'rs-admin-text-notification',
+			'note' =>
+			[
+				'info' => 'rs-admin-is-info',
+				'success' => 'rs-admin-is-success',
+				'warning' => 'rs-admin-is-warning',
+				'error' => 'rs-admin-is-error'
+			]
+		]
 	];
 
 	/**
@@ -67,11 +84,97 @@ class Notification
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return string
+	 * @return string|null
 	 */
 
-	public function render() : string
+	public function render() : ?string
 	{
-		return 'to be implemented: ' . __CLASS__;
+		$output = null;
+		$outputItem = null;
+		$notificationArray = Module\Hook::collect('adminNotification');
+
+		/* html element */
+
+		$element = new Html\Element();
+		$titleElement = $element
+			->copy()
+			->init('h3',
+			[
+				'class' => $this->_optionArray['className']['title']
+			]);
+		$listElement = $element
+			->copy()
+			->init('ul',
+			[
+				'class' => $this->_optionArray['className']['list']
+			]);
+		$itemElement = $element
+			->copy()
+			->init('li',
+			[
+				'class' => $this->_optionArray['className']['item']
+			]);
+		$linkElement = $element
+			->copy()
+			->init('a',
+			[
+				'class' => $this->_optionArray['className']['link']
+			]);
+		$textElement = $element
+			->copy()
+			->init('span',
+			[
+				'class' => $this->_optionArray['className']['text']
+			]);
+
+		/* process notification */
+
+		foreach ($notificationArray as $typeKey => $typeValue)
+		{
+			foreach ($typeValue as $notificationKey => $notificationValue)
+			{
+				foreach ($notificationValue as $value)
+				{
+					$outputItem .= $itemElement
+						->copy()
+						->addClass($this->_optionArray['className']['note'][$typeKey])
+						->html(
+							$titleElement->text($notificationKey)
+						)
+						->append(
+							is_array($value) &&
+							array_key_exists('text', $value) &&
+							array_key_exists('attr', $value) ? $linkElement->attr($value['attr'])->text($value['text']) : $textElement->text($value)
+						);
+				}
+			}
+		}
+		$output .= $listElement->html($outputItem);
+		return $output;
+	}
+
+	/**
+	 * get the meta array
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return array
+	 */
+
+	public function getMetaArray() : array
+	{
+		$metaArray = [];
+		$notificationArray = Module\Hook::collect('adminNotification');
+
+		/* process notification */
+
+		foreach ($notificationArray as $typeKey => $typeValue)
+		{
+			foreach ($typeValue as $notificationKey => $notificationValue)
+			{
+				$metaArray[$typeKey]++;
+			}
+		}
+		return $metaArray;
 	}
 }
