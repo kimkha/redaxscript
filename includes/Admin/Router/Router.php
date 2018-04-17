@@ -155,7 +155,7 @@ class Router extends RouterAbstract
 			];
 			if (in_array($adminParameter, $commonArray))
 			{
-				return $commonController->$adminParameter();
+				return $commonController->process($adminParameter);
 			}
 		}
 		return $this->_registry->get('adminRouterBreak');

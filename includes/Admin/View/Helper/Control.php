@@ -18,13 +18,11 @@ class Control
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param array $optionArray options of the control
-	 *
 	 * @return string
 	 */
 
-	public function render(array $optionArray = []) : string
+	public function render() : string
 	{
-		return 'to be implemented: ' . __CLASS__ . ' ' . implode($optionArray, ' ,');
+		return 'to be implemented: ' . __CLASS__;
 	}
 }

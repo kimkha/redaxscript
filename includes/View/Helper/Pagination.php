@@ -18,16 +18,14 @@ class Pagination
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param array $optionArray options of the pagination
-	 *
 	 * @return string
 	 */
 
-	public function render(array $optionArray = []) : string
+	public function render() : string
 	{
 		//'current' => 5000,
 		//'total' => 10000,
 		//'route' => 'preview/pagination'
-		return 'to be implemented: ' . __CLASS__ . ' ' . implode($optionArray, ' ,');
+		return 'to be implemented: ' . __CLASS__;
 	}
 }
