@@ -4,7 +4,6 @@ parameters:
 	- includes/Admin/Controller
 	- includes/Admin/Router/Router.php
 	- includes/Admin/View
-	- includes/Asset/Transport.php
 	- includes/Bootstrap/Cache.php
 	- includes/Bootstrap/Common.php
 	- includes/Bootstrap/Content.php
@@ -75,18 +74,25 @@ parameters:
 	- includes/Mailer.php
 	- includes/Messenger.php
 	- includes/Singleton.php
+	- modules/Ace
+	- modules/Analytics
 	- modules/Archive
 	- modules/CallHome
 	- modules/Contact
 	- modules/Demo
 	- modules/Debugger
 	- modules/DirectoryLister
+	- modules/Disqus
 	- modules/FeedGenerator
 	- modules/FeedReader
+	- modules/Experiments
 	- modules/LightGallery
+	- modules/LiveReload
 	- modules/Maps
 	- modules/PageCache
 	- modules/Preview
 	- modules/Sitemap
+	- modules/SyntaxHighlighter
 	- modules/SocialSharer
+	- modules/Tinymce
 	- console.php
