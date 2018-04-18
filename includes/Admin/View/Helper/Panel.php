@@ -47,34 +47,34 @@ class Panel
 			'list' =>
 			[
 				'panel' => 'rs-admin-js-list-panel rs-admin-list-panel',
-				'content' => 'rs-admin-list-panel-children rs-admin-list-contents',
-				'access' => 'rs-admin-list-panel-children rs-admin-list-access',
-				'system' => 'rs-admin-list-panel-children rs-admin-list-system'
+				'content' => 'rs-admin-list-panel-children',
+				'access' => 'rs-admin-list-panel-children',
+				'system' => 'rs-admin-list-panel-children'
 			],
 			'item' =>
 			[
-				'content' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-content',
-				'access' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-access',
-				'system' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-system',
-				'profile' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile',
-				'notification' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-notification',
-				'logout' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout'
+				'content' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-panel-content',
+				'access' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-panel-access',
+				'system' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-panel-system',
+				'profile' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-panel-profile',
+				'notification' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-panel-notification',
+				'logout' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-panel-logout'
 			],
 			'text' =>
 			[
-				'content' => 'rs-admin-text-panel rs-admin-text-content',
-				'access' => 'rs-admin-text-panel rs-admin-text-access',
-				'system' => 'rs-admin-text-panel rs-admin-text-system',
-				'notification' => 'rs-admin-text-panel rs-admin-text-notification',
+				'content' => 'rs-admin-text-panel rs-admin-text-panel-content',
+				'access' => 'rs-admin-text-panel rs-admin-text-panel-access',
+				'system' => 'rs-admin-text-panel rs-admin-text-panel-system',
+				'notification' => 'rs-admin-text-panel rs-admin-text-panel-notification',
 				'group' => 'rs-admin-text-panel-group'
 			],
 			'link' =>
 			[
 				'panel' => 'rs-admin-link-panel',
-				'view' => 'rs-admin-link-view',
-				'new' => 'rs-admin-link-new',
-				'profile' => 'rs-admin-link-panel rs-admin-link-profile',
-				'logout' => 'rs-admin-link-panel rs-admin-link-logout'
+				'view' => 'rs-admin-link-panel-view',
+				'new' => 'rs-admin-link-panel-new',
+				'profile' => 'rs-admin-link-panel rs-admin-link-panel-profile',
+				'logout' => 'rs-admin-link-panel rs-admin-link-panel-logout'
 			]
 		]
 	];
@@ -427,7 +427,6 @@ class Panel
 						->html(
 							$linkElement
 								->copy()
-								->addClass($this->_optionArray['className']['link']['panel'])
 								->attr('href', $type === 'settings' ?  $parameterRoute . 'admin/edit/settings' : $parameterRoute . 'admin/view/' . $type)
 								->text($this->_language->get($type))
 						)

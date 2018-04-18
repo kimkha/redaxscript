@@ -4,12 +4,9 @@
  * 1. panel
  *    1.1 list
  *    1.2 notification
- *      1.2.1 counter
- *      1.2.2 list
  * 2. query
  *    2.1 medium min
- *    2.2 medium min and large max
- *    2.3 medium max
+ *    2.2 medium max
  */
 
 /** @section 1. panel */
@@ -45,19 +42,19 @@
 		color: gray(0);
 	}
 
-	& .rs-admin-item-logout > .rs-admin-link-panel:hover
+	& .rs-admin-item-panel-logout > .rs-admin-link-panel:hover
 	{
 		background: var(--rs-admin-color-secondary);
 	}
 
 	/* icons */
 
-	& .rs-admin-text-content:before,
-	& .rs-admin-text-access:before,
-	& .rs-admin-text-system:before,
-	& .rs-admin-link-profile:before,
-	& .rs-admin-text-notification:before,
-	& .rs-admin-link-logout:before
+	& .rs-admin-text-panel-content:before,
+	& .rs-admin-text-panel-access:before,
+	& .rs-admin-text-panel-system:before,
+	& .rs-admin-link-panel-profile:before,
+	& .rs-admin-text-panel-notification:before,
+	& .rs-admin-link-panel-logout:before
 	{
 		display: inline-block;
 		font-size: 1.75em;
@@ -66,32 +63,32 @@
 		vertical-align: middle;
 	}
 
-	& .rs-admin-text-content:before
+	& .rs-admin-text-panel-content:before
 	{
 		@extend %rs-admin-icon-import-contacts;
 	}
 
-	& .rs-admin-text-access:before
+	& .rs-admin-text-panel-access:before
 	{
 		@extend %rs-admin-icon-lock;
 	}
 
-	& .rs-admin-text-system:before
+	& .rs-admin-text-panel-system:before
 	{
 		@extend %rs-admin-icon-settings;
 	}
 
-	& .rs-admin-link-profile:before
+	& .rs-admin-link-panel-profile:before
 	{
 		@extend %rs-admin-icon-person;
 	}
 
-	& .rs-admin-text-notification:before
+	& .rs-admin-text-panel-notification:before
 	{
 		@extend %rs-admin-icon-notifications;
 	}
 
-	& .rs-admin-link-logout:before
+	& .rs-admin-link-panel-logout:before
 	{
 		@extend %rs-admin-icon-power-settings-new;
 	}
@@ -103,12 +100,12 @@
 		display: flex;
 		justify-content: space-between;
 
-		& .rs-admin-link-view
+		& .rs-admin-link-panel-view
 		{
 			flex-grow: 1;
 		}
 
-		& .rs-admin-link-new
+		& .rs-admin-link-panel-new
 		{
 			position: relative;
 			text-indent: -999em;
@@ -133,90 +130,53 @@
 	}
 }
 
-.rs-admin-list-panel-children
+.rs-admin-list-panel-children,
+.rs-admin-list-notification
 {
 	display: none;
 }
 
 /** @section 1.2 notification */
 
-/** @section 1.2.1 counter */
-
-.rs-admin-text-notification
+.rs-admin-text-panel-notification
 {
 	position: relative;
-}
 
-.rs-admin-text-notification-counter
-{
-	border-radius: 50%;
-	box-shadow: 0 0 0 0.25em gray(30);
-	color: gray(30);
-	font: bold 0.75em/1.5em var(--rs-admin-font-secondary);
-	height: 1.5em;
-	left: 2.5em;
-	position: absolute;
-	text-align: center;
-	top: 0.75em;
-	width: 1.5em;
+	& sub
+	{
+		border-radius: 50%;
+		box-shadow: 0 0 0 0.25em gray(30);
+		color: gray(30);
+		font: bold 0.75em/1.5em var(--rs-admin-font-secondary);
+		height: 1.5em;
+		left: 2.5em;
+		position: absolute;
+		text-align: center;
+		top: 0.75em;
+		width: 1.5em;
+	}
 }
 
 /* colors */
 
-.rs-admin-has-success .rs-admin-text-notification-counter
+.rs-admin-has-success .rs-admin-text-panel-notification sub
 {
 	background: var(--rs-admin-color-success);
 }
 
-.rs-admin-has-info .rs-admin-text-notification-counter
+.rs-admin-has-info .rs-admin-text-panel-notification sub
 {
 	background: var(--rs-admin-color-info);
 }
 
-.rs-admin-has-warning .rs-admin-text-notification-counter
+.rs-admin-has-warning .rs-admin-text-panel-notification sub
 {
 	background: var(--rs-admin-color-warning);
 }
 
-.rs-admin-has-error .rs-admin-text-notification-counter
+.rs-admin-has-error .rs-admin-text-panel-notification sub
 {
 	background: var(--rs-admin-color-error);
-}
-
-/** @section 1.2.2 list */
-
-.rs-admin-list-panel-notification
-{
-	background: gray(30);
-	overflow: hidden;
-
-	& .rs-admin-item-panel-notification
-	{
-		margin: 0.5em;
-		padding: 0.5em;
-	}
-
-	& .rs-admin-title-panel-notification
-	{
-		text-transform: uppercase;
-	}
-
-	& .rs-admin-link-panel-notification,
-	& .rs-admin-text-panel-notification
-	{
-		display: block;
-	}
-
-	& .rs-admin-link-panel-notification + .rs-admin-link-panel-notification,
-	& .rs-admin-text-panel-notification + .rs-admin-text-panel-notification
-	{
-		margin-top: 0.5em;
-	}
-
-	& .rs-admin-link-panel-notification
-	{
-		text-decoration: underline;
-	}
 }
 
 /** @section 2. query */
@@ -236,7 +196,8 @@
 		}
 	}
 
-	.rs-admin-list-panel-children
+	.rs-admin-list-panel-children,
+	.rs-admin-list-notification
 	{
 		left: 0;
 		position: absolute;
@@ -254,7 +215,7 @@
 
 @media (--media-medium-min) and (--media-large-max)
 {
-	.rs-admin-list-panel-notification
+	.rs-admin-list-notification
 	{
 		width: 200%;
 	}
@@ -284,7 +245,7 @@
 
 	.rs-admin-item-active .rs-admin-list-panel-children .rs-admin-link-panel,
 	.rs-admin-item-active .rs-admin-list-panel-children .rs-admin-text-panel,
-	.rs-admin-item-active .rs-admin-list-panel-notification
+	.rs-admin-item-active .rs-admin-list-notification
 	{
 		background: gray(40);
 	}
