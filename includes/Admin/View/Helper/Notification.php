@@ -26,6 +26,14 @@ class Notification
 	protected $_language;
 
 	/**
+	 * array of the notification
+	 *
+	 * @var array
+	 */
+
+	protected $_notificationArray;
+
+	/**
 	 * options of the notification
 	 *
 	 * @var array
@@ -77,6 +85,7 @@ class Notification
 		{
 			$this->_optionArray = array_merge($this->_optionArray, $optionArray);
 		}
+		$this->_notificationArray = Module\Hook::collect('adminNotification');
 	}
 
 	/**
@@ -91,7 +100,6 @@ class Notification
 	{
 		$output = null;
 		$outputItem = null;
-		$notificationArray = Module\Hook::collect('adminNotification');
 
 		/* html element */
 
@@ -129,7 +137,7 @@ class Notification
 
 		/* process notification */
 
-		foreach ($notificationArray as $typeKey => $typeValue)
+		foreach ($this->_notificationArray as $typeKey => $typeValue)
 		{
 			foreach ($typeValue as $notificationKey => $notificationValue)
 			{
@@ -164,15 +172,15 @@ class Notification
 	public function getMetaArray() : array
 	{
 		$metaArray = [];
-		$notificationArray = Module\Hook::collect('adminNotification');
 
 		/* process notification */
 
-		foreach ($notificationArray as $typeKey => $typeValue)
+		foreach ($this->_notificationArray as $typeKey => $typeValue)
 		{
 			foreach ($typeValue as $notificationKey => $notificationValue)
 			{
 				$metaArray[$typeKey]++;
+				$metaArray['total']++;
 			}
 		}
 		return $metaArray;

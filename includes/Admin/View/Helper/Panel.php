@@ -57,6 +57,7 @@ class Panel
 				'access' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-access',
 				'system' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-system',
 				'profile' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-profile',
+				'notification' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-notification',
 				'logout' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-logout'
 			],
 			'text' =>
@@ -64,6 +65,7 @@ class Panel
 				'content' => 'rs-admin-text-panel rs-admin-text-content',
 				'access' => 'rs-admin-text-panel rs-admin-text-access',
 				'system' => 'rs-admin-text-panel rs-admin-text-system',
+				'notification' => 'rs-admin-text-panel rs-admin-text-notification',
 				'group' => 'rs-admin-text-panel-group'
 			],
 			'link' =>
@@ -147,6 +149,7 @@ class Panel
 		{
 			$outputItem .= $this->_renderProfile();
 		}
+		$outputItem .= $this->_renderNotification();
 		$outputItem .= $this->_renderLogout();
 
 		/* collect output */
@@ -482,6 +485,51 @@ class Panel
 		/* collect item output */
 
 		$output = $itemElement->html($linkElement);
+		return $output;
+	}
+
+	/**
+	 * render the notification
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return string|null
+	 */
+
+	protected function _renderNotification() : ?string
+	{
+		$output = null;
+		$adminNotification = new Notification($this->_language);
+		$adminNotification->init();
+		$metaArray = $adminNotification->getMetaArray();
+
+		/* html element */
+
+		$element = new Html\Element();
+		$itemElement = $element
+			->copy()
+			->init('li',
+			[
+				'class' => $this->_optionArray['className']['item']['notification']
+			]);
+		$textElement = $element
+			->copy()
+			->init('span',
+			[
+				'class' => $this->_optionArray['className']['text']['notification']
+			])
+			->text($this->_language->get('notification'));
+		$supElement = $element
+			->copy()
+			->init('sup')
+			->text($metaArray['total']);
+
+		/* collect item output */
+
+		if ($metaArray['total'])
+		{
+			$output = $itemElement->html($textElement->append($supElement) . $adminNotification->render());
+		}
 		return $output;
 	}
 
