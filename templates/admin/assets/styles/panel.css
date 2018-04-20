@@ -150,11 +150,11 @@
 		color: gray(30);
 		font: bold 0.75em/1.5em var(--rs-admin-font-secondary);
 		left: 2.5em;
-		line-height: 1.5em;
+		line-height: 1.75em;
 		position: absolute;
 		text-align: center;
 		top: 0.75em;
-		width: 1.5em;
+		width: 1.75em;
 
 		/* colors */
 
