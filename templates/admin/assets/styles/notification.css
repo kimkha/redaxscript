@@ -11,6 +11,9 @@
 
 .rs-admin-list-notification
 {
+	background: gray(30);
+	overflow: hidden;
+
 	& .rs-admin-item-notification
 	{
 		margin: 0.5em;

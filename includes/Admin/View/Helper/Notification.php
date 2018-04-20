@@ -48,7 +48,7 @@ class Notification
 			'title' => 'rs-admin-title-notification',
 			'link' => 'rs-admin-link-notification',
 			'text' => 'rs-admin-text-notification',
-			'noteArray' =>
+			'note' =>
 			[
 				'success' => 'rs-admin-is-success',
 				'warning' => 'rs-admin-is-warning',
@@ -145,7 +145,7 @@ class Notification
 				{
 					$outputItem .= $itemElement
 						->copy()
-						->addClass($this->_optionArray['className']['noteArray'][$typeKey])
+						->addClass($this->_optionArray['className']['note'][$typeKey])
 						->html(
 							$titleElement->text($notificationKey)
 						)

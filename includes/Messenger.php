@@ -50,7 +50,7 @@ class Messenger
 			'list' => 'rs-list-note',
 			'link' => 'rs-button-note',
 			'redirect' => 'rs-meta-redirect',
-			'noteArray' =>
+			'note' =>
 			[
 				'success' => 'rs-is-success',
 				'warning' => 'rs-is-warning',
@@ -241,7 +241,7 @@ class Messenger
 				->copy()
 				->init('h2',
 				[
-					'class' => $this->_optionArray['className']['title'] . ' ' . $this->_optionArray['className']['noteArray'][$type]
+					'class' => $this->_optionArray['className']['title'] . ' ' . $this->_optionArray['className']['note'][$type]
 				])
 				->text($title);
 		}
@@ -249,7 +249,7 @@ class Messenger
 			->copy()
 			->init('div',
 			[
-				'class' => $this->_optionArray['className']['box'] . ' ' . $this->_optionArray['className']['noteArray'][$type]
+				'class' => $this->_optionArray['className']['box'] . ' ' . $this->_optionArray['className']['note'][$type]
 			]);
 
 		/* create a list */
@@ -310,7 +310,7 @@ class Messenger
 				->init('a',
 				[
 					'href' => $this->_actionArray['route'] ? $this->_registry->get('parameterRoute') . $this->_actionArray['route'] : $this->_actionArray['url'],
-					'class' => $this->_optionArray['className']['link'] . ' ' . $this->_optionArray['className']['noteArray'][$type]
+					'class' => $this->_optionArray['className']['link'] . ' ' . $this->_optionArray['className']['note'][$type]
 				])
 				->text($this->_actionArray['text']);
 

@@ -16,7 +16,6 @@ use Redaxscript\Tests\TestCaseAbstract;
 
 class PanelTest extends TestCaseAbstract
 {
-
 	/**
 	 * providerRender
 	 *
@@ -56,7 +55,6 @@ class PanelTest extends TestCaseAbstract
 
 		/* compare */
 
-		$this->markTestSkipped();
 		$this->assertEquals($expect, $actual);
 	}
 }

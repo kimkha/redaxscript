@@ -5,6 +5,7 @@ use Redaxscript\Html;
 use Redaxscript\Language;
 use Redaxscript\Module;
 use Redaxscript\Registry;
+use Redaxscript\Validator;
 
 /**
  * helper class to create the admin panel
@@ -53,11 +54,11 @@ class Panel
 			],
 			'item' =>
 			[
-				'content' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-panel-content',
-				'access' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-panel-access',
-				'system' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-panel-system',
-				'profile' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-panel-profile',
-				'notification' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-panel-notification',
+				'content' => 'rs-admin-js-item-panel rs-admin-item-panel',
+				'access' => 'rs-admin-js-item-panel rs-admin-item-panel',
+				'system' => 'rs-admin-js-item-panel rs-admin-item-panel',
+				'profile' => 'rs-admin-js-item-panel rs-admin-item-panel',
+				'notification' => 'rs-admin-js-item-panel rs-admin-item-panel',
 				'logout' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-panel-logout'
 			],
 			'text' =>
@@ -75,6 +76,13 @@ class Panel
 				'new' => 'rs-admin-link-panel-new',
 				'profile' => 'rs-admin-link-panel rs-admin-link-panel-profile',
 				'logout' => 'rs-admin-link-panel rs-admin-link-panel-logout'
+			],
+			'note' =>
+			[
+				'success' => 'rs-admin-is-success',
+				'warning' => 'rs-admin-is-warning',
+				'error' => 'rs-admin-is-error',
+				'info' => 'rs-admin-is-info'
 			]
 		]
 	];
@@ -149,7 +157,10 @@ class Panel
 		{
 			$outputItem .= $this->_renderProfile();
 		}
-		$outputItem .= $this->_renderNotification();
+		if ($this->_hasPermission('notification'))
+		{
+			$outputItem .= $this->_renderNotification();
+		}
 		$outputItem .= $this->_renderLogout();
 
 		/* collect output */
@@ -172,6 +183,7 @@ class Panel
 	protected function _hasPermission(string $type = null)
 	{
 		$permissionArray = [];
+		$accessValidator = new Validator\Access();
 		if ($this->_registry->get('categoriesEdit'))
 		{
 			$permissionArray['categories'] = $permissionArray['contents'] = true;
@@ -207,6 +219,10 @@ class Panel
 		if ($this->_registry->get('myId'))
 		{
 			$permissionArray['profile'] = true;
+		}
+		if ($accessValidator->validate(1, $this->_registry->get('myGroups')) === Validator\ValidatorInterface::PASSED)
+		{
+			$permissionArray['notification'] = true;
 		}
 		return array_key_exists($type, $permissionArray);
 	}
@@ -522,6 +538,13 @@ class Panel
 			->copy()
 			->init('sup')
 			->text($metaArray['total']);
+
+		/* process meta */
+
+		foreach ($metaArray as $key => $value)
+		{
+			$supElement->addClass($this->_optionArray['className']['note'][$key]);
+		}
 
 		/* collect item output */
 
