@@ -107,7 +107,7 @@ class Panel
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param array $optionArray options of the dock
+	 * @param array $optionArray options of the panel
 	 */
 
 	public function init(array $optionArray = [])

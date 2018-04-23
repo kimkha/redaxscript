@@ -23,12 +23,15 @@ class Tag extends BaseTag
 	 *
 	 * @since 4.0.0
 	 *
+	 * @param array $optionArray options of the panel
+	 *
 	 * @return string
 	 */
 
-	public static function panel() : string
+	public static function panel(array $optionArray = []) : string
 	{
 		$panel = new Helper\Panel(Registry::getInstance(), Language::getInstance());
+		$panel->init($optionArray);
 		return $panel->render();
 	}
 }
