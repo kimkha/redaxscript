@@ -1,7 +1,6 @@
 <?php
 namespace Redaxscript\Model;
 
-use IdiormResultSet as DbResultSet;
 use Redaxscript\Db;
 
 /**
@@ -23,10 +22,10 @@ class Extra
 	 *
 	 * @param string $language
 	 *
-	 * @return DbResultSet
+	 * @return object
 	 */
 
-	public function getResultByLanguage(string $language = null) : DbResultSet
+	public function getResultByLanguage(string $language = null)
 	{
 		return Db::forTablePrefix('extras')
 			->whereLanguageIs($language)
@@ -42,10 +41,10 @@ class Extra
 	 * @param string $extraAlias alias of the extra
 	 * @param string $language
 	 *
-	 * @return DbResultSet
+	 * @return object
 	 */
 
-	public function getResultByAliasAndLanguage(string $extraAlias = null, string $language = null) : DbResultSet
+	public function getResultByAliasAndLanguage(string $extraAlias = null, string $language = null)
 	{
 		return Db::forTablePrefix('extras')
 			->where('alias', $extraAlias)

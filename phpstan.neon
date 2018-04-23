@@ -50,6 +50,7 @@ parameters:
 	- includes/Router/Parameter.php
 	- includes/Router/Router.php
 	- includes/Router/RouterAbstract.php
+	- includes/Model/Category.php
 	- includes/Model/Setting.php
 	- includes/Module/Hook.php
 	- includes/Template/Helper/Canonical.php

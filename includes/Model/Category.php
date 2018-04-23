@@ -61,6 +61,19 @@ class Category
 	}
 
 	/**
+	 * get all
+	 *
+	 * @since 3.3.0
+	 *
+	 * @return object
+	 */
+
+	public function getAll()
+	{
+		return Db::forTablePrefix('categories')->findMany();
+	}
+
+	/**
 	 * publish each category by date
 	 *
 	 * @since 3.3.0
