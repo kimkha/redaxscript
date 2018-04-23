@@ -323,18 +323,17 @@ class Contact extends Module\Module
 
 		/* html element */
 
-		$linkElement = new Html\Element();
-		$linkElement->init('a');
-		$linkEmail = $linkElement->copy();
-		$linkEmail
-			->attr(
+		$element = new Html\Element();
+		$linkEmail = $element
+			->copy()
+			->init('a',
 			[
 				'href' => 'mailto:' . $mailArray['email']
 			])
 			->text($mailArray['email']);
-		$linkUrl = $linkElement->copy();
-		$linkUrl
-			->attr(
+		$linkUrl = $element
+			->copy()
+			->init('a',
 			[
 				'href' => $mailArray['url']
 			])

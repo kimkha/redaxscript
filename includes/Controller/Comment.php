@@ -256,25 +256,24 @@ class Comment extends ControllerAbstract
 
 		/* html element */
 
-		$linkElement = new Html\Element();
-		$linkElement->init('a');
-		$linkEmail = $linkElement->copy();
-		$linkEmail
-			->attr(
+		$element = new Html\Element();
+		$linkEmail = $element
+			->copy()
+			->init('a',
 			[
 				'href' => 'mailto:' . $mailArray['email']
 			])
 			->text($mailArray['email']);
-		$linkUrl = $linkElement->copy();
-		$linkUrl
-			->attr(
+		$linkUrl = $element
+			->copy()
+			->init('a',
 			[
 				'href' => $mailArray['url']
 			])
 			->text($mailArray['url'] ? $mailArray['url'] : $this->_language->get('none'));
-		$linkArticle = $linkElement->copy();
-		$linkArticle
-			->attr(
+		$linkArticle = $element
+			->copy()
+			->init('a',
 			[
 				'href' => $urlArticle
 			])
