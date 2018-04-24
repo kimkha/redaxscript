@@ -533,7 +533,7 @@ class Panel
 			[
 				'class' => $this->_optionArray['className']['text']['notification']
 			])
-			->text($this->_language->get('notification'));
+			->text($this->_language->get('notifications'));
 		$supElement = $element
 			->copy()
 			->init('sup')

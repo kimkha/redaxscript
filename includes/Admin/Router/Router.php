@@ -142,9 +142,6 @@ class Router extends RouterAbstract
 			$commonController = new Admin\Controller\Common($this->_registry, $this->_request, $this->_language);
 			$commonArray =
 			[
-				'up',
-				'down',
-				'sort',
 				'enable',
 				'disable',
 				'publish',
@@ -175,9 +172,6 @@ class Router extends RouterAbstract
 		$tokenParameter = $this->getToken();
 		$tokenArray =
 		[
-			'up',
-			'down',
-			'sort',
 			'enable',
 			'disable',
 			'publish',
@@ -206,9 +200,6 @@ class Router extends RouterAbstract
 		[
 			'edit',
 			'view',
-			'up',
-			'down',
-			'sort',
 			'enable',
 			'disable',
 			'publish',

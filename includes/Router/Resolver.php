@@ -23,9 +23,6 @@ class Resolver extends Parameter
 	[
 		'view' =>
 		[
-			'up',
-			'down',
-			'sort',
 			'enable',
 			'disabled',
 			'publish',

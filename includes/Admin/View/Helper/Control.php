@@ -18,11 +18,11 @@ class Control
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return string
+	 * @return string|null
 	 */
 
-	public function render() : string
+	public function render() : ?string
 	{
-		return 'to be implemented: ' . __CLASS__;
+		return null;
 	}
 }

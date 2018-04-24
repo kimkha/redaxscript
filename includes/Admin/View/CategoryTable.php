@@ -1,12 +1,13 @@
 <?php
 namespace Redaxscript\Admin\View;
 
+use Redaxscript\Admin\View\Helper;
 use Redaxscript\Html;
 use Redaxscript\Model;
 use Redaxscript\Module;
 
 /**
- * children class to create the admin user table
+ * children class to create the admin category table
  *
  * @since 4.0.0
  *
@@ -29,7 +30,6 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 	{
 		$output = Module\Hook::trigger('adminCategoryTableStart');
 		$parameterRoute = $this->_registry->get('parameterRoute');
-		$token = $this->_registry->get('token');
 
 		/* html element */
 
@@ -47,7 +47,7 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 			[
 				'class' => 'rs-admin-wrapper-button'
 			]);
-		$linkNew = $element
+		$linkElement = $element
 			->copy()
 			->init('a',
 			[
@@ -55,20 +55,10 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 				'href' => $parameterRoute . 'admin/new/categories'
 			])
 			->text($this->_language->get('category_new'));
-		$linkSort = $element
-			->copy()
-			->init('a',
-			[
-				'class' => 'rs-admin-button-default',
-				'href' => $parameterRoute . 'admin/sort/categories/' . $token
-			])
-			->text($this->_language->get('sort'));
 
 		/* collect output */
 
-		$wrapperElement->html($linkNew . $linkSort);
-		$tableElement = $this->_renderTable();
-		$output .= $titleElement . $wrapperElement . $tableElement;
+		$output .= $titleElement . $wrapperElement->html($linkElement) . $this->_renderTable();
 		$output .= Module\Hook::trigger('adminCategoryTableEnd');
 		return $output;
 	}
@@ -94,8 +84,10 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 			'parent' => $this->_language->get('category_parent'),
 			'rank' => $this->_language->get('rank')
 		];
+		$adminControl = new Helper\Control();
 		$categoryModel = new Model\Category();
 		$categories = $categoryModel->getAll();
+		$categoriesTotal = $categories->count();
 
 		/* html element */
 
@@ -123,8 +115,8 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 
 		foreach ($tableArray as $key => $value)
 		{
-			$outputHead .= $thElement->text($value);
-			$outputFoot .= $tdElement->text($value);
+			$outputHead .= $thElement->copy()->text($value);
+			$outputFoot .= $tdElement->copy()->text($value);
 		}
 
 		/* process categories */
@@ -132,10 +124,14 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 		foreach ($categories as $key => $value)
 		{
 			$outputBody .= $trElement->html(
-				$tdElement->copy()->text($value->title) .
+				$tdElement->copy()->text($value->title . $adminControl->render()) .
 				$tdElement->copy()->text($value->alias) .
 				$tdElement->copy()->text($value->parent ? $categories[$value->parent]->title : $this->_language->get('none')) .
-				$tdElement->copy()->text($value->rank)
+				$tdElement
+					->copy()
+					->addClass('rs-admin-col-move')
+					->addClass($categoriesTotal > 1 ? 'rs-admin-is-active' : null)
+					->text($value->rank)
 			);
 		}
 
@@ -149,7 +145,7 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 			$trElement->html($outputFoot)
 		);
 		$output .= $wrapperElement->copy()->html(
-			$tableElement->html($outputHead . $outputBody .	$outputFoot)
+			$tableElement->html($outputHead . $outputBody . $outputFoot)
 		);
 		return $output;
 	}

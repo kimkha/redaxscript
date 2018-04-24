@@ -2,7 +2,7 @@
 namespace Redaxscript\Admin\View;
 
 /**
- * children class to create the admin user table
+ * children class to create the admin module table
  *
  * @since 4.0.0
  *

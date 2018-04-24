@@ -53,6 +53,19 @@ class Extra
 	}
 
 	/**
+	 * get all
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return object
+	 */
+
+	public function getAll()
+	{
+		return Db::forTablePrefix('extras')->findMany();
+	}
+
+	/**
 	 * publish each extra by date
 	 *
 	 * @since 3.3.0
