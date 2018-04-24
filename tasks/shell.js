@@ -6,15 +6,15 @@ module.exports = grunt =>
 	{
 		phpstanRoot:
 		{
-			command: 'vendor/bin/phpstan analyse --configuration=phpstan.neon --level 7 --no-progress *.php'
+			command: 'vendor/bin/phpstan analyse --configuration=phpstan.neon --level 4 --no-progress *.php'
 		},
 		phpstanBase:
 		{
-			command: 'vendor/bin/phpstan analyse --configuration=phpstan.neon --level 7 --no-progress includes'
+			command: 'vendor/bin/phpstan analyse --configuration=phpstan.neon --level 0 --no-progress includes'
 		},
 		phpstanModules:
 		{
-			command: 'vendor/bin/phpstan analyse --configuration=phpstan.neon --level 7 --no-progress modules'
+			command: 'vendor/bin/phpstan analyse --configuration=phpstan.neon --level 1 --no-progress modules'
 		},
 		phpcpdRoot:
 		{

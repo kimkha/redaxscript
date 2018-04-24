@@ -44,6 +44,7 @@ class Archive extends Config
 	{
 		$output = null;
 		$outputItem = null;
+		$error = null;
 		$articleModel = new Model\Article();
 
 		/* html element */
