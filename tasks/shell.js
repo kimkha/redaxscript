@@ -38,11 +38,11 @@ module.exports = grunt =>
 		},
 		phpunit:
 		{
-			command: 'vendor/bin/phpunit --configuration=phpunit.xml ' + grunt.option.flags()
+			command: 'vendor/bin/phpunit ' + grunt.option.flags()
 		},
 		phpunitParallel:
 		{
-			command: 'vendor/bin/paratest --processes=10 --configuration=phpunit.xml ' + grunt.option.flags()
+			command: 'vendor/bin/paratest --processes=10 ' + grunt.option.flags()
 		},
 		phpServer:
 		{
