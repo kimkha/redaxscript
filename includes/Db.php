@@ -16,7 +16,7 @@ use PDOException;
  *
  * @method $this _addJoinSource(string $operator, string $table, string|array $constraint, string $tableAlias)
  * @method $this _addOrderBy(string $column, string $value)
- * @method $this _addWhere(string $clause, mixed $value)
+ * @method $this _addWhere(string $clause, string|array $value)
  */
 
 class Db extends ORM
@@ -239,7 +239,7 @@ class Db extends ORM
 
 	public function whereLanguageIs(string $language = null) : self
 	{
-		return $this->_addWhere('(language IS ? OR language IS NULL)', $language);
+		return $this->_addWhere('(language = ? OR language IS NULL)', $language);
 	}
 
 	/**
