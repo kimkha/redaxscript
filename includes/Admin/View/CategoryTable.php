@@ -81,7 +81,7 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 		[
 			'title' => $this->_language->get('title'),
 			'alias' => $this->_language->get('alias'),
-			'parent' => $this->_language->get('category_parent'),
+			'language' => $this->_language->get('language'),
 			'rank' => $this->_language->get('rank')
 		];
 		$adminControl = new Helper\Control();
@@ -125,11 +125,12 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 		{
 			$outputBody .= $trElement
 				->copy()
+				->addClass($value->parent ? 'rs-admin-has-parent' : null)
 				->addClass(intval($value->status) === 1 ? null : 'rs-admin-is-disabled')
 				->html(
 					$tdElement->copy()->text($value->title . $adminControl->render()) .
 					$tdElement->copy()->text($value->alias) .
-					$tdElement->copy()->text($value->parent ? $categories[$value->parent]->title : $this->_language->get('none')) .
+					$tdElement->copy()->text($value->language ? $this->_language->get($value->language, '_index') : $this->_language->get('all')) .
 					$tdElement
 						->copy()
 						->addClass('rs-admin-col-move')

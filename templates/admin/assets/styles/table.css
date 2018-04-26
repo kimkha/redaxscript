@@ -44,6 +44,12 @@
 			border-bottom: 0.125rem solid gray(185);
 		}
 
+		& tr.rs-admin-has-parent td:first-child:before
+		{
+			@extend %rs-admin-icon-subdirectory-arrow-right;
+			font-size: 1.25em;
+		}
+
 		& tr.rs-admin-is-disabled
 		{
 			color: gray(185);
