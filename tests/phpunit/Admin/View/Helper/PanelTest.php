@@ -17,6 +17,31 @@ use Redaxscript\Tests\TestCaseAbstract;
 class PanelTest extends TestCaseAbstract
 {
 	/**
+	 * setUp
+	 *
+	 * @since 4.0.0
+	 */
+
+	public function setUp()
+	{
+		parent::setUp();
+		$this->createDatabase();
+		$this->installTestDummy();
+	}
+
+	/**
+	 * tearDown
+	 *
+	 * @since 4.0.0
+	 */
+
+	public function tearDown()
+	{
+		$this->uninstallTestDummy();
+		$this->dropDatabase();
+	}
+
+	/**
 	 * providerRender
 	 *
 	 * @since 4.0.0
@@ -55,7 +80,6 @@ class PanelTest extends TestCaseAbstract
 
 		/* compare */
 
-		$this->markTestSkipped();
 		$this->assertEquals($expect, $actual);
 	}
 }

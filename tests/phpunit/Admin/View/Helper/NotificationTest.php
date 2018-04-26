@@ -20,7 +20,7 @@ class NotificationTest extends TestCaseAbstract
 	/**
 	 * setUp
 	 *
-	 * @since 3.1.0
+	 * @since 4.0.0
 	 */
 
 	public function setUp()
@@ -33,7 +33,7 @@ class NotificationTest extends TestCaseAbstract
 	/**
 	 * tearDown
 	 *
-	 * @since 3.1.0
+	 * @since 4.0.0
 	 */
 
 	public function tearDown()

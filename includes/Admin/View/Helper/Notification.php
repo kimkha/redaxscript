@@ -31,7 +31,7 @@ class Notification
 	 * @var array
 	 */
 
-	protected $_notificationArray;
+	protected $_notificationArray = [];
 
 	/**
 	 * options of the notification
@@ -157,7 +157,10 @@ class Notification
 				}
 			}
 		}
-		$output .= $listElement->html($outputItem);
+		if ($outputItem)
+		{
+			$output .= $listElement->html($outputItem);
+		}
 		return $output;
 	}
 
