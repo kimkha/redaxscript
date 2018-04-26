@@ -123,15 +123,18 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 
 		foreach ($categories as $key => $value)
 		{
-			$outputBody .= $trElement->html(
-				$tdElement->copy()->text($value->title . $adminControl->render()) .
-				$tdElement->copy()->text($value->alias) .
-				$tdElement->copy()->text($value->parent ? $categories[$value->parent]->title : $this->_language->get('none')) .
-				$tdElement
-					->copy()
-					->addClass('rs-admin-col-move')
-					->addClass($categoriesTotal > 1 ? 'rs-admin-is-active' : null)
-					->text($value->rank)
+			$outputBody .= $trElement
+				->copy()
+				->addClass(intval($value->status) === 1 ? null : 'rs-admin-is-disabled')
+				->html(
+					$tdElement->copy()->text($value->title . $adminControl->render()) .
+					$tdElement->copy()->text($value->alias) .
+					$tdElement->copy()->text($value->parent ? $categories[$value->parent]->title : $this->_language->get('none')) .
+					$tdElement
+						->copy()
+						->addClass('rs-admin-col-move')
+						->addClass($categoriesTotal > 1 ? 'rs-admin-is-active' : null)
+						->text($value->rank)
 			);
 		}
 
