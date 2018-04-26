@@ -75,12 +75,12 @@ class MailerTest extends TestCaseAbstract
 	 * @param array $toArray
 	 * @param array $fromArray
 	 * @param string $subject
-	 * @param mixed $body
+	 * @param string|array $body
 	 *
 	 * @dataProvider providerMailer
 	 */
 
-	public function testSend($toArray = [], $fromArray = [], string $subject = null, $body = null)
+	public function testSend(array $toArray = [], array $fromArray = [], string $subject = null, $body = null)
 	{
 		/* setup */
 
@@ -104,13 +104,13 @@ class MailerTest extends TestCaseAbstract
 	 * @param array $toArray
 	 * @param array $fromArray
 	 * @param string $subject
-	 * @param mixed $body
+	 * @param string|array $body
 	 *
 	 * @requires OS Linux
 	 * @dataProvider providerMailer
 	 */
 
-	public function testSendAttachment($toArray = [], $fromArray = [], string $subject = null, $body = null)
+	public function testSendAttachment(array $toArray = [], array $fromArray = [], string $subject = null, $body = null)
 	{
 		/* setup */
 

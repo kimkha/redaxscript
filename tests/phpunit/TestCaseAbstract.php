@@ -180,8 +180,8 @@ abstract class TestCaseAbstract extends PHPUnit\Framework\TestCase
 
 	public function getProperty($object = null, string $property = null)
 	{
-		$reflectionObject = new ReflectionClass($object);
-		$reflectionProperty = $reflectionObject->getProperty($property);
+		$reflection = new ReflectionClass($object);
+		$reflectionProperty = $reflection->getProperty($property);
 		$reflectionProperty->setAccessible(true);
 		return $reflectionProperty->getValue($object);
 	}
@@ -200,8 +200,8 @@ abstract class TestCaseAbstract extends PHPUnit\Framework\TestCase
 
 	public function callMethod($object = null, string $method = null, array $argumentArray = [])
 	{
-		$reflectionObject = new ReflectionClass($object);
-		$reflectionMethod = $reflectionObject->getMethod($method);
+		$reflection = new ReflectionClass($object);
+		$reflectionMethod = $reflection->getMethod($method);
 		$reflectionMethod->setAccessible(true);
 		return $reflectionMethod->invokeArgs($object, $argumentArray);
 	}
