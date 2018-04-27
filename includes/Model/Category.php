@@ -31,7 +31,7 @@ class Category
 	}
 
 	/**
-	 * 
+	 *
 	 * get the category title by id
 	 *
 	 * @since 4.0.0

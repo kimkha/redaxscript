@@ -150,7 +150,6 @@ class ExtraTable extends ViewAbstract implements ViewInterface
 				);
 		}
 
-
 		/* collect output */
 
 		$outputHead = $theadElement->html(
