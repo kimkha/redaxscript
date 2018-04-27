@@ -22,16 +22,17 @@ class User extends BaseModel\User
 	 * @since 4.0.0
 	 *
 	 * @param string $userId id of the user
+	 * @param string $date
 	 *
 	 * @return bool
 	 */
 
-	public function updateLastById(string $userId = null)
+	public function updateLastById(string $userId = null, string $date = null)
 	{
 		return Db::forTablePrefix('users')
 			->where('id', $userId)
 			->findOne()
-			->set('last', time())
+			->set('last', $date)
 			->save();
 	}
 }

@@ -180,7 +180,7 @@ class Panel
 	 * @return bool
 	 */
 
-	protected function _hasPermission(string $type = null)
+	protected function _hasPermission(string $type = null) : bool
 	{
 		$permissionArray = [];
 		$accessValidator = new Validator\Access();

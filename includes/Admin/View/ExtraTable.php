@@ -83,7 +83,7 @@ class ExtraTable extends ViewAbstract implements ViewInterface
 			'alias' => $this->_language->get('alias'),
 			'rank' => $this->_language->get('rank')
 		];
-		$adminControl = new Helper\Control();
+		$adminControl = new Helper\Control($this->_registry, $this->_language);
 		$extraModel = new Model\Extra();
 		$extras = $extraModel->getAll();
 		$extrasTotal = $extras->count();
@@ -122,14 +122,17 @@ class ExtraTable extends ViewAbstract implements ViewInterface
 
 		foreach ($extras as $key => $value)
 		{
-			$outputBody .= $trElement->html(
-				$tdElement->copy()->text($value->title . $adminControl->render()) .
-				$tdElement->copy()->text($value->alias) .
-				$tdElement
-					->copy()
-					->addClass('rs-admin-col-move')
-					->addClass($extrasTotal > 1 ? 'rs-admin-is-active' : null)
-					->text($value->rank)
+			$outputBody .= $trElement
+				->copy()
+				->addClass(intval($value->status) === 1 ? null : 'rs-admin-is-disabled')
+				->html(
+					$tdElement->copy()->html($value->title . $adminControl->render('extras', $value->id, $value->alias, $value->status)) .
+					$tdElement->copy()->text($value->alias) .
+					$tdElement
+						->copy()
+						->addClass('rs-admin-col-move')
+						->addClass($extrasTotal > 1 ? 'rs-admin-is-active' : null)
+						->text($value->rank)
 			);
 		}
 
