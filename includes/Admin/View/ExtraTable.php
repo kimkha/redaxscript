@@ -120,21 +120,36 @@ class ExtraTable extends ViewAbstract implements ViewInterface
 
 		/* process extras */
 
-		foreach ($extras as $key => $value)
+		if ($extrasTotal)
+		{
+			foreach ($extras as $key => $value)
+			{
+				$outputBody .= $trElement
+					->copy()
+					->addClass(!$value->status ? 'rs-admin-is-disabled' : null)
+					->html(
+						$tdElement->copy()->html($value->title . $adminControl->render('extras', $value->id, $value->alias, $value->status)) .
+						$tdElement->copy()->text($value->alias) .
+						$tdElement
+							->copy()
+							->addClass('rs-admin-col-move')
+							->addClass($extrasTotal > 1 ? 'rs-admin-is-active' : null)
+							->text($value->rank)
+				);
+			}
+		}
+		else
 		{
 			$outputBody .= $trElement
 				->copy()
-				->addClass(intval($value->status) === 1 ? null : 'rs-admin-is-disabled')
 				->html(
-					$tdElement->copy()->html($value->title . $adminControl->render('extras', $value->id, $value->alias, $value->status)) .
-					$tdElement->copy()->text($value->alias) .
 					$tdElement
 						->copy()
-						->addClass('rs-admin-col-move')
-						->addClass($extrasTotal > 1 ? 'rs-admin-is-active' : null)
-						->text($value->rank)
-			);
+						->attr('colspan', count($tableArray))
+						->text($this->_language->get('extra_no'))
+				);
 		}
+
 
 		/* collect output */
 
