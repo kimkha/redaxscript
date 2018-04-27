@@ -36,6 +36,8 @@
 
 .rs-wrapper-page
 {
+	display: flex;
+	justify-content: space-between;
 	padding: 1.5em 0;
 }
 
@@ -66,13 +68,11 @@
 	{
 		& .rs-content
 		{
-			float: left;
 			width: 70%;
 		}
 
 		& .rs-sidebar
 		{
-			float: right;
 			margin-left: 2%;
 			width: 28%;
 		}

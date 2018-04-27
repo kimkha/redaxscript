@@ -2,7 +2,7 @@
 
 <!-- main -->
 
-<main id="main" class="rs-main rs-fn-clearfix">
+<main id="main" class="rs-main">
 
 	<!-- teaser -->
 
@@ -20,14 +20,14 @@
 	<!-- error -->
 
 	<?php if (Tag::getRegistry('contentError')): ?>
-		<div class="rs-wrapper rs-wrapper-page rs-fn-clearfix">
+		<div class="rs-wrapper rs-wrapper-page">
 			<?php echo Tag::partial('templates/default/error.phtml'); ?>
 		</div>
 
 	<!-- else content and sidebar -->
 
 	<?php else: ?>
-		<div class="rs-wrapper rs-wrapper-page rs-has-sidebar rs-fn-clearfix">
+		<div class="rs-wrapper rs-wrapper-page rs-has-sidebar">
 			<?php echo Tag::partial(
 			[
 				'templates/default/content.phtml',
