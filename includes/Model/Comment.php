@@ -49,7 +49,7 @@ class Comment
 	}
 
 	/**
-	 * get all
+	 * get all comments
 	 *
 	 * @since 4.0.0
 	 *

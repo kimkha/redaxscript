@@ -77,7 +77,7 @@ class Category
 	}
 
 	/**
-	 * get all
+	 * get all categories
 	 *
 	 * @since 3.3.0
 	 *

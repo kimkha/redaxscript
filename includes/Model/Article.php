@@ -78,7 +78,7 @@ class Article
 	}
 
 	/**
-	 * get all
+	 * get all articles
 	 *
 	 * @since 4.0.0
 	 *

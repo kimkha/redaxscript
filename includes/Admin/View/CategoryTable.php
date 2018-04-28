@@ -3,7 +3,6 @@ namespace Redaxscript\Admin\View;
 
 use Redaxscript\Admin;
 use Redaxscript\Html;
-use Redaxscript\Model;
 use Redaxscript\Module;
 
 /**
