@@ -36,8 +36,6 @@
 
 .rs-wrapper-page
 {
-	display: flex;
-	justify-content: space-between;
 	padding: 1.5em 0;
 }
 
@@ -64,17 +62,22 @@
 		width: 94%;
 	}
 
+	.rs-wrapper-page
+	{
+		display: flex;
+		justify-content: space-between;
+	}
+
 	.rs-has-sidebar
 	{
 		& .rs-content
 		{
-			width: 70%;
+			flex-basis: 70%;
 		}
 
 		& .rs-sidebar
 		{
-			margin-left: 2%;
-			width: 28%;
+			flex-basis: 28%;
 		}
 	}
 }
