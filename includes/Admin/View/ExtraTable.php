@@ -1,9 +1,8 @@
 <?php
 namespace Redaxscript\Admin\View;
 
-use Redaxscript\Admin\View\Helper;
+use Redaxscript\Admin;
 use Redaxscript\Html;
-use Redaxscript\Model;
 use Redaxscript\Module;
 
 /**
@@ -84,7 +83,7 @@ class ExtraTable extends ViewAbstract implements ViewInterface
 			'rank' => $this->_language->get('rank')
 		];
 		$adminControl = new Helper\Control($this->_registry, $this->_language);
-		$extraModel = new Model\Extra();
+		$extraModel = new Admin\Model\Extra();
 		$extras = $extraModel->getAll();
 		$extrasTotal = $extras->count();
 

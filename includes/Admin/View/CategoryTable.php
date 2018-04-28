@@ -1,7 +1,7 @@
 <?php
 namespace Redaxscript\Admin\View;
 
-use Redaxscript\Admin\View\Helper;
+use Redaxscript\Admin;
 use Redaxscript\Html;
 use Redaxscript\Model;
 use Redaxscript\Module;
@@ -85,7 +85,7 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 			'rank' => $this->_language->get('rank')
 		];
 		$adminControl = new Helper\Control($this->_registry, $this->_language);
-		$categoryModel = new Model\Category();
+		$categoryModel = new Admin\Model\Category();
 		$categories = $categoryModel->getAll();
 		$categoriesTotal = $categories->count();
 

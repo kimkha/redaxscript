@@ -1,9 +1,8 @@
 <?php
 namespace Redaxscript\Admin\View;
 
-use Redaxscript\Admin\View\Helper;
+use Redaxscript\Admin;
 use Redaxscript\Html;
-use Redaxscript\Model;
 use Redaxscript\Module;
 
 /**
@@ -86,8 +85,8 @@ class ArticleTable extends ViewAbstract implements ViewInterface
 			'rank' => $this->_language->get('rank')
 		];
 		$adminControl = new Helper\Control($this->_registry, $this->_language);
-		$categoryModel = new Model\Category();
-		$articleModel = new Model\Article();
+		$categoryModel = new Admin\Model\Category();
+		$articleModel = new Admin\Model\Article();
 		$articles = $articleModel->getAll();
 		$articlesTotal = $articles->count();
 

@@ -1,9 +1,8 @@
 <?php
 namespace Redaxscript\Admin\View;
 
-use Redaxscript\Admin\View\Helper;
+use Redaxscript\Admin;
 use Redaxscript\Html;
-use Redaxscript\Model;
 use Redaxscript\Module;
 
 /**
@@ -85,8 +84,8 @@ class CommentTable extends ViewAbstract implements ViewInterface
 			'rank' => $this->_language->get('rank')
 		];
 		$adminControl = new Helper\Control($this->_registry, $this->_language);
-		$articleModel = new Model\Article();
-		$commentModel = new Model\Comment();
+		$articleModel = new Admin\Model\Article();
+		$commentModel = new Admin\Model\Comment();
 		$comments = $commentModel->getAll();
 		$commentsTotal = $comments->count();
 
