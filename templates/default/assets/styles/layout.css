@@ -62,14 +62,11 @@
 		width: 94%;
 	}
 
-	.rs-wrapper-page
+	.rs-has-sidebar
 	{
 		display: flex;
 		justify-content: space-between;
-	}
 
-	.rs-has-sidebar
-	{
 		& .rs-content
 		{
 			flex-basis: 70%;

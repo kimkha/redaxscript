@@ -42,17 +42,17 @@
 {
 	.rs-has-sidebar
 	{
+		display: flex;
+		justify-content: space-between;
+
 		& .rs-content
 		{
-			float: left;
-			width: 70%;
+			flex-basis: 70%;
 		}
 
 		& .rs-sidebar
 		{
-			float: right;
-			margin-left: 2%;
-			width: 28%;
+			flex-basis: 28%;
 		}
 	}
 }
