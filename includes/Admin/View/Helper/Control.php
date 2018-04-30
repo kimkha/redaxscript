@@ -68,28 +68,6 @@ class Control
 		$outputItem = null;
 		$parameterRoute = $this->_registry->get('parameterRoute');
 		$token = $this->_registry->get('token');
-		$publishArray =
-		[
-			'categories',
-			'articles',
-			'extras',
-			'comments'
-		];
-		$enableArray =
-		[
-			'groups',
-			'users',
-			'modules'
-		];
-		$deleteArray =
-		[
-			'categories',
-			'articles',
-			'extras',
-			'comments',
-			'groups',
-			'users'
-		];
 
 		/* html element */
 
@@ -115,7 +93,7 @@ class Control
 
 		/* collect enable */
 
-		if (in_array($table, $enableArray) && $this->_hasPermission($table, 'edit'))
+		if ($this->_hasPermission($table, 'edit') && $this->_showAction($table, 'enable', $id))
 		{
 			$enableAction = $status === 1 ? 'disable' : 'enable';
 			$outputItem .= $itemElement
@@ -131,7 +109,7 @@ class Control
 
 		/* collect publish */
 
-		if (in_array($table, $publishArray) && $this->_hasPermission($table, 'edit'))
+		if ($this->_hasPermission($table, 'edit') && $this->_showAction($table, 'publish', $id))
 		{
 			if ($status === 2)
 			{
@@ -161,37 +139,34 @@ class Control
 
 		/* collect install */
 
-		if ($table === 'modules')
+		if ($this->_hasPermission($table, 'uninstall') && $this->_showAction($table, 'uninstall', $id))
 		{
-			if ($status === 1 && $this->_hasPermission($table, 'uninstall'))
-			{
-				$outputItem .= $itemElement
-					->copy()
-					->addClass('rs-admin-item-uninstall')
-					->html(
-						$linkElement
-							->copy()
-							->attr('href', $parameterRoute . 'admin/uninstall/' . $table . '/' . $id . '/' . $token)
-							->text($this->_language->get('uninstall'))
-					);
-			}
-			else if ($this->_hasPermission($table, 'install'))
-			{
-				$outputItem .= $itemElement
-					->copy()
-					->addClass('rs-admin-item-install')
-					->html(
-						$linkElement
-							->copy()
-							->attr('href', $parameterRoute . 'admin/install/' . $table . '/' . $alias . '/' . $token)
-							->text($this->_language->get('install'))
-					);
-			}
+			$outputItem .= $itemElement
+				->copy()
+				->addClass('rs-admin-item-uninstall')
+				->html(
+					$linkElement
+						->copy()
+						->attr('href', $parameterRoute . 'admin/uninstall/' . $table . '/' . $id . '/' . $token)
+						->text($this->_language->get('uninstall'))
+				);
+		}
+		else if ($this->_hasPermission($table, 'install') && $this->_showAction($table, 'install', $id))
+		{
+			$outputItem .= $itemElement
+				->copy()
+				->addClass('rs-admin-item-install')
+				->html(
+					$linkElement
+						->copy()
+						->attr('href', $parameterRoute . 'admin/install/' . $table . '/' . $alias . '/' . $token)
+						->text($this->_language->get('install'))
+				);
 		}
 
 		/* collect edit */
 
-		if ($this->_hasPermission($table, 'edit'))
+		if ($this->_hasPermission($table, 'edit') && $this->_showAction($table, 'edit', $id))
 		{
 			$outputItem .= $itemElement
 				->copy()
@@ -206,7 +181,7 @@ class Control
 
 		/* collect delete */
 
-		if (in_array($table, $deleteArray) && $this->_hasPermission($table, 'delete'))
+		if ($this->_hasPermission($table, 'delete') && $this->_showAction($table, 'delete', $id))
 		{
 			$outputItem .= $itemElement
 				->copy()
@@ -244,5 +219,53 @@ class Control
 	protected function _hasPermission(string $table = null, string $type = null) : bool
 	{
 		return $this->_registry->get($table . ucfirst($type));
+	}
+
+	/**
+	 * show the action
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $table name of the table
+	 * @param string $type
+	 * @param int $id
+	 *
+	 * @return bool
+	 */
+
+	protected function _showAction(string $table = null, string $type = null, int $id = null) : bool
+	{
+		$enableArray =
+		[
+			'groups',
+			'users',
+			'modules'
+		];
+		$publishArray =
+		[
+			'categories',
+			'articles',
+			'extras',
+			'comments'
+		];
+		$deleteArray =
+		[
+			'categories',
+			'articles',
+			'extras',
+			'comments',
+			'groups',
+			'users'
+		];
+		if ($id === 1 && ($type === 'enable' || $type === 'delete') && ($table === 'users' || $table === 'groups'))
+		{
+			return false;
+		}
+		return $type === 'enable' && in_array($table, $enableArray) && $id ||
+			$type === 'publish' && in_array($table, $publishArray) && $id ||
+			$type === 'delete' && in_array($table, $deleteArray) && $id ||
+			$type === 'install' && $table === 'modules' && !$id ||
+			$type === 'uninstall' && $table === 'modules' && $id ||
+			$type === 'edit' && $id;
 	}
 }

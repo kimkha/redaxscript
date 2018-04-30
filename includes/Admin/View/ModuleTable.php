@@ -3,6 +3,7 @@ namespace Redaxscript\Admin\View;
 
 use Redaxscript\Admin;
 use Redaxscript\Html;
+use Redaxscript\Filesystem;
 use Redaxscript\Module;
 
 /**
@@ -71,6 +72,9 @@ class ModuleTable extends ViewAbstract implements ViewInterface
 		$moduleModel = new Admin\Model\Module();
 		$modules = $moduleModel->getAll();
 		$modulesTotal = $modules->count();
+		$modulesFilesystem = new Filesystem\Filesystem();
+		$modulesFilesystem->init('modules');
+		$modulesFilesystemArray = $modulesFilesystem->getSortArray();
 
 		/* html element */
 
@@ -118,7 +122,21 @@ class ModuleTable extends ViewAbstract implements ViewInterface
 				);
 			}
 		}
-		else
+		if ($modulesFilesystemArray)
+		{
+			foreach ($modulesFilesystemArray as $key => $value)
+			{
+				$outputBody .= $trElement
+					->copy()
+					->html(
+						$tdElement
+							->copy()
+							->attr('colspan', count($tableArray))
+							->html($value . $adminControl->render('modules', null, $value, null))
+					);
+			}
+		}
+		if (!$modulesTotal && !$modulesFilesystemArray)
 		{
 			$outputBody .= $trElement
 				->copy()
