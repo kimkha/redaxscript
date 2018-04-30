@@ -29,6 +29,7 @@ class ArticleTable extends ViewAbstract implements ViewInterface
 	{
 		$output = Module\Hook::trigger('adminArticleTableStart');
 		$parameterRoute = $this->_registry->get('parameterRoute');
+		$articlesNew = $this->_registry->get('articlesNew');
 
 		/* html element */
 
@@ -57,7 +58,12 @@ class ArticleTable extends ViewAbstract implements ViewInterface
 
 		/* collect output */
 
-		$output .= $titleElement . $wrapperElement->html($linkElement) . $this->_renderTable();
+		$output .= $titleElement;
+		if ($articlesNew)
+		{
+			$output .= $wrapperElement->html($linkElement);
+		}
+		$output .= $this->_renderTable();
 		$output .= Module\Hook::trigger('adminArticleTableEnd');
 		return $output;
 	}

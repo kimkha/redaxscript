@@ -29,6 +29,7 @@ class CommentTable extends ViewAbstract implements ViewInterface
 	{
 		$output = Module\Hook::trigger('adminCommentTableStart');
 		$parameterRoute = $this->_registry->get('parameterRoute');
+		$commentsNew = $this->_registry->get('commentsNew');
 
 		/* html element */
 
@@ -57,7 +58,12 @@ class CommentTable extends ViewAbstract implements ViewInterface
 
 		/* collect output */
 
-		$output .= $titleElement . $wrapperElement->html($linkElement) . $this->_renderTable();
+		$output .= $titleElement;
+		if ($commentsNew)
+		{
+			$output .= $wrapperElement->html($linkElement);
+		}
+		$output .= $this->_renderTable();
 		$output .= Module\Hook::trigger('adminCommentTableEnd');
 		return $output;
 	}

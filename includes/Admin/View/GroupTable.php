@@ -29,6 +29,7 @@ class GroupTable extends ViewAbstract implements ViewInterface
 	{
 		$output = Module\Hook::trigger('adminGroupTableStart');
 		$parameterRoute = $this->_registry->get('parameterRoute');
+		$groupsNew = $this->_registry->get('groupsNew');
 
 		/* html element */
 
@@ -57,7 +58,12 @@ class GroupTable extends ViewAbstract implements ViewInterface
 
 		/* collect output */
 
-		$output .= $titleElement . $wrapperElement->html($linkElement) . $this->_renderTable();
+		$output .= $titleElement;
+		if ($groupsNew)
+		{
+			$output .= $wrapperElement->html($linkElement);
+		}
+		$output .= $this->_renderTable();
 		$output .= Module\Hook::trigger('adminGroupTableEnd');
 		return $output;
 	}

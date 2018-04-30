@@ -29,6 +29,7 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 	{
 		$output = Module\Hook::trigger('adminCategoryTableStart');
 		$parameterRoute = $this->_registry->get('parameterRoute');
+		$categoriesNew = $this->_registry->get('categoriesNew');
 
 		/* html element */
 
@@ -57,7 +58,12 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 
 		/* collect output */
 
-		$output .= $titleElement . $wrapperElement->html($linkElement) . $this->_renderTable();
+		$output .= $titleElement;
+		if ($categoriesNew)
+		{
+			$output .= $wrapperElement->html($linkElement);
+		}
+		$output .= $this->_renderTable();
 		$output .= Module\Hook::trigger('adminCategoryTableEnd');
 		return $output;
 	}

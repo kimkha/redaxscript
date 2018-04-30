@@ -44,9 +44,14 @@
 			border-bottom: 0.125rem solid gray(185);
 		}
 
-		& tr.rs-admin-has-parent td:first-child:before
+		& tr.rs-admin-has-parent td:first-child
 		{
-			@extend %rs-admin-icon-subdirectory-arrow-right;
+			padding-left: 1.5em;
+
+			&:before
+			{
+				@extend %rs-admin-icon-subdirectory-arrow-right;
+			}
 		}
 
 		& tr.rs-admin-is-disabled

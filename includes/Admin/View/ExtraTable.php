@@ -29,6 +29,7 @@ class ExtraTable extends ViewAbstract implements ViewInterface
 	{
 		$output = Module\Hook::trigger('adminExtraTableStart');
 		$parameterRoute = $this->_registry->get('parameterRoute');
+		$extrasNew = $this->_registry->get('extrasNew');
 
 		/* html element */
 
@@ -57,7 +58,12 @@ class ExtraTable extends ViewAbstract implements ViewInterface
 
 		/* collect output */
 
-		$output .= $titleElement . $wrapperElement->html($linkElement) . $this->_renderTable();
+		$output .= $titleElement;
+		if ($extrasNew)
+		{
+			$output .= $wrapperElement->html($linkElement);
+		}
+		$output .= $this->_renderTable();
 		$output .= Module\Hook::trigger('adminExtraTableEnd');
 		return $output;
 	}

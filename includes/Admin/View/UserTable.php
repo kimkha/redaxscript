@@ -29,6 +29,7 @@ class UserTable extends ViewAbstract implements ViewInterface
 	{
 		$output = Module\Hook::trigger('adminUserTableStart');
 		$parameterRoute = $this->_registry->get('parameterRoute');
+		$usersNew = $this->_registry->get('usersNew');
 
 		/* html element */
 
@@ -57,7 +58,12 @@ class UserTable extends ViewAbstract implements ViewInterface
 
 		/* collect output */
 
-		$output .= $titleElement . $wrapperElement->html($linkElement) . $this->_renderTable();
+		$output .= $titleElement;
+		if ($usersNew)
+		{
+			$output .= $wrapperElement->html($linkElement);
+		}
+		$output .= $this->_renderTable();
 		$output .= Module\Hook::trigger('adminUserTableEnd');
 		return $output;
 	}
