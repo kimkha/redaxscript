@@ -1,10 +1,18 @@
 /**
  * @tableofcontents
  *
- * 1. redirect
+ * 1. clearfix
+ * 2. redirect
  */
 
-/** @section 1. redirect */
+/** @section 1. clearfix */
+
+.rs-admin-fn-clearfix
+{
+	@extend %fn-clearfix;
+}
+
+/** @section 2. redirect */
 
 .rs-admin-meta-redirect
 {
