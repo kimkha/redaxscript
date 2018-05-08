@@ -1,14 +1,14 @@
 [
 	[
-		"hello <blockcode>world</blockcode>",
+		"hello <rs-code>world</rs-code>",
 		"hello <pre class=\"rs-js-code rs-code-default\">world</pre>"
 	],
 	[
-		"hello <blockcode><strong>world</strong></blockcode>",
+		"hello <rs-code><strong>world</strong></rs-code>",
 		"hello <pre class=\"rs-js-code rs-code-default\">&lt;strong&gt;world&lt;/strong&gt;</pre>"
 	],
 	[
-		"hello <blockcode>&lt;strong&gt;world&lt;/strong&gt;</blockcode>",
+		"hello <rs-code>&lt;strong&gt;world&lt;/strong&gt;</rs-code>",
 		"hello <pre class=\"rs-js-code rs-code-default\">&lt;strong&gt;world&lt;/strong&gt;</pre>"
 	]
 ]

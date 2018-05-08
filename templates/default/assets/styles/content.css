@@ -9,7 +9,7 @@
  *    2.2 box
  * 3. quote
  * 4. code
- * 5. readmore
+ * 5. more
  */
 
 /** @section 1. content */
@@ -127,9 +127,9 @@
 	}
 }
 
-/** @section 5. readmore */
+/** @section 5. more */
 
-.rs-link-readmore
+.rs-link-more
 {
 	background: var(--rs-color-quaternary);
 	border-radius: 0.125em;
@@ -145,7 +145,7 @@
 	}
 }
 
-.rs-box-content .rs-link-readmore
+.rs-box-content .rs-link-more
 {
 	margin-top: 0.5em;
 }

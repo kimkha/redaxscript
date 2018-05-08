@@ -3,7 +3,7 @@
 		{
 			"testKey": "testValue"
 		},
-		"<registry>testKey</registry>",
+		"<rs-registry>testKey</rs-registry>",
 		"testValue"
 	]
 ]

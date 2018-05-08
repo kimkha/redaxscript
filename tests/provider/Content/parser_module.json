@@ -1,18 +1,18 @@
 [
 	[
-		"<module>TestDummy<module>",
+		"<rs-module>TestDummy<rs-module>",
 		2
 	],
 	[
-		"<module>{\"TestDummy\":{\"firstNumber\":2,\"secondNumber\":2}}<module>",
+		"<rs-module>{\"TestDummy\":{\"firstNumber\":2,\"secondNumber\":2}}<rs-module>",
 		4
 	],
 	[
-		"<module>Invalid<module>",
+		"<rs-module>Invalid<module>",
 		null
 	],
 	[
-		"<module>{\"Invalid\":{\"invalid\":\"invalid\"}}<module>",
+		"<rs-module>{\"Invalid\":{\"invalid\":\"invalid\"}}<rs-module>",
 		null
 	]
 ]

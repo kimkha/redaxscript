@@ -53,16 +53,16 @@ class ParserTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerBlockcode
+	 * providerCode
 	 *
 	 * @since 2.5.0
 	 *
 	 * @return array
 	 */
 
-	public function providerBlockcode() : array
+	public function providerCode() : array
 	{
-		return $this->getProvider('tests/provider/Content/parser_blockcode.json');
+		return $this->getProvider('tests/provider/Content/parser_code.json');
 	}
 
 	/**
@@ -92,16 +92,16 @@ class ParserTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerReadmore
+	 * providerMore
 	 *
 	 * @since 2.5.0
 	 *
 	 * @return array
 	 */
 
-	public function providerReadmore() : array
+	public function providerMore() : array
 	{
-		return $this->getProvider('tests/provider/Content/parser_readmore.json');
+		return $this->getProvider('tests/provider/Content/parser_more.json');
 	}
 
 	/**
@@ -131,17 +131,17 @@ class ParserTest extends TestCaseAbstract
 	}
 
 	/**
-	 * testBlockcode
+	 * testCode
 	 *
 	 * @since 3.0.0
 	 *
 	 * @param string $content
 	 * @param string $expect
 	 *
-	 * @dataProvider providerBlockcode
+	 * @dataProvider providerCode
 	 */
 
-	public function testBlockcode(string $content = null, string $expect = null)
+	public function testCode(string $content = null, string $expect = null)
 	{
 		/* setup */
 
@@ -216,7 +216,7 @@ class ParserTest extends TestCaseAbstract
 	}
 
 	/**
-	 * testReadmore
+	 * testMore
 	 *
 	 * @since 3.0.0
 	 *
@@ -225,10 +225,10 @@ class ParserTest extends TestCaseAbstract
 	 * @param string $route
 	 * @param string $expect
 	 *
-	 * @dataProvider providerReadmore
+	 * @dataProvider providerMore
 	 */
 
-	public function testReadmore(array $registryArray = [], string $content = null, string $route = null, string $expect = null)
+	public function testMore(array $registryArray = [], string $content = null, string $route = null, string $expect = null)
 	{
 		/* setup */
 

@@ -4,7 +4,7 @@ namespace Redaxscript\Content\Tag;
 use Redaxscript\Html;
 
 /**
- * children class to parse content for blockcode tags
+ * children class to parse content for code tags
  *
  * @since 3.0.0
  *
@@ -13,10 +13,10 @@ use Redaxscript\Html;
  * @author Henry Ruhs
  */
 
-class Blockcode extends TagAbstract
+class Code extends TagAbstract
 {
 	/**
-	 * options of the blockcode tag
+	 * options of the code tag
 	 *
 	 * @var array
 	 */
@@ -25,12 +25,12 @@ class Blockcode extends TagAbstract
 	[
 		'className' =>
 		[
-			'blockcode' => 'rs-js-code rs-code-default'
+			'code' => 'rs-js-code rs-code-default'
 		],
 		'search' =>
 		[
-			'<blockcode>',
-			'</blockcode>'
+			'<rs-code>',
+			'</rs-code>'
 		],
 		'delimiter' => '@@@'
 	];
@@ -55,7 +55,7 @@ class Blockcode extends TagAbstract
 		$preElement = new Html\Element();
 		$preElement->init('pre',
 		[
-			'class' => $this->_optionArray['className']['blockcode']
+			'class' => $this->_optionArray['className']['code']
 		]);
 
 		/* parse as needed */
