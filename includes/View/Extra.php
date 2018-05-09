@@ -123,8 +123,6 @@ class Extra extends ViewAbstract
 		$accessValidator = new Validator\Access();
 		$extraModel = new Model\Extra();
 		$contentParser = new Content\Parser($this->_registry, $this->_request, $this->_language, $this->_config);
-		$adminDock = new Admin\View\Helper\Dock($this->_registry, $this->_language);
-		$adminDock->init();
 		$language = $this->_registry->get('language');
 		$loggedIn = $this->_registry->get('loggedIn');
 		$token = $this->_registry->get('token');
@@ -170,11 +168,29 @@ class Extra extends ViewAbstract
 
 				if ($loggedIn === $token && $firstParameter !== 'logout')
 				{
-					$output .= $adminDock->render('extras', $value->id);
+					$output .= $this->_renderAdminDock('extras', $value->id);
 				}
 			}
 		}
 		$output .= Module\Hook::trigger('extraEnd');
 		return $output;
+	}
+
+	/**
+	 * render the admin dock
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $table name of the table
+	 * @param string $id identifier of the item
+	 *
+	 * @return string
+	 */
+
+	protected function _renderAdminDock(string $table = null, string $id = null) : string
+	{
+		$adminDock = new Admin\View\Helper\Dock($this->_registry, $this->_language);
+		$adminDock->init();
+		return $adminDock->render($table, $id);
 	}
 }
