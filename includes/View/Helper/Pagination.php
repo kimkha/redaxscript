@@ -106,6 +106,7 @@ class Pagination
 		$output = Module\Hook::trigger('paginationStart');
 		$outputItem = null;
 		$parameterRoute = $this->_registry->get('parameterRoute');
+        $numberArray = $this->_getNumberArray($current, $total, $range);
 
 		/* html element */
 
@@ -148,44 +149,20 @@ class Pagination
 				);
 		}
 
-		/* handle range */
+		/* process number */
 
-		if ($current == 2 || $current == $total - 1)
+		foreach ($numberArray as $value)
 		{
-			$range++;
-		}
-		if ($current == 1 || $current == $total)
-		{
-			$range = $range + 2;
-		}
-
-		/* process range */
-
-		for ($i = $current - $range; $i < $current + $range; $i++)
-		{
-			if (intval($i) === intval($current))
-			{
-				$range++;
-				$outputItem .=  $itemElement
-					->copy()
-					->addClass($this->_optionArray['className']['item']['number'])
-					->addClass($this->_optionArray['className']['item']['active'])
-					->html(
-						$textElement->html($i)
-					);
-			}
-			else if ($i > 0 && $i < $total + 1)
-			{
-				$outputItem .= $itemElement
-					->copy()
-					->addClass($this->_optionArray['className']['item']['number'])
-					->html(
-						$linkElement
-							->copy()
-							->attr('href', $parameterRoute . $route . '/' . $i)
-							->text($i)
-					);
-			}
+            $outputItem .=  $itemElement
+                ->copy()
+                ->addClass($this->_optionArray['className']['item']['number'])
+                ->addClass($value['active'] ? $this->_optionArray['className']['item']['active'] : null)
+                ->html(
+                    $value['active'] ? $textElement->text($value['number']) : $linkElement
+                        ->copy()
+                        ->attr('href', $parameterRoute . $route . '/' . $value['number'])
+                        ->text($value['number'])
+                );
 		}
 
 		/* next and last */
@@ -222,4 +199,38 @@ class Pagination
 		$output .= Module\Hook::trigger('paginationEnd');
 		return $output;
 	}
+
+    /**
+     * get the number array
+     *
+     * @since 4.0.0
+     *
+     * @param int $current
+     * @param int $total
+     * @param int $range
+     *
+     * @return array
+     */
+
+    public function _getNumberArray(int $current = null, int $total = null, int $range = null) : array
+    {
+        $numberArray = [];
+        $start = $current - $range;
+        $end = $current + $range + 1;
+
+        /* process number */
+
+        for ($i = $start; $i < $end; $i++)
+        {
+            if ($i > 0 && $i < $total + 1)
+            {
+                $numberArray[] =
+                [
+                    'number' => $i,
+                    'active' => $i === $current
+                ];
+            }
+        }
+        return $numberArray;
+    }
 }
