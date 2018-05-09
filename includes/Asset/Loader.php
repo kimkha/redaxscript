@@ -116,7 +116,7 @@ class Loader
 
 		/* process collection */
 
-		foreach ($collectionArray as $collectionKey => $attributeArray)
+		foreach ($collectionArray as $attributeArray)
 		{
 			$path = $attributeArray[$optionArray['attribute']];
 			$fileArray = pathinfo($path);

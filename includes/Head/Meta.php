@@ -39,7 +39,7 @@ class Meta extends HeadAbstract
 
 		/* process collection */
 
-		foreach ($collectionArray as $key => $attribute)
+		foreach ($collectionArray as $attribute)
 		{
 			if ($attribute['content'] && $attribute['name'] || !$attribute['name'])
 			{

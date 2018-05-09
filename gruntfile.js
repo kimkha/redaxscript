@@ -44,10 +44,10 @@ module.exports = grunt =>
 		'colorguard',
 		'ncsslint',
 		'htmlhint',
-		'phpcs',
 		'phpcpd',
-		'phpstan',
 		'phpmd',
+		'phpcs',
+		'phpstan',
 		'languagelint'
 	]);
 	grunt.registerTask('stylelint',

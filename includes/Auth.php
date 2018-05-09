@@ -215,7 +215,7 @@ class Auth
 
 			/* process groups */
 
-			foreach ($group as $key => $value)
+			foreach ($group as $value)
 			{
 				foreach ($value as $keySub => $valueSub)
 				{
