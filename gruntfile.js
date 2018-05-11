@@ -31,7 +31,7 @@ module.exports = grunt =>
 
 	/* rename tasks */
 
-	grunt.task.renameTask('json-format', 'formatJSON');
+	grunt.renameTask('json-format', 'formatJSON');
 
 	/* register tasks */
 
