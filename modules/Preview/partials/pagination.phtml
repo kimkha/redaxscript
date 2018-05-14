@@ -1,10 +1,12 @@
 <?php
 namespace Redaxscript;
 
-$pagination = new View\Helper\Pagination();
-echo $pagination->render(
-[
-	'current' => 5000,
-	'total' => 10000,
-	'route' => 'preview/pagination'
-]);
+$pagination = new View\Helper\Pagination(Registry::getInstance(), Language::getInstance());
+$pagination->init();
+echo $pagination->render('preview/pagination', 5000, 10000);
+echo $pagination->render('preview/pagination', 5000, 10000, 1);
+
+for ($i = 1; $i < 11; $i++)
+{
+	echo $pagination->render('preview/pagination', $i, 10, 2);
+}

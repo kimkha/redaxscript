@@ -4,21 +4,9 @@ module.exports = grunt =>
 
 	const config =
 	{
-		phpstanRoot:
-		{
-			command: 'vendor/bin/phpstan analyse --configuration=phpstan.neon --level 4 --no-progress *.php'
-		},
-		phpstanBase:
-		{
-			command: 'vendor/bin/phpstan analyse --configuration=phpstan.neon --level 0 --no-progress includes'
-		},
-		phpstanModules:
-		{
-			command: 'vendor/bin/phpstan analyse --configuration=phpstan.neon --level 1 --no-progress modules'
-		},
 		phpcpdRoot:
 		{
-			command: 'vendor/bin/phpcpd *.php'
+			command: 'vendor/bin/phpcpd console.php index.php install.php'
 		},
 		phpcpdBase:
 		{
@@ -35,6 +23,34 @@ module.exports = grunt =>
 			{
 				failOnError: false
 			}
+		},
+		phpstanRoot:
+		{
+			command: 'vendor/bin/phpstan analyse console.php index.php install.php --configuration=phpstan.neon --level 4 --no-progress'
+		},
+		phpstanBase:
+		{
+			command: 'vendor/bin/phpstan analyse includes --configuration=phpstan.neon --level 0 --no-progress'
+		},
+		phpstanModules:
+		{
+			command: 'vendor/bin/phpstan analyse modules --configuration=phpstan.neon --level 1 --no-progress'
+		},
+		phpmdRoot:
+		{
+			command: 'vendor/bin/phpmd console.php,index.php,install.php text unusedcode'
+		},
+		phpmdBase:
+		{
+			command: 'vendor/bin/phpmd includes text unusedcode',
+			options:
+			{
+				failOnError: false
+			}
+		},
+		phpmdModules:
+		{
+			command: 'vendor/bin/phpmd modules text unusedcode'
 		},
 		phpunit:
 		{

@@ -31,7 +31,7 @@ module.exports = grunt =>
 
 	/* rename tasks */
 
-	grunt.task.renameTask('json-format', 'formatJSON');
+	grunt.renameTask('json-format', 'formatJSON');
 
 	/* register tasks */
 
@@ -44,8 +44,9 @@ module.exports = grunt =>
 		'colorguard',
 		'ncsslint',
 		'htmlhint',
-		'phpcs',
 		'phpcpd',
+		'phpmd',
+		'phpcs',
 		'phpstan',
 		'languagelint'
 	]);
@@ -78,6 +79,12 @@ module.exports = grunt =>
 		'shell:phpstanRoot',
 		'shell:phpstanBase',
 		'shell:phpstanModules'
+	]);
+	grunt.registerTask('phpmd',
+	[
+		'shell:phpmdRoot',
+		'shell:phpmdBase',
+		'shell:phpmdModules'
 	]);
 	grunt.registerTask('phpunit',
 	[

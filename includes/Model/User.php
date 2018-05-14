@@ -43,6 +43,19 @@ class User
 	}
 
 	/**
+	 * get all users
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return object
+	 */
+
+	public function getAll()
+	{
+		return Db::forTablePrefix('users')->findMany();
+	}
+
+	/**
 	 * reset the password by array
 	 *
 	 * @since 3.3.0

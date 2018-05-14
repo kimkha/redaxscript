@@ -66,7 +66,7 @@ jobs:
    - DB_URL=sqlite://test.sqlite vendor/bin/phpunit --coverage-clover=build/sqlite.xml
 
    after_success:
-   - vendor/bin/coveralls
+   - vendor/bin/php-coveralls
    - wget https://scrutinizer-ci.com/ocular.phar
    - php ocular.phar code-coverage:upload --format=php-clover build/sqlite.xml
 

@@ -31,6 +31,22 @@ class Category
 	}
 
 	/**
+	 *
+	 * get the category title by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $categoryId identifier of the category
+	 *
+	 * @return string|null
+	 */
+
+	public function getTitleById(int $categoryId = null) : ?string
+	{
+		return Db::forTablePrefix('categories')->select('title')->whereIdIs($categoryId)->findOne()->title;
+	}
+
+	/**
 	 * get the category route by id
 	 *
 	 * @since 3.3.0
@@ -61,7 +77,7 @@ class Category
 	}
 
 	/**
-	 * get all
+	 * get all categories
 	 *
 	 * @since 3.3.0
 	 *

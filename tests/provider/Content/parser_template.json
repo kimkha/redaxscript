@@ -1,18 +1,18 @@
 [
 	[
-		"<template>breadcrumb<template>",
+		"<rs-template>breadcrumb<rs-template>",
 		"<ul class=\"rs-list-breadcrumb\"><li>Home</li></ul>"
 	],
 	[
-		"<template>{\"getSetting\":{\"key\":\"title\"}}<template>",
+		"<rs-template>{\"getSetting\":{\"key\":\"title\"}}<rs-template>",
 		"Redaxscript"
 	],
 	[
-		"<template>invalid<template>",
+		"<rs-template>invalid<rs-template>",
 		null
 	],
 	[
-		"<template>{\"invalid\":{\"test\":\"test\"}}<template>",
+		"<rs-template>{\"invalid\":{\"test\":\"test\"}}<rs-template>",
 		null
 	]
 ]

@@ -4,7 +4,7 @@ namespace Redaxscript\Content\Tag;
 use Redaxscript\Html;
 
 /**
- * children class to parse content for readmore tags
+ * children class to parse content for more tags
  *
  * @since 3.0.0
  *
@@ -13,10 +13,10 @@ use Redaxscript\Html;
  * @author Henry Ruhs
  */
 
-class Readmore extends TagAbstract
+class More extends TagAbstract
 {
 	/**
-	 * options of the readmore tag
+	 * options of the more tag
 	 *
 	 * @var array
 	 */
@@ -25,11 +25,11 @@ class Readmore extends TagAbstract
 	[
 		'className' =>
 		[
-			'readmore' => 'rs-link-readmore'
+			'more' => 'rs-link-more'
 		],
 		'search' =>
 		[
-			'<readmore>'
+			'<rs-more>'
 		]
 	];
 
@@ -54,7 +54,7 @@ class Readmore extends TagAbstract
 		$linkElement = new Html\Element();
 		$linkElement->init('a',
 		[
-			'class' => $this->_optionArray['className']['readmore']
+			'class' => $this->_optionArray['className']['more']
 		]);
 
 		/* collect output */
@@ -67,7 +67,7 @@ class Readmore extends TagAbstract
 				$output .= $linkElement
 					->copy()
 					->attr('href', $this->_registry->get('parameterRoute') . $route)
-					->text($this->_language->get('readmore'));
+					->text($this->_language->get('read_more'));
 			}
 		}
 		return $output;
