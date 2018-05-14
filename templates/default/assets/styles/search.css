@@ -25,6 +25,7 @@
 .rs-field-search
 {
 	flex-grow: 1;
+	min-width: 0;
 	padding: 0 0.5em;
 }
 
