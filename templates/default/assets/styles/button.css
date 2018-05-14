@@ -9,11 +9,6 @@
 
 /** @section 1. button default */
 
-button
-{
-	padding: 0;
-}
-
 .rs-button-default
 {
 	@extend %rs-button;
