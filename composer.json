@@ -15,6 +15,7 @@
 		"fbourigault/composer-mkdir": "2.0.0",
 		"johnkary/phpunit-speedtrap": "3.0.0",
 		"mikey179/vfsStream": "1.6.5",
+		"phpmd/phpmd": "2.6.0",
 		"phpstan/phpstan": "0.9.2",
 		"phpunit/phpunit": "7.0.2",
 		"redaxmedia/php-coding-standard": "1.0.0",

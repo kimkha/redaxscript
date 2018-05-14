@@ -29,4 +29,17 @@ class Group
 	{
 		return Db::forTablePrefix('groups')->select('id')->where('alias', $groupAlias)->findOne()->id;
 	}
+
+	/**
+	 * get all groups
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return object
+	 */
+
+	public function getAll()
+	{
+		return Db::forTablePrefix('groups')->findMany();
+	}
 }

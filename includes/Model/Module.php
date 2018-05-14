@@ -41,6 +41,19 @@ class Module
 	}
 
 	/**
+	 * get all modules
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return object
+	 */
+
+	public function getAll()
+	{
+		return Db::forTablePrefix('modules')->findMany();
+	}
+
+	/**
 	 * delete the module by alias
 	 *
 	 * @since 3.3.0

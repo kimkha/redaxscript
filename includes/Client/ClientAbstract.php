@@ -75,7 +75,7 @@ abstract class ClientAbstract
 
 		/* process setup */
 
-		foreach ($setupArray as $key => $value)
+		foreach ($setupArray as $value)
 		{
 			if (stristr($userAgent, $value))
 			{

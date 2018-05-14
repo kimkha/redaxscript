@@ -186,7 +186,7 @@ class Script extends HeadAbstract
 
 		/* process collection */
 
-		foreach ($collectionArray as $key => $attribute)
+		foreach ($collectionArray as $attribute)
 		{
 			$output .= $scriptElement
 				->copy()

@@ -31,6 +31,21 @@ class Article
 	}
 
 	/**
+	 * get the article title by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $articleId identifier of the article
+	 *
+	 * @return string|null
+	 */
+
+	public function getTitleById(int $articleId = null) : ?string
+	{
+		return Db::forTablePrefix('articles')->select('title')->whereIdIs($articleId)->findOne()->title;
+	}
+
+	/**
 	 * get the article route by id
 	 *
 	 * @since 3.3.0
@@ -60,6 +75,19 @@ class Article
 			$route = implode('/', array_filter($articleArray[0]));
 		}
 		return $route;
+	}
+
+	/**
+	 * get all articles
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return object
+	 */
+
+	public function getAll()
+	{
+		return Db::forTablePrefix('articles')->findMany();
 	}
 
 	/**

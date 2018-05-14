@@ -1,12 +1,12 @@
 [
 	[
 		"de",
-		"<language>home</language>",
+		"<rs-language>home</rs-language>",
 		"Startseite"
 	],
 	[
 		"en",
-		"<language>home</language>",
+		"<rs-language>home</rs-language>",
 		"Home"
 	]
 ]

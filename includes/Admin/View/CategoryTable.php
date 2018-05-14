@@ -1,9 +1,8 @@
 <?php
 namespace Redaxscript\Admin\View;
 
-use Redaxscript\Admin\View\Helper;
+use Redaxscript\Admin;
 use Redaxscript\Html;
-use Redaxscript\Model;
 use Redaxscript\Module;
 
 /**
@@ -30,6 +29,7 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 	{
 		$output = Module\Hook::trigger('adminCategoryTableStart');
 		$parameterRoute = $this->_registry->get('parameterRoute');
+		$categoriesNew = $this->_registry->get('categoriesNew');
 
 		/* html element */
 
@@ -58,7 +58,12 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 
 		/* collect output */
 
-		$output .= $titleElement . $wrapperElement->html($linkElement) . $this->_renderTable();
+		$output .= $titleElement;
+		if ($categoriesNew)
+		{
+			$output .= $wrapperElement->html($linkElement);
+		}
+		$output .= $this->_renderTable();
 		$output .= Module\Hook::trigger('adminCategoryTableEnd');
 		return $output;
 	}
@@ -85,7 +90,7 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 			'rank' => $this->_language->get('rank')
 		];
 		$adminControl = new Helper\Control($this->_registry, $this->_language);
-		$categoryModel = new Model\Category();
+		$categoryModel = new Admin\Model\Category();
 		$categories = $categoryModel->getAll();
 		$categoriesTotal = $categories->count();
 
@@ -121,22 +126,36 @@ class CategoryTable extends ViewAbstract implements ViewInterface
 
 		/* process categories */
 
-		foreach ($categories as $key => $value)
+		if ($categoriesTotal)
+		{
+			foreach ($categories as $key => $value)
+			{
+				$outputBody .= $trElement
+					->copy()
+					->addClass($value->parent ? 'rs-admin-has-parent' : null)
+					->addClass(!$value->status ? 'rs-admin-is-disabled' : null)
+					->html(
+						$tdElement->copy()->html($value->title . $adminControl->render('categories', $value->id, $value->alias, $value->status)) .
+						$tdElement->copy()->text($value->alias) .
+						$tdElement->copy()->text($value->language ? $this->_language->get($value->language, '_index') : $this->_language->get('all')) .
+						$tdElement
+							->copy()
+							->addClass('rs-admin-col-move')
+							->addClass($categoriesTotal > 1 ? 'rs-admin-is-active' : null)
+							->text($value->rank)
+				);
+			}
+		}
+		else
 		{
 			$outputBody .= $trElement
 				->copy()
-				->addClass($value->parent ? 'rs-admin-has-parent' : null)
-				->addClass(intval($value->status) === 1 ? null : 'rs-admin-is-disabled')
 				->html(
-					$tdElement->copy()->html($value->title . $adminControl->render('categories', $value->id, $value->alias, $value->status)) .
-					$tdElement->copy()->text($value->alias) .
-					$tdElement->copy()->text($value->language ? $this->_language->get($value->language, '_index') : $this->_language->get('all')) .
 					$tdElement
 						->copy()
-						->addClass('rs-admin-col-move')
-						->addClass($categoriesTotal > 1 ? 'rs-admin-is-active' : null)
-						->text($value->rank)
-			);
+						->attr('colspan', count($tableArray))
+						->text($this->_language->get('category_no'))
+				);
 		}
 
 		/* collect output */

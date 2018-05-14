@@ -1,7 +1,7 @@
 <?php
 namespace Redaxscript\Admin\View;
 
-use Redaxscript\Admin\Html\Form as AdminForm;
+use Redaxscript\Admin;
 use Redaxscript\Db;
 use Redaxscript\Html;
 use Redaxscript\Module;
@@ -43,7 +43,7 @@ class ExtraForm extends ViewAbstract implements ViewInterface
 				'class' => 'rs-admin-title-content',
 			])
 			->text($extra->title ? $extra->title : $this->_language->get('extra_new'));
-		$formElement = new AdminForm($this->_registry, $this->_language);
+		$formElement = new Admin\Html\Form($this->_registry, $this->_language);
 		$formElement->init(
 		[
 			'form' =>

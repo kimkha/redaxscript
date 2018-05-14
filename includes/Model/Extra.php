@@ -53,7 +53,7 @@ class Extra
 	}
 
 	/**
-	 * get all
+	 * get all extras
 	 *
 	 * @since 4.0.0
 	 *

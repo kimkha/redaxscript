@@ -86,7 +86,7 @@
 	[
 		{
 			"usersEdit": true,
-			"usersDelete": false,
+			"usersDelete": true,
 			"token": "ffd845f78510f02580d329127bab3dd1aa7f4453"
 		},
 		{
@@ -95,7 +95,7 @@
 			"alias": "test",
 			"status": 1
 		},
-		"<ul class=\"rs-admin-list-control\"><li class=\"rs-admin-item-control rs-admin-item-disable\"><a href=\"admin/disable/users/1/ffd845f78510f02580d329127bab3dd1aa7f4453\">Disable</a></li><li class=\"rs-admin-item-control rs-admin-item-edit\"><a href=\"admin/edit/users/1\">Edit</a></li></ul>"
+		"<ul class=\"rs-admin-list-control\"><li class=\"rs-admin-item-control rs-admin-item-edit\"><a href=\"admin/edit/users/1\">Edit</a></li></ul>"
 	],
 	[
 		{
@@ -105,11 +105,25 @@
 		},
 		{
 			"table": "users",
-			"id": 1,
+			"id": 2,
+			"alias": "test",
+			"status": 1
+		},
+		"<ul class=\"rs-admin-list-control\"><li class=\"rs-admin-item-control rs-admin-item-disable\"><a href=\"admin/disable/users/2/ffd845f78510f02580d329127bab3dd1aa7f4453\">Disable</a></li><li class=\"rs-admin-item-control rs-admin-item-edit\"><a href=\"admin/edit/users/2\">Edit</a></li></ul>"
+	],
+	[
+		{
+			"usersEdit": true,
+			"usersDelete": false,
+			"token": "ffd845f78510f02580d329127bab3dd1aa7f4453"
+		},
+		{
+			"table": "users",
+			"id": 2,
 			"alias": "test",
 			"status": 0
 		},
-		"<ul class=\"rs-admin-list-control\"><li class=\"rs-admin-item-control rs-admin-item-enable\"><a href=\"admin/enable/users/1/ffd845f78510f02580d329127bab3dd1aa7f4453\">Enable</a></li><li class=\"rs-admin-item-control rs-admin-item-edit\"><a href=\"admin/edit/users/1\">Edit</a></li></ul>"
+		"<ul class=\"rs-admin-list-control\"><li class=\"rs-admin-item-control rs-admin-item-enable\"><a href=\"admin/enable/users/2/ffd845f78510f02580d329127bab3dd1aa7f4453\">Enable</a></li><li class=\"rs-admin-item-control rs-admin-item-edit\"><a href=\"admin/edit/users/2\">Edit</a></li></ul>"
 	],
 	[
 		{

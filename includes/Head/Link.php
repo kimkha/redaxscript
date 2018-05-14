@@ -162,7 +162,7 @@ class Link extends HeadAbstract
 
 		/* process collection */
 
-		foreach ($collectionArray as $key => $attribute)
+		foreach ($collectionArray as $attribute)
 		{
 			if ($attribute['href'])
 			{

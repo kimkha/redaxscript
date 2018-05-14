@@ -49,6 +49,19 @@ class Comment
 	}
 
 	/**
+	 * get all comments
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return object
+	 */
+
+	public function getAll()
+	{
+		return Db::forTablePrefix('comments')->findMany();
+	}
+
+	/**
 	 * publish each comment by date
 	 *
 	 * @since 3.3.0
