@@ -239,7 +239,7 @@ class Pagination
 
 		for ($i = $start; $i < $end; $i++)
 		{
-			if ($i > 0 && $i < $total + 1)
+			if ($i >= 1 && $i <= $total)
 			{
 				$numberArray[] =
 				[
