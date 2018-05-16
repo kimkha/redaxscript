@@ -1,11 +1,11 @@
 [
 	[
-		null,
-		null,
-		null,
-		null,
+		"test",
+		1,
+		1,
+		0,
 		{},
-		null
+		"<ul class=\"rs-list-pagination\"><li class=\"rs-item-number rs-item-active\"><span>1</span></li></ul>"
 	],
 	[
 		"test",

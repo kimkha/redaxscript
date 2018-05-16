@@ -101,7 +101,7 @@ class Pagination
 	 * @return string
 	 */
 
-	public function render(string $route = null, int $current = null, int $total = null, int $range = null) : string
+	public function render(string $route = null, int $current = 1, int $total = 1, int $range = 0) : string
 	{
 		$output = Module\Hook::trigger('paginationStart');
 		$outputItem = null;
@@ -215,13 +215,13 @@ class Pagination
 	 * @return array
 	 */
 
-	public function _getNumberArray(int $current = null, int $total = null, int $range = null) : array
+	public function _getNumberArray(int $current = 1, int $total = 1, int $range = 0) : array
 	{
 		$numberArray = [];
 		$start = $current - $range;
 		$end = $current + $range;
 
-		/* process range */
+		/* start and end */
 
 		for ($i = $start; $i <= $end; $i++)
 		{
@@ -234,19 +234,18 @@ class Pagination
 				$start--;
 			}
 		}
+		$rangeArray = range(max(1, $start), min($total, $end));
 
-		/* process number */
+		/* process range */
 
-		for ($i = $start; $i <= $end; $i++)
+		foreach ($rangeArray as $value)
 		{
-			if ($i >= 1 && $i <= $total)
-			{
-				$numberArray[] =
-				[
-					'number' => $i,
-					'active' => $i === $current
-				];
-			}
+			$numberArray[] =
+			[
+				'number' => $value,
+				'active' => $value === $current
+			];
+
 		}
 		return $numberArray;
 	}
