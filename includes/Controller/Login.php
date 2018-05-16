@@ -164,7 +164,7 @@ class Login extends ControllerAbstract
 	/**
 	 * login the user
 	 *
-	 *  @since 3.0.0
+	 * @since 3.0.0
 	 *
 	 * @param int $userId identifier of the user
 	 *

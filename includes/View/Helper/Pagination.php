@@ -106,7 +106,7 @@ class Pagination
 		$output = Module\Hook::trigger('paginationStart');
 		$outputItem = null;
 		$parameterRoute = $this->_registry->get('parameterRoute');
-        $numberArray = $this->_getNumberArray($current, $total, $range);
+		$numberArray = $this->_getNumberArray($current, $total, $range);
 
 		/* html element */
 
@@ -153,16 +153,16 @@ class Pagination
 
 		foreach ($numberArray as $value)
 		{
-            $outputItem .=  $itemElement
-                ->copy()
-                ->addClass($this->_optionArray['className']['item']['number'])
-                ->addClass($value['active'] ? $this->_optionArray['className']['item']['active'] : null)
-                ->html(
-                    $value['active'] ? $textElement->text($value['number']) : $linkElement
-                        ->copy()
-                        ->attr('href', $parameterRoute . $route . '/' . $value['number'])
-                        ->text($value['number'])
-                );
+			$outputItem .= $itemElement
+				->copy()
+				->addClass($this->_optionArray['className']['item']['number'])
+				->addClass($value['active'] ? $this->_optionArray['className']['item']['active'] : null)
+				->html(
+					$value['active'] ? $textElement->text($value['number']) : $linkElement
+						->copy()
+						->attr('href', $parameterRoute . $route . '/' . $value['number'])
+						->text($value['number'])
+				);
 		}
 
 		/* next and last */
@@ -195,42 +195,59 @@ class Pagination
 
 		/* collect output */
 
-		$output .= $listElement->html($outputItem);
+		if ($outputItem)
+		{
+			$output .= $listElement->html($outputItem);
+		}
 		$output .= Module\Hook::trigger('paginationEnd');
 		return $output;
 	}
 
-    /**
-     * get the number array
-     *
-     * @since 4.0.0
-     *
-     * @param int $current
-     * @param int $total
-     * @param int $range
-     *
-     * @return array
-     */
+	/**
+	 * get the number array
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $current
+	 * @param int $total
+	 * @param int $range
+	 *
+	 * @return array
+	 */
 
-    public function _getNumberArray(int $current = null, int $total = null, int $range = null) : array
-    {
-        $numberArray = [];
-        $start = $current - $range;
-        $end = $current + $range + 1;
+	public function _getNumberArray(int $current = null, int $total = null, int $range = null) : array
+	{
+		$numberArray = [];
+		$start = $current - $range;
+		$end = $current + $range + 1;
 
-        /* process number */
+		/* process range */
 
-        for ($i = $start; $i < $end; $i++)
-        {
-            if ($i > 0 && $i < $total + 1)
-            {
-                $numberArray[] =
-                [
-                    'number' => $i,
-                    'active' => $i === $current
-                ];
-            }
-        }
-        return $numberArray;
-    }
+		for ($i = $start; $i < $end; $i++)
+		{
+			if ($i < 1)
+			{
+				$end++;
+			}
+			if ($i > $total)
+			{
+				$start--;
+			}
+		}
+
+		/* process number */
+
+		for ($i = $start; $i < $end; $i++)
+		{
+			if ($i > 0 && $i < $total + 1)
+			{
+				$numberArray[] =
+				[
+					'number' => $i,
+					'active' => $i === $current
+				];
+			}
+		}
+		return $numberArray;
+	}
 }

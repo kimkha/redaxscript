@@ -129,7 +129,7 @@ class Search extends ControllerAbstract
 	 * @return string
 	 */
 
-	protected function _info(array $infoArray = [])  : string
+	protected function _info(array $infoArray = []) : string
 	{
 		$messenger = new Messenger($this->_registry);
 		return $messenger

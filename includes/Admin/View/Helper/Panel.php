@@ -443,7 +443,7 @@ class Panel
 						->html(
 							$linkElement
 								->copy()
-								->attr('href', $type === 'settings' ?  $parameterRoute . 'admin/edit/settings' : $parameterRoute . 'admin/view/' . $type)
+								->attr('href', $type === 'settings' ? $parameterRoute . 'admin/edit/settings' : $parameterRoute . 'admin/view/' . $type)
 								->text($this->_language->get($type))
 						)
 				);

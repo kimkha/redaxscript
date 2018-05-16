@@ -130,7 +130,7 @@ class Recover extends ControllerAbstract
 	 * @return string
 	 */
 
-	protected function _error(array $errorArray = [])  : string
+	protected function _error(array $errorArray = []) : string
 	{
 		$messenger = new Messenger($this->_registry);
 		return $messenger

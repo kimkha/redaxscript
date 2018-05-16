@@ -57,7 +57,6 @@ class PaginationTest extends TestCaseAbstract
 
 		/* compare */
 
-        $this->markTestIncomplete('todo');
 		$this->assertEquals($expect, $actual);
 	}
 }
