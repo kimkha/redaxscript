@@ -156,12 +156,12 @@ class Pagination
 			$outputItem .= $itemElement
 				->copy()
 				->addClass($this->_optionArray['className']['item']['number'])
-				->addClass($value['active'] ? $this->_optionArray['className']['item']['active'] : null)
+				->addClass($value === $current ? $this->_optionArray['className']['item']['active'] : null)
 				->html(
-					$value['active'] ? $textElement->text($value['number']) : $linkElement
+					$value === $current ? $textElement->text($value) : $linkElement
 						->copy()
-						->attr('href', $parameterRoute . $route . '/' . $value['number'])
-						->text($value['number'])
+						->attr('href', $parameterRoute . $route . '/' . $value)
+						->text($value)
 				);
 		}
 
@@ -217,7 +217,6 @@ class Pagination
 
 	public function _getNumberArray(int $current = 1, int $total = 1, int $range = 0) : array
 	{
-		$numberArray = [];
 		$start = $current - $range;
 		$end = $current + $range;
 
@@ -234,19 +233,6 @@ class Pagination
 				$start--;
 			}
 		}
-		$rangeArray = range(max(1, $start), min($total, $end));
-
-		/* process range */
-
-		foreach ($rangeArray as $value)
-		{
-			$numberArray[] =
-			[
-				'number' => $value,
-				'active' => $value === $current
-			];
-
-		}
-		return $numberArray;
+		return range(max(1, $start), min($total, $end));
 	}
 }
