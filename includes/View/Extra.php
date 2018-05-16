@@ -155,6 +155,7 @@ class Extra extends ViewAbstract
 		{
 			if ($accessValidator->validate($value->access, $myGroups) === Validator\ValidatorInterface::PASSED)
 			{
+				$output .= Module\Hook::trigger('extraFragmentStart', $value);
 				if (intval($value->headline) === 1)
 				{
 					$output .= $titleElement
@@ -162,7 +163,7 @@ class Extra extends ViewAbstract
 						->text($value->title);
 				}
 				$contentParser->process($value->text);
-				$output .= $boxElement->html($contentParser->getOutput());
+				$output .= $boxElement->html($contentParser->getOutput()) . Module\Hook::trigger('extraFragmentEnd', $value);
 
 				/* admin dock */
 

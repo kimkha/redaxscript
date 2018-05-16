@@ -219,11 +219,11 @@ class Pagination
 	{
 		$numberArray = [];
 		$start = $current - $range;
-		$end = $current + $range + 1;
+		$end = $current + $range;
 
 		/* process range */
 
-		for ($i = $start; $i < $end; $i++)
+		for ($i = $start; $i <= $end; $i++)
 		{
 			if ($i < 1)
 			{
@@ -237,7 +237,7 @@ class Pagination
 
 		/* process number */
 
-		for ($i = $start; $i < $end; $i++)
+		for ($i = $start; $i <= $end; $i++)
 		{
 			if ($i >= 1 && $i <= $total)
 			{
