@@ -16,7 +16,7 @@ use Redaxscript\Module;
  * @author Henry Ruhs
  */
 
-class CategoryForm extends ViewAbstract implements ViewInterface
+class CategoryForm extends ViewAbstract
 {
 	/**
 	 * render the view

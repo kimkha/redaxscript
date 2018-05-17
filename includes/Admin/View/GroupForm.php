@@ -16,7 +16,7 @@ use Redaxscript\Module;
  * @author Henry Ruhs
  */
 
-class GroupForm extends ViewAbstract implements ViewInterface
+class GroupForm extends ViewAbstract
 {
 	/**
 	 * render the view

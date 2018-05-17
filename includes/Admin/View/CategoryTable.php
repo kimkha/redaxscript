@@ -15,7 +15,7 @@ use Redaxscript\Module;
  * @author Henry Ruhs
  */
 
-class CategoryTable extends ViewAbstract implements ViewInterface
+class CategoryTable extends ViewAbstract
 {
 	/**
 	 * render the view

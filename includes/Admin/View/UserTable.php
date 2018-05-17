@@ -15,7 +15,7 @@ use Redaxscript\Module;
  * @author Henry Ruhs
  */
 
-class UserTable extends ViewAbstract implements ViewInterface
+class UserTable extends ViewAbstract
 {
 	/**
 	 * render the view

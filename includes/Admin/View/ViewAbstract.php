@@ -13,6 +13,6 @@ use Redaxscript\View\ViewAbstract as BaseViewAbstract;
  * @author Henry Ruhs
  */
 
-abstract class ViewAbstract extends BaseViewAbstract
+abstract class ViewAbstract extends BaseViewAbstract implements ViewInterface
 {
 }

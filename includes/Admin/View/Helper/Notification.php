@@ -1,6 +1,7 @@
 <?php
 namespace Redaxscript\Admin\View\Helper;
 
+use Redaxscript\Admin\View\ViewInterface;
 use Redaxscript\Html;
 use Redaxscript\Language;
 use Redaxscript\Module;
@@ -15,7 +16,7 @@ use Redaxscript\Module;
  * @author Henry Ruhs
  */
 
-class Notification
+class Notification implements ViewInterface
 {
 	/**
 	 * instance of the language class

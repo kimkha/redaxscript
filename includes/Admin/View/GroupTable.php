@@ -15,7 +15,7 @@ use Redaxscript\Module;
  * @author Henry Ruhs
  */
 
-class GroupTable extends ViewAbstract implements ViewInterface
+class GroupTable extends ViewAbstract
 {
 	/**
 	 * render the view

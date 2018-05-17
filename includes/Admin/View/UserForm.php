@@ -16,7 +16,7 @@ use Redaxscript\Module;
  * @author Henry Ruhs
  */
 
-class UserForm extends ViewAbstract implements ViewInterface
+class UserForm extends ViewAbstract
 {
 	/**
 	 * render the view

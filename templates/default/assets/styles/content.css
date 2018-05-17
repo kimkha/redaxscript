@@ -55,6 +55,11 @@
 {
 	font-style: italic;
 	margin-top: 1em;
+
+	& span + span:before
+	{
+		content: ' ';
+	}
 }
 
 /** @section 2. comment */

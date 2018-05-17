@@ -1,10 +1,9 @@
 <?php
 namespace Redaxscript\Admin\View\Helper;
 
+use Redaxscript\Admin\View\ViewAbstract;
 use Redaxscript\Html;
-use Redaxscript\Language;
 use Redaxscript\Module;
-use Redaxscript\Registry;
 use Redaxscript\Validator;
 
 /**
@@ -17,30 +16,8 @@ use Redaxscript\Validator;
  * @author Henry Ruhs
  */
 
-class Panel
+class Panel extends ViewAbstract
 {
-	/**
-	 * instance of the registry class
-	 *
-	 * @var Registry
-	 */
-
-	protected $_registry;
-
-	/**
-	 * instance of the language class
-	 *
-	 * @var Language
-	 */
-
-	protected $_language;
-
-	/**
-	 * options of the dock
-	 *
-	 * @var array
-	 */
-
 	protected $_optionArray =
 	[
 		'className' =>
@@ -86,21 +63,6 @@ class Panel
 			]
 		]
 	];
-
-	/**
-	 * constructor of the class
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param Registry $registry instance of the registry class
-	 * @param Language $language instance of the language class
-	 */
-
-	public function __construct(Registry $registry, Language $language)
-	{
-		$this->_registry = $registry;
-		$this->_language = $language;
-	}
 
 	/**
 	 * init the class

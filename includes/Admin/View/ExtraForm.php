@@ -16,7 +16,7 @@ use Redaxscript\Module;
  * @author Henry Ruhs
  */
 
-class ExtraForm extends ViewAbstract implements ViewInterface
+class ExtraForm extends ViewAbstract
 {
 	/**
 	 * render the view

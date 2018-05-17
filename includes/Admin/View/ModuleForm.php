@@ -17,7 +17,7 @@ use Redaxscript\Module;
  * @author Henry Ruhs
  */
 
-class ModuleForm extends ViewAbstract implements ViewInterface
+class ModuleForm extends ViewAbstract
 {
 	/**
 	 * render the view

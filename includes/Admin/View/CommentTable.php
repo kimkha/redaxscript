@@ -15,7 +15,7 @@ use Redaxscript\Module;
  * @author Henry Ruhs
  */
 
-class CommentTable extends ViewAbstract implements ViewInterface
+class CommentTable extends ViewAbstract
 {
 	/**
 	 * render the view

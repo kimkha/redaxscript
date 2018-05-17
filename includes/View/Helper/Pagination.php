@@ -3,8 +3,7 @@ namespace Redaxscript\View\Helper;
 
 use Redaxscript\Html;
 use Redaxscript\Module;
-use Redaxscript\Registry;
-use Redaxscript\Language;
+use Redaxscript\View\ViewAbstract;
 
 /**
  * helper class to create the pagination
@@ -16,30 +15,8 @@ use Redaxscript\Language;
  * @author Henry Ruhs
  */
 
-class Pagination
+class Pagination extends ViewAbstract
 {
-	/**
-	 * instance of the registry class
-	 *
-	 * @var Registry
-	 */
-
-	protected $_registry;
-
-	/**
-	 * instance of the language class
-	 *
-	 * @var Language
-	 */
-
-	protected $_language;
-
-	/**
-	 * options of the pagination
-	 *
-	 * @var array
-	 */
-
 	protected $_optionArray =
 	[
 		'className' =>
@@ -56,21 +33,6 @@ class Pagination
 			]
 		]
 	];
-
-	/**
-	 * constructor of the class
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param Registry $registry instance of the registry class
-	 * @param Language $language instance of the language class
-	 */
-
-	public function __construct(Registry $registry, Language $language)
-	{
-		$this->_registry = $registry;
-		$this->_language = $language;
-	}
 
 	/**
 	 * init the class
