@@ -1,6 +1,8 @@
 <?php
 namespace Redaxscript\View;
 
+use Redaxscript\Module;
+
 /**
  * children class to create the comment
  *
@@ -14,17 +16,68 @@ namespace Redaxscript\View;
 class Comment extends ViewAbstract
 {
 	/**
-	 * render the view
+	 * options of the comment
+	 *
+	 * @var array
+	 */
+
+	protected $_optionArray =
+	[
+		'tag' =>
+		[
+			'title' => 'h3',
+			'box' => 'div'
+		],
+		'className' =>
+		[
+			'title' => 'rs-title-comment',
+			'box' => 'rs-box-comment'
+		]
+	];
+
+	/**
+	 * stringify the comment
 	 *
 	 * @since 4.0.0
-	 *
-	 * @param array $installArray options of the comment
 	 *
 	 * @return string
 	 */
 
-	public function render(array $installArray = []) : string
+	public function __toString() : string
 	{
-		return 'to be implemented: ' . __CLASS__ . ' ' . implode($installArray, ' ,');
+		return $this->render();
+	}
+
+	/**
+	 * init the class
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $optionArray options of the comment
+	 */
+
+	public function init(array $optionArray = [])
+	{
+		if (is_array($optionArray))
+		{
+			$this->_optionArray = array_replace_recursive($this->_optionArray, $optionArray);
+		}
+	}
+
+	/**
+	 * render the view
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $articleAlias alias of the article
+	 *
+	 * @return string
+	 */
+
+	public function render(string $articleAlias = null) : string
+	{
+		$output = Module\Hook::trigger('commentStart');
+		$output .= Module\Hook::trigger('commentEnd');
+		return $output;
 	}
 }

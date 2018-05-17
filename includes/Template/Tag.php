@@ -255,15 +255,18 @@ class Tag
 	/**
 	 * content
 	 *
-	 * @since 2.3.0
+	 * @since 4.0.0
+	 *
+	 * @param string $categoryAlias alias of the category
+	 * @param array $optionArray options of the content
 	 *
 	 * @return string|null
 	 */
 
-	public static function content()
+	public static function content(string $categoryAlias = null, array $optionArray = [])
 	{
 		$adminContent = self::_renderAdminContent();
-		return $adminContent ? $adminContent : self::_renderContent();
+		return $adminContent ? $adminContent : self::_renderContent($categoryAlias, $optionArray);
 	}
 
 	/**
@@ -288,12 +291,15 @@ class Tag
 	/**
 	 * render the content
 	 *
-	 * @since 2.3.0
+	 * @since 4.0.0
+	 *
+	 * @param string $categoryAlias alias of the category
+	 * @param array $optionArray options of the content
 	 *
 	 * @return string|null
 	 */
 
-	protected static function _renderContent()
+	protected static function _renderContent(string $categoryAlias = null, array $optionArray = [])
 	{
 		$router = new Router\Router(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
 		$router->init();
@@ -303,7 +309,26 @@ class Tag
 			return $routerContent;
 		}
 		$content = new View\Content(Registry::getInstance(), Language::getInstance());
-		return $content->render();
+		$content->init($optionArray);
+		return $content->render($categoryAlias);
+	}
+
+	/**
+	 * comment
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $articleAlias alias of the article
+	 * @param array $optionArray options of the comment
+	 *
+	 * @return string|null
+	 */
+
+	public static function comment(string $articleAlias = null, array $optionArray = [])
+	{
+		$comment = new View\Comment(Registry::getInstance(), Language::getInstance());
+		$comment->init($optionArray);
+		return $comment->render($articleAlias);
 	}
 
 	/**

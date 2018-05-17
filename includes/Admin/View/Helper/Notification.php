@@ -84,7 +84,7 @@ class Notification implements ViewInterface
 	{
 		if (is_array($optionArray))
 		{
-			$this->_optionArray = array_merge($this->_optionArray, $optionArray);
+			$this->_optionArray = array_replace_recursive($this->_optionArray, $optionArray);
 		}
 		$this->_notificationArray = Module\Hook::collect('adminNotification');
 	}
