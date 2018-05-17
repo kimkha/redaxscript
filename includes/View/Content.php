@@ -78,6 +78,7 @@ class Content extends ViewAbstract
 	{
 		$output = Module\Hook::trigger('contentStart');
 		$output .= Module\Hook::trigger('contentEnd');
+		$output .= $categoryAlias;
 		return $output;
 	}
 }

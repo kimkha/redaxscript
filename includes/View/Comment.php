@@ -78,6 +78,7 @@ class Comment extends ViewAbstract
 	{
 		$output = Module\Hook::trigger('commentStart');
 		$output .= Module\Hook::trigger('commentEnd');
+		$output .= $articleAlias;
 		return $output;
 	}
 }
