@@ -118,7 +118,6 @@ module.exports = grunt =>
 	]);
 	grunt.registerTask('build-styles',
 	[
-		'postcss:base',
 		'postcss:templateAdmin',
 		'postcss:templateConsole',
 		'postcss:templateDefault',

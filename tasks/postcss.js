@@ -4,31 +4,6 @@ module.exports = () =>
 
 	const config =
 	{
-		base:
-		{
-			src:
-			[
-				'assets/styles/_base.css'
-			],
-			dest: 'dist/styles/base.min.css',
-			options:
-			{
-				processors:
-				[
-					require('postcss-import'),
-					require('postcss-harmonize'),
-					require('autoprefixer')(
-					{
-						browsers: 'last 2 versions'
-					}),
-					require('cssnano')(
-					{
-						autoprefixer: false,
-						discardUnused: false
-					})
-				]
-			}
-		},
 		templateAdmin:
 		{
 			src:

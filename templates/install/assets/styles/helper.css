@@ -1,0 +1,6 @@
+/** @section 1. clearfix */
+
+.rs-fn-clearfix
+{
+	@extend %fn-clearfix;
+}

@@ -29,7 +29,6 @@
 	->init()
 	->append(['href' => Helper::getCanonical(), 'rel' => 'canonical'])
 	->appendFile('https://fonts.googleapis.com/css?family=Raleway:300,700&amp;subset=' . Helper::getSubset())
-	->appendFile('dist/styles/base.min.css')
 	->appendFile('templates/skeleton/dist/styles/skeleton.min.css')
 	->concat(); ?>
 
