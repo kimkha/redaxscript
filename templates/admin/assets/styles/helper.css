@@ -2,7 +2,8 @@
  * @tableofcontents
  *
  * 1. clearfix
- * 2. redirect
+ * 2. dropdown
+ * 3. redirect
  */
 
 /** @section 1. clearfix */
@@ -12,7 +13,14 @@
 	@extend %fn-clearfix;
 }
 
-/** @section 2. redirect */
+/** @section 2. dropdown */
+
+.rs-admin-fn-dropdown
+{
+	@extend %fn-dropdown;
+}
+
+/** @section 3. redirect */
 
 .rs-admin-meta-redirect
 {

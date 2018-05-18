@@ -130,12 +130,6 @@
 	}
 }
 
-.rs-admin-list-panel-children,
-.rs-admin-list-notification
-{
-	display: none;
-}
-
 /** @section 1.2 notification */
 
 .rs-admin-text-panel-notification
@@ -200,7 +194,6 @@
 		& .rs-admin-list-notification
 		{
 			left: 0;
-			position: absolute;
 			right: 0;
 		}
 	}

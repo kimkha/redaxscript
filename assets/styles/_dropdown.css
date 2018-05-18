@@ -10,7 +10,7 @@
 {
 	%fn-dropdown
 	{
-		& li
+		& > li
 		{
 			position: relative;
 

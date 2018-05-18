@@ -8,14 +8,14 @@ module.exports = () =>
 		{
 			src:
 			[
-				'templates/**/assets/**/*.{css}'
+				'templates/**/assets/**/*.css'
 			]
 		},
 		modules:
 		{
 			src:
 			[
-				'modules/**/assets/**/*.{css}'
+				'modules/**/assets/**/*.css'
 			]
 		}
 	};

@@ -24,7 +24,7 @@ class Panel extends ViewAbstract
 		[
 			'list' =>
 			[
-				'panel' => 'rs-admin-js-list-panel rs-admin-list-panel',
+				'panel' => 'rs-admin-fn-dropdown rs-admin-list-panel',
 				'content' => 'rs-admin-list-panel-children',
 				'access' => 'rs-admin-list-panel-children',
 				'system' => 'rs-admin-list-panel-children'
