@@ -6,8 +6,7 @@ module.exports = grunt =>
 
 	grunt.initConfig(
 	{
-		jscs: require('./tasks/jscs')(grunt),
-		jshint: require('./tasks/jshint')(grunt),
+		eslint: require('./tasks/eslint')(grunt),
 		jsonlint: require('./tasks/jsonlint')(grunt),
 		ncsslint: require('./tasks/ncsslint')(grunt),
 		htmlhint: require('./tasks/htmlhint')(grunt),
@@ -37,8 +36,7 @@ module.exports = grunt =>
 
 	grunt.registerTask('default',
 	[
-		'jscs',
-		'jshint',
+		'eslint',
 		'jsonlint',
 		'stylelint',
 		'colorguard',
@@ -139,7 +137,6 @@ module.exports = grunt =>
 	]);
 	grunt.registerTask('build-scripts',
 	[
-		'uglify:base',
 		'uglify:templateAdmin',
 		'uglify:templateConsole',
 		'uglify:templateInstall',

@@ -1,24 +1,19 @@
-/**
- * @tableofcontents
- *
- * 1. console
- */
-
-/** @section 1. console */
-
-rs.plugins.console =
+rs.templates.console =
 {
-	init: true,
-	selector: 'form.rs-console-js-form',
-	options:
+	behavior:
 	{
-		element:
+		init: true,
+		selector: 'form.rs-console-js-form',
+		options:
 		{
-			consoleBox: 'div.rs-console-js-box',
-			consoleLabel: 'label.rs-console-js-label',
-			consoleField: 'input.rs-console-js-field',
-			root: 'html, body'
-		},
-		eol: '\n'
+			element:
+			{
+				consoleBox: 'div.rs-console-js-box',
+				consoleLabel: 'label.rs-console-js-label',
+				consoleField: 'input.rs-console-js-field',
+				root: 'html, body'
+			},
+			eol: '\n'
+		}
 	}
 };

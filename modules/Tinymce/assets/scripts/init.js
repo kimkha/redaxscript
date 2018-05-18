@@ -1,15 +1,7 @@
-/**
- * @tableofcontents
- *
- * 1. tinymce
- */
-
-/** @section 1. tinymce */
-
-rs.modules.tinymce =
+rs.modules.Tinymce =
 {
 	init: rs.registry.lastTable === 'articles' || rs.registry.adminParameter === 'new' || rs.registry.adminParameter === 'edit' && rs.registry.tableParameter === 'articles' || rs.registry.tableParameter === 'extras' || rs.registry.tableParameter === 'comments',
-	dependency: typeof tinymce === 'object',
+	dependency: typeof window.tinymce === 'object',
 	options:
 	{
 		selector: 'form textarea.rs-admin-js-editor-textarea',

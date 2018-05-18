@@ -131,7 +131,7 @@ module.exports = () =>
 				'vpn-key': 0x2386,
 				'warning': 0x0021
 			},
-			rename: function (name)
+			rename: name =>
 			{
 				return require('path')
 					.basename(name)

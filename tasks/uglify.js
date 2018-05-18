@@ -4,17 +4,6 @@ module.exports = () =>
 
 	const config =
 	{
-		base:
-		{
-			src:
-			[
-				'assets/scripts/dialog.js',
-				'assets/scripts/form.js',
-				'assets/scripts/interface.js',
-				'assets/scripts/misc.js'
-			],
-			dest: 'dist/scripts/base.min.js'
-		},
 		templateAdmin:
 		{
 			src:
@@ -28,7 +17,7 @@ module.exports = () =>
 		{
 			src:
 			[
-				'templates/console/assets/scripts/console.js'
+				'templates/console/assets/scripts/behavior.js'
 			],
 			dest: 'templates/console/dist/scripts/console.min.js'
 		},
@@ -36,7 +25,7 @@ module.exports = () =>
 		{
 			src:
 			[
-				'templates/install/assets/scripts/install.js'
+				'templates/install/assets/scripts/behavior.js'
 			],
 			dest: 'templates/install/dist/scripts/install.min.js'
 		},

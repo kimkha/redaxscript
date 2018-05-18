@@ -1,15 +1,7 @@
-/**
- * @tableofcontents
- *
- * 1. analytics
- */
-
-/** @section 1. analytics */
-
-rs.modules.analytics =
+rs.modules.Analytics =
 {
 	init: rs.registry.loggedIn !== rs.registry.token,
-	dependency: typeof ga === 'function',
+	dependency: typeof window.ga === 'function',
 	selector: 'a.rs-js-track-click, button.rs-js-track-click',
 	options:
 	{

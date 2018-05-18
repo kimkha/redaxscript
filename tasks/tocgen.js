@@ -4,25 +4,18 @@ module.exports = () =>
 
 	const config =
 	{
-		base:
-		{
-			src:
-			[
-				'assets/**/*.{css,js}'
-			]
-		},
 		templates:
 		{
 			src:
 			[
-				'templates/**/assets/**/*.{css,js}'
+				'templates/**/assets/**/*.{css}'
 			]
 		},
 		modules:
 		{
 			src:
 			[
-				'modules/**/assets/**/*.{css,js}'
+				'modules/**/assets/**/*.{css}'
 			]
 		}
 	};

@@ -1,12 +1,4 @@
-/**
- * @tableofcontents
- *
- * 1. maps
- */
-
-/** @section 1. maps */
-
-rs.modules.maps =
+rs.modules.Maps =
 {
 	init: !rs.registry.adminParameter,
 	dependency: typeof window.google === 'object' && typeof window.google.maps === 'object',
