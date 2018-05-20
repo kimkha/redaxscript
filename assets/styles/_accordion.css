@@ -1,0 +1,18 @@
+/**
+ * @tableofcontents
+ *
+ * 1. accordion
+ */
+
+/** @section 1. accordion */
+
+%fn-accordion,
+%fn-status-accordion
+{
+	display: none;
+}
+
+%fn-checked-accordion
+{
+	display: block;
+}

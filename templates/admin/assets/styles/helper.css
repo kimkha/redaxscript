@@ -2,8 +2,9 @@
  * @tableofcontents
  *
  * 1. clearfix
- * 2. dropdown
- * 3. redirect
+ * 2. accordion
+ * 3. dropdown
+ * 4. redirect
  */
 
 /** @section 1. clearfix */
@@ -13,14 +14,31 @@
 	@extend %fn-clearfix;
 }
 
-/** @section 2. dropdown */
+/** @section 2. accordion */
+
+.rs-admin-fn-accordion
+{
+	@extend %fn-accordion;
+}
+
+.rs-admin-fn-status-accordion
+{
+	@extend %fn-status-accordion;
+}
+
+.rs-admin-fn-status-accordion:checked + .rs-admin-fn-toggle-accordion + .rs-admin-fn-accordion
+{
+	@extend %fn-checked-accordion;
+}
+
+/** @section 3. dropdown */
 
 .rs-admin-fn-dropdown
 {
 	@extend %fn-dropdown;
 }
 
-/** @section 3. redirect */
+/** @section 4. redirect */
 
 .rs-admin-meta-redirect
 {

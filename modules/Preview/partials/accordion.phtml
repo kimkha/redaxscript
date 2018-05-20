@@ -7,38 +7,49 @@ $setElement = $element
 	->copy()
 	->init('div',
 	[
-		'class' => $admin ? 'rs-admin-js-set-accordion rs-admin-set-accordion' : 'rs-js-set-accordion rs-set-accordion'
+		'class' => $admin ? 'rs-admin-set-accordion' : 'rs-set-accordion'
 	]);
-$titleElement = $element
+$inputElement = $element
 	->copy()
-	->init('h3',
+	->init('input',
 	[
-		'class' => $admin ? 'rs-admin-js-title-accordion rs-admin-title-accordion' : 'rs-js-title-accordion rs-title-accordion'
+		'class' => $admin ? 'rs-admin-fn-status-accordion' : 'rs-fn-status-accordion',
+		'type' => 'checkbox'
+	]);
+$labelElement = $element
+	->copy()
+	->init('label',
+	[
+		'class' => $admin ? 'rs-admin-fn-toggle-accordion rs-admin-label-accordion' : 'rs-fn-toggle-accordion rs-label-accordion'
 	]);
 $boxElement = $element
 	->copy()
 	->init('div',
 	[
-		'class' => $admin ? 'rs-admin-js-box-accordion rs-admin-box-accordion' : 'rs-js-box-accordion rs-box-accordion'
+		'class' => $admin ? 'rs-admin-fn-accordion rs-admin-box-accordion' : 'rs-fn-accordion rs-box-accordion'
 	]);
 ?>
 
 <!-- accordion -->
 
-<div class="<?php echo $admin ? 'rs-admin-js-accordion rs-admin-component-accordion' : 'rs-js-accordion rs-component-accordion'; ?>">
+<div class="<?php echo $admin ? 'rs-admin-component-accordion' : 'rs-component-accordion'; ?>">
 
 	<?php for ($i = 1; $i < 6; $i++): ?>
 
 		<?php echo $setElement
 				->copy()
-				->addClass($i === 2 ? $admin ? 'rs-admin-js-set-active rs-admin-set-active' : 'rs-js-set-active rs-set-active' : null)
 				->html(
-					$titleElement
+					$inputElement
 						->copy()
-						->addClass($i === 2 ? $admin ? 'rs-admin-js-title-active rs-admin-title-active' : 'rs-js-title-active rs-title-active' : null)
-						->text($language->get($i, '_number')) . $boxElement
+						->attr('id', $admin ? 'Modules\Preview\Admin\\' . $i : 'Modules\Preview\\' . $i)
+						->attr('checked', $i === 1 ? 'checked' : null)
+						->text($language->get($i, '_number')) .
+					$labelElement
 						->copy()
-						->addClass($i === 2 ? $admin ? 'rs-admin-js-box-active rs-admin-box-active' : 'rs-js-box-active rs-box-active' : null)
+						->attr('for', $admin ? 'Modules\Preview\Admin\\' . $i : 'Modules\Preview\\' . $i)
+						->text($language->get($i, '_number')) .
+					$boxElement
+						->copy()
 						->text($language->get($i, '_number'))
 		); ?>
 

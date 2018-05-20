@@ -44,7 +44,7 @@ class InstallForm extends ViewAbstract
 		[
 			'form' =>
 			[
-				'class' => 'rs-js-accordion rs-js-validate-form rs-install-js-form rs-component-accordion rs-form-default rs-install-form-default'
+				'class' => 'rs-js-validate-form rs-install-js-form rs-component-accordion rs-form-default rs-install-form-default'
 			],
 			'button' =>
 			[
@@ -62,9 +62,10 @@ class InstallForm extends ViewAbstract
 
 			/* database fieldset */
 
-			->append('<fieldset class="rs-js-set-accordion rs-js-set-active rs-set-accordion rs-set-active">')
-			->append('<legend class="rs-js-title-accordion rs-js-title-active rs-title-accordion rs-title-active">' . $this->_language->get('database_setup') . '</legend>')
-			->append('<ul class="rs-js-box-accordion rs-js-box-active rs-box-accordion rs-box-active">');
+			->append('<fieldset class="rs-set-accordion">')
+			->append('<input id="' . get_class() . '\Database" class="rs-fn-status-accordion" type="checkbox" checked="checked" />')
+			->append('<label for="' . get_class() . '\Database" class="rs-fn-toggle-accordion rs-label-accordion">' . $this->_language->get('database_setup') . '</label>')
+			->append('<ul class="rs-fn-accordion rs-box-accordion"><li>');
 		if ($this->_registry->get('driverArray'))
 		{
 			$formElement
@@ -150,9 +151,10 @@ class InstallForm extends ViewAbstract
 
 			/* account fieldset */
 
-			->append('<fieldset class="rs-js-set-accordion rs-set-accordion">')
-			->append('<legend class="rs-js-title-accordion rs-title-accordion">' . $this->_language->get('account_create') . '</legend>')
-			->append('<ul class="rs-js-box-accordion rs-box-accordion"><li>')
+			->append('<fieldset class="rs-set-accordion">')
+			->append('<input id="' . get_class() . '\Account" class="rs-fn-status-accordion" type="checkbox" />')
+			->append('<label for="' . get_class() . '\Account" class="rs-fn-toggle-accordion rs-label-accordion">' . $this->_language->get('account_create') . '</label>')
+			->append('<ul class="rs-fn-accordion rs-box-accordion"><li>')
 			->label($this->_language->get('name'),
 			[
 				'for' => 'name'
