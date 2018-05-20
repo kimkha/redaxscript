@@ -14,7 +14,8 @@ $inputElement = $element
 	->init('input',
 	[
 		'class' => $admin ? 'rs-admin-fn-status-accordion' : 'rs-fn-status-accordion',
-		'type' => 'checkbox'
+		'type' => 'radio',
+		'name' => $admin ? 'Modules\Preview\Admin\Accordion' : 'Modules\Preview\Accordion'
 	]);
 $labelElement = $element
 	->copy()

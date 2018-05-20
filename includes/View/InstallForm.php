@@ -63,7 +63,7 @@ class InstallForm extends ViewAbstract
 			/* database fieldset */
 
 			->append('<fieldset class="rs-set-accordion">')
-			->append('<input id="' . get_class() . '\Database" class="rs-fn-status-accordion" type="checkbox" checked="checked" />')
+			->append('<input id="' . get_class() . '\Database" class="rs-fn-status-accordion" type="radio" name="' . get_class() . '\Accordion" checked="checked" />')
 			->append('<label for="' . get_class() . '\Database" class="rs-fn-toggle-accordion rs-label-accordion">' . $this->_language->get('database_setup') . '</label>')
 			->append('<ul class="rs-fn-accordion rs-box-accordion"><li>');
 		if ($this->_registry->get('driverArray'))
@@ -152,7 +152,7 @@ class InstallForm extends ViewAbstract
 			/* account fieldset */
 
 			->append('<fieldset class="rs-set-accordion">')
-			->append('<input id="' . get_class() . '\Account" class="rs-fn-status-accordion" type="checkbox" />')
+			->append('<input id="' . get_class() . '\Account" class="rs-fn-status-accordion" type="radio" name="' . get_class() . '\Accordion" />')
 			->append('<label for="' . get_class() . '\Account" class="rs-fn-toggle-accordion rs-label-accordion">' . $this->_language->get('account_create') . '</label>')
 			->append('<ul class="rs-fn-accordion rs-box-accordion"><li>')
 			->label($this->_language->get('name'),

@@ -70,7 +70,7 @@ class SettingForm extends ViewAbstract
 			/* general fieldset */
 
 			->append('<fieldset class="rs-admin-set-accordion">')
-			->append('<input id="' . get_class() . '\General" class="rs-admin-fn-status-accordion" type="checkbox" checked="checked" />')
+			->append('<input id="' . get_class() . '\General" class="rs-admin-fn-status-accordion" type="radio" name="' . get_class() . '\Accordion" checked="checked" />')
 			->append('<label for="' . get_class() . '\General" class="rs-admin-fn-toggle-accordion rs-admin-label-accordion">' . $this->_language->get('general') . '</label>')
 			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
 
@@ -104,7 +104,7 @@ class SettingForm extends ViewAbstract
 			/* metadata fieldset */
 
 			->append('<fieldset class="rs-admin-set-accordion">')
-			->append('<input id="' . get_class() . '\Metandata" class="rs-admin-fn-status-accordion" type="checkbox" />')
+			->append('<input id="' . get_class() . '\Metandata" class="rs-admin-fn-status-accordion" type="radio" name="' . get_class() . '\Accordion" />')
 			->append('<label for="' . get_class() . '\Metandata" class="rs-admin-fn-toggle-accordion rs-admin-label-accordion">' . $this->_language->get('metadata') . '</label>')
 			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
 			->label($this->_language->get('title'),
@@ -183,7 +183,7 @@ class SettingForm extends ViewAbstract
 			/* contact fieldset */
 
 			->append('<fieldset class="rs-admin-set-accordion">')
-			->append('<input id="' . get_class() . '\Contact" class="rs-admin-fn-status-accordion" type="checkbox" />')
+			->append('<input id="' . get_class() . '\Contact" class="rs-admin-fn-status-accordion" type="radio" name="' . get_class() . '\Accordion" />')
 			->append('<label for="' . get_class() . '\Contact" class="rs-admin-fn-toggle-accordion rs-admin-label-accordion">' . $this->_language->get('contact') . '</label>')
 			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
 			->label($this->_language->get('email'),
@@ -225,7 +225,7 @@ class SettingForm extends ViewAbstract
 			/* formatting fieldset */
 
 			->append('<fieldset class="rs-admin-set-accordion">')
-			->append('<input id="' . get_class() . '\Formatting" class="rs-admin-fn-status-accordion" type="checkbox" />')
+			->append('<input id="' . get_class() . '\Formatting" class="rs-admin-fn-status-accordion" type="radio" name="' . get_class() . '\Accordion" />')
 			->append('<label for="' . get_class() . '\Formatting" class="rs-admin-fn-toggle-accordion rs-admin-label-accordion">' . $this->_language->get('formatting') . '</label>')
 			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
 			->label($this->_language->get('charset'),
@@ -280,7 +280,7 @@ class SettingForm extends ViewAbstract
 			/* contents fieldset */
 
 			->append('<fieldset class="rs-admin-set-accordion">')
-			->append('<input id="' . get_class() . '\Contents" class="rs-admin-fn-status-accordion" type="checkbox" />')
+			->append('<input id="' . get_class() . '\Contents" class="rs-admin-fn-status-accordion" type="radio" name="' . get_class() . '\Accordion" />')
 			->append('<label for="' . get_class() . '\Contents" class="rs-admin-fn-toggle-accordion rs-admin-label-accordion">' . $this->_language->get('contents') . '</label>')
 			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
 			->label($this->_language->get('homepage'),
@@ -337,7 +337,7 @@ class SettingForm extends ViewAbstract
 			/* users fieldset */
 
 			->append('<fieldset class="rs-admin-set-accordion">')
-			->append('<input id="' . get_class() . '\Users" class="rs-admin-fn-status-accordion" type="checkbox" />')
+			->append('<input id="' . get_class() . '\Users" class="rs-admin-fn-status-accordion" type="radio" name="' . get_class() . '\Accordion" />')
 			->append('<label for="' . get_class() . '\Users" class="rs-admin-fn-toggle-accordion rs-admin-label-accordion">' . $this->_language->get('users') . '</label>')
 			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
 			->label($this->_language->get('registration'),
@@ -383,7 +383,7 @@ class SettingForm extends ViewAbstract
 			/* security fieldset */
 
 			->append('<fieldset class="rs-admin-set-accordion">')
-			->append('<input id="' . get_class() . '\Security" class="rs-admin-fn-status-accordion" type="checkbox" />')
+			->append('<input id="' . get_class() . '\Security" class="rs-admin-fn-status-accordion" type="radio" name="' . get_class() . '\Accordion" />')
 			->append('<label for="' . get_class() . '\Security" class="rs-admin-fn-toggle-accordion rs-admin-label-accordion">' . $this->_language->get('security') . '</label>')
 			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
 			->label($this->_language->get('moderation'),
