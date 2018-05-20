@@ -92,10 +92,6 @@ class InstallForm extends ViewAbstract
 			])
 			->text(
 			[
-				'data-sqlite' => uniqid() . '.sqlite',
-				'data-mssql' => 'localhost',
-				'data-mysql' => 'localhost',
-				'data-pgsql' => 'localhost',
 				'id' => 'db-host',
 				'name' => 'db-host',
 				'required' => 'required',

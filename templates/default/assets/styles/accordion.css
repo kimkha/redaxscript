@@ -20,7 +20,7 @@
 	background: var(--rs-color-tertiary);
 	color: gray(255);
 	cursor: pointer;
-	display: block;
+	display: flex;
 	font-size: 1em;
 	font-weight: bold;
 	line-height: 2.5em;
@@ -35,8 +35,9 @@
 	&:after
 	{
 		@extend %rs-icon-add;
-		float: right;
+		flex: 1;
 		font-size: 1.5rem;
+		text-align: right;
 	}
 }
 
