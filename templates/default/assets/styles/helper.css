@@ -25,11 +25,11 @@
 .rs-fn-status-accordion
 {
 	@extend %fn-status-accordion;
-}
 
-.rs-fn-status-accordion:checked + .rs-fn-toggle-accordion + .rs-fn-accordion
-{
-	@extend %fn-checked-accordion;
+	&:checked + .rs-fn-toggle-accordion + .rs-fn-accordion
+	{
+		@extend %fn-checked-accordion;
+	}
 }
 
 /** @section 3. dropdown */

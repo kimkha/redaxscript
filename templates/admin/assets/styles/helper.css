@@ -4,7 +4,8 @@
  * 1. clearfix
  * 2. accordion
  * 3. dropdown
- * 4. redirect
+ * 4. panel
+ * 5. redirect
  */
 
 /** @section 1. clearfix */
@@ -24,11 +25,11 @@
 .rs-admin-fn-status-accordion
 {
 	@extend %fn-status-accordion;
-}
 
-.rs-admin-fn-status-accordion:checked + .rs-admin-fn-toggle-accordion + .rs-admin-fn-accordion
-{
-	@extend %fn-checked-accordion;
+	&:checked + .rs-admin-fn-toggle-accordion + .rs-admin-fn-accordion
+	{
+		@extend %fn-checked-accordion;
+	}
 }
 
 /** @section 3. dropdown */
@@ -38,7 +39,24 @@
 	@extend %fn-dropdown;
 }
 
-/** @section 4. redirect */
+/** @section 4. panel */
+
+.rs-admin-fn-panel
+{
+	@extend %fn-panel;
+}
+
+.rs-admin-fn-status-panel
+{
+	@extend %fn-status-panel;
+
+	&:checked + .rs-admin-fn-toggle-panel + .rs-admin-fn-panel
+	{
+		@extend %fn-checked-panel;
+	}
+}
+
+/** @section 5. redirect */
 
 .rs-admin-meta-redirect
 {

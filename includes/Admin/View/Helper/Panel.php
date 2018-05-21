@@ -25,34 +25,34 @@ class Panel extends ViewAbstract
 			'list' =>
 			[
 				'panel' => 'rs-admin-fn-dropdown rs-admin-list-panel',
-				'content' => 'rs-admin-list-panel-children',
-				'access' => 'rs-admin-list-panel-children',
-				'system' => 'rs-admin-list-panel-children'
+				'content' => 'rs-admin-fn-panel rs-admin-list-panel-children',
+				'access' => 'rs-admin-fn-panel rs-admin-list-panel-children',
+				'system' => 'rs-admin-fn-panel rs-admin-list-panel-children',
+				'notification' => 'rs-admin-fn-panel rs-admin-list-panel-children rs-admin-list-notification'
 			],
 			'item' =>
 			[
-				'content' => 'rs-admin-js-item-panel rs-admin-item-panel',
-				'access' => 'rs-admin-js-item-panel rs-admin-item-panel',
-				'system' => 'rs-admin-js-item-panel rs-admin-item-panel',
-				'profile' => 'rs-admin-js-item-panel rs-admin-item-panel',
-				'notification' => 'rs-admin-js-item-panel rs-admin-item-panel',
-				'logout' => 'rs-admin-js-item-panel rs-admin-item-panel rs-admin-item-panel-logout'
-			],
-			'text' =>
-			[
-				'content' => 'rs-admin-text-panel rs-admin-text-panel-content',
-				'access' => 'rs-admin-text-panel rs-admin-text-panel-access',
-				'system' => 'rs-admin-text-panel rs-admin-text-panel-system',
-				'notification' => 'rs-admin-text-panel rs-admin-text-panel-notification',
-				'group' => 'rs-admin-text-panel-group'
+				'content' => 'rs-admin-item-panel',
+				'access' => 'rs-admin-item-panel',
+				'system' => 'rs-admin-item-panel',
+				'profile' => 'rs-admin-item-panel',
+				'notification' => 'rs-admin-item-panel',
+				'logout' => 'rs-admin-item-panel rs-admin-item-panel-logout'
 			],
 			'link' =>
 			[
-				'panel' => 'rs-admin-link-panel',
-				'view' => 'rs-admin-link-panel-view',
-				'new' => 'rs-admin-link-panel-new',
+				'view' => 'rs-admin-link-panel rs-admin-link-panel-view',
+				'new' => 'rs-admin-link-panel rs-admin-link-panel-new',
+				'system' => 'rs-admin-link-panel rs-admin-link-panel-system',
 				'profile' => 'rs-admin-link-panel rs-admin-link-panel-profile',
 				'logout' => 'rs-admin-link-panel rs-admin-link-panel-logout'
+			],
+			'label' =>
+			[
+				'content' => 'rs-admin-fn-toggle-panel rs-admin-label-panel rs-admin-label-panel-content',
+				'access' => 'rs-admin-fn-toggle-panel rs-admin-label-panel rs-admin-label-panel-access',
+				'system' => 'rs-admin-fn-toggle-panel rs-admin-label-panel rs-admin-label-panel-system',
+				'notification' => 'rs-admin-fn-toggle-panel rs-admin-label-panel rs-admin-label-panel-notification'
 			],
 			'note' =>
 			[
@@ -60,7 +60,10 @@ class Panel extends ViewAbstract
 				'warning' => 'rs-admin-is-warning',
 				'error' => 'rs-admin-is-error',
 				'info' => 'rs-admin-is-info'
-			]
+			],
+			'text' => 'rs-admin-text-panel-group',
+			'input' => 'rs-admin-fn-status-panel',
+			'sup' => 'rs-admin-sup-panel-notification'
 		]
 	];
 
@@ -219,13 +222,30 @@ class Panel extends ViewAbstract
 				'class' => $this->_optionArray['className']['list']['content']
 			]);
 		$itemElement = $element->copy()->init('li');
-		$linkElement = $element
+		$linkElement = $element->copy()->init('a');
+		$textElement = $element
 			->copy()
-			->init('a',
+			->init('span',
 			[
-				'class' => $this->_optionArray['className']['link']['panel']
+				'class' => $this->_optionArray['className']['text']
 			]);
-		$textElement = $element->copy()->init('span');
+		$labelElement = $element
+			->copy()
+			->init('label',
+			[
+				'class' => $this->_optionArray['className']['label']['content'],
+				'for' => get_class() . '\Content'
+			])
+			->text($this->_language->get('contents'));
+		$inputElement = $element
+			->copy()
+			->init('input',
+			[
+				'id' => get_class() . '\Content',
+				'class' => $this->_optionArray['className']['input'],
+				'type' => 'radio',
+				'name' => get_class() . '\Panel'
+			]);
 
 		/* process content */
 
@@ -240,7 +260,6 @@ class Panel extends ViewAbstract
 						->html(
 							$textElement
 								->copy()
-								->addClass($this->_optionArray['className']['text']['group'])
 								->append(
 									$linkElement
 										->copy()
@@ -264,13 +283,7 @@ class Panel extends ViewAbstract
 		$output .= $itemElement
 			->copy()
 			->addClass($this->_optionArray['className']['item']['content'])
-			->html(
-				$textElement
-					->copy()
-					->addClass($this->_optionArray['className']['text']['content'])
-					->text($this->_language->get('contents'))
-			)
-			->append($listElement);
+			->html($inputElement . $labelElement . $listElement);
 		return $output;
 	}
 
@@ -302,13 +315,30 @@ class Panel extends ViewAbstract
 				'class' => $this->_optionArray['className']['list']['access']
 			]);
 		$itemElement = $element->copy()->init('li');
-		$linkElement = $element
+		$linkElement = $element->copy()->init('a');
+		$textElement = $element
 			->copy()
-			->init('a',
+			->init('span',
 			[
-				'class' => $this->_optionArray['className']['link']['panel']
+				'class' => $this->_optionArray['className']['text']
 			]);
-		$textElement = $element->copy()->init('span');
+		$labelElement = $element
+			->copy()
+			->init('label',
+			[
+				'class' => $this->_optionArray['className']['label']['access'],
+				'for' => get_class() . '\Access'
+			])
+			->text($this->_language->get('access'));
+		$inputElement = $element
+			->copy()
+			->init('input',
+			[
+				'id' => get_class() . '\Access',
+				'class' => $this->_optionArray['className']['input'],
+				'type' => 'radio',
+				'name' => get_class() . '\Panel'
+			]);
 
 		/* process access */
 
@@ -323,7 +353,6 @@ class Panel extends ViewAbstract
 						->html(
 							$textElement
 								->copy()
-								->addClass($this->_optionArray['className']['text']['group'])
 								->append(
 									$linkElement
 										->copy()
@@ -347,13 +376,7 @@ class Panel extends ViewAbstract
 		$output .= $itemElement
 			->copy()
 			->addClass($this->_optionArray['className']['item']['access'])
-			->html(
-				$textElement
-					->copy()
-					->addClass($this->_optionArray['className']['text']['access'])
-					->text($this->_language->get('access'))
-			)
-			->append($listElement);
+			->html($inputElement . $labelElement . $listElement);
 		return $output;
 	}
 
@@ -389,9 +412,25 @@ class Panel extends ViewAbstract
 			->copy()
 			->init('a',
 			[
-				'class' => $this->_optionArray['className']['link']['panel']
+				'class' => $this->_optionArray['className']['link']['system'],
 			]);
-		$textElement = $element->copy()->init('span');
+		$labelElement = $element
+			->copy()
+			->init('label',
+			[
+				'class' => $this->_optionArray['className']['label']['system'],
+				'for' => get_class() . '\System'
+			])
+			->text($this->_language->get('system'));
+		$inputElement = $element
+			->copy()
+			->init('input',
+			[
+				'id' => get_class() . '\System',
+				'class' => $this->_optionArray['className']['input'],
+				'type' => 'radio',
+				'name' => get_class() . '\Panel'
+			]);
 
 		/* process system */
 
@@ -417,13 +456,7 @@ class Panel extends ViewAbstract
 		$output .= $itemElement
 			->copy()
 			->addClass($this->_optionArray['className']['item']['system'])
-			->html(
-				$textElement
-					->copy()
-					->addClass($this->_optionArray['className']['text']['system'])
-					->text($this->_language->get('system'))
-			)
-			->append($listElement);
+			->html($inputElement . $labelElement . $listElement);
 		return $output;
 	}
 
@@ -477,7 +510,13 @@ class Panel extends ViewAbstract
 	{
 		$output = null;
 		$adminNotification = new Notification($this->_language);
-		$adminNotification->init();
+		$adminNotification->init(
+		[
+			'className' =>
+			[
+				'list' => $this->_optionArray['className']['list']['notification']
+			]
+		]);
 		$metaArray = $adminNotification->getMetaArray();
 
 		/* html element */
@@ -489,16 +528,30 @@ class Panel extends ViewAbstract
 			[
 				'class' => $this->_optionArray['className']['item']['notification']
 			]);
-		$textElement = $element
+		$labelElement = $element
 			->copy()
-			->init('span',
+			->init('label',
 			[
-				'class' => $this->_optionArray['className']['text']['notification']
+				'class' => $this->_optionArray['className']['label']['notification'],
+				'for' => get_class() . '\Notification'
 			])
-			->text($this->_language->get('notifications'));
+			->text($this->_language->get('notification'));
+		$inputElement = $element
+			->copy()
+			->init('input',
+			[
+				'id' => get_class() . '\Notification',
+				'class' => $this->_optionArray['className']['input'],
+				'type' => 'radio',
+				'name' => get_class() . '\Panel',
+				'checked' => 'checked'
+			]);
 		$supElement = $element
 			->copy()
-			->init('sup')
+			->init('sup',
+			[
+				'class' => $this->_optionArray['className']['sup']
+			])
 			->text($metaArray['total']);
 
 		/* process meta */
@@ -507,12 +560,13 @@ class Panel extends ViewAbstract
 		{
 			$supElement->addClass($this->_optionArray['className']['note'][$key]);
 		}
+		$labelElement->append($supElement);
 
 		/* collect item output */
 
 		if ($metaArray['total'])
 		{
-			$output = $itemElement->html($textElement->append($supElement) . $adminNotification->render());
+			$output = $itemElement->html($inputElement . $labelElement . $adminNotification->render());
 		}
 		return $output;
 	}
