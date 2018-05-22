@@ -73,7 +73,6 @@ class LoginForm extends ViewAbstract
 		/* create the form */
 
 		$formElement
-			->append('<fieldset>')
 			->legend($outputLegend)
 			->append('<ul><li>')
 			->label('* ' . $this->_language->get('user'),
@@ -108,7 +107,7 @@ class LoginForm extends ViewAbstract
 				->captcha('task')
 				->append('</li>');
 		}
-		$formElement->append('</ul></fieldset>');
+		$formElement->append('</ul>');
 		if ($settingModel->get('captcha') > 0)
 		{
 			$formElement->captcha('solution');

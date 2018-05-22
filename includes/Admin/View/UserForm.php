@@ -48,7 +48,7 @@ class UserForm extends ViewAbstract
 		[
 			'form' =>
 			[
-				'class' => 'rs-admin-js-tab rs-admin-js-validate-form rs-admin-component-tab rs-admin-form-default rs-admin-fn-clearfix'
+				'class' => 'rs-admin-js-validate-form rs-admin-fn-tab rs-admin-component-tab rs-admin-form-default'
 			],
 			'button' =>
 			[
@@ -77,12 +77,22 @@ class UserForm extends ViewAbstract
 		/* create the form */
 
 		$formElement
-			->append($this->_renderList($user->id))
-			->append('<div class="rs-admin-js-box-tab rs-admin-box-tab">')
 
-			/* first tab */
+			/* user */
 
-			->append('<fieldset id="tab-1" class="rs-admin-js-set-tab rs-admin-js-set-active rs-admin-set-tab rs-admin-set-active"><ul><li>')
+			->radio(
+			[
+				'id' => get_class() . '\User',
+				'class' => 'rs-admin-fn-status-tab',
+				'name' => get_class() . '\Tab',
+				'checked' => 'checked'
+			])
+			->label($this->_language->get('user'),
+			[
+				'class' => 'rs-admin-fn-toggle-tab rs-admin-label-tab',
+				'for' => get_class() . '\User'
+			])
+			->append('<ul class="rs-admin-fn-content-tab rs-admin-box-tab"><li>')
 			->label($this->_language->get('name'),
 			[
 				'for' => 'name'
@@ -156,17 +166,28 @@ class UserForm extends ViewAbstract
 			])
 			->textarea(
 			[
-				'class' => 'rs-admin-js-auto-resize rs-admin-field-textarea rs-admin-field-small',
+				'class' => 'rs-admin-js-textarea rs-admin-field-textarea rs-admin-field-small',
 				'id' => 'description',
 				'name' => 'description',
 				'rows' => 1,
 				'value' => $user->description
 			])
-			->append('</li></ul></fieldset>')
+			->append('</li></ul>')
 
-			/* second tab */
+			/* general */
 
-			->append('<fieldset id="tab-2" class="rs-admin-js-set-tab rs-admin-set-tab"><ul><li>')
+			->radio(
+			[
+				'id' => get_class() . '\General',
+				'class' => 'rs-admin-fn-status-tab',
+				'name' => get_class() . '\Tab'
+			])
+			->label($this->_language->get('general'),
+			[
+				'class' => 'rs-admin-fn-toggle-tab rs-admin-label-tab',
+				'for' => get_class() . '\General'
+			])
+			->append('<ul class="rs-admin-fn-content-tab rs-admin-box-tab"><li>')
 			->label($this->_language->get('language'),
 			[
 				'for' => 'language'
@@ -179,14 +200,25 @@ class UserForm extends ViewAbstract
 				'id' => 'language',
 				'name' => 'language'
 			])
-			->append('</li></ul></fieldset>');
-
-			/* last tab */
-
+			->append('</li></ul>');
 		if (!$user->id || $user->id > 1)
 		{
 			$formElement
-				->append('<fieldset id="tab-3" class="rs-admin-js-set-tab rs-admin-set-tab"><ul><li>')
+
+				/* customize */
+
+				->radio(
+				[
+					'id' => get_class() . '\Customize',
+					'class' => 'rs-admin-fn-status-tab',
+					'name' => get_class() . '\Tab'
+				])
+				->label($this->_language->get('customize'),
+				[
+					'class' => 'rs-admin-fn-toggle-tab rs-admin-label-tab',
+					'for' => get_class() . '\Customize'
+				])
+				->append('<ul class="rs-admin-fn-content-tab rs-admin-box-tab"><li>')
 				->label($this->_language->get('status'),
 				[
 					'for' => 'status'
@@ -220,10 +252,9 @@ class UserForm extends ViewAbstract
 					])
 					->append('</li>');
 			}
-			$formElement->append('</ul></fieldset>');
+			$formElement->append('</ul>');
 		}
 		$formElement
-			->append('</div>')
 			->token()
 			->cancel();
 		if ($user->id)
@@ -247,61 +278,5 @@ class UserForm extends ViewAbstract
 		$output .= $titleElement . $formElement;
 		$output .= Module\Hook::trigger('adminUserFormEnd');
 		return $output;
-	}
-
-	/**
-	 * render the list
-	 *
-	 * @since 3.2.0
-	 *
-	 * @param int $userId identifier of the user
-	 *
-	 * @return string
-	 */
-
-	protected function _renderList(int $userId = null) : string
-	{
-		$tabRoute = $this->_registry->get('parameterRoute') . $this->_registry->get('fullRoute');
-
-		/* html element */
-
-		$element = new Html\Element();
-		$listElement = $element
-			->copy()
-			->init('ul',
-			[
-				'class' => 'rs-admin-js-list-tab rs-admin-list-tab'
-			]);
-		$itemElement = $element->copy()->init('li');
-		$linkElement = $element->copy()->init('a');
-
-		/* collect item output */
-
-		$outputItem = $itemElement
-			->copy()
-			->addClass('rs-admin-js-item-active rs-admin-item-active')
-			->html($linkElement
-				->copy()
-				->attr('href', $tabRoute . '#tab-1')
-				->text($this->_language->get('user'))
-			);
-		$outputItem .= $itemElement
-			->copy()
-			->html($linkElement
-				->copy()
-				->attr('href', $tabRoute . '#tab-2')
-				->text($this->_language->get('general'))
-			);
-		if (!$userId || $userId > 1)
-		{
-			$outputItem .= $itemElement
-				->copy()
-				->html($linkElement
-					->copy()
-					->attr('href', $tabRoute . '#tab-3')
-					->text($this->_language->get('customize'))
-				);
-		}
-		return $listElement->html($outputItem)->render();
 	}
 }

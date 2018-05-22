@@ -16,12 +16,12 @@
 
 @media (--media-medium-max)
 {
-	%fn-panel
+	%fn-content-panel
 	{
 		display: none;
 	}
 
-	%fn-checked-panel
+	%fn-checked-content-panel
 	{
 		display: block;
 	}

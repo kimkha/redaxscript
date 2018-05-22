@@ -60,9 +60,8 @@ class InstallForm extends ViewAbstract
 
 		$formElement
 
-			/* database fieldset */
+			/* database */
 
-			->append('<fieldset class="rs-set-accordion">')
 			->radio(
 			[
 				'id' => get_class() . '\Database',
@@ -75,7 +74,7 @@ class InstallForm extends ViewAbstract
 				'class' => 'rs-fn-toggle-accordion rs-label-accordion',
 				'for' => get_class() . '\Database'
 			])
-			->append('<ul class="rs-fn-accordion rs-box-accordion"><li>');
+			->append('<ul class="rs-fn-content-accordion rs-box-accordion"><li>');
 		if ($this->_registry->get('driverArray'))
 		{
 			$formElement
@@ -153,11 +152,10 @@ class InstallForm extends ViewAbstract
 				'name' => 'db-prefix',
 				'value' => $installArray['dbPrefix']
 			])
-			->append('</li></ul></fieldset>')
+			->append('</li></ul>')
 
-			/* account fieldset */
+			/* account */
 
-			->append('<fieldset class="rs-set-accordion">')
 			->radio(
 			[
 				'id' => get_class() . '\Account',
@@ -169,7 +167,7 @@ class InstallForm extends ViewAbstract
 				'class' => 'rs-fn-toggle-accordion rs-label-accordion',
 				'for' => get_class() . '\Account'
 			])
-			->append('<ul class="rs-fn-accordion rs-box-accordion"><li>')
+			->append('<ul class="rs-fn-content-accordion rs-box-accordion"><li>')
 			->label($this->_language->get('name'),
 			[
 				'for' => 'name'
@@ -219,7 +217,7 @@ class InstallForm extends ViewAbstract
 				'required' => 'required',
 				'value' => $installArray['adminEmail']
 			])
-			->append('</li></ul></fieldset>')
+			->append('</li></ul>')
 			->hidden(
 			[
 				'name' => 'db-salt',

@@ -6,6 +6,7 @@
  * 3. dropdown
  * 4. menu
  * 5. redirect
+ * 6. tab
  */
 
 /** @section 1. clearfix */
@@ -17,18 +18,18 @@
 
 /** @section 2. accordion */
 
-.rs-fn-accordion
+.rs-fn-content-accordion
 {
-	@extend %fn-accordion;
+	@extend %fn-content-accordion;
 }
 
 .rs-fn-status-accordion
 {
 	@extend %fn-status-accordion;
 
-	&:checked + .rs-fn-toggle-accordion + .rs-fn-accordion
+	&:checked + .rs-fn-toggle-accordion + .rs-fn-content-accordion
 	{
-		@extend %fn-checked-accordion;
+		@extend %fn-checked-content-accordion;
 	}
 }
 
@@ -88,4 +89,31 @@
 .rs-meta-redirect
 {
 	@extend %overlay-redirect;
+}
+
+/** @section 6. tab */
+
+.rs-fn-tab
+{
+	@extend %fn-tab;
+}
+
+.rs-fn-toggle-tab
+{
+	@extend %fn-toggle-tab;
+}
+
+.rs-fn-content-tab
+{
+	@extend %fn-content-tab;
+}
+
+.rs-fn-status-tab
+{
+	@extend %fn-status-tab;
+
+	&:checked + .rs-fn-toggle-tab + .rs-fn-content-tab
+	{
+		@extend %fn-checked-content-tab;
+	}
 }

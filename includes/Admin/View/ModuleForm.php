@@ -49,7 +49,7 @@ class ModuleForm extends ViewAbstract
 		[
 			'form' =>
 			[
-				'class' => 'rs-admin-js-tab rs-admin-js-validate-form rs-admin-component-tab rs-admin-form-default rs-admin-fn-clearfix'
+				'class' => 'rs-admin-js-validate-form rs-admin-fn-tab rs-admin-component-tab rs-admin-form-default'
 			],
 			'button' =>
 			[
@@ -79,14 +79,23 @@ class ModuleForm extends ViewAbstract
 
 		/* create the form */
 
-		$tabCounter = 1;
 		$formElement
-			->append($this->_renderList($docsFilesystemArray))
-			->append('<div class="rs-admin-js-box-tab rs-admin-box-tab rs-admin-box-tab">')
 
-			/* first tab */
+			/* module */
 
-			->append('<fieldset id="tab-' . $tabCounter++ . '" class="rs-admin-js-set-tab rs-admin-js-set-active rs-admin-set-tab rs-admin-set-active"><ul><li>')
+			->radio(
+			[
+				'id' => get_class() . '\Module',
+				'class' => 'rs-admin-fn-status-tab',
+				'name' => get_class() . '\Tab',
+				'checked' => 'checked'
+			])
+			->label($this->_language->get('module'),
+			[
+				'class' => 'rs-admin-fn-toggle-tab rs-admin-label-tab',
+				'for' => get_class() . '\Module'
+			])
+			->append('<ul class="rs-admin-fn-content-tab rs-admin-box-tab"><li>')
 			->label($this->_language->get('name'),
 			[
 				'for' => 'name'
@@ -106,31 +115,54 @@ class ModuleForm extends ViewAbstract
 			])
 			->textarea(
 			[
-				'class' => 'rs-admin-js-auto-resize rs-admin-field-textarea rs-admin-field-small',
+				'class' => 'rs-admin-js-textarea rs-admin-field-textarea rs-admin-field-small',
 				'id' => 'description',
 				'name' => 'description',
 				'rows' => 1,
 				'value' => $module->description
 			])
-			->append('</li></ul></fieldset>');
-
-			/* docs tab */
-
+			->append('</li></ul>');
 			if (is_array($docsFilesystemArray))
 			{
 				foreach ($docsFilesystemArray as $file)
 				{
+					$fileName = pathinfo($file, PATHINFO_FILENAME);
 					$formElement
-						->append('<fieldset id="tab-' . $tabCounter++ . '" class="rs-admin-js-set-tab rs-admin-set-tab">')
+
+						/* doc */
+
+						->radio(
+						[
+							'id' => get_class() . '\Doc\\' . $fileName,
+							'class' => 'rs-admin-fn-status-tab',
+							'name' => get_class() . '\Tab'
+						])
+						->label($fileName,
+						[
+							'class' => 'rs-admin-fn-toggle-tab rs-admin-label-tab',
+							'for' => get_class() . '\Doc\\' . $fileName,
+						])
+						->append('<div class="rs-admin-fn-content-tab rs-admin-box-tab">')
 						->append($docsFilesystem->renderFile($file))
-						->append('</fieldset>');
+						->append('</div>');
 				}
 			}
-
-		/* last tab */
-
 		$formElement
-			->append('<fieldset id="tab-' . $tabCounter++ . '" class="rs-admin-js-set-tab rs-admin-set-tab"><ul><li>')
+
+			/* customize */
+
+			->radio(
+			[
+				'id' => get_class() . '\Customize',
+				'class' => 'rs-admin-fn-status-tab',
+				'name' => get_class() . '\Tab'
+			])
+			->label($this->_language->get('customize'),
+			[
+				'class' => 'rs-admin-fn-toggle-tab rs-admin-label-tab',
+				'for' => get_class() . '\Customize'
+			])
+			->append('<ul class="rs-admin-fn-content-tab rs-admin-box-tab"><li>')
 			->label($this->_language->get('status'),
 			[
 				'for' => 'status'
@@ -165,7 +197,7 @@ class ModuleForm extends ViewAbstract
 				->append('</li>');
 		}
 		$formElement
-			->append('</ul></fieldset></div>')
+			->append('</ul>')
 			->token()
 			->cancel();
 		if ($this->_registry->get('modulesUninstall'))
@@ -182,71 +214,5 @@ class ModuleForm extends ViewAbstract
 		$output .= $titleElement . $formElement;
 		$output .= Module\Hook::trigger('adminModuleFormEnd');
 		return $output;
-	}
-
-	/**
-	 * render the list
-	 *
-	 * @since 3.2.0
-	 *
-	 * @param array $docsFilesystemArray
-	 *
-	 * @return string
-	 */
-
-	protected function _renderList(array $docsFilesystemArray = []) : string
-	{
-		$tabRoute = $this->_registry->get('parameterRoute') . $this->_registry->get('fullRoute');
-		$tabCounter = 1;
-
-		/* html element */
-
-		$element = new Html\Element();
-		$listElement = $element
-			->copy()
-			->init('ul',
-			[
-				'class' => 'rs-admin-js-list-tab rs-admin-list-tab'
-			]);
-		$itemElement = $element->copy()->init('li');
-		$linkElement = $element->copy()->init('a');
-
-		/* collect item output */
-
-		$outputItem = $itemElement
-			->copy()
-			->addClass('rs-admin-js-item-active rs-admin-item-active')
-			->html($linkElement
-				->copy()
-				->attr('href', $tabRoute . '#tab-' . $tabCounter++)
-				->text($this->_language->get('module'))
-			);
-
-		/* process filesystem */
-
-		if (is_array($docsFilesystemArray))
-		{
-			foreach ($docsFilesystemArray as $file)
-			{
-				$outputItem .= $itemElement
-					->copy()
-					->html($linkElement
-						->copy()
-						->attr('href', $tabRoute . '#tab-' . $tabCounter++)
-						->text(pathinfo($file, PATHINFO_FILENAME))
-					);
-			}
-		}
-
-		/* collect item output */
-
-		$outputItem .= $itemElement
-			->copy()
-			->html($linkElement
-				->copy()
-				->attr('href', $tabRoute . '#tab-' . $tabCounter++)
-				->text($this->_language->get('customize'))
-			);
-		return $listElement->html($outputItem)->render();
 	}
 }

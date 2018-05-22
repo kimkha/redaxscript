@@ -61,7 +61,6 @@ class RecoverForm extends ViewAbstract
 		/* create the form */
 
 		$formElement
-			->append('<fieldset>')
 			->legend($this->_language->get('recovery_request') . $this->_language->get('point'))
 			->append('<ul><li>')
 			->label('* ' . $this->_language->get('email'),
@@ -83,7 +82,7 @@ class RecoverForm extends ViewAbstract
 				->captcha('task')
 				->append('</li>');
 		}
-		$formElement->append('</ul></fieldset>');
+		$formElement->append('</ul>');
 		if ($settingModel->get('captcha') > 0)
 		{
 			$formElement->captcha('solution');

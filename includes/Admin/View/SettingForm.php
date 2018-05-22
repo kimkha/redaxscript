@@ -45,7 +45,7 @@ class SettingForm extends ViewAbstract
 		[
 			'form' =>
 			[
-				'class' => 'rs-admin-js-validate-form rs-admin-component-accordion rs-admin-form-default rs-admin-fn-clearfix'
+				'class' => 'rs-admin-js-validate-form rs-admin-component-accordion rs-admin-form-default'
 			],
 			'button' =>
 			[
@@ -67,9 +67,8 @@ class SettingForm extends ViewAbstract
 
 		$formElement
 
-			/* general fieldset */
+			/* general */
 
-			->append('<fieldset class="rs-admin-set-accordion">')
 			->radio(
 			[
 				'id' => get_class() . '\General',
@@ -82,8 +81,7 @@ class SettingForm extends ViewAbstract
 				'class' => 'rs-admin-fn-toggle-accordion rs-admin-label-accordion',
 				'for' => get_class() . '\General'
 			])
-			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
-
+			->append('<ul class="rs-admin-fn-content-accordion rs-admin-box-accordion"><li>')
 			->label($this->_language->get('language'),
 			[
 				'for' => 'language'
@@ -109,11 +107,10 @@ class SettingForm extends ViewAbstract
 				'id' => 'template',
 				'name' => 'template'
 			])
-			->append('</li></ul></fieldset>')
+			->append('</li></ul>')
 
-			/* metadata fieldset */
+			/* metadata */
 
-			->append('<fieldset class="rs-admin-set-accordion">')
 			->radio(
 			[
 				'id' => get_class() . '\Metadata',
@@ -125,7 +122,7 @@ class SettingForm extends ViewAbstract
 				'class' => 'rs-admin-fn-toggle-accordion rs-admin-label-accordion',
 				'for' => get_class() . '\Metadata'
 			])
-			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
+			->append('<ul class="rs-admin-fn-content-accordion rs-admin-box-accordion"><li>')
 			->label($this->_language->get('title'),
 			[
 				'for' => 'title'
@@ -165,7 +162,7 @@ class SettingForm extends ViewAbstract
 			])
 			->textarea(
 			[
-				'class' => 'rs-admin-js-auto-resize rs-admin-field-textarea rs-admin-field-small',
+				'class' => 'rs-admin-js-textarea rs-admin-field-textarea rs-admin-field-small',
 				'id' => 'description',
 				'name' => 'description',
 				'rows' => 1,
@@ -178,7 +175,7 @@ class SettingForm extends ViewAbstract
 			])
 			->textarea(
 			[
-				'class' => 'rs-admin-js-auto-resize rs-admin-field-textarea rs-admin-field-small',
+				'class' => 'rs-admin-js-textarea rs-admin-field-textarea rs-admin-field-small',
 				'id' => 'keywords',
 				'name' => 'keywords',
 				'rows' => 1,
@@ -197,11 +194,10 @@ class SettingForm extends ViewAbstract
 				'id' => 'robots',
 				'name' => 'robots'
 			])
-			->append('</li></ul></fieldset>')
+			->append('</li></ul>')
 
-			/* contact fieldset */
+			/* contact */
 
-			->append('<fieldset class="rs-admin-set-accordion">')
 			->radio(
 			[
 				'id' => get_class() . '\Contact',
@@ -213,7 +209,7 @@ class SettingForm extends ViewAbstract
 				'class' => 'rs-admin-fn-toggle-accordion rs-admin-label-accordion',
 				'for' => get_class() . '\Contact'
 			])
-			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
+			->append('<ul class="rs-admin-fn-content-accordion rs-admin-box-accordion"><li>')
 			->label($this->_language->get('email'),
 			[
 				'for' => 'email'
@@ -248,11 +244,10 @@ class SettingForm extends ViewAbstract
 				'id' => 'notification',
 				'name' => 'notification'
 			])
-			->append('</li></ul></fieldset>')
+			->append('</li></ul>')
 
-			/* formatting fieldset */
+			/* formatting */
 
-			->append('<fieldset class="rs-admin-set-accordion">')
 			->radio(
 			[
 				'id' => get_class() . '\Formatting',
@@ -264,7 +259,7 @@ class SettingForm extends ViewAbstract
 				'class' => 'rs-admin-fn-toggle-accordion rs-admin-label-accordion',
 				'for' => get_class() . '\Formatting'
 			])
-			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
+			->append('<ul class="rs-admin-fn-content-accordion rs-admin-box-accordion"><li>')
 			->label($this->_language->get('charset'),
 			[
 				'for' => 'charset'
@@ -312,11 +307,10 @@ class SettingForm extends ViewAbstract
 				'id' => 'date',
 				'name' => 'date'
 			])
-			->append('</li></ul></fieldset>')
+			->append('</li></ul>')
 
-			/* contents fieldset */
+			/* contents */
 
-			->append('<fieldset class="rs-admin-set-accordion">')
 			->radio(
 			[
 				'id' => get_class() . '\Contents',
@@ -328,7 +322,7 @@ class SettingForm extends ViewAbstract
 				'class' => 'rs-admin-fn-toggle-accordion rs-admin-label-accordion',
 				'for' => get_class() . '\Contents'
 			])
-			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
+			->append('<ul class="rs-admin-fn-content-accordion rs-admin-box-accordion"><li>')
 			->label($this->_language->get('homepage'),
 			[
 				'for' => 'homepage'
@@ -378,11 +372,10 @@ class SettingForm extends ViewAbstract
 				'id' => 'pagination',
 				'name' => 'pagination'
 			])
-			->append('</li></ul></fieldset>')
+			->append('</li></ul>')
 
-			/* users fieldset */
+			/* users */
 
-			->append('<fieldset class="rs-admin-set-accordion">')
 			->radio(
 			[
 				'id' => get_class() . '\Users',
@@ -394,7 +387,7 @@ class SettingForm extends ViewAbstract
 				'class' => 'rs-admin-fn-toggle-accordion rs-admin-label-accordion',
 				'for' => get_class() . '\Users'
 			])
-			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
+			->append('<ul class="rs-admin-fn-content-accordion rs-admin-box-accordion"><li>')
 			->label($this->_language->get('registration'),
 			[
 				'for' => 'registration'
@@ -433,11 +426,10 @@ class SettingForm extends ViewAbstract
 				'id' => 'recovery',
 				'name' => 'recovery'
 			])
-			->append('</li></ul></fieldset>')
+			->append('</li></ul>')
 
-			/* security fieldset */
+			/* security */
 
-			->append('<fieldset class="rs-admin-set-accordion">')
 			->radio(
 			[
 				'id' => get_class() . '\Security',
@@ -449,7 +441,7 @@ class SettingForm extends ViewAbstract
 				'class' => 'rs-admin-fn-toggle-accordion rs-admin-label-accordion',
 				'for' => get_class() . '\Security'
 			])
-			->append('<ul class="rs-admin-fn-accordion rs-admin-box-accordion"><li>')
+			->append('<ul class="rs-admin-fn-content-accordion rs-admin-box-accordion"><li>')
 			->label($this->_language->get('moderation'),
 			[
 				'for' => 'moderation'
@@ -475,7 +467,7 @@ class SettingForm extends ViewAbstract
 				'id' => 'captcha',
 				'name' => 'captcha'
 			])
-			->append('</li></ul></fieldset>')
+			->append('</li></ul>')
 			->token()
 			->cancel()
 			->save();

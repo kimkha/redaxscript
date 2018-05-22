@@ -38,6 +38,11 @@
 		font-size: 1.5rem;
 		text-align: right;
 	}
+
+	& ~ .rs-admin-label-accordion
+	{
+		border-top: 0.125rem solid gray(185);
+	}
 }
 
 .rs-admin-fn-status-accordion:checked + .rs-admin-label-accordion
@@ -49,11 +54,6 @@
 	{
 		@extend %rs-admin-icon-remove;
 	}
-}
-
-.rs-admin-set-accordion + .rs-admin-set-accordion .rs-admin-label-accordion
-{
-	border-top: 0.125rem solid gray(185);
 }
 
 /** @section 1.2 box */

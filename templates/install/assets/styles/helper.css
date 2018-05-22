@@ -14,17 +14,17 @@
 
 /** @section 2. accordion */
 
-.rs-fn-accordion
+.rs-fn-content-accordion
 {
-	@extend %fn-accordion;
+	@extend %fn-content-accordion;
 }
 
 .rs-fn-status-accordion
 {
 	@extend %fn-status-accordion;
-}
 
-.rs-fn-status-accordion:checked + .rs-fn-toggle-accordion + .rs-fn-accordion
-{
-	@extend %fn-checked-accordion;
+	&:checked + .rs-fn-toggle-accordion + .rs-fn-content-accordion
+	{
+		@extend %fn-checked-content-accordion;
+	}
 }

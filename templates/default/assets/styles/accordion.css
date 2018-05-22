@@ -25,7 +25,6 @@
 	font-weight: bold;
 	line-height: 2.5em;
 	padding: 0 1em;
-	transition: background 0.2s;
 
 	&:hover
 	{
@@ -39,6 +38,11 @@
 		font-size: 1.5rem;
 		text-align: right;
 	}
+
+	& ~ .rs-label-accordion
+	{
+		border-top: 0.125rem solid gray(255);
+	}
 }
 
 .rs-fn-status-accordion:checked + .rs-label-accordion
@@ -49,11 +53,6 @@
 	{
 		@extend %rs-icon-remove;
 	}
-}
-
-.rs-set-accordion + .rs-set-accordion .rs-label-accordion
-{
-	border-top: 0.125rem solid gray(255);
 }
 
 /** @section 1.2 box */

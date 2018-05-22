@@ -8,7 +8,7 @@
 
 .rs-form-default
 {
-	& fieldset li + li
+	& li + li
 	{
 		margin-top: 1em;
 	}

@@ -3,12 +3,6 @@ namespace Redaxscript;
 
 $language = Language::getInstance();
 $element = new Html\Element();
-$setElement = $element
-	->copy()
-	->init('div',
-	[
-		'class' => $admin ? 'rs-admin-set-accordion' : 'rs-set-accordion'
-	]);
 $inputElement = $element
 	->copy()
 	->init('input',
@@ -27,7 +21,7 @@ $boxElement = $element
 	->copy()
 	->init('div',
 	[
-		'class' => $admin ? 'rs-admin-fn-accordion rs-admin-box-accordion' : 'rs-fn-accordion rs-box-accordion'
+		'class' => $admin ? 'rs-admin-fn-content-accordion rs-admin-box-accordion' : 'rs-fn-content-accordion rs-box-accordion'
 	]);
 ?>
 
@@ -37,22 +31,18 @@ $boxElement = $element
 
 	<?php for ($i = 1; $i < 6; $i++): ?>
 
-		<?php echo $setElement
-				->copy()
-				->html(
-					$inputElement
+		<?php echo $inputElement
 						->copy()
-						->attr('id', $admin ? 'Modules\Preview\Admin\\' . $i : 'Modules\Preview\\' . $i)
+						->attr('id', $admin ? 'Modules\Preview\Admin\Accordion\\' . $i : 'Modules\Preview\Accordion\\' . $i)
 						->attr('checked', $i === 1 ? 'checked' : null)
 						->text($language->get($i, '_number')) .
 					$labelElement
 						->copy()
-						->attr('for', $admin ? 'Modules\Preview\Admin\\' . $i : 'Modules\Preview\\' . $i)
+						->attr('for', $admin ? 'Modules\Preview\Admin\Accordion\\' . $i : 'Modules\Preview\Accordion\\' . $i)
 						->text($language->get($i, '_number')) .
 					$boxElement
 						->copy()
-						->text($language->get($i, '_number'))
-		); ?>
+						->text($language->get($i, '_number')); ?>
 
 	<?php endfor; ?>
 

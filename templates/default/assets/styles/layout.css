@@ -14,7 +14,7 @@
 .rs-body
 {
 	background: gray(255);
-	color: var(--rs-color-tertiary);
+	color: gray(70);
 	font: 1em var(--rs-font-primary);
 }
 
@@ -85,7 +85,6 @@
 {
 	.rs-body
 	{
-		background: gray(255);
 		color: gray(0);
 	}
 

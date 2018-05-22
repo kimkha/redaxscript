@@ -22,7 +22,7 @@ class Dock extends ViewAbstract
 		'className' =>
 		[
 			'wrapper' => 'rs-admin-wrapper-dock',
-			'box' => 'rs-admin-js-dock rs-admin-box-dock rs-admin-fn-clearfix',
+			'box' => 'rs-admin-js-dock rs-admin-box-dock',
 			'link' =>
 			[
 				'unpublish' => 'rs-admin-link-dock rs-admin-link-unpublish',

@@ -25,10 +25,10 @@ class Panel extends ViewAbstract
 			'list' =>
 			[
 				'panel' => 'rs-admin-fn-dropdown rs-admin-list-panel',
-				'content' => 'rs-admin-fn-panel rs-admin-list-panel-children',
-				'access' => 'rs-admin-fn-panel rs-admin-list-panel-children',
-				'system' => 'rs-admin-fn-panel rs-admin-list-panel-children',
-				'notification' => 'rs-admin-fn-panel rs-admin-list-panel-children rs-admin-list-notification'
+				'content' => 'rs-admin-fn-content-panel rs-admin-list-panel-children',
+				'access' => 'rs-admin-fn-content-panel rs-admin-list-panel-children',
+				'system' => 'rs-admin-fn-content-panel rs-admin-list-panel-children',
+				'notification' => 'rs-admin-fn-content-panel rs-admin-list-panel-children rs-admin-list-notification'
 			],
 			'item' =>
 			[

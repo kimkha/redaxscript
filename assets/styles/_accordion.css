@@ -6,13 +6,13 @@
 
 /** @section 1. accordion */
 
-%fn-accordion,
-%fn-status-accordion
+%fn-status-accordion,
+%fn-content-accordion
 {
 	display: none;
 }
 
-%fn-checked-accordion
+%fn-checked-content-accordion
 {
 	display: block;
 }

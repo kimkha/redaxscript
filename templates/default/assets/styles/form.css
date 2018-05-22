@@ -10,7 +10,7 @@
 {
 	font-size: 1.25rem;
 
-	& fieldset li + li
+	& li + li
 	{
 		margin-top: 0.5em;
 	}

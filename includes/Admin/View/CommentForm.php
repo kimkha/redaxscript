@@ -48,7 +48,7 @@ class CommentForm extends ViewAbstract
 		[
 			'form' =>
 			[
-				'class' => 'rs-admin-js-tab rs-admin-js-validate-form rs-admin-component-tab rs-admin-form-default rs-admin-fn-clearfix'
+				'class' => 'rs-admin-js-validate-form rs-admin-fn-tab rs-admin-component-tab rs-admin-form-default'
 			],
 			'button' =>
 			[
@@ -77,12 +77,22 @@ class CommentForm extends ViewAbstract
 		/* create the form */
 
 		$formElement
-			->append($this->_renderList())
-			->append('<div class="rs-admin-js-box-tab rs-admin-box-tab">')
 
-			/* first tab */
+			/* comment */
 
-			->append('<fieldset id="tab-1" class="rs-admin-js-set-tab rs-admin-js-set-active rs-admin-set-tab rs-admin-set-active"><ul><li>')
+			->radio(
+			[
+				'id' => get_class() . '\Comment',
+				'class' => 'rs-admin-fn-status-tab',
+				'name' => get_class() . '\Tab',
+				'checked' => 'checked'
+			])
+			->label($this->_language->get('comment'),
+			[
+				'class' => 'rs-admin-fn-toggle-tab rs-admin-label-tab',
+				'for' => get_class() . '\Comment'
+			])
+			->append('<ul class="rs-admin-fn-content-tab rs-admin-box-tab"><li>')
 			->label('* ' . $this->_language->get('author'),
 			[
 				'for' => 'author'
@@ -131,11 +141,22 @@ class CommentForm extends ViewAbstract
 				'required' => 'required',
 				'value' => htmlspecialchars($comment->text)
 			])
-			->append('</li></ul></fieldset>')
+			->append('</li></ul>')
 
-			/* second tab */
+			/* general */
 
-			->append('<fieldset id="tab-2" class="rs-admin-js-set-tab rs-admin-set-tab"><ul><li>')
+			->radio(
+			[
+				'id' => get_class() . '\General',
+				'class' => 'rs-admin-fn-status-tab',
+				'name' => get_class() . '\Tab'
+				])
+			->label($this->_language->get('general'),
+			[
+				'class' => 'rs-admin-fn-toggle-tab rs-admin-label-tab',
+				'for' => get_class() . '\General'
+			])
+			->append('<ul class="rs-admin-fn-content-tab rs-admin-box-tab"><li>')
 			->label($this->_language->get('language'),
 			[
 				'for' => 'language'
@@ -161,11 +182,22 @@ class CommentForm extends ViewAbstract
 				'id' => 'article',
 				'name' => 'article'
 			])
-			->append('</li></ul></fieldset>')
+			->append('</li></ul>')
 
-			/* last tab */
+			/* customize */
 
-			->append('<fieldset id="tab-3" class="rs-admin-js-set-tab rs-admin-set-tab"><ul><li>')
+			->radio(
+			[
+				'id' => get_class() . '\Customize',
+				'class' => 'rs-admin-fn-status-tab',
+				'name' => get_class() . '\Tab'
+			])
+			->label($this->_language->get('customize'),
+			[
+				'class' => 'rs-admin-fn-toggle-tab rs-admin-label-tab',
+				'for' => get_class() . '\Customize'
+			])
+			->append('<ul class="rs-admin-fn-content-tab rs-admin-box-tab"><li>')
 			->label($this->_language->get('status'),
 			[
 				'for' => 'status'
@@ -222,7 +254,7 @@ class CommentForm extends ViewAbstract
 				'name' => 'date',
 				'value' => $comment->date ? $comment->date : null
 			])
-			->append('</li></ul></fieldset></div>')
+			->append('</li></ul>')
 			->token()
 			->cancel();
 		if ($comment->id)
@@ -246,56 +278,5 @@ class CommentForm extends ViewAbstract
 		$output .= $titleElement . $formElement;
 		$output .= Module\Hook::trigger('adminCommentFormEnd');
 		return $output;
-	}
-
-	/**
-	 * render the list
-	 *
-	 * @since 3.2.0
-	 *
-	 * @return string
-	 */
-
-	protected function _renderList() : string
-	{
-		$tabRoute = $this->_registry->get('parameterRoute') . $this->_registry->get('fullRoute');
-
-		/* html element */
-
-		$element = new Html\Element();
-		$listElement = $element
-			->copy()
-			->init('ul',
-			[
-				'class' => 'rs-admin-js-list-tab rs-admin-list-tab'
-			]);
-		$itemElement = $element->copy()->init('li');
-		$linkElement = $element->copy()->init('a');
-
-		/* collect item output */
-
-		$outputItem = $itemElement
-			->copy()
-			->addClass('rs-admin-js-item-active rs-admin-item-active')
-			->html($linkElement
-				->copy()
-				->attr('href', $tabRoute . '#tab-1')
-				->text($this->_language->get('comment'))
-			);
-		$outputItem .= $itemElement
-			->copy()
-			->html($linkElement
-				->copy()
-				->attr('href', $tabRoute . '#tab-2')
-				->text($this->_language->get('general'))
-			);
-		$outputItem .= $itemElement
-			->copy()
-			->html($linkElement
-				->copy()
-				->attr('href', $tabRoute . '#tab-3')
-				->text($this->_language->get('customize'))
-			);
-		return $listElement->html($outputItem)->render();
 	}
 }

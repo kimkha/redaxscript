@@ -12,7 +12,7 @@
 {
 	font-size: 1.25rem;
 
-	& fieldset li + li
+	& li + li
 	{
 		margin-top: 0.5em;
 	}
@@ -47,16 +47,10 @@
 {
 	.rs-admin-form-default
 	{
-		& .rs-admin-button-cancel,
-		& .rs-admin-button-delete
-		{
-			float: left;
-		}
-
 		& .rs-admin-button-save,
 		& .rs-admin-button-create
 		{
-			float: right;
+			margin-left: auto;
 		}
 	}
 }
