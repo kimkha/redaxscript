@@ -54,7 +54,6 @@
 		background: gray(200);
 		color: gray(70);
 	}
-
 }
 
 /** @section 2.2 medium max */
@@ -81,6 +80,7 @@
 			border-top: 0.125rem solid gray(255);
 		}
 	}
+
 	.rs-fn-status-tab:checked + .rs-label-tab
 	{
 		background: var(--rs-color-secondary);

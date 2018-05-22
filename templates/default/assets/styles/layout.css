@@ -64,7 +64,6 @@
 	.rs-has-sidebar
 	{
 		display: flex;
-		justify-content: space-between;
 
 		& .rs-content
 		{

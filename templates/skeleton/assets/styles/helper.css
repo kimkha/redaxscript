@@ -4,7 +4,14 @@
  * 1. redirect
  */
 
-/** @section 1. redirect */
+/** @section 1. clearfix */
+
+.rs-fn-clearfix
+{
+	@extend %fn-clearfix;
+}
+
+/** @section 2. redirect */
 
 .rs-meta-redirect
 {
