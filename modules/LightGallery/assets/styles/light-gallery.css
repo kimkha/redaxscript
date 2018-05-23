@@ -8,15 +8,13 @@
 
 .rs-list-light-gallery
 {
+	display: flex;
+	flex-wrap: wrap;
+
 	& li
 	{
-		float: left;
+		flex-basis: 20%;
 		margin-bottom: 0.5em;
 		margin-right: 0.5em;
-	}
-
-	& img
-	{
-		max-width: 100%;
 	}
 }

@@ -72,7 +72,6 @@ class FeedReader extends Config
 
 	public function render(string $url = null, array $optionArray = []) : string
 	{
-		$counter = 0;
 		$output = null;
 
 		/* html element */
@@ -107,6 +106,7 @@ class FeedReader extends Config
 
 		if ($result)
 		{
+			$counter = 0;
 			foreach ($result as $value)
 			{
 				if ($counter++ < $optionArray['limit'])

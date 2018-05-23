@@ -148,7 +148,7 @@ class Preview extends Module\Module
 			->copy()
 			->init('div',
 			[
-				'class' => 'rs-is-preview rs-fn-clearfix'
+				'class' => 'rs-is-preview'
 			])
 			->html($html);
 
