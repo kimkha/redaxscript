@@ -65,7 +65,7 @@
 {
 	display: none;
 
-	&.rs-is-size[data-unit]:after
+	&.rs-is-size:after
 	{
 		content: ' ' attr(data-unit);
 	}

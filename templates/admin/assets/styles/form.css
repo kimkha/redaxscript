@@ -28,11 +28,6 @@
 		}
 	}
 
-	& .rs-admin-label-message:after
-	{
-		content: ':\00a0' attr(data-message);
-	}
-
 	& .rs-admin-button-default
 	{
 		margin-top: 1em;
