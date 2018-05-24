@@ -175,12 +175,12 @@ class TagTest extends TestCaseAbstract
 	}
 
 	/**
-	 * testConsoleLine
+	 * testConsole
 	 *
 	 * @since 3.0.0
 	 */
 
-	public function testConsoleLine()
+	public function testConsole()
 	{
 		/* setup */
 
@@ -188,7 +188,7 @@ class TagTest extends TestCaseAbstract
 
 		/* actual */
 
-		$actual = Template\Tag::consoleLine();
+		$actual = Template\Tag::console();
 
 		/* compare */
 
@@ -196,12 +196,12 @@ class TagTest extends TestCaseAbstract
 	}
 
 	/**
-	 * testConsoleLineInvalid
+	 * testConsoleInvalid
 	 *
 	 * @since 3.0.0
 	 */
 
-	public function testConsoleLineInvalid()
+	public function testConsoleInvalid()
 	{
 		/* setup */
 
@@ -209,7 +209,7 @@ class TagTest extends TestCaseAbstract
 
 		/* actual */
 
-		$actual = Template\Tag::consoleLine();
+		$actual = Template\Tag::console();
 
 		/* compare */
 
@@ -330,57 +330,6 @@ class TagTest extends TestCaseAbstract
 		/* compare */
 
 		$this->assertEquals('utf-8', $actual);
-	}
-
-	/**
-	 * testCategoryRaw
-	 *
-	 * @since 3.0.0
-	 */
-
-	public function testCategoryRaw()
-	{
-		/* actual */
-
-		$actual = Template\Tag::categoryRaw();
-
-		/* compare */
-
-		$this->assertInstanceOf('Redaxscript\Db', $actual);
-	}
-
-	/**
-	 * testArticleRaw
-	 *
-	 * @since 3.0.0
-	 */
-
-	public function testArticleRaw()
-	{
-		/* actual */
-
-		$actual = Template\Tag::articleRaw();
-
-		/* compare */
-
-		$this->assertInstanceOf('Redaxscript\Db', $actual);
-	}
-
-	/**
-	 * testExtraRaw
-	 *
-	 * @since 3.0.0
-	 */
-
-	public function testExtraRaw()
-	{
-		/* actual */
-
-		$actual = Template\Tag::extraRaw();
-
-		/* compare */
-
-		$this->assertInstanceOf('Redaxscript\Db', $actual);
 	}
 
 	/**
