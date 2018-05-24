@@ -16,6 +16,19 @@ use Redaxscript\Db;
 class User
 {
 	/**
+	 * get all users
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return object
+	 */
+
+	public function getAll()
+	{
+		return Db::forTablePrefix('users')->findMany();
+	}
+
+	/**
 	 * create the user by array
 	 *
 	 * @since 3.3.0
@@ -40,19 +53,6 @@ class User
 				'status' => $createArray['status']
 			])
 			->save();
-	}
-
-	/**
-	 * get all users
-	 *
-	 * @since 4.0.0
-	 *
-	 * @return object
-	 */
-
-	public function getAll()
-	{
-		return Db::forTablePrefix('users')->findMany();
 	}
 
 	/**

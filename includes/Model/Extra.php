@@ -16,7 +16,7 @@ use Redaxscript\Db;
 class Extra
 {
 	/**
-	 * get the extra result by language
+	 * get the extras by language
 	 *
 	 * @since 4.0.0
 	 *
@@ -25,7 +25,7 @@ class Extra
 	 * @return object
 	 */
 
-	public function getResultByLanguage(string $language = null)
+	public function getManyByLanguage(string $language = null)
 	{
 		return Db::forTablePrefix('extras')
 			->whereLanguageIs($language)
@@ -34,7 +34,7 @@ class Extra
 	}
 
 	/**
-	 * get the extra result by alias and language
+	 * get the extras by alias and language
 	 *
 	 * @since 4.0.0
 	 *
@@ -44,7 +44,7 @@ class Extra
 	 * @return object
 	 */
 
-	public function getResultByAliasAndLanguage(string $extraAlias = null, string $language = null)
+	public function getManyByAliasAndLanguage(string $extraAlias = null, string $language = null)
 	{
 		return Db::forTablePrefix('extras')
 			->where('alias', $extraAlias)

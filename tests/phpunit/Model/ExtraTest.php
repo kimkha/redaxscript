@@ -183,7 +183,7 @@ class ExtraTest extends TestCaseAbstract
 
 		/* actual */
 
-		$extraArray = $extraModel->getResultByLanguage($language);
+		$extraArray = $extraModel->getManyByLanguage($language);
 		$actualArray = [];
 
 		/* process extra */
@@ -215,7 +215,7 @@ class ExtraTest extends TestCaseAbstract
 
 		/* actual */
 
-		$actualArray = $extraModel->getResultByAliasAndLanguage($extraAlias, $language);
+		$actualArray = $extraModel->getManyByAliasAndLanguage($extraAlias, $language);
 
 		/* compare */
 

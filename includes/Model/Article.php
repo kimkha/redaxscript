@@ -78,6 +78,24 @@ class Article
 	}
 
 	/**
+	 * get the articles by language
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $language
+	 *
+	 * @return object
+	 */
+
+	public function getManyByLanguage(string $language = null)
+	{
+		return Db::forTablePrefix('articles')
+			->whereLanguageIs($language)
+			->where('status', 1)
+			->findMany();
+	}
+
+	/**
 	 * get all articles
 	 *
 	 * @since 4.0.0

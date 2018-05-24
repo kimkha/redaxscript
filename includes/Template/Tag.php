@@ -257,16 +257,13 @@ class Tag
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $categoryAlias alias of the category
-	 * @param array $optionArray options of the content
-	 *
 	 * @return string|null
 	 */
 
-	public static function content(string $categoryAlias = null, array $optionArray = [])
+	public static function content()
 	{
 		$adminContent = self::_renderAdminContent();
-		return $adminContent ? $adminContent : self::_renderContent($categoryAlias, $optionArray);
+		return $adminContent ? $adminContent : self::_renderContent();
 	}
 
 	/**
@@ -293,24 +290,32 @@ class Tag
 	 *
 	 * @since 4.0.0
 	 *
+	 * @return string|null
+	 */
+
+	protected static function _renderContent()
+	{
+		$router = new Router\Router(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
+		$router->init();
+		return $router->routeContent();
+	}
+
+	/**
+	 * article
+	 *
+	 * @since 4.0.0
+	 *
 	 * @param string $categoryAlias alias of the category
 	 * @param array $optionArray options of the content
 	 *
 	 * @return string|null
 	 */
 
-	protected static function _renderContent(string $categoryAlias = null, array $optionArray = [])
+	public static function article(string $categoryAlias = null, array $optionArray = [])
 	{
-		$router = new Router\Router(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
-		$router->init();
-		$routerContent = $router->routeContent();
-		if ($routerContent)
-		{
-			return $routerContent;
-		}
-		$content = new View\Content(Registry::getInstance(), Language::getInstance());
-		$content->init($optionArray);
-		return $content->render($categoryAlias);
+		$article = new View\Article(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
+		$article->init($optionArray);
+		return $article->render($categoryAlias);
 	}
 
 	/**

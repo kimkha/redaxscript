@@ -13,7 +13,7 @@ use Redaxscript\Language;
 use Redaxscript\Validator;
 
 /**
- * children class to create the extra
+ * children class to create the article
  *
  * @since 4.0.0
  *
@@ -22,7 +22,7 @@ use Redaxscript\Validator;
  * @author Henry Ruhs
  */
 
-class Extra extends ViewAbstract
+class Article extends ViewAbstract
 {
 	/**
 	 * instance of the request class
@@ -41,7 +41,7 @@ class Extra extends ViewAbstract
 	protected $_config;
 
 	/**
-	 * options of the extra
+	 * options of the article
 	 *
 	 * @var array
 	 */
@@ -50,13 +50,13 @@ class Extra extends ViewAbstract
 	[
 		'tag' =>
 		[
-			'title' => 'h3',
+			'title' => 'h2',
 			'box' => 'div'
 		],
 		'className' =>
 		[
-			'title' => 'rs-title-extra',
-			'box' => 'rs-box-extra'
+			'title' => 'rs-title-content',
+			'box' => 'rs-box-content'
 		]
 	];
 
@@ -79,7 +79,7 @@ class Extra extends ViewAbstract
 	}
 
 	/**
-	 * stringify the extra
+	 * stringify the article
 	 *
 	 * @since 4.0.0
 	 *
@@ -96,7 +96,7 @@ class Extra extends ViewAbstract
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param array $optionArray options of the extra
+	 * @param array $optionArray options of the article
 	 */
 
 	public function init(array $optionArray = [])
@@ -112,16 +112,16 @@ class Extra extends ViewAbstract
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $extraAlias alias of the extra
+	 * @param string $categoryAlias alias of the category
 	 *
 	 * @return string
 	 */
 
-	public function render(string $extraAlias = null) : string
+	public function render(string $categoryAlias = null) : string
 	{
-		$output = Module\Hook::trigger('extraStart');
+		$output = Module\Hook::trigger('articleStart');
 		$accessValidator = new Validator\Access();
-		$extraModel = new Model\Extra();
+		$articleModel = new Model\Article();
 		$contentParser = new Content\Parser($this->_registry, $this->_request, $this->_language, $this->_config);
 		$language = $this->_registry->get('language');
 		$loggedIn = $this->_registry->get('loggedIn');
@@ -145,25 +145,25 @@ class Extra extends ViewAbstract
 				'class' => $this->_optionArray['className']['box']
 			]);
 
-		/* query extras */
+		/* query articles */
 
-		$extras = $extraAlias ? $extraModel->getManyByAliasAndLanguage($extraAlias, $language) : $extraModel->getManyByLanguage($language);
+		$articles = $categoryAlias ? null : $articleModel->getManyByLanguage($language);
 
-		/* process extras */
+		/* process articles */
 
-		foreach ($extras as $value)
+		foreach ($articles as $value)
 		{
 			if ($accessValidator->validate($value->access, $myGroups) === Validator\ValidatorInterface::PASSED)
 			{
-				$output .= Module\Hook::trigger('extraFragmentStart', $value);
+				$output .= Module\Hook::trigger('articleFragmentStart', $value);
 				if (intval($value->headline) === 1)
 				{
 					$output .= $titleElement
-						->attr('id', 'extra-' . $value->alias)
+						->attr('id', 'article-' . $value->alias)
 						->text($value->title);
 				}
 				$contentParser->process($value->text);
-				$output .= $boxElement->html($contentParser->getOutput()) . Module\Hook::trigger('extraFragmentEnd', $value);
+				$output .= $boxElement->html($contentParser->getOutput()) . Module\Hook::trigger('articleFragmentEnd', $value);
 
 				/* admin dock */
 
@@ -173,7 +173,7 @@ class Extra extends ViewAbstract
 				}
 			}
 		}
-		$output .= Module\Hook::trigger('extraEnd');
+		$output .= Module\Hook::trigger('articleEnd');
 		return $output;
 	}
 
@@ -182,15 +182,15 @@ class Extra extends ViewAbstract
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $extraId identifier of the extra
+	 * @param string $articleId identifier of the article
 	 *
 	 * @return string
 	 */
 
-	protected function _renderAdminDock(string $extraId = null) : string
+	protected function _renderAdminDock(string $articleId = null) : string
 	{
 		$adminDock = new Admin\View\Helper\Dock($this->_registry, $this->_language);
 		$adminDock->init();
-		return $adminDock->render('extras', $extraId);
+		return $adminDock->render('articles', $articleId);
 	}
 }

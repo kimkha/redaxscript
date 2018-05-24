@@ -16,6 +16,19 @@ use Redaxscript\Db;
 class Module
 {
 	/**
+	 * get all modules
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return object
+	 */
+
+	public function getAll()
+	{
+		return Db::forTablePrefix('modules')->findMany();
+	}
+
+	/**
 	 * create the module by array
 	 *
 	 * @since 3.3.0
@@ -38,19 +51,6 @@ class Module
 				'version' => $createArray['version']
 			])
 			->save();
-	}
-
-	/**
-	 * get all modules
-	 *
-	 * @since 4.0.0
-	 *
-	 * @return object
-	 */
-
-	public function getAll()
-	{
-		return Db::forTablePrefix('modules')->findMany();
 	}
 
 	/**
