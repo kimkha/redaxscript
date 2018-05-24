@@ -49,6 +49,7 @@ else if ($config->get('env') !== 'production' || $accessValidator->validate('1',
 
 	else
 	{
+		set_include_path('templates');
 		include_once('templates' . DIRECTORY_SEPARATOR . 'console' . DIRECTORY_SEPARATOR . 'index.phtml');
 	}
 }

@@ -7,21 +7,15 @@
 	<!-- teaser -->
 
 	<?php if (!Tag::getRegistry('adminParameter')): ?>
-		<?php echo Tag::extraRaw()
-			->where(
-			[
-				'alias' => 'teaser',
-				'category' => Tag::getRegistry('categoryId')
-			])
-			->findOne()
-			->text; ?>
+		<?php include('default/helper/teaser.php'); ?>
+		<?php echo $teaser; ?>
 	<?php endif; ?>
 
 	<!-- error -->
 
 	<?php if (Tag::getRegistry('contentError')): ?>
 		<div class="rs-wrapper rs-wrapper-page">
-			<?php echo Tag::partial('templates/default/error.phtml'); ?>
+			<?php echo Tag::partial('default/error.phtml'); ?>
 		</div>
 
 	<!-- else content and sidebar -->
@@ -30,8 +24,8 @@
 		<div class="rs-wrapper rs-wrapper-page rs-has-sidebar">
 			<?php echo Tag::partial(
 			[
-				'templates/default/content.phtml',
-				'templates/default/sidebar.phtml'
+				'default/content.phtml',
+				'default/sidebar.phtml'
 			]); ?>
 		</div>
 	<?php endif; ?>

@@ -8,8 +8,8 @@
 	<head>
 		<?php echo Tag::partial(
 		[
-			'templates/admin/head.phtml',
-			'templates/skeleton/head.phtml'
+			'admin/head.phtml',
+			'skeleton/head.phtml'
 		]); ?>
 	</head>
 
@@ -18,13 +18,13 @@
 	<body class="rs-body">
 		<?php $body = Tag::partial(
 		[
-			'templates/skeleton/header.phtml',
-			'templates/skeleton/main.phtml',
-			'templates/skeleton/footer.phtml',
-			'templates/admin/script.phtml',
-			'templates/skeleton/script.phtml'
+			'skeleton/header.phtml',
+			'skeleton/main.phtml',
+			'skeleton/footer.phtml',
+			'admin/script.phtml',
+			'skeleton/script.phtml'
 		]); ?>
-		<?php echo Tag::partial('templates/admin/panel.phtml'); ?>
+		<?php echo Tag::partial('admin/panel.phtml'); ?>
 		<?php echo $body; ?>
 	</body>
 </html>

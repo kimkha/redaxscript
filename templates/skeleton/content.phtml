@@ -5,5 +5,5 @@
 <article id="content" class="rs-content">
 	<?php echo Tag::breadcrumb(); ?>
 	<?php $content = Tag::content(); ?>
-	<?php echo $content ? $content : Tag::article() . Tag::comment(); ?>
+	<?php echo $content ? $content : Tag::article(); ?>
 </article>

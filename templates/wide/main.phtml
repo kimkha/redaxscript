@@ -11,12 +11,12 @@
 		<!-- error -->
 
 		<?php if (Tag::getRegistry('contentError')): ?>
-			<?php echo Tag::partial('templates/default/error.phtml'); ?>
+			<?php echo Tag::partial('default/error.phtml'); ?>
 
 		<!-- else content -->
 
 		<?php else: ?>
-			<?php echo Tag::partial('templates/default/content.phtml'); ?>
+			<?php echo Tag::partial('default/content.phtml'); ?>
 		<?php endif; ?>
 	</div>
 </main>

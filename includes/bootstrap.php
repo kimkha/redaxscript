@@ -31,7 +31,7 @@ Db::init();
 
 /* bootstrap */
 
-new Bootstrap\Config();
+new Bootstrap\Config($registry, $request);
 new Bootstrap\Session($registry, $request);
 new Bootstrap\Common($registry, $request);
 new Bootstrap\Status($registry, $request);

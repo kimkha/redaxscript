@@ -8,7 +8,7 @@
 
 	<?php if (Tag::getRegistry('contentError')): ?>
 		<div class="rs-wrapper">
-			<?php echo Tag::partial('templates/skeleton/error.phtml'); ?>
+			<?php echo Tag::partial('skeleton/error.phtml'); ?>
 		</div>
 
 	<!-- else content and sidebar -->
@@ -17,8 +17,8 @@
 		<div class="rs-wrapper rs-has-sidebar">
 			<?php echo Tag::partial(
 			[
-				'templates/skeleton/content.phtml',
-				'templates/skeleton/sidebar.phtml'
+				'skeleton/content.phtml',
+				'skeleton/sidebar.phtml'
 			]); ?>
 		</div>
 	<?php endif; ?>

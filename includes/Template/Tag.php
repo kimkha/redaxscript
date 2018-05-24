@@ -127,14 +127,14 @@ class Tag
 	}
 
 	/**
-	 * console line
+	 * console
 	 *
 	 * @since 3.0.0
 	 *
 	 * @return string|bool
 	 */
 
-	public static function consoleLine()
+	public static function console()
 	{
 		$console = new Console\Console(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
 		$output = $console->init('template');
@@ -192,7 +192,7 @@ class Tag
 		/* template filesystem */
 
 		$templateFilesystem = new Filesystem\File();
-		$templateFilesystem->init('.');
+		$templateFilesystem->init('templates');
 
 		/* process partial */
 
@@ -352,45 +352,6 @@ class Tag
 		$extra = new View\Extra(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
 		$extra->init($optionArray);
 		return $extra->render($extraAlias);
-	}
-
-	/**
-	 * category raw
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return Db
-	 */
-
-	public static function categoryRaw()
-	{
-		return Db::forTablePrefix('categories');
-	}
-
-	/**
-	 * article raw
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return Db
-	 */
-
-	public static function articleRaw() : Db
-	{
-		return Db::forTablePrefix('articles');
-	}
-
-	/**
-	 * extra raw
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return Db
-	 */
-
-	public static function extraRaw() : Db
-	{
-		return Db::forTablePrefix('extras');
 	}
 
 	/**
