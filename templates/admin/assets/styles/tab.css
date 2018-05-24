@@ -13,7 +13,7 @@
 
 .rs-admin-component-tab
 {
-	font-size: 1.25rem;
+	font: 1.25rem var(--rs-admin-font-primary);
 }
 
 /** @section 1.1 label */

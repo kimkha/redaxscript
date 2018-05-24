@@ -2,7 +2,6 @@
 namespace Redaxscript\Template;
 
 use Redaxscript\Admin;
-use Redaxscript\Db;
 use Redaxscript\Config;
 use Redaxscript\Console;
 use Redaxscript\Filesystem;
