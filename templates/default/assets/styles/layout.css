@@ -63,6 +63,7 @@
 
 	.rs-has-sidebar
 	{
+		align-items: flex-start;
 		display: flex;
 
 		& .rs-content

@@ -7,7 +7,6 @@ use Redaxscript\Console;
 use Redaxscript\Filesystem;
 use Redaxscript\Head;
 use Redaxscript\Language;
-use Redaxscript\Model;
 use Redaxscript\Navigation;
 use Redaxscript\Registry;
 use Redaxscript\Request;
@@ -200,55 +199,6 @@ class Tag
 			$output .= $templateFilesystem->renderFile($file);
 		}
 		return $output;
-	}
-
-	/**
-	 * get the registry
-	 *
-	 * @since 2.6.0
-	 *
-	 * @param string $key
-	 *
-	 * @return string|bool
-	 */
-
-	public static function getRegistry($key = null)
-	{
-		$registry = Registry::getInstance();
-		return $registry->get($key);
-	}
-
-	/**
-	 * get the language
-	 *
-	 * @since 2.6.0
-	 *
-	 * @param string $key
-	 * @param string $index
-	 *
-	 * @return string|bool
-	 */
-
-	public static function getLanguage($key = null, $index = null)
-	{
-		$language = Language::getInstance();
-		return $language->get($key, $index);
-	}
-
-	/**
-	 * get the setting
-	 *
-	 * @since 2.6.0
-	 *
-	 * @param string $key
-	 *
-	 * @return string|bool
-	 */
-
-	public static function getSetting($key = null)
-	{
-		$settingModel = new Model\Setting();
-		return $settingModel->get($key);
 	}
 
 	/**

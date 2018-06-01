@@ -6,14 +6,14 @@
 
 	<!-- teaser -->
 
-	<?php if (!Tag::getRegistry('adminParameter')): ?>
+	<?php if (!Helper::getRegistry('adminParameter')): ?>
 		<?php include('default/helper/teaser.php'); ?>
 		<?php echo $teaser; ?>
 	<?php endif; ?>
 
 	<!-- error -->
 
-	<?php if (Tag::getRegistry('contentError')): ?>
+	<?php if (Helper::getRegistry('contentError')): ?>
 		<div class="rs-wrapper rs-wrapper-page">
 			<?php echo Tag::partial('default/error.phtml'); ?>
 		</div>

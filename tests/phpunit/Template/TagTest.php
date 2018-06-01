@@ -274,65 +274,6 @@ class TagTest extends TestCaseAbstract
 	}
 
 	/**
-	 * testGetRegistry
-	 *
-	 * @since 2.6.0
-	 */
-
-	public function testGetRegistry()
-	{
-		/* setup */
-
-		$this->_registry->set('testKey', 'testValue');
-
-		/* actual */
-
-		$actual = Template\Tag::getRegistry('testKey');
-
-		/* compare */
-
-		$this->assertEquals('testValue', $actual);
-	}
-
-	/**
-	 * testGetLanguage
-	 *
-	 * @since 2.6.0
-	 */
-
-	public function testGetLanguage()
-	{
-		/* setup */
-
-		$this->_language->set('testKey', 'testValue');
-
-		/* actual */
-
-		$actual = Template\Tag::getLanguage('testKey');
-
-		/* compare */
-
-		$this->assertEquals('testValue', $actual);
-	}
-
-	/**
-	 * testGetSetting
-	 *
-	 * @since 2.6.0
-	 */
-
-	public function testGetSetting()
-	{
-		/* actual */
-
-		$actual = Template\Tag::getSetting('charset');
-
-		/* compare */
-
-		$this->assertEquals('utf-8', $actual);
-	}
-
-	/**
 	 * testNavigationCategories
 	 *
 	 * @since 3.3.1

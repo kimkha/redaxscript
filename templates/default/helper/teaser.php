@@ -5,7 +5,7 @@ $teaser = Db::forTablePrefix('extras')
 	->where(
 	[
 		'alias' => 'teaser',
-		'category' => Template\Tag::getRegistry('categoryId')
+		'category' => Template\Helper::getRegistry('categoryId')
 	])
 	->findOne()
 	->text;

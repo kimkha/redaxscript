@@ -4,10 +4,6 @@
 		"<ul class=\"rs-list-breadcrumb\"><li>Home</li></ul>"
 	],
 	[
-		"<rs-template>{\"getSetting\":{\"key\":\"title\"}}<rs-template>",
-		"Redaxscript"
-	],
-	[
 		"<rs-template>invalid<rs-template>",
 		null
 	],

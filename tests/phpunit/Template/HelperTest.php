@@ -228,6 +228,65 @@ class HelperTest extends TestCaseAbstract
 	}
 
 	/**
+	 * testGetRegistry
+	 *
+	 * @since 2.6.0
+	 */
+
+	public function testGetRegistry()
+	{
+		/* setup */
+
+		$this->_registry->set('testKey', 'testValue');
+
+		/* actual */
+
+		$actual = Template\Helper::getRegistry('testKey');
+
+		/* compare */
+
+		$this->assertEquals('testValue', $actual);
+	}
+
+	/**
+	 * testGetLanguage
+	 *
+	 * @since 2.6.0
+	 */
+
+	public function testGetLanguage()
+	{
+		/* setup */
+
+		$this->_language->set('testKey', 'testValue');
+
+		/* actual */
+
+		$actual = Template\Helper::getLanguage('testKey');
+
+		/* compare */
+
+		$this->assertEquals('testValue', $actual);
+	}
+
+	/**
+	 * testGetSetting
+	 *
+	 * @since 2.6.0
+	 */
+
+	public function testGetSetting()
+	{
+		/* actual */
+
+		$actual = Template\Helper::getSetting('charset');
+
+		/* compare */
+
+		$this->assertEquals('utf-8', $actual);
+	}
+
+	/**
 	 * testGetTitle
 	 *
 	 * @since 3.0.0
