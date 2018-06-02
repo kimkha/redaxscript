@@ -35,6 +35,7 @@ class ResultList extends ViewAbstract
 		$accessValidator = new Validator\Access();
 		$contentModel = new Model\Content();
 		$settingModel = new Model\Setting();
+		$parameterRoute = $this->_registry->get('parameterRoute');
 
 		/* html element */
 
@@ -80,7 +81,7 @@ class ResultList extends ViewAbstract
 					{
 						$textDate = date($settingModel->get('date'), strtotime($value->date));
 						$linkElement
-							->attr('href', $this->_registry->get('parameterRoute') . $contentModel->getRouteByTableAndId($table, $value->id))
+							->attr('href', $parameterRoute . $contentModel->getRouteByTableAndId($table, $value->id))
 							->text($value->title ? $value->title : $value->author);
 						$textElement->text($textDate);
 						$outputItem .= $itemElement->html($linkElement . $textElement);

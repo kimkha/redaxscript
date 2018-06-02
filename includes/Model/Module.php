@@ -48,7 +48,8 @@ class Module
 				'alias' => $createArray['alias'],
 				'author' => $createArray['author'],
 				'description' => $createArray['description'],
-				'version' => $createArray['version']
+				'version' => $createArray['version'],
+				'access' => $createArray['access']
 			])
 			->save();
 	}

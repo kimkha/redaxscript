@@ -104,6 +104,7 @@ class Breadcrumb extends ViewAbstract
 	public function render() : string
 	{
 		$output = Module\Hook::trigger('breadcrumbStart');
+		$parameterRoute = $this->_registry->get('parameterRoute');
 
 		/* html element */
 
@@ -138,7 +139,7 @@ class Breadcrumb extends ViewAbstract
 				{
 					$itemElement->append(
 						$linkElement
-							->attr('href', $this->_registry->get('parameterRoute') . $route)
+							->attr('href', $parameterRoute . $route)
 							->text($title)
 					);
 				}

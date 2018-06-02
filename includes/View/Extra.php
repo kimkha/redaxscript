@@ -112,12 +112,12 @@ class Extra extends ViewAbstract
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $extraAlias alias of the extra
+	 * @param string $extraId alias of the extra
 	 *
 	 * @return string
 	 */
 
-	public function render(string $extraAlias = null) : string
+	public function render(string $extraId = null) : string
 	{
 		$output = Module\Hook::trigger('extraStart');
 		$accessValidator = new Validator\Access();
@@ -147,7 +147,7 @@ class Extra extends ViewAbstract
 
 		/* query extras */
 
-		$extras = $extraAlias ? $extraModel->getManyByAliasAndLanguage($extraAlias, $language) : $extraModel->getManyByLanguage($language);
+		$extras = $extraId ? $extraModel->getManyByAliasAndLanguage($extraId, $language) : $extraModel->getManyByLanguage($language);
 
 		/* process extras */
 
@@ -182,12 +182,12 @@ class Extra extends ViewAbstract
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $extraId identifier of the extra
+	 * @param int $extraId identifier of the extra
 	 *
 	 * @return string
 	 */
 
-	protected function _renderAdminDock(string $extraId = null) : string
+	protected function _renderAdminDock(int $extraId = null) : string
 	{
 		$adminDock = new Admin\View\Helper\Dock($this->_registry, $this->_language);
 		$adminDock->init();

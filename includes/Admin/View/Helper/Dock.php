@@ -54,12 +54,12 @@ class Dock extends ViewAbstract
 	 * @since 4.0.0
 	 *
 	 * @param string $table name of the table
-	 * @param string $id identifier of the item
+	 * @param int $id identifier of the item
 	 *
 	 * @return string
 	 */
 
-	public function render(string $table = null, string $id = null) : string
+	public function render(string $table = null, int $id = null) : string
 	{
 		$output = Module\Hook::trigger('adminDockStart');
 		$tableEdit = $this->_registry->get($table . 'Edit');

@@ -23,7 +23,7 @@ class ArticleForm extends ViewAbstract
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param int|bool $articleId identifier of the article
+	 * @param int $articleId identifier of the article
 	 *
 	 * @return string
 	 */

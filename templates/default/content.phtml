@@ -6,4 +6,12 @@
 	<?php echo Tag::breadcrumb(); ?>
 	<?php $content = Tag::content(); ?>
 	<?php echo $content ? $content : Tag::article(); ?>
+
+	<!-- comment -->
+
+	<?php if (Helper::getRegistry('articleId')): ?>
+		<section class="rs-section-comment">
+			<?php echo Tag::comment(Helper::getRegistry('articleId')); ?>
+		</section>
+	<?php endif; ?>
 </article>

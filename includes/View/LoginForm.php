@@ -30,6 +30,7 @@ class LoginForm extends ViewAbstract
 		$output = Module\Hook::trigger('loginFormStart');
 		$outputLegend = null;
 		$settingModel = new Model\Setting();
+		$parameterRoute = $this->_registry->get('parameterRoute');
 
 		/* html element */
 
@@ -47,7 +48,7 @@ class LoginForm extends ViewAbstract
 				->copy()
 				->init('a',
 				[
-					'href' => $this->_registry->get('parameterRoute') . 'login/recover'
+					'href' => $parameterRoute . 'login/recover'
 				]);
 			$outputLegend = $linkElement->text($this->_language->get('recovery_question') . $this->_language->get('question_mark'));
 		}

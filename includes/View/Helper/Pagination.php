@@ -67,8 +67,8 @@ class Pagination extends ViewAbstract
 	{
 		$output = Module\Hook::trigger('paginationStart');
 		$outputItem = null;
-		$parameterRoute = $this->_registry->get('parameterRoute');
 		$numberArray = $this->_getNumberArray($current, $total, $range);
+		$parameterRoute = $this->_registry->get('parameterRoute');
 
 		/* html element */
 

@@ -112,12 +112,12 @@ class Article extends ViewAbstract
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $categoryAlias alias of the category
+	 * @param string $categoryId alias of the category
 	 *
 	 * @return string
 	 */
 
-	public function render(string $categoryAlias = null) : string
+	public function render(string $categoryId = null) : string
 	{
 		$output = Module\Hook::trigger('articleStart');
 		$accessValidator = new Validator\Access();
@@ -127,6 +127,8 @@ class Article extends ViewAbstract
 		$loggedIn = $this->_registry->get('loggedIn');
 		$token = $this->_registry->get('token');
 		$firstParameter = $this->_registry->get('firstParameter');
+		$lastTable =  $this->_registry->get('lastTable');
+		$parameterRoute = $this->_registry->get('parameterRoute');
 		$myGroups = $this->_registry->get('myGroups');
 
 		/* html element */
@@ -138,6 +140,7 @@ class Article extends ViewAbstract
 			[
 				'class' => $this->_optionArray['className']['title']
 			]);
+		$linkElement = $element->copy()->init('a');
 		$boxElement = $element
 			->copy()
 			->init($this->_optionArray['tag']['box'],
@@ -147,7 +150,7 @@ class Article extends ViewAbstract
 
 		/* query articles */
 
-		$articles = $categoryAlias ? null : $articleModel->getManyByLanguage($language);
+		$articles = $categoryId ? null : $articleModel->getManyByLanguage($language);
 
 		/* process articles */
 
@@ -160,7 +163,10 @@ class Article extends ViewAbstract
 				{
 					$output .= $titleElement
 						->attr('id', 'article-' . $value->alias)
-						->text($value->title);
+						->html($lastTable === 'categories' ? $linkElement
+							->attr('href', $parameterRoute . $articleModel->getRouteById($value->id))
+							->text($value->title) : $value->title
+						);
 				}
 				$contentParser->process($value->text);
 				$output .= $boxElement->html($contentParser->getOutput()) . Module\Hook::trigger('articleFragmentEnd', $value);
@@ -182,12 +188,12 @@ class Article extends ViewAbstract
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $articleId identifier of the article
+	 * @param int $articleId identifier of the article
 	 *
 	 * @return string
 	 */
 
-	protected function _renderAdminDock(string $articleId = null) : string
+	protected function _renderAdminDock(int $articleId = null) : string
 	{
 		$adminDock = new Admin\View\Helper\Dock($this->_registry, $this->_language);
 		$adminDock->init();

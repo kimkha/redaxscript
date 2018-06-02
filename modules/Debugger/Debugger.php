@@ -30,7 +30,8 @@ class Debugger extends Module\Module
 		'alias' => 'Debugger',
 		'author' => 'Redaxmedia',
 		'description' => 'Debugger',
-		'version' => '4.0.0'
+		'version' => '4.0.0',
+		'access' => '1'
 	];
 
 	/**

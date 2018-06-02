@@ -16,6 +16,43 @@ use Redaxscript\Db;
 class Comment
 {
 	/**
+	 * get the extras by language
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $language
+	 *
+	 * @return object
+	 */
+
+	public function getManyByLanguage(string $language = null)
+	{
+		return Db::forTablePrefix('comments')
+			->whereLanguageIs($language)
+			->where('status', 1)
+			->findMany();
+	}
+
+	/**
+	 * get the extras by alias and language
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $articleId identifier of the article
+	 * @param string $language
+	 *
+	 * @return object
+	 */
+
+	public function getManyByIdAndLanguage(int $articleId = null, string $language = null)
+	{
+		return Db::forTablePrefix('comments')
+			->where('article', $articleId)
+			->whereLanguageIs($language)
+			->findMany();
+	}
+
+	/**
 	 * get the comment route by id
 	 *
 	 * @since 3.3.0
@@ -103,7 +140,8 @@ class Comment
 				'url' => $createArray['url'],
 				'text' => $createArray['text'],
 				'language' => $createArray['language'],
-				'article' => $createArray['article']
+				'article' => $createArray['article'],
+				'access' => $createArray['access']
 			])
 			->save();
 	}

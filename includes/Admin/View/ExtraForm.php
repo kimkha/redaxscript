@@ -23,7 +23,7 @@ class ExtraForm extends ViewAbstract
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param int|bool $extraId identifier of the extra
+	 * @param int $extraId identifier of the extra
 	 *
 	 * @return string
 	 */
