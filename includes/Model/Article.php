@@ -96,6 +96,25 @@ class Article
 	}
 
 	/**
+	 * get the article by category id and language
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $categoryId identifier of the category
+	 * @param string $language
+	 *
+	 * @return object
+	 */
+
+	public function getManyByCategoryIdAndLanguage(int $categoryId = null, string $language = null)
+	{
+		return Db::forTablePrefix('articles')
+			->where('category', $categoryId)
+			->whereLanguageIs($language)
+			->findMany();
+	}
+
+	/**
 	 * get all articles
 	 *
 	 * @since 4.0.0

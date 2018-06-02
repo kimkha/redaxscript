@@ -38,16 +38,16 @@ class Extra
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $extraAlias alias of the extra
+	 * @param int $extraId identifier of the extra
 	 * @param string $language
 	 *
 	 * @return object
 	 */
 
-	public function getManyByAliasAndLanguage(string $extraAlias = null, string $language = null)
+	public function getManyByIdAndLanguage(int $extraId = null, string $language = null)
 	{
 		return Db::forTablePrefix('extras')
-			->where('alias', $extraAlias)
+			->whereIdIs($extraId)
 			->whereLanguageIs($language)
 			->findMany();
 	}

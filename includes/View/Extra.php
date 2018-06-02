@@ -112,12 +112,12 @@ class Extra extends ViewAbstract
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $extraId alias of the extra
+	 * @param int $extraId identifier of the extra
 	 *
 	 * @return string
 	 */
 
-	public function render(string $extraId = null) : string
+	public function render(int $extraId = null) : string
 	{
 		$output = Module\Hook::trigger('extraStart');
 		$accessValidator = new Validator\Access();
@@ -147,7 +147,7 @@ class Extra extends ViewAbstract
 
 		/* query extras */
 
-		$extras = $extraId ? $extraModel->getManyByAliasAndLanguage($extraId, $language) : $extraModel->getManyByLanguage($language);
+		$extras = $extraId ? $extraModel->getManyByIdAndLanguage($extraId, $language) : $extraModel->getManyByLanguage($language);
 
 		/* process extras */
 

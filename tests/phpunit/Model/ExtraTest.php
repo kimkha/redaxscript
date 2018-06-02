@@ -133,22 +133,22 @@ class ExtraTest extends TestCaseAbstract
 	 * @return array
 	 */
 
-	public function providerGetResult() : array
+	public function providerGetMany() : array
 	{
-		return $this->getProvider('tests/provider/Model/extra_get_result.json');
+		return $this->getProvider('tests/provider/Model/extra_get_many.json');
 	}
 
 	/**
-	 * providerGetResultAlias
+	 * providerGetResultId
 	 *
 	 * @since 4.0.0
 	 *
 	 * @return array
 	 */
 
-	public function providerGetResultAlias() : array
+	public function providerGetManyId() : array
 	{
-		return $this->getProvider('tests/provider/Model/extra_get_result_alias.json');
+		return $this->getProvider('tests/provider/Model/extra_get_many_id.json');
 	}
 
 	/**
@@ -172,10 +172,10 @@ class ExtraTest extends TestCaseAbstract
 	 * @param string $language
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerGetResult
+	 * @dataProvider providerGetMany
 	 */
 
-	public function testGetResultByLanguage(string $language = null, array $expectArray = null)
+	public function testGetManyByLanguage(string $language = null, array $expectArray = null)
 	{
 		/* setup */
 
@@ -196,18 +196,18 @@ class ExtraTest extends TestCaseAbstract
 	}
 
 	/**
-	 * testGetResultByAliasAndLanguage
+	 * testGetManyByIdAndLanguage
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $extraAlias
+	 * @param int $extraId
 	 * @param string $language
 	 * @param string $expect
 	 *
-	 * @dataProvider providerGetResultAlias
+	 * @dataProvider providerGetManyId
 	 */
 
-	public function testGetResultByAliasAndLanguage(string $extraAlias = null, string $language = null, string $expect = null)
+	public function testGetManyByIdAndLanguage(int $extraId = null, string $language = null, string $expect = null)
 	{
 		/* setup */
 
@@ -215,7 +215,7 @@ class ExtraTest extends TestCaseAbstract
 
 		/* actual */
 
-		$actualArray = $extraModel->getManyByAliasAndLanguage($extraAlias, $language);
+		$actualArray = $extraModel->getManyByIdAndLanguage($extraId, $language);
 
 		/* compare */
 

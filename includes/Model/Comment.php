@@ -34,7 +34,7 @@ class Comment
 	}
 
 	/**
-	 * get the extras by alias and language
+	 * get the extras by article id and language
 	 *
 	 * @since 4.0.0
 	 *
@@ -44,7 +44,7 @@ class Comment
 	 * @return object
 	 */
 
-	public function getManyByIdAndLanguage(int $articleId = null, string $language = null)
+	public function getManyByArticleIdAndLanguage(int $articleId = null, string $language = null)
 	{
 		return Db::forTablePrefix('comments')
 			->where('article', $articleId)

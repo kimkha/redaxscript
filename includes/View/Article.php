@@ -112,12 +112,12 @@ class Article extends ViewAbstract
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $categoryId alias of the category
+	 * @param int $categoryId identifier of the category
 	 *
 	 * @return string
 	 */
 
-	public function render(string $categoryId = null) : string
+	public function render(int $categoryId = null) : string
 	{
 		$output = Module\Hook::trigger('articleStart');
 		$accessValidator = new Validator\Access();
@@ -150,7 +150,7 @@ class Article extends ViewAbstract
 
 		/* query articles */
 
-		$articles = $categoryId ? null : $articleModel->getManyByLanguage($language);
+		$articles = $categoryId ? $articleModel->getManyByCategoryIdAndLanguage($categoryId, $language) : $articleModel->getManyByLanguage($language);
 
 		/* process articles */
 

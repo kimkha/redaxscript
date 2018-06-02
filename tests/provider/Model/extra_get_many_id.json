@@ -1,86 +1,86 @@
 [
 	[
-		"extra-two",
+		2,
 		null,
 		"extra-two"
 	],
 	[
-		"extra-two",
+		2,
 		"en",
 		"extra-two"
 	],
 	[
-		"extra-two",
+		2,
 		"de",
 		"extra-two"
 	],
 	[
-		"extra-two",
+		2,
 		"fr",
 		"extra-two"
 	],
 	[
-		"extra-three",
+		3,
 		null,
 		"extra-three"
 	],
 	[
-		"extra-three",
+		3,
 		"en",
 		"extra-three"
 	],
 	[
-		"extra-three",
+		3,
 		"de",
 		"extra-four"
 	],
 	[
-		"extra-three",
+		3,
 		"fr",
 		"extra-five"
 	],
 	[
-		"extra-four",
+		4,
 		null,
 		"extra-four"
 	],
 	[
-		"extra-four",
+		4,
 		"en",
 		"extra-three"
 	],
 	[
-		"extra-four",
+		4,
 		"de",
 		"extra-four"
 	],
 	[
-		"extra-four",
+		4,
 		"fr",
 		"extra-five"
 	],
 	[
-		"extra-five",
+		5,
 		null,
 		"extra-five"
 	],
 	[
-		"extra-five",
+		5,
 		"en",
 		"extra-three"
 	],
 	[
-		"extra-five",
+		5,
 		"de",
 		"extra-four"
 	],
 	[
-		"extra-five",
+		5,
 		"fr",
 		"extra-five"
 	],
 	[
-		"invalid",
+		null,
 		null,
 		null
 	]

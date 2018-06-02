@@ -254,17 +254,17 @@ class Tag
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $categoryAlias alias of the category
+	 * @param int $categoryId identifier of the category
 	 * @param array $optionArray options of the content
 	 *
 	 * @return string|null
 	 */
 
-	public static function article(string $categoryAlias = null, array $optionArray = [])
+	public static function article(int $categoryId = null, array $optionArray = [])
 	{
 		$article = new View\Article(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
 		$article->init($optionArray);
-		return $article->render($categoryAlias);
+		return $article->render($categoryId);
 	}
 
 	/**
@@ -272,17 +272,17 @@ class Tag
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $articleAlias alias of the article
+	 * @param int $articleId identifier of the article
 	 * @param array $optionArray options of the comment
 	 *
 	 * @return string|null
 	 */
 
-	public static function comment(string $articleAlias = null, array $optionArray = [])
+	public static function comment(int $articleId = null, array $optionArray = [])
 	{
 		$comment = new View\Comment(Registry::getInstance(), Language::getInstance());
 		$comment->init($optionArray);
-		return $comment->render($articleAlias);
+		return $comment->render($articleId);
 	}
 
 	/**
@@ -290,17 +290,17 @@ class Tag
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $extraAlias alias of the extra
+	 * @param int $extraId identifier of the extra
 	 * @param array $optionArray options of the extra
 	 *
 	 * @return string|null
 	 */
 
-	public static function extra(string $extraAlias = null, array $optionArray = [])
+	public static function extra(int $extraId = null, array $optionArray = [])
 	{
 		$extra = new View\Extra(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
 		$extra->init($optionArray);
-		return $extra->render($extraAlias);
+		return $extra->render($extraId);
 	}
 
 	/**
