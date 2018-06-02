@@ -1,7 +1,6 @@
 <?php
 namespace Redaxscript\Admin\Model;
 
-use Redaxscript\Db;
 use Redaxscript\Model as BaseModel;
 
 /**
@@ -29,7 +28,7 @@ class User extends BaseModel\User
 
 	public function updateLastById(string $userId = null, string $date = null)
 	{
-		return Db::forTablePrefix('users')
+		return $this->_query()
 			->where('id', $userId)
 			->findOne()
 			->set('last', $date)

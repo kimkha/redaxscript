@@ -1,8 +1,6 @@
 <?php
 namespace Redaxscript\Model;
 
-use Redaxscript\Db;
-
 /**
  * parent class to provide the category model
  *
@@ -13,8 +11,16 @@ use Redaxscript\Db;
  * @author Henry Ruhs
  */
 
-class Category
+class Category extends ModelAbstract
 {
+	/**
+	 * name of the table
+	 *
+	 * @var string
+	 */
+
+	protected $_table = 'categories';
+
 	/**
 	 * get the category id by alias
 	 *
@@ -27,7 +33,7 @@ class Category
 
 	public function getIdByAlias(string $categoryAlias = null) : ?int
 	{
-		return Db::forTablePrefix('categories')->select('id')->where('alias', $categoryAlias)->findOne()->id;
+		return $this->_query()->select('id')->where('alias', $categoryAlias)->findOne()->id;
 	}
 
 	/**
@@ -43,7 +49,7 @@ class Category
 
 	public function getTitleById(int $categoryId = null) : ?string
 	{
-		return Db::forTablePrefix('categories')->select('title')->whereIdIs($categoryId)->findOne()->title;
+		return $this->_query()->select('title')->whereIdIs($categoryId)->findOne()->title;
 	}
 
 	/**
@@ -59,7 +65,7 @@ class Category
 	public function getRouteById(int $categoryId = null) : ?string
 	{
 		$route = null;
-		$categoryArray = Db::forTablePrefix('categories')
+		$categoryArray = $this->_query()
 			->tableAlias('c')
 			->leftJoinPrefix('categories', 'c.parent = p.id', 'p')
 			->select('p.alias', 'parent_alias')
@@ -77,19 +83,6 @@ class Category
 	}
 
 	/**
-	 * get all categories
-	 *
-	 * @since 3.3.0
-	 *
-	 * @return object
-	 */
-
-	public function getAll()
-	{
-		return Db::forTablePrefix('categories')->findMany();
-	}
-
-	/**
 	 * publish each category by date
 	 *
 	 * @since 3.3.0
@@ -101,7 +94,7 @@ class Category
 
 	public function publishByDate(string $date = null) : int
 	{
-		return Db::forTablePrefix('categories')
+		return $this->_query()
 			->where('status', 2)
 			->whereLt('date', $date)
 			->findMany()

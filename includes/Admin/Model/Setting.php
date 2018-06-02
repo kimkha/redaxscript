@@ -1,7 +1,6 @@
 <?php
 namespace Redaxscript\Admin\Model;
 
-use Redaxscript\Db;
 use Redaxscript\Model as BaseModel;
 
 /**
@@ -16,6 +15,16 @@ use Redaxscript\Model as BaseModel;
 
 class Setting extends BaseModel\Setting
 {
+	/**
+	 * update the settings by array
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $updateArray
+	 *
+	 * @return bool
+	 */
+
 	protected function updateByArray(array $updateArray = []) : bool
 	{
 		foreach ($updateArray as $key => $value)
@@ -24,7 +33,7 @@ class Setting extends BaseModel\Setting
 			{
 				$value = null;
 			}
-			return Db::forTablePrefix('settings')
+			return $this->_query()
 				->where('name', $key)
 				->findOne()
 				->set('value', $value)

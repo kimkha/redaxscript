@@ -1,8 +1,6 @@
 <?php
 namespace Redaxscript\Model;
 
-use Redaxscript\Db;
-
 /**
  * parent class to provide the setting model
  *
@@ -13,8 +11,16 @@ use Redaxscript\Db;
  * @author Henry Ruhs
  */
 
-class Setting
+class Setting extends ModelAbstract
 {
+	/**
+	 * name of the table
+	 *
+	 * @var string
+	 */
+
+	protected $_table = 'settings';
+
 	/**
 	 * get the value from setting
 	 *
@@ -45,19 +51,6 @@ class Setting
 	}
 
 	/**
-	 * get all settings
-	 *
-	 * @since 3.3.0
-	 *
-	 * @return object
-	 */
-
-	public function getAll()
-	{
-		return Db::forTablePrefix('settings')->findMany();
-	}
-
-	/**
 	 * set the value to setting
 	 *
 	 * @since 3.3.0
@@ -70,7 +63,7 @@ class Setting
 
 	public function set(string $key = null, string $value = null) : bool
 	{
-		return Db::forTablePrefix('settings')
+		return $this->_query()
 			->where('name', $key)
 			->findOne()
 			->set('value', $value)

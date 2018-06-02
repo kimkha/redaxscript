@@ -1,8 +1,6 @@
 <?php
 namespace Redaxscript\Model;
 
-use Redaxscript\Db;
-
 /**
  * parent class to provide the extra model
  *
@@ -13,8 +11,16 @@ use Redaxscript\Db;
  * @author Henry Ruhs
  */
 
-class Extra
+class Extra extends ModelAbstract
 {
+	/**
+	 * name of the table
+	 *
+	 * @var string
+	 */
+
+	protected $_table = 'extras';
+
 	/**
 	 * get the extras by language
 	 *
@@ -27,7 +33,7 @@ class Extra
 
 	public function getManyByLanguage(string $language = null)
 	{
-		return Db::forTablePrefix('extras')
+		return $this->_query()
 			->whereLanguageIs($language)
 			->where('status', 1)
 			->findMany();
@@ -46,23 +52,10 @@ class Extra
 
 	public function getManyByIdAndLanguage(int $extraId = null, string $language = null)
 	{
-		return Db::forTablePrefix('extras')
+		return $this->_query()
 			->whereIdIs($extraId)
 			->whereLanguageIs($language)
 			->findMany();
-	}
-
-	/**
-	 * get all extras
-	 *
-	 * @since 4.0.0
-	 *
-	 * @return object
-	 */
-
-	public function getAll()
-	{
-		return Db::forTablePrefix('extras')->findMany();
 	}
 
 	/**
@@ -77,7 +70,7 @@ class Extra
 
 	public function publishByDate(string $date = null) : int
 	{
-		return Db::forTablePrefix('extras')
+		return $this->_query()
 			->where('status', 2)
 			->whereLt('date', $date)
 			->findMany()

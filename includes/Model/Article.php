@@ -1,8 +1,6 @@
 <?php
 namespace Redaxscript\Model;
 
-use Redaxscript\Db;
-
 /**
  * parent class to provide the article model
  *
@@ -13,8 +11,16 @@ use Redaxscript\Db;
  * @author Henry Ruhs
  */
 
-class Article
+class Article extends ModelAbstract
 {
+	/**
+	 * name of the table
+	 *
+	 * @var string
+	 */
+
+	protected $_table = 'articles';
+
 	/**
 	 * get the article id by alias
 	 *
@@ -27,7 +33,7 @@ class Article
 
 	public function getIdByAlias(string $articleAlias = null) : ?int
 	{
-		return Db::forTablePrefix('articles')->select('id')->where('alias', $articleAlias)->findOne()->id;
+		return $this->_query()->select('id')->where('alias', $articleAlias)->findOne()->id;
 	}
 
 	/**
@@ -42,7 +48,7 @@ class Article
 
 	public function getTitleById(int $articleId = null) : ?string
 	{
-		return Db::forTablePrefix('articles')->select('title')->whereIdIs($articleId)->findOne()->title;
+		return $this->_query()->select('title')->whereIdIs($articleId)->findOne()->title;
 	}
 
 	/**
@@ -58,7 +64,7 @@ class Article
 	public function getRouteById(int $articleId = null) : ?string
 	{
 		$route = null;
-		$articleArray = Db::forTablePrefix('articles')
+		$articleArray = $this->_query()
 			->tableAlias('a')
 			->leftJoinPrefix('categories', 'a.category = c.id', 'c')
 			->leftJoinPrefix('categories', 'c.parent = p.id', 'p')
@@ -89,7 +95,7 @@ class Article
 
 	public function getManyByLanguage(string $language = null)
 	{
-		return Db::forTablePrefix('articles')
+		return $this->_query()
 			->whereLanguageIs($language)
 			->where('status', 1)
 			->findMany();
@@ -108,23 +114,10 @@ class Article
 
 	public function getManyByCategoryIdAndLanguage(int $categoryId = null, string $language = null)
 	{
-		return Db::forTablePrefix('articles')
+		return $this->_query()
 			->where('category', $categoryId)
 			->whereLanguageIs($language)
 			->findMany();
-	}
-
-	/**
-	 * get all articles
-	 *
-	 * @since 4.0.0
-	 *
-	 * @return object
-	 */
-
-	public function getAll()
-	{
-		return Db::forTablePrefix('articles')->findMany();
 	}
 
 	/**
@@ -139,7 +132,7 @@ class Article
 
 	public function publishByDate(string $date = null) : int
 	{
-		return Db::forTablePrefix('articles')
+		return $this->_query()
 			->where('status', 2)
 			->whereLt('date', $date)
 			->findMany()

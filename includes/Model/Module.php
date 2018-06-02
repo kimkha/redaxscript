@@ -1,8 +1,6 @@
 <?php
 namespace Redaxscript\Model;
 
-use Redaxscript\Db;
-
 /**
  * parent class to provide the module model
  *
@@ -13,20 +11,15 @@ use Redaxscript\Db;
  * @author Henry Ruhs
  */
 
-class Module
+class Module extends ModelAbstract
 {
 	/**
-	 * get all modules
+	 * name of the table
 	 *
-	 * @since 4.0.0
-	 *
-	 * @return object
+	 * @var string
 	 */
 
-	public function getAll()
-	{
-		return Db::forTablePrefix('modules')->findMany();
-	}
+	protected $_table = 'modules';
 
 	/**
 	 * create the module by array
@@ -40,7 +33,7 @@ class Module
 
 	public function createByArray(array $createArray = []) : bool
 	{
-		return Db::forTablePrefix('modules')
+		return $this->_query()
 			->create()
 			->set(
 			[
@@ -66,6 +59,6 @@ class Module
 
 	public function deleteByAlias(string $moduleAlias = null) : bool
 	{
-		return Db::forTablePrefix('modules')->where('alias', $moduleAlias)->deleteMany();
+		return $this->_query()->where('alias', $moduleAlias)->deleteMany();
 	}
 }

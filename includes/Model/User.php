@@ -1,8 +1,6 @@
 <?php
 namespace Redaxscript\Model;
 
-use Redaxscript\Db;
-
 /**
  * parent class to provide the user model
  *
@@ -13,20 +11,15 @@ use Redaxscript\Db;
  * @author Henry Ruhs
  */
 
-class User
+class User extends ModelAbstract
 {
 	/**
-	 * get all users
+	 * name of the table
 	 *
-	 * @since 4.0.0
-	 *
-	 * @return object
+	 * @var string
 	 */
 
-	public function getAll()
-	{
-		return Db::forTablePrefix('users')->findMany();
-	}
+	protected $_table = 'users';
 
 	/**
 	 * create the user by array
@@ -40,7 +33,7 @@ class User
 
 	public function createByArray(array $createArray = []) : bool
 	{
-		return Db::forTablePrefix('users')
+		return $this->_query()
 			->create()
 			->set(
 			[
@@ -67,7 +60,7 @@ class User
 
 	public function resetPasswordByArray(array $resetArray) : bool
 	{
-		return Db::forTablePrefix('users')
+		return $this->_query()
 			->whereIdIs($resetArray['id'])
 			->where('status', 1)
 			->findOne()

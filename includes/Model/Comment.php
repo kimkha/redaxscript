@@ -1,8 +1,6 @@
 <?php
 namespace Redaxscript\Model;
 
-use Redaxscript\Db;
-
 /**
  * parent class to provide the comment model
  *
@@ -13,10 +11,18 @@ use Redaxscript\Db;
  * @author Henry Ruhs
  */
 
-class Comment
+class Comment extends ModelAbstract
 {
 	/**
-	 * get the extras by language
+	 * name of the table
+	 *
+	 * @var string
+	 */
+
+	protected $_table = 'comments';
+
+	/**
+	 * get the comments by language
 	 *
 	 * @since 4.0.0
 	 *
@@ -27,14 +33,14 @@ class Comment
 
 	public function getManyByLanguage(string $language = null)
 	{
-		return Db::forTablePrefix('comments')
+		return $this->_query()
 			->whereLanguageIs($language)
 			->where('status', 1)
 			->findMany();
 	}
 
 	/**
-	 * get the extras by article id and language
+	 * get the comments by article id and language
 	 *
 	 * @since 4.0.0
 	 *
@@ -46,7 +52,7 @@ class Comment
 
 	public function getManyByArticleIdAndLanguage(int $articleId = null, string $language = null)
 	{
-		return Db::forTablePrefix('comments')
+		return $this->_query()
 			->where('article', $articleId)
 			->whereLanguageIs($language)
 			->findMany();
@@ -65,7 +71,7 @@ class Comment
 	public function getRouteById(int $commentId = null) : ?string
 	{
 		$route = null;
-		$commentArray = Db::forTablePrefix('comments')
+		$commentArray = $this->_query()
 			->tableAlias('d')
 			->leftJoinPrefix('articles', 'd.article = a.id', 'a')
 			->leftJoinPrefix('categories', 'a.category = c.id', 'c')
@@ -86,19 +92,6 @@ class Comment
 	}
 
 	/**
-	 * get all comments
-	 *
-	 * @since 4.0.0
-	 *
-	 * @return object
-	 */
-
-	public function getAll()
-	{
-		return Db::forTablePrefix('comments')->findMany();
-	}
-
-	/**
 	 * publish each comment by date
 	 *
 	 * @since 3.3.0
@@ -110,7 +103,7 @@ class Comment
 
 	public function publishByDate(string $date = null) : int
 	{
-		return Db::forTablePrefix('comments')
+		return $this->_query()
 			->where('status', 2)
 			->whereLt('date', $date)
 			->findMany()
@@ -131,7 +124,7 @@ class Comment
 
 	public function createByArray(array $createArray = []) : bool
 	{
-		return Db::forTablePrefix('comments')
+		return $this->_query()
 			->create()
 			->set(
 			[
