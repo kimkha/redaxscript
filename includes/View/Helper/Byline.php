@@ -56,13 +56,13 @@ class Byline extends ViewAbstract
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $author
 	 * @param string $date
+	 * @param string $author name of the author
 	 *
 	 * @return string
 	 */
 
-	public function render(string $author = null, string $date = null) : string
+	public function render(string $date = null, string $author = null) : string
 	{
 		$output = Module\Hook::trigger('bylineStart');
 		$settingModel = new Model\Setting();
@@ -82,33 +82,46 @@ class Byline extends ViewAbstract
 
 		/* collect output */
 
-		$output .= $boxElement->html(
-			$textElement
-				->copy()
-				->addClass($this->_optionArray['className']['text']['by'])
-				->text($this->_language->get('posted_by')) .
-			$textElement
-				->copy()
-				->addClass($this->_optionArray['className']['text']['author'])
-				->text($author) .
-			$textElement
-				->copy()
-				->addClass($this->_optionArray['className']['text']['on'])
-				->text($this->_language->get('on')) .
-			$textElement
-				->copy()
-				->addClass($this->_optionArray['className']['text']['date'])
-				->text(date($settingModel->get('time'), strtotime($date))) .
-			$textElement
-				->copy()
-				->addClass($this->_optionArray['className']['text']['at'])
-				->text($this->_language->get('at')) .
-			$textElement
-				->copy()
-				->addClass($this->_optionArray['className']['text']['time'])
-				->text(date($settingModel->get('date'), strtotime($date)))
-		);
-		$output .= Module\Hook::trigger('bylineEnd');
+		if ($author)
+		{
+			$boxElement->html(
+				$textElement
+					->copy()
+					->addClass($this->_optionArray['className']['text']['by'])
+					->text($this->_language->get('posted_by')) .
+				$textElement
+					->copy()
+					->addClass($this->_optionArray['className']['text']['author'])
+					->text($author)
+			);
+		}
+		if ($author && $date)
+		{
+			$boxElement->append(
+				$textElement
+					->copy()
+					->addClass($this->_optionArray['className']['text']['on'])
+					->text($this->_language->get('on'))
+			);
+		}
+		if ($date)
+		{
+			$boxElement->append(
+				$textElement
+					->copy()
+					->addClass($this->_optionArray['className']['text']['date'])
+					->text(date($settingModel->get('date'), strtotime($date))) .
+				$textElement
+					->copy()
+					->addClass($this->_optionArray['className']['text']['at'])
+					->text($this->_language->get('at')) .
+				$textElement
+					->copy()
+					->addClass($this->_optionArray['className']['text']['time'])
+					->text(date($settingModel->get('time'), strtotime($date)))
+			);
+		}
+		$output .= $boxElement . Module\Hook::trigger('bylineEnd');
 		return $output;
 	}
 }

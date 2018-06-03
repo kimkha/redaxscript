@@ -24,12 +24,12 @@ class Comment extends ViewAbstract
 		'tag' =>
 		[
 			'title' => 'h3',
-			'box' => 'div'
+			'box' => 'blockquote'
 		],
 		'className' =>
 		[
 			'title' => 'rs-title-comment',
-			'box' => 'rs-box-comment'
+			'box' => 'rs-quote-default'
 		]
 	];
 
@@ -77,6 +77,10 @@ class Comment extends ViewAbstract
 		$output = Module\Hook::trigger('commentStart');
 		$accessValidator = new Validator\Access();
 		$commentModel = new Model\Comment();
+		$byline = new Helper\Byline($this->_registry, $this->_language);
+		$byline->init();
+		$adminDock = new Admin\View\Helper\Dock($this->_registry, $this->_language);
+		$adminDock->init();
 		$language = $this->_registry->get('language');
 		$loggedIn = $this->_registry->get('loggedIn');
 		$token = $this->_registry->get('token');
@@ -120,34 +124,17 @@ class Comment extends ViewAbstract
 						->attr('href', $value->url)
 						->text($value->author) : $value->author
 					);
-				$output .= $boxElement->text($value->text) . Module\Hook::trigger('commentFragmentEnd', $value);
+				$output .= $boxElement->text($value->text) . $byline->render($value->date) . Module\Hook::trigger('commentFragmentEnd', $value);
 
 				/* admin dock */
 
 				if ($loggedIn === $token && $firstParameter !== 'logout')
 				{
-					$output .= $this->_renderAdminDock($value->id);
+					$output .= $adminDock->render('comments', $value->id);
 				}
 			}
 		}
 		$output .= Module\Hook::trigger('commentEnd');
 		return $output;
-	}
-
-	/**
-	 * render the admin dock
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param int $commentId identifier of the comment
-	 *
-	 * @return string
-	 */
-
-	protected function _renderAdminDock(int $commentId = null) : string
-	{
-		$adminDock = new Admin\View\Helper\Dock($this->_registry, $this->_language);
-		$adminDock->init();
-		return $adminDock->render('comments', $commentId);
 	}
 }

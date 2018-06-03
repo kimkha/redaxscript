@@ -107,7 +107,7 @@
 		{
 			color: gray(0, 0.1);
 			content: '\201d';
-			font: 7em/1em var(--rs-font-quote);
+			font: 6em/1em var(--rs-font-quote);
 			left: -0.5em;
 			position: absolute;
 			top: -0.125em;

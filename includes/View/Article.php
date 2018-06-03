@@ -123,6 +123,10 @@ class Article extends ViewAbstract
 		$accessValidator = new Validator\Access();
 		$articleModel = new Model\Article();
 		$contentParser = new Content\Parser($this->_registry, $this->_request, $this->_language, $this->_config);
+		$byline = new Helper\Byline($this->_registry, $this->_language);
+		$byline->init();
+		$adminDock = new Admin\View\Helper\Dock($this->_registry, $this->_language);
+		$adminDock->init();
 		$language = $this->_registry->get('language');
 		$loggedIn = $this->_registry->get('loggedIn');
 		$token = $this->_registry->get('token');
@@ -169,34 +173,17 @@ class Article extends ViewAbstract
 						);
 				}
 				$contentParser->process($value->text);
-				$output .= $boxElement->html($contentParser->getOutput()) . Module\Hook::trigger('articleFragmentEnd', $value);
+				$output .= $boxElement->html($contentParser->getOutput()) . $byline->render($value->date, $value->author) . Module\Hook::trigger('articleFragmentEnd', $value);
 
 				/* admin dock */
 
 				if ($loggedIn === $token && $firstParameter !== 'logout')
 				{
-					$output .= $this->_renderAdminDock($value->id);
+					$output .= $adminDock->render('articles', $value->id);
 				}
 			}
 		}
 		$output .= Module\Hook::trigger('articleEnd');
 		return $output;
-	}
-
-	/**
-	 * render the admin dock
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param int $articleId identifier of the article
-	 *
-	 * @return string
-	 */
-
-	protected function _renderAdminDock(int $articleId = null) : string
-	{
-		$adminDock = new Admin\View\Helper\Dock($this->_registry, $this->_language);
-		$adminDock->init();
-		return $adminDock->render('articles', $articleId);
 	}
 }
