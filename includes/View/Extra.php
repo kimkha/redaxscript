@@ -149,7 +149,7 @@ class Extra extends ViewAbstract
 
 		/* query extras */
 
-		$extras = $extraId ? $extraModel->getManyByIdAndLanguage($extraId, $language) : $extraModel->getManyByLanguage($language);
+		$extras = $extraId ? $extraModel->getByIdAndLanguage($extraId, $language) : $extraModel->getByLanguage($language);
 
 		/* process extras */
 

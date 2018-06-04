@@ -11,7 +11,7 @@ namespace Redaxscript\Model;
  * @author Henry Ruhs
  */
 
-class Category extends ModelAbstract
+class Category extends ContentAbstract
 {
 	/**
 	 * name of the table
@@ -22,34 +22,18 @@ class Category extends ModelAbstract
 	protected $_table = 'categories';
 
 	/**
-	 * get the category id by alias
-	 *
-	 * @since 3.3.0
-	 *
-	 * @param string $categoryAlias alias of the category
-	 *
-	 * @return int|null
-	 */
-
-	public function getIdByAlias(string $categoryAlias = null) : ?int
-	{
-		return $this->_query()->select('id')->where('alias', $categoryAlias)->findOne()->id;
-	}
-
-	/**
-	 *
-	 * get the category title by id
+	 * get the category by alias
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param int $categoryId identifier of the category
+	 * @param string $categoryAlias alias of the category
 	 *
-	 * @return string|null
+	 * @return object
 	 */
 
-	public function getTitleById(int $categoryId = null) : ?string
+	public function getByAlias(string $categoryAlias = null)
 	{
-		return $this->_query()->select('title')->whereIdIs($categoryId)->findOne()->title;
+		return $this->_query()->where('alias', $categoryAlias)->findMany();
 	}
 
 	/**
@@ -80,26 +64,5 @@ class Category extends ModelAbstract
 			$route = implode('/', array_filter($categoryArray[0]));
 		}
 		return $route;
-	}
-
-	/**
-	 * publish each category by date
-	 *
-	 * @since 3.3.0
-	 *
-	 * @param string $date
-	 *
-	 * @return int
-	 */
-
-	public function publishByDate(string $date = null) : int
-	{
-		return $this->_query()
-			->where('status', 2)
-			->whereLt('date', $date)
-			->findMany()
-			->set('status', 1)
-			->save()
-			->count();
 	}
 }

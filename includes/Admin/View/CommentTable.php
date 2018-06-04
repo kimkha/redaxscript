@@ -137,7 +137,7 @@ class CommentTable extends ViewAbstract
 					->html(
 						$tdElement->copy()->html($value->author . $adminControl->render('comments', $value->id, $value->alias, $value->status)) .
 						$tdElement->copy()->text($value->language ? $this->_language->get($value->language, '_index') : $this->_language->get('all')) .
-						$tdElement->copy()->text($value->article ? $articleModel->getTitleById($value->article) : $this->_language->get('none')) .
+						$tdElement->copy()->text($value->article ? $articleModel->getById($value->article)->title : $this->_language->get('none')) .
 						$tdElement
 							->copy()
 							->addClass('rs-admin-col-move')

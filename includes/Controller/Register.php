@@ -71,7 +71,7 @@ class Register extends ControllerAbstract
 			'password' => $passwordHash->getHash(),
 			'email' => $postArray['email'],
 			'language' => $this->_registry->get('language'),
-			'groups' => $groupModel->getIdByAlias('members'),
+			'groups' => $groupModel->getByAlias('members')->id,
 			'status' => $settingModel->get('verification') ? 0 : 1
 		];
 		$mailArray =

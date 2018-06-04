@@ -27,14 +27,14 @@ class Content
 	{
 		$table = null;
 		$categoryModel = new Category();
-		if ($categoryModel->getIdByAlias($contentAlias))
+		if ($categoryModel->getByAlias($contentAlias)->count())
 		{
 			$table = 'categories';
 		}
 		else
 		{
 			$articleModel = new Article();
-			if ($articleModel->getIdByAlias($contentAlias))
+			if ($articleModel->getByAlias($contentAlias)->count())
 			{
 				$table = 'articles';
 			}
@@ -43,7 +43,7 @@ class Content
 	}
 
 	/**
-	 * get the route by table and content id
+	 * get the content route by table and id
 	 *
 	 * @since 3.3.0
 	 *

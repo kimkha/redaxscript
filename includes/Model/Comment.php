@@ -11,7 +11,7 @@ namespace Redaxscript\Model;
  * @author Henry Ruhs
  */
 
-class Comment extends ModelAbstract
+class Comment extends ContentAbstract
 {
 	/**
 	 * name of the table
@@ -22,25 +22,7 @@ class Comment extends ModelAbstract
 	protected $_table = 'comments';
 
 	/**
-	 * get the comments by language
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param string $language
-	 *
-	 * @return object
-	 */
-
-	public function getManyByLanguage(string $language = null)
-	{
-		return $this->_query()
-			->whereLanguageIs($language)
-			->where('status', 1)
-			->findMany();
-	}
-
-	/**
-	 * get the comments by article id and language
+	 * get the comments by article and language
 	 *
 	 * @since 4.0.0
 	 *
@@ -50,7 +32,7 @@ class Comment extends ModelAbstract
 	 * @return object
 	 */
 
-	public function getManyByArticleIdAndLanguage(int $articleId = null, string $language = null)
+	public function getByArticleAndLanguage(int $articleId = null, string $language = null)
 	{
 		return $this->_query()
 			->where('article', $articleId)
@@ -89,27 +71,6 @@ class Comment extends ModelAbstract
 			$route = implode('/', array_filter($commentArray[0])) . '#comment-' . $commentId;
 		}
 		return $route;
-	}
-
-	/**
-	 * publish each comment by date
-	 *
-	 * @since 3.3.0
-	 *
-	 * @param string $date
-	 *
-	 * @return int
-	 */
-
-	public function publishByDate(string $date = null) : int
-	{
-		return $this->_query()
-			->where('status', 2)
-			->whereLt('date', $date)
-			->findMany()
-			->set('status', 1)
-			->save()
-			->count();
 	}
 
 	/**

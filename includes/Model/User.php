@@ -49,22 +49,23 @@ class User extends ModelAbstract
 	}
 
 	/**
-	 * reset the password by array
+	 * reset the password by id
 	 *
 	 * @since 3.3.0
 	 *
-	 * @param array $resetArray
+	 * @param int $userId identifier of the user
+	 * @param string $password
 	 *
 	 * @return bool
 	 */
 
-	public function resetPasswordByArray(array $resetArray) : bool
+	public function resetPasswordById(int $userId = null, string $password = null) : bool
 	{
 		return $this->_query()
-			->whereIdIs($resetArray['id'])
+			->whereIdIs($userId)
 			->where('status', 1)
 			->findOne()
-			->set('password', $resetArray['password'])
+			->set('password', $password)
 			->save();
 	}
 }

@@ -29,14 +29,10 @@ class Setting extends BaseModel\Setting
 	{
 		foreach ($updateArray as $key => $value)
 		{
-			if ($value == 'select')
-			{
-				$value = null;
-			}
 			return $this->_query()
 				->where('name', $key)
 				->findOne()
-				->set('value', $value)
+				->set('value', $value === 'select' ? null : $value)
 				->save();
 		}
 	}

@@ -45,7 +45,7 @@ class Comment extends NavigationAbstract
 	{
 		$output = Module\Hook::trigger('navigationCommentStart');
 		$outputItem = null;
-		$contentModel = new Model\Content();
+		$commentModel = new Model\Comment();
 		$accessValidator = new Validator\Access();
 
 		/* html element */
@@ -80,7 +80,7 @@ class Comment extends NavigationAbstract
 						->copy()
 						->attr(
 						[
-							'href' => $this->_registry->get('parameterRoute') . $contentModel->getRouteByTableAndId('comments', $value->id)
+							'href' => $this->_registry->get('parameterRoute') . $commentModel->getRouteById($value->id)
 						])
 						->text($value->author . $this->_language->get('colon') . ' ' . $value->text)
 					);

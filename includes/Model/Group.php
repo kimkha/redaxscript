@@ -22,17 +22,17 @@ class Group extends ModelAbstract
 	protected $_table = 'groups';
 
 	/**
-	 * get the group id by alias
+	 * get the group by alias
 	 *
-	 * @since 3.3.0
+	 * @since 4.0.0
 	 *
-	 * @param string $groupAlias alias of the group
+	 * @param string $groupAlias alias of the extra
 	 *
-	 * @return int|null
+	 * @return object
 	 */
 
-	public function getIdByAlias(string $groupAlias = null) : ?int
+	public function getByAlias(string $groupAlias = null)
 	{
-		return $this->_query()->select('id')->where('alias', $groupAlias)->findOne()->id;
+		return $this->_query()->where('alias', $groupAlias)->findMany();
 	}
 }

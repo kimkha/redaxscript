@@ -9,7 +9,7 @@ use Redaxscript\Db;
  * @since 4.0.0
  *
  * @package Redaxscript
- * @category Navigation
+ * @category Model
  * @author Henry Ruhs
  */
 
@@ -24,7 +24,22 @@ abstract class ModelAbstract
 	protected $_table;
 
 	/**
-	 * get all items
+	 * get by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $id
+	 *
+	 * @return object
+	 */
+
+	public function getById(int $id = null)
+	{
+		return $this->_query()->whereIdIs($id)->findMany();
+	}
+
+	/**
+	 * get all
 	 *
 	 * @since 4.0.0
 	 *

@@ -79,7 +79,7 @@ class Category extends NavigationAbstract
 	{
 		$output = null;
 		$outputItem = null;
-		$contentModel = new Model\Content();
+		$categoryModel = new Model\Category();
 		$accessValidator = new Validator\Access();
 
 		/* html element */
@@ -107,7 +107,7 @@ class Category extends NavigationAbstract
 						->copy()
 						->attr(
 						[
-							'href' => $this->_registry->get('parameterRoute') . $contentModel->getRouteByTableAndId('categories', $value->id)
+							'href' => $this->_registry->get('parameterRoute') . $categoryModel->getRouteById($value->id)
 						])
 						->text($value->title)
 					)

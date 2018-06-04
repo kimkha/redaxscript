@@ -46,7 +46,7 @@ class Article extends NavigationAbstract
 	{
 		$output = Module\Hook::trigger('navigationArticleStart');
 		$outputItem = null;
-		$contentModel = new Model\Content();
+		$articleModel = new Model\Article();
 		$accessValidator = new Validator\Access();
 
 		/* html element */
@@ -82,7 +82,7 @@ class Article extends NavigationAbstract
 						->copy()
 						->attr(
 						[
-							'href' => $this->_registry->get('parameterRoute') . $contentModel->getRouteByTableAndId('articles', $value->id)
+							'href' => $this->_registry->get('parameterRoute') . $articleModel->getRouteById($value->id)
 						])
 						->text($value->title)
 					);

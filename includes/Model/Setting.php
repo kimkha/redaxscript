@@ -22,7 +22,7 @@ class Setting extends ModelAbstract
 	protected $_table = 'settings';
 
 	/**
-	 * get the value from setting
+	 * get the value from settings
 	 *
 	 * @since 3.3.0
 	 *
@@ -51,7 +51,7 @@ class Setting extends ModelAbstract
 	}
 
 	/**
-	 * set the value to setting
+	 * set the value to settings
 	 *
 	 * @since 3.3.0
 	 *

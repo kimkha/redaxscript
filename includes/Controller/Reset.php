@@ -192,7 +192,7 @@ class Reset extends ControllerAbstract
 	protected function _reset(array $resetArray = []) : bool
 	{
 		$userModel = new Model\User();
-		return $userModel->resetPasswordByArray($resetArray);
+		return $userModel->resetPasswordById($resetArray['id'], $resetArray['password']);
 	}
 
 	/**

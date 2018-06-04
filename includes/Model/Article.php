@@ -11,7 +11,7 @@ namespace Redaxscript\Model;
  * @author Henry Ruhs
  */
 
-class Article extends ModelAbstract
+class Article extends ContentAbstract
 {
 	/**
 	 * name of the table
@@ -22,33 +22,37 @@ class Article extends ModelAbstract
 	protected $_table = 'articles';
 
 	/**
-	 * get the article id by alias
-	 *
-	 * @since 3.3.0
-	 *
-	 * @param string $articleAlias alias of the article
-	 *
-	 * @return int|null
-	 */
-
-	public function getIdByAlias(string $articleAlias = null) : ?int
-	{
-		return $this->_query()->select('id')->where('alias', $articleAlias)->findOne()->id;
-	}
-
-	/**
-	 * get the article title by id
+	 * get the article by alias
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param int $articleId identifier of the article
+	 * @param string $articleAlias alias of the article
 	 *
-	 * @return string|null
+	 * @return object
 	 */
 
-	public function getTitleById(int $articleId = null) : ?string
+	public function getByAlias(string $articleAlias = null)
 	{
-		return $this->_query()->select('title')->whereIdIs($articleId)->findOne()->title;
+		return $this->_query()->where('alias', $articleAlias)->findMany();
+	}
+
+	/**
+	 * get the articles by category and language
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $categoryId identifier of the category
+	 * @param string $language
+	 *
+	 * @return object
+	 */
+
+	public function getByCategoryAndLanguage(int $categoryId = null, string $language = null)
+	{
+		return $this->_query()
+			->where('category', $categoryId)
+			->whereLanguageIs($language)
+			->findMany();
 	}
 
 	/**
@@ -81,63 +85,5 @@ class Article extends ModelAbstract
 			$route = implode('/', array_filter($articleArray[0]));
 		}
 		return $route;
-	}
-
-	/**
-	 * get the articles by language
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param string $language
-	 *
-	 * @return object
-	 */
-
-	public function getManyByLanguage(string $language = null)
-	{
-		return $this->_query()
-			->whereLanguageIs($language)
-			->where('status', 1)
-			->findMany();
-	}
-
-	/**
-	 * get the article by category id and language
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param int $categoryId identifier of the category
-	 * @param string $language
-	 *
-	 * @return object
-	 */
-
-	public function getManyByCategoryIdAndLanguage(int $categoryId = null, string $language = null)
-	{
-		return $this->_query()
-			->where('category', $categoryId)
-			->whereLanguageIs($language)
-			->findMany();
-	}
-
-	/**
-	 * publish each article by date
-	 *
-	 * @since 3.3.0
-	 *
-	 * @param string $date
-	 *
-	 * @return int
-	 */
-
-	public function publishByDate(string $date = null) : int
-	{
-		return $this->_query()
-			->where('status', 2)
-			->whereLt('date', $date)
-			->findMany()
-			->set('status', 1)
-			->save()
-			->count();
 	}
 }

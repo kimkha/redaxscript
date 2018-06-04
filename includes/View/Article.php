@@ -154,7 +154,7 @@ class Article extends ViewAbstract
 
 		/* query articles */
 
-		$articles = $categoryId ? $articleModel->getManyByCategoryIdAndLanguage($categoryId, $language) : $articleModel->getManyByLanguage($language);
+		$articles = $categoryId ? $articleModel->getByCategoryAndLanguage($categoryId, $language) : $articleModel->getByLanguage($language);
 
 		/* process articles */
 

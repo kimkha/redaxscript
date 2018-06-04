@@ -139,7 +139,7 @@ class ArticleTable extends ViewAbstract
 						$tdElement->copy()->html($value->title . $adminControl->render('articles', $value->id, $value->alias, $value->status)) .
 						$tdElement->copy()->text($value->alias) .
 						$tdElement->copy()->text($value->language ? $this->_language->get($value->language, '_index') : $this->_language->get('all')) .
-						$tdElement->copy()->text($value->category ? $categoryModel->getTitleById($value->category) : $this->_language->get('uncategorized')) .
+						$tdElement->copy()->text($value->category ? $categoryModel->getById($value->category)->title : $this->_language->get('uncategorized')) .
 						$tdElement
 							->copy()
 							->addClass('rs-admin-col-move')
