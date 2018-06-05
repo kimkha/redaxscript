@@ -12,6 +12,8 @@ use Redaxscript\View;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\View\RegisterForm
  */
 
 class RegisterFormTest extends TestCaseAbstract

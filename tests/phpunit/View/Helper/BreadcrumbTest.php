@@ -14,6 +14,8 @@ use Redaxscript\View\Helper\Breadcrumb;
  * @category Tests
  * @author Henry Ruhs
  * @author Gary Aylward
+ *
+ * @covers Redaxscript\View\Helper\Breadcrumb
  */
 
 class BreadcrumbTest extends TestCaseAbstract

@@ -11,6 +11,8 @@ use Redaxscript\Reader;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Reader
  */
 
 class ReaderTest extends TestCaseAbstract

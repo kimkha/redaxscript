@@ -12,6 +12,8 @@ use Redaxscript\View\Helper\Pagination;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\View\Helper\Pagination
  */
 
 class PaginationTest extends TestCaseAbstract

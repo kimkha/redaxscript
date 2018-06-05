@@ -12,6 +12,8 @@ use Redaxscript\View;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\View\SearchForm
  */
 
 class SearchFormTest extends TestCaseAbstract

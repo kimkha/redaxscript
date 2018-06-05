@@ -11,6 +11,8 @@ use Redaxscript\Messenger;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Messenger
  */
 
 class MessengerTest extends TestCaseAbstract

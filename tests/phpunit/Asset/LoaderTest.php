@@ -14,6 +14,8 @@ use org\bovigo\vfs\vfsStream as Stream;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Asset\Loader
  */
 
 class LoaderTest extends TestCaseAbstract

@@ -15,6 +15,8 @@ use Redaxscript\View;
  * @category Tests
  * @author Henry Ruhs
  * @author Balázs Szilágyi
+ *
+ * @covers Redaxscript\View\ResultList
  */
 
 class ResultListTest extends TestCaseAbstract

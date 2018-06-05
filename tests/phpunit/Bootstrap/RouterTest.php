@@ -13,8 +13,8 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @category Tests
  * @author Henry Ruhs
  *
- * @runTestsInSeparateProcesses
  * @covers Redaxscript\Bootstrap\Router
+ * @runTestsInSeparateProcesses
  */
 
 class RouterTest extends TestCaseAbstract

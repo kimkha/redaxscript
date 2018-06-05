@@ -12,6 +12,8 @@ use Redaxscript\View\Helper\Byline;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\View\Helper\Byline
  */
 
 class BylineTest extends TestCaseAbstract
