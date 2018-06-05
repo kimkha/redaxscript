@@ -12,6 +12,8 @@ use Redaxscript\Captcha;
  * @category Tests
  * @author Henry Ruhs
  * @author Gary Aylward
+ *
+ * @covers Redaxscript\Captcha
  */
 
 class CaptchaTest extends TestCaseAbstract

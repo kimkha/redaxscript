@@ -1,5 +1,5 @@
 <?php
-namespace Redaxscript\Tests\Module;
+namespace Redaxscript\Tests\Model;
 
 use Redaxscript\Model;
 use Redaxscript\Tests\TestCaseAbstract;
@@ -12,6 +12,8 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Model\Setting
  */
 
 class SettingTest extends TestCaseAbstract

@@ -11,6 +11,8 @@ use Redaxscript\Db;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Db
  */
 
 class DbTest extends TestCaseAbstract

@@ -12,6 +12,8 @@ use Redaxscript\Installer;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Installer
  */
 
 class InstallerTest extends TestCaseAbstract

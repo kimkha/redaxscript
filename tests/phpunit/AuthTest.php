@@ -13,6 +13,8 @@ use Redaxscript\Server;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Auth
  */
 
 class AuthTest extends TestCaseAbstract

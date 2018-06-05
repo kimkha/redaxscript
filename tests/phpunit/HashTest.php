@@ -11,6 +11,8 @@ use Redaxscript\Hash;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Hash
  */
 
 class HashTest extends TestCaseAbstract

@@ -14,6 +14,7 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @author Henry Ruhs
  *
  * @runTestsInSeparateProcesses
+ * @covers Redaxscript\Bootstrap\Session
  */
 
 class SessionTest extends TestCaseAbstract

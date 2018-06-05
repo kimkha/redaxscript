@@ -12,6 +12,8 @@ use Redaxscript\Autoloader;
  * @category Tests
  * @author Henry Ruhs
  * @author Sven Weingartner
+ *
+ * @covers Redaxscript\Autoloader
  */
 
 class AutoloaderTest extends TestCaseAbstract

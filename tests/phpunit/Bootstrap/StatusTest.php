@@ -15,6 +15,7 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @author Henry Ruhs
  *
  * @runTestsInSeparateProcesses
+ * @covers Redaxscript\Bootstrap\Status
  */
 
 class StatusTest extends TestCaseAbstract
