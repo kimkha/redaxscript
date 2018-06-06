@@ -13,6 +13,8 @@ use Redaxscript\Validator;
  * @category Tests
  * @author Henry Ruhs
  * @author Sven Weingartner
+ *
+ * @covers Redaxscript\Validator\Email
  */
 
 class EmailTest extends TestCaseAbstract

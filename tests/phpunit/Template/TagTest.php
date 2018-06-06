@@ -15,6 +15,8 @@ use org\bovigo\vfs\vfsStreamWrapper as StreamWrapper;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ *  * @covers Redaxscript\Template\Tag
  */
 
 class TagTest extends TestCaseAbstract

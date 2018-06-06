@@ -13,6 +13,17 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Content\Parser
+ * @covers Redaxscript\Content\ParserAbstract
+ * @covers Redaxscript\Content\Tag\Code
+ * @covers Redaxscript\Content\Tag\Language
+ * @covers Redaxscript\Content\Tag\Module
+ * @covers Redaxscript\Content\Tag\More
+ * @covers Redaxscript\Content\Tag\Registry
+ * @covers Redaxscript\Content\Tag\TagAbstract
+ * @covers Redaxscript\Content\Tag\TagInterface
+ * @covers Redaxscript\Content\Tag\Template
  */
 
 class ParserTest extends TestCaseAbstract

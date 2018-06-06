@@ -13,8 +13,8 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @category Tests
  * @author Henry Ruhs
  *
- * @covers Redaxscript\Bootstrap\Detector
  * @covers Redaxscript\Bootstrap\BootstrapAbstract
+ * @covers Redaxscript\Bootstrap\Detector
  *
  * @runTestsInSeparateProcesses
  */

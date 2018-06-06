@@ -14,9 +14,11 @@ use org\bovigo\vfs\vfsStreamWrapper as StreamWrapper;
  *
  * @package Redaxscript
  * @category Tests
- *
  * @author Henry Ruhs
  * @author Balázs Szilágyi
+ *
+ * @covers Redaxscript\Controller\ControllerAbstract
+ * @covers Redaxscript\Controller\Install
  */
 
 class InstallTest extends TestCaseAbstract

@@ -14,6 +14,17 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @category Tests
  * @author Henry Ruhs
  * @author Balázs Szilágyi
+ *
+ * @covers Redaxscript\Template\Helper
+ * @covers Redaxscript\Template\Helper\Canonical
+ * @covers Redaxscript\Template\Helper\Client
+ * @covers Redaxscript\Template\Helper\Description
+ * @covers Redaxscript\Template\Helper\Direction
+ * @covers Redaxscript\Template\Helper\HelperAbstract
+ * @covers Redaxscript\Template\Helper\Keywords
+ * @covers Redaxscript\Template\Helper\Robots
+ * @covers Redaxscript\Template\Helper\Subset
+ * @covers Redaxscript\Template\Helper\Title
  */
 
 class HelperTest extends TestCaseAbstract

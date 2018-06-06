@@ -12,6 +12,14 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Client\Browser
+ * @covers Redaxscript\Client\ClientAbstract
+ * @covers Redaxscript\Client\Desktop
+ * @covers Redaxscript\Client\Engine
+ * @covers Redaxscript\Client\Mobile
+ * @covers Redaxscript\Client\Tablet
+ * @covers Redaxscript\Client\Version
  */
 
 class ClientTest extends TestCaseAbstract

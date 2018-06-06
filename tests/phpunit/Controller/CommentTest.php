@@ -14,6 +14,9 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @category Tests
  * @author Henry Ruhs
  * @author Balázs Szilágyi
+ *
+ * @covers Redaxscript\Controller\Comment
+ * @covers Redaxscript\Controller\ControllerAbstract
  */
 
 class CommentTest extends TestCaseAbstract

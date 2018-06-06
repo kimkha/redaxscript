@@ -14,8 +14,8 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @category Tests
  * @author Henry Ruhs
  *
- * @covers Redaxscript\Bootstrap\Status
  * @covers Redaxscript\Bootstrap\BootstrapAbstract
+ * @covers Redaxscript\Bootstrap\Status
  *
  * @runTestsInSeparateProcesses
  */

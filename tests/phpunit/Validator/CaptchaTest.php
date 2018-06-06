@@ -13,6 +13,8 @@ use Redaxscript\Validator;
  * @category Tests
  * @author Henry Ruhs
  * @author Sven Weingartner
+ *
+ * @covers Redaxscript\Validator\Captcha
  */
 
 class CaptchaTest extends TestCaseAbstract

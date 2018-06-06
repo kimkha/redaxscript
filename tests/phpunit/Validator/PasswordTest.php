@@ -12,6 +12,8 @@ use Redaxscript\Validator;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Validator\Password
  */
 
 class PasswordTest extends TestCaseAbstract
