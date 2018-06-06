@@ -15,6 +15,9 @@ use org\bovigo\vfs\vfsStreamWrapper as StreamWrapper;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Console\Command\Config
+ * @covers Redaxscript\Console\Command\CommandAbstract
  */
 
 class ConfigTest extends TestCaseAbstract

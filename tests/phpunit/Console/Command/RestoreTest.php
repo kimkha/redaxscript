@@ -14,6 +14,9 @@ use org\bovigo\vfs\vfsStream as Stream;
  * @category Tests
  * @author Henry Ruhs
  *
+ * @covers Redaxscript\Console\Command\CommandAbstract
+ * @covers Redaxscript\Console\Command\Restore
+ *
  * @requires OS Linux
  */
 
