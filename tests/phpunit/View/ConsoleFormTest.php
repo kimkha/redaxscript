@@ -14,6 +14,7 @@ use Redaxscript\View;
  * @author Henry Ruhs
  *
  * @covers Redaxscript\View\ConsoleForm
+ * @covers Redaxscript\View\ViewAbstract
  */
 
 class ConsoleFormTest extends TestCaseAbstract

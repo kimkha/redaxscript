@@ -14,6 +14,7 @@ use Redaxscript\View;
  * @author Henry Ruhs
  *
  * @covers Redaxscript\View\RecoverForm
+ * @covers Redaxscript\View\ViewAbstract
  */
 
 class RecoverFormTest extends TestCaseAbstract

@@ -14,6 +14,7 @@ use Redaxscript\View;
  * @author Henry Ruhs
  *
  * @covers Redaxscript\View\InstallForm
+ * @covers Redaxscript\View\ViewAbstract
  */
 
 class InstallFormTest extends TestCaseAbstract

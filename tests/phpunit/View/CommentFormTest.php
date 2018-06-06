@@ -14,6 +14,7 @@ use Redaxscript\View;
  * @author Henry Ruhs
  *
  * @covers Redaxscript\View\CommentForm
+ * @covers Redaxscript\View\ViewAbstract
  */
 
 class CommentFormTest extends TestCaseAbstract

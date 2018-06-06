@@ -15,6 +15,7 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @author Henry Ruhs
  *
  * @covers Redaxscript\Admin\View\ExtraTable
+ * @covers Redaxscript\Admin\View\ViewAbstract
  */
 
 class ExtraTableTest extends TestCaseAbstract

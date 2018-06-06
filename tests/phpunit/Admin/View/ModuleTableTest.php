@@ -14,6 +14,7 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @author Henry Ruhs
  *
  * @covers Redaxscript\Admin\View\ModuleTable
+ * @covers Redaxscript\Admin\View\ViewAbstract
  */
 
 class ModuleTableTest extends TestCaseAbstract

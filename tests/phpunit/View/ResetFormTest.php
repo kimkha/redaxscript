@@ -14,6 +14,7 @@ use Redaxscript\View;
  * @author Henry Ruhs
  *
  * @covers Redaxscript\View\ResetForm
+ * @covers Redaxscript\View\ViewAbstract
  */
 
 class ResetFormTest extends TestCaseAbstract

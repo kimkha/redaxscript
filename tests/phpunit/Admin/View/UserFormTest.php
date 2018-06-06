@@ -15,6 +15,7 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @author Henry Ruhs
  *
  * @covers Redaxscript\Admin\View\UserForm
+ * @covers Redaxscript\Admin\View\ViewAbstract
  */
 
 class UserFormTest extends TestCaseAbstract

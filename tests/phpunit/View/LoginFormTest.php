@@ -14,6 +14,7 @@ use Redaxscript\View;
  * @author Henry Ruhs
  *
  * @covers Redaxscript\View\LoginForm
+ * @covers Redaxscript\View\ViewAbstract
  */
 
 class LoginFormTest extends TestCaseAbstract

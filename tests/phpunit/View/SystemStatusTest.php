@@ -14,6 +14,7 @@ use Redaxscript\View;
  * @author Henry Ruhs
  *
  * @covers Redaxscript\View\SystemStatus
+ * @covers Redaxscript\View\ViewAbstract
  */
 
 class SystemStatusTest extends TestCaseAbstract

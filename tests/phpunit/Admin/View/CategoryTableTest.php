@@ -15,6 +15,7 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @author Henry Ruhs
  *
  * @covers Redaxscript\Admin\View\CategoryTable
+ * @covers Redaxscript\Admin\View\ViewAbstract
  */
 
 class CategoryTableTest extends TestCaseAbstract
