@@ -13,6 +13,8 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Admin\View\Helper\Notification
  */
 
 class NotificationTest extends TestCaseAbstract

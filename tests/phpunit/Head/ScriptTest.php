@@ -14,6 +14,9 @@ use org\bovigo\vfs\vfsStream as Stream;
  * @category Tests
  * @author Henry Ruhs
  * @author Balázs Szilágyi
+ *
+ * @covers Redaxscript\Head\HeadAbstract
+ * @covers Redaxscript\Head\Script
  */
 
 class ScriptTest extends TestCaseAbstract

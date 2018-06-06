@@ -13,6 +13,9 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @category Tests
  * @author Henry Ruhs
  * @author Balázs Szilágyi
+ *
+ * @covers Redaxscript\Head\HeadAbstract
+ * @covers Redaxscript\Head\Meta
  */
 
 class MetaTest extends TestCaseAbstract

@@ -12,6 +12,8 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Admin\View\ModuleForm
  */
 
 class ModuleFormTest extends TestCaseAbstract

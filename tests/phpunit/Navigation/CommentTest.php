@@ -13,6 +13,8 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Navigation\Comment
  */
 
 class CommentTest extends TestCaseAbstract

@@ -12,6 +12,9 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @package Redaxscript
  * @category Tests
  * @author Balázs Szilágyi
+ *
+ * @covers Redaxscript\Head\Base
+ * @covers Redaxscript\Head\HeadAbstract
  */
 
 class BaseTest extends TestCaseAbstract

@@ -13,6 +13,8 @@ use Redaxscript\Tests\TestCaseAbstract;
  * @package Redaxscript
  * @category Tests
  * @author Henry Ruhs
+ *
+ * @covers Redaxscript\Module\Module
  */
 
 class ModuleTest extends TestCaseAbstract
