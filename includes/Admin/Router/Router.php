@@ -75,51 +75,42 @@ class Router extends RouterAbstract
 
 			if (!$adminParameter || $adminParameter == 'view' && $tableParameter == 'users' || $this->_registry->get('cronUpdate'))
 			{
-				$userModel = new Admin\Model\User();
-				$userModel->updateLastById($this->_registry->get('myId'), $this->_registry->get('now'));
+				$this->_updateLast();
 			}
 
 			/* handle post */
 
 			if ($this->_request->getPost('Redaxscript\Admin\View\CategoryForm'))
 			{
-				$categoryController = new Admin\Controller\Category($this->_registry, $this->_request, $this->_language);
-				return $categoryController->process();
+				return $this->_processCategory();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\ArticleForm'))
 			{
-				$articleController = new Admin\Controller\Article($this->_registry, $this->_request, $this->_language);
-				return $articleController->process();
+				return $this->_processArticle();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\ExtraForm'))
 			{
-				$extraController = new Admin\Controller\Extra($this->_registry, $this->_request, $this->_language);
-				return $extraController->process();
+				return $this->_processExtra();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\CommentForm'))
 			{
-				$commentController = new Admin\Controller\Comment($this->_registry, $this->_request, $this->_language);
-				return $commentController->process();
+				return $this->_processComment();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\UserForm'))
 			{
-				$userController = new Admin\Controller\User($this->_registry, $this->_request, $this->_language);
-				return $userController->process();
+				return $this->_processUser();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\GroupForm'))
 			{
-				$groupController = new Admin\Controller\Group($this->_registry, $this->_request, $this->_language);
-				return $groupController->process();
+				return $this->_processGroup();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\ModuleForm'))
 			{
-				$moduleController = new Admin\Controller\Module($this->_registry, $this->_request, $this->_language);
-				return $moduleController->process();
+				return $this->_processModule();
 			}
 			if ($this->_request->getPost('Redaxscript\Admin\View\SettingForm'))
 			{
-				$settingController = new Admin\Controller\Setting($this->_registry, $this->_request, $this->_language);
-				return $settingController->process();
+				return $this->_processSetting();
 			}
 
 			/* handle route */
@@ -136,24 +127,7 @@ class Router extends RouterAbstract
 			{
 				return $this->_renderEdit();
 			}
-
-			/* handle common */
-
-			$commonController = new Admin\Controller\Common($this->_registry, $this->_request, $this->_language);
-			$commonArray =
-			[
-				'enable',
-				'disable',
-				'publish',
-				'unpublish',
-				'install',
-				'uninstall',
-				'delete'
-			];
-			if (in_array($adminParameter, $commonArray))
-			{
-				return $commonController->process($adminParameter);
-			}
+			return $this->_processCommon();
 		}
 		return $this->_registry->get('adminRouterBreak');
 	}
@@ -212,6 +186,158 @@ class Router extends RouterAbstract
 		$permissionUninstall = $adminParameter === 'uninstall' && $this->_registry->get('tableUninstall');
 		$permissionProfile = $tableParameter === 'users' && $idParameter === $this->_registry->get('myId');
 		return !$permissionNew && !$permissionEdit && !$permissionDelete && !$permissionInstall && !$permissionUninstall && !$permissionProfile;
+	}
+
+	/**
+	 * update last
+	 *
+	 * @since 4.00
+	 */
+
+	protected function _updateLast()
+	{
+		$userModel = new Admin\Model\User();
+		$userModel->updateLastById($this->_registry->get('myId'), $this->_registry->get('now'));
+	}
+
+	/**
+	 * process the category
+	 *
+	 * @since 4.00
+	 *
+	 * @return string
+	 */
+
+	protected function _processCategory(): string
+	{
+		$categoryController = new Admin\Controller\Category($this->_registry, $this->_request, $this->_language);
+		return $categoryController->process();
+	}
+
+	/**
+	 * process the article
+	 *
+	 * @since 4.00
+	 *
+	 * @return string
+	 */
+
+	protected function _processArticle() : string
+	{
+		$articleController = new Admin\Controller\Article($this->_registry, $this->_request, $this->_language);
+		return $articleController->process();
+	}
+
+	/**
+	 * process the extra
+	 *
+	 * @since 4.00
+	 *
+	 * @return string
+	 */
+
+	protected function _processExtra() : string
+	{
+		$extraController = new Admin\Controller\Extra($this->_registry, $this->_request, $this->_language);
+		return $extraController->process();
+	}
+
+	/**
+	 * process the comment
+	 *
+	 * @since 4.00
+	 *
+	 * @return string
+	 */
+
+	protected function _processComment() : string
+	{
+		$commentController = new Admin\Controller\Comment($this->_registry, $this->_request, $this->_language);
+		return $commentController->process();
+	}
+
+	/**
+	 * process the user
+	 *
+	 * @since 4.00
+	 *
+	 * @return string
+	 */
+
+	protected function _processUser() : string
+	{
+		$userController = new Admin\Controller\User($this->_registry, $this->_request, $this->_language);
+		return $userController->process();
+	}
+
+	/**
+	 * process the group
+	 *
+	 * @since 4.00
+	 *
+	 * @return string
+	 */
+
+	protected function _processGroup() : string
+	{
+		$groupController = new Admin\Controller\Group($this->_registry, $this->_request, $this->_language);
+		return $groupController->process();
+	}
+
+	/**
+	 * process the module
+	 *
+	 * @since 4.00
+	 *
+	 * @return string
+	 */
+
+	protected function _processModule() : string
+	{
+		$moduleController = new Admin\Controller\Module($this->_registry, $this->_request, $this->_language);
+		return $moduleController->process();
+	}
+
+	/**
+	 * process the setting
+	 *
+	 * @since 4.00
+	 *
+	 * @return string
+	 */
+
+	protected function _processSetting() : string
+	{
+		$settingController = new Admin\Controller\Setting($this->_registry, $this->_request, $this->_language);
+		return $settingController->process();
+	}
+
+	/**
+	 * process the common
+	 *
+	 * @since 4.00
+	 *
+	 * @return string
+	 */
+
+	protected function _processCommon()
+	{
+		$adminParameter = $this->getAdmin();
+		$commonArray =
+		[
+			'enable',
+			'disable',
+			'publish',
+			'unpublish',
+			'install',
+			'uninstall',
+			'delete'
+		];
+		if (in_array($adminParameter, $commonArray))
+		{
+			$commonController = new Admin\Controller\Common($this->_registry, $this->_request, $this->_language);
+			return $commonController->process($adminParameter);
+		}
 	}
 
 	/**

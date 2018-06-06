@@ -9,19 +9,7 @@
 	],
 	[
 		{
-			"token": "ffd845f78510f02580d329127bab3dd1aa7f4453"
-		},
-		{
-			"p": "admin/edit/categories/1"
-		},
-		{
-			"token": "ffd845f78510f02580d329127bab3dd1aa7f4453"
-		},
-		true
-	],
-	[
-		{
-			"token": false
+			"token": "invalid"
 		},
 		{
 			"p": "admin/edit/categories/1"
@@ -97,15 +85,66 @@
 	],
 	[
 		{
-			"tableDelete": true,
-			"tableParameter": "categories",
+			"tableEdit": true,
+			"tableParameter": "users",
 			"idParameter": 1,
 			"token": "ffd845f78510f02580d329127bab3dd1aa7f4453"
 		},
 		{
-			"p": "admin/delete/categories/1/ffd845f78510f02580d329127bab3dd1aa7f4453"
+			"p": "admin/edit/users/1"
 		},
-		{},
+		{
+			"token": "ffd845f78510f02580d329127bab3dd1aa7f4453",
+			"Redaxscript\\Admin\\View\\UserForm": true
+		},
+		true
+	],
+	[
+		{
+			"tableEdit": true,
+			"tableParameter": "groups",
+			"idParameter": 1,
+			"token": "ffd845f78510f02580d329127bab3dd1aa7f4453"
+		},
+		{
+			"p": "admin/edit/groups/1"
+		},
+		{
+			"token": "ffd845f78510f02580d329127bab3dd1aa7f4453",
+			"Redaxscript\\Admin\\View\\GroupForm": true
+		},
+		true
+	],
+	[
+		{
+			"tableEdit": true,
+			"tableParameter": "modules",
+			"idParameter": 1,
+			"token": "ffd845f78510f02580d329127bab3dd1aa7f4453"
+		},
+		{
+			"p": "admin/edit/modules/1"
+		},
+		{
+			"token": "ffd845f78510f02580d329127bab3dd1aa7f4453",
+			"Redaxscript\\Admin\\View\\ModuleForm": true
+		},
+		true
+	],
+	[
+		{
+			"tableEdit": true,
+			"tableParameter": "settings",
+			"idParameter": 1,
+			"token": "ffd845f78510f02580d329127bab3dd1aa7f4453"
+		},
+		{
+			"p": "admin/edit/settings/1"
+		},
+		{
+			"token": "ffd845f78510f02580d329127bab3dd1aa7f4453",
+			"Redaxscript\\Admin\\View\\SettingForm": true
+		},
 		true
 	]
 ]
