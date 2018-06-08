@@ -3,7 +3,6 @@ namespace Redaxscript\Modules\Debugger;
 
 use Redaxscript\Db;
 use Redaxscript\Head;
-use Redaxscript\Html;
 use Redaxscript\Module;
 
 /**
@@ -53,98 +52,79 @@ class Debugger extends Module\Module
 
 	public function renderStart()
 	{
-		$link = Head\Link::getInstance();
-		$link
-			->init()
-			->appendFile('modules/Debugger/dist/styles/debugger.min.css');
+		/* script */
+
+		$script = Head\Script::getInstance();
+		$script
+			->init('foot')
+			->appendFile('modules/Debugger/assets/scripts/init.js');
+
 	}
 
 	/**
 	 * renderEnd
 	 *
-	 * @since 3.3.0
+	 * @since 4.0.0
 	 */
 
 	public function renderEnd()
 	{
 		$debuggerArray = $this->_getArray();
+		$inline = file_get_contents('modules/Debugger/assets/scripts/debugger.js');
 
-		/* html element */
+		/* script */
 
-		$element = new Html\Element();
-		$sectionElement = $element
-			->copy()
-			->init('section',
-			[
-				'class' => 'rs-section-debugger'
-			]);
-		$boxElement = $element
-			->copy()
-			->init('div',
-			[
-				'class' => 'rs-box-debugger'
-			]);
-		$titleElement = $element
-			->copy()
-			->init('h2',
-			[
-				'class' => 'rs-title-debugger'
-			]);
-		$listElement = $element
-			->copy()
-			->init('ul',
-			[
-				'class' => 'rs-list-debugger'
-			]);
-		$itemElement = $element->copy()->init('li');
-
-		/* process debugger */
-
-		foreach ($debuggerArray as $debuggerKey => $subArray)
-		{
-			if ($subArray)
-			{
-				$boxElement->clear();
-				$listElement->clear();
-
-				/* process sub */
-
-				foreach ($subArray as $subKey => $subValue)
-				{
-					$text = is_string($subKey) ? $subKey . $this->_language->get('colon') . ' ' . $subValue : $subValue;
-					$listElement->append(
-						$itemElement->text($text)
-					);
-				}
-				$title = $debuggerKey . $this->_language->get('colon') . ' ' . count($subArray);
-				$sectionElement->append(
-					$boxElement->append(
-						$titleElement->text($title) . $listElement
-					)
-				);
-			}
-		}
-		echo $sectionElement;
+		$script = Head\Script::getInstance();
+		echo $script
+			->init()
+			->transportVar('rs.modules.Debugger.data', $debuggerArray)
+			->appendInline($inline);
 	}
 
 	/**
 	 * getArray
 	 *
 	 * @since 3.3.0
+	 *
+	 * @return array
 	 */
 
-	public function _getArray()
+	public function _getArray() : array
 	{
-		return
+
+		return array_filter(
 		[
-			'database' => Db::getQueryLog(),
-			'registry' => $this->_registry->get(),
-			'server' => $this->_request->getServer(),
-			'get' => $this->_request->getQuery(),
-			'post' => $this->_request->getPost(),
-			'files' => $this->_request->getFiles(),
-			'session' => $this->_request->getSession(),
-			'cookie' => $this->_request->getCookie()
-		];
+			'database' => $this->_flattenArray(Db::getQueryLog()),
+			'registry' => $this->_flattenArray($this->_registry->get()),
+			'server' => $this->_flattenArray($this->_request->getServer()),
+			'get' => $this->_flattenArray($this->_request->getQuery()),
+			'post' => $this->_flattenArray($this->_request->getPost()),
+			'files' => $this->_flattenArray($this->_request->getFiles()),
+			'session' => $this->_flattenArray($this->_request->getSession()),
+			'cookie' => $this->_flattenArray($this->_request->getCookie()),
+		]);
+	}
+
+	/**
+	 * flattenArray
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $dirtyArray
+	 *
+	 * @return array
+	 */
+
+	public function _flattenArray(array $dirtyArray = []) : array
+	{
+		$flatArray = [];
+
+		/* process dirty */
+
+		foreach ($dirtyArray as $key => $value)
+		{
+			$flatArray[$key] = is_array($value) ? json_encode($value) : $value;
+		}
+		return array_filter($flatArray);
 	}
 }
