@@ -8,7 +8,7 @@ use Redaxscript\Module;
 /**
  * debugger
  *
- * @since 3.3.0
+ * @since 4.0.0
  *
  * @package Redaxscript
  * @category Modules
@@ -91,7 +91,6 @@ class Debugger extends Module\Module
 
 	public function _getArray() : array
 	{
-
 		return array_filter(
 		[
 			'database' => $this->_flattenArray(Db::getQueryLog()),
@@ -125,6 +124,6 @@ class Debugger extends Module\Module
 		{
 			$flatArray[$key] = is_array($value) ? json_encode($value) : $value;
 		}
-		return array_filter($flatArray);
+		return $flatArray;
 	}
 }

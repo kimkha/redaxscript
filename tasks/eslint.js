@@ -29,7 +29,8 @@ module.exports = () =>
 		{
 			src:
 			[
-				'modules/*/assets/scripts/*.js'
+				'modules/*/assets/scripts/*.js',
+				'!modules/Debugger/assets/scripts/debugger.js'
 			]
 		},
 		templates:
