@@ -5,15 +5,5 @@
 <article id="content" class="rs-content">
 	<?php echo Tag::breadcrumb(); ?>
 	<?php $content = Tag::content(); ?>
-	<?php echo $content ? $content : Tag::article(); ?>
-
-	<!-- comment -->
-
-	<?php $articleId = Helper::getRegistry('articleId'); ?>
-	<?php if ($articleId): ?>
-		<section class="rs-section-comment">
-			<?php echo Tag::comment($articleId); ?>
-			<?php echo Tag::commentForm($articleId); ?>
-		</section>
-	<?php endif; ?>
+	<?php echo $content ? $content : Tag::article() . Tag::partial('default/comment.phtml'); ?>
 </article>
