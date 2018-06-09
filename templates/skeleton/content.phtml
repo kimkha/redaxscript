@@ -9,9 +9,11 @@
 
 	<!-- comment -->
 
-	<?php if (Helper::getRegistry('articleId')): ?>
+	<?php $articleId = Helper::getRegistry('articleId'); ?>
+	<?php if ($articleId): ?>
 		<section class="rs-section-comment">
-			<?php echo Tag::comment(Helper::getRegistry('articleId')); ?>
+			<?php echo Tag::comment($articleId); ?>
+			<?php echo Tag::commentForm($articleId); ?>
 		</section>
 	<?php endif; ?>
 </article>

@@ -177,82 +177,6 @@ class TagTest extends TestCaseAbstract
 	}
 
 	/**
-	 * testConsole
-	 *
-	 * @since 3.0.0
-	 */
-
-	public function testConsole()
-	{
-		/* setup */
-
-		$this->_request->setPost('argv', 'help');
-
-		/* actual */
-
-		$actual = Template\Tag::console();
-
-		/* compare */
-
-		$this->assertString($actual);
-	}
-
-	/**
-	 * testConsoleInvalid
-	 *
-	 * @since 3.0.0
-	 */
-
-	public function testConsoleInvalid()
-	{
-		/* setup */
-
-		$this->_request->setPost('argv', 'invalidCommand');
-
-		/* actual */
-
-		$actual = Template\Tag::console();
-
-		/* compare */
-
-		$this->assertFalse($actual);
-	}
-
-	/**
-	 * testConsoleForm
-	 *
-	 * @since 3.0.0
-	 */
-
-	public function testConsoleForm()
-	{
-		/* actual */
-
-		$actual = Template\Tag::consoleForm();
-
-		/* compare */
-
-		$this->assertString($actual);
-	}
-
-	/**
-	 * testSearchForm
-	 *
-	 * @since 3.0.0
-	 */
-
-	public function testSearchForm()
-	{
-		/* actual */
-
-		$actual = Template\Tag::searchForm();
-
-		/* compare */
-
-		$this->assertString($actual);
-	}
-
-	/**
 	 * testPartial
 	 *
 	 * @since 2.3.0
@@ -359,4 +283,99 @@ class TagTest extends TestCaseAbstract
 
 		$this->assertInstanceOf('Redaxscript\Navigation\Template', $actual);
 	}
+
+
+	/**
+	 * testConsole
+	 *
+	 * @since 3.0.0
+	 */
+
+	public function testConsole()
+	{
+		/* setup */
+
+		$this->_request->setPost('argv', 'help');
+
+		/* actual */
+
+		$actual = Template\Tag::console();
+
+		/* compare */
+
+		$this->assertString($actual);
+	}
+
+	/**
+	 * testConsoleInvalid
+	 *
+	 * @since 3.0.0
+	 */
+
+	public function testConsoleInvalid()
+	{
+		/* setup */
+
+		$this->_request->setPost('argv', 'invalidCommand');
+
+		/* actual */
+
+		$actual = Template\Tag::console();
+
+		/* compare */
+
+		$this->assertNull($actual);
+	}
+
+	/**
+	 * testConsoleForm
+	 *
+	 * @since 3.0.0
+	 */
+
+	public function testConsoleForm()
+	{
+		/* actual */
+
+		$actual = Template\Tag::consoleForm();
+
+		/* compare */
+
+		$this->assertString($actual);
+	}
+
+	/**
+	 * testCommentForm
+	 *
+	 * @since 4.0.0
+	 */
+
+	public function testCommentForm()
+	{
+		/* actual */
+
+		$actual = Template\Tag::commentForm();
+
+		/* compare */
+
+		$this->assertString($actual);
+	}
+
+	/**
+	 * testSearchForm
+	 *
+	 * @since 3.0.0
+	 */
+
+	public function testSearchForm()
+	{
+		/* actual */
+
+		$actual = Template\Tag::searchForm();
+
+		/* compare */
+
+		$this->assertString($actual);
+	}
+
 }

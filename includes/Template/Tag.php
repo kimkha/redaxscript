@@ -49,7 +49,7 @@ class Tag
 	 * @return string|bool
 	 */
 
-	public static function title($text = null)
+	public static function title(string $text = null)
 	{
 		$title = new Head\Title(Registry::getInstance());
 		return $title->render($text);
@@ -122,55 +122,6 @@ class Tag
 		$breadcrumb = new View\Helper\Breadcrumb(Registry::getInstance(), Language::getInstance());
 		$breadcrumb->init($optionArray);
 		return $breadcrumb->render();
-	}
-
-	/**
-	 * console
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return string|bool
-	 */
-
-	public static function console()
-	{
-		$console = new Console\Console(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
-		$output = $console->init('template');
-		if (strlen($output))
-		{
-			return htmlentities($output);
-		}
-		return false;
-	}
-
-	/**
-	 * console form
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return string
-	 */
-
-	public static function consoleForm() : string
-	{
-		$consoleForm = new View\ConsoleForm(Registry::getInstance(), Language::getInstance());
-		return $consoleForm->render();
-	}
-
-	/**
-	 * search form
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param string $table name of the table
-	 *
-	 * @return string
-	 */
-
-	public static function searchForm($table = null) : string
-	{
-		$searchForm = new View\SearchForm(Registry::getInstance(), Language::getInstance());
-		return $searchForm->render($table);
 	}
 
 	/**
@@ -346,5 +297,69 @@ class Tag
 			$navigation->init($optionArray);
 			return $navigation;
 		}
+	}
+
+	/**
+	 * console
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return string|null
+	 */
+
+	public static function console()
+	{
+		$console = new Console\Console(Registry::getInstance(), Request::getInstance(), Language::getInstance(), Config::getInstance());
+		$output = $console->init('template');
+		if (strlen($output))
+		{
+			return htmlentities($output);
+		}
+	}
+
+	/**
+	 * console form
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return string
+	 */
+
+	public static function consoleForm() : string
+	{
+		$consoleForm = new View\ConsoleForm(Registry::getInstance(), Language::getInstance());
+		return $consoleForm->render();
+	}
+
+	/**
+	 * comment form
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $articleId identifier of the article
+	 *
+	 * @return string
+	 */
+
+	public static function commentForm(int $articleId = null) : string
+	{
+		$commentForm = new View\CommentForm(Registry::getInstance(), Language::getInstance());
+		return $commentForm->render($articleId);
+	}
+
+	/**
+	 * search form
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $table name of the table
+	 *
+	 * @return string
+	 */
+
+	public static function searchForm(string $table = null) : string
+	{
+		$searchForm = new View\SearchForm(Registry::getInstance(), Language::getInstance());
+		return $searchForm->render($table);
 	}
 }
