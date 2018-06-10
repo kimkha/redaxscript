@@ -63,4 +63,17 @@ abstract class ModelAbstract
 	{
 		return Db::forTablePrefix($this->_table);
 	}
+
+	/**
+	 * clear cache for the table
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return object
+	 */
+
+	public function clearCache()
+	{
+		return Db::clearCache($this->_table);
+	}
 }

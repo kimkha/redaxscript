@@ -52,4 +52,58 @@ class Article extends BaseModel\Article
 			])
 			->save();
 	}
+
+	/**
+	 * update the article by id and array
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $articleId identifier of the article
+	 * @param array $updateArray
+	 *
+	 * @return bool
+	 */
+
+	public function updateByIdAndArray(int $articleId = null, array $updateArray = []) : bool
+	{
+		return $this->query()
+			->whereIdIs($articleId)
+			->set(
+			[
+				'title' => $updateArray['title'],
+				'alias' => $updateArray['alias'],
+				'author' => $updateArray['author'],
+				'description' => $updateArray['description'],
+				'keywords' => $updateArray['keywords'],
+				'robots' => $updateArray['robots'],
+				'text' => $updateArray['text'],
+				'language' => $updateArray['language'],
+				'template' => $updateArray['template'],
+				'sibling' => $updateArray['sibling'],
+				'category' => $updateArray['category'],
+				'headline' => $updateArray['headline'],
+				'byline' => $updateArray['byline'],
+				'comments' => $updateArray['comments'],
+				'status' => $updateArray['status'],
+				'rank' => $updateArray['rank'],
+				'access' => $updateArray['access'],
+				'date' => $updateArray['date']
+			])
+			->save();
+	}
+
+	/**
+	 * delete the article by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $articleId identifier of the article
+	 *
+	 * @return bool
+	 */
+
+	public function deleteById(int $articleId = null) : bool
+	{
+		return $this->query()->whereIdIs($articleId)->deleteMany();
+	}
 }

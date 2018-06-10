@@ -44,4 +44,48 @@ class Comment extends BaseModel\Comment
 			])
 			->save();
 	}
+
+	/**
+	 * update the comment by id and array
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $commentId identifier of the comment
+	 * @param array $updateArray
+	 *
+	 * @return bool
+	 */
+
+	public function updateByIdAndArray(int $commentId = null, array $updateArray = []) : bool
+	{
+		return $this->query()
+			->whereIdIs($commentId)
+			->set(
+			[
+				'url' => $updateArray['url'],
+				'text' => $updateArray['text'],
+				'language' => $updateArray['language'],
+				'article' => $updateArray['article'],
+				'status' => $updateArray['status'],
+				'rank' => $updateArray['rank'],
+				'access' => $updateArray['access'],
+				'date' => $updateArray['date']
+			])
+			->save();
+	}
+
+	/**
+	 * delete the comment by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $commentId identifier of the comment
+	 *
+	 * @return bool
+	 */
+
+	public function deleteById(int $commentId = null) : bool
+	{
+		return $this->query()->whereIdIs($commentId)->deleteMany();
+	}
 }

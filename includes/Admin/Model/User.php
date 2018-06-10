@@ -38,9 +38,36 @@ class User extends BaseModel\User
 				'email' => $createArray['email'],
 				'language' => $createArray['language'],
 				'status' => $createArray['status'],
-				'groups' => $createArray['groups'],
-				'first' => $createArray['first'],
-				'last' => $createArray['last']
+				'groups' => $createArray['groups']
+			])
+			->save();
+	}
+
+	/**
+	 * update the user by id and array
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $userId identifier of the user
+	 * @param array $updateArray
+	 *
+	 * @return bool
+	 */
+
+	public function updateByIdAndArray(int $userId = null, array $updateArray = []) : bool
+	{
+		return $this->query()
+			->whereIdIs($userId)
+			->set(
+			[
+				'name' => $updateArray['name'],
+				'user' => $updateArray['user'],
+				'description' => $updateArray['description'],
+				'password' => $updateArray['password'],
+				'email' => $updateArray['email'],
+				'language' => $updateArray['language'],
+				'status' => $updateArray['status'],
+				'groups' => $updateArray['groups']
 			])
 			->save();
 	}
@@ -63,5 +90,20 @@ class User extends BaseModel\User
 			->findOne()
 			->set('last', $date)
 			->save();
+	}
+
+	/**
+	 * delete the user by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $userId identifier of the user
+	 *
+	 * @return bool
+	 */
+
+	public function deleteById(int $userId = null) : bool
+	{
+		return $this->query()->whereIdIs($userId)->deleteMany();
 	}
 }

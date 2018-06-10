@@ -47,4 +47,53 @@ class Group extends BaseModel\Group
 			])
 			->save();
 	}
+
+	/**
+	 * update the group by id and array
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $groupId identifier of the group
+	 * @param array $updateArray
+	 *
+	 * @return bool
+	 */
+
+	public function updateByIdAndArray(int $groupId = null, array $updateArray = []) : bool
+	{
+		return $this->query()
+			->whereIdIs($groupId)
+			->set(
+			[
+				'name' => $updateArray['name'],
+				'alias' => $updateArray['alias'],
+				'description' => $updateArray['description'],
+				'categories' => $updateArray['categories'],
+				'articles' => $updateArray['articles'],
+				'extras' => $updateArray['extras'],
+				'comments' => $updateArray['comments'],
+				'groups' => $updateArray['groups'],
+				'users' => $updateArray['users'],
+				'modules' => $updateArray['modules'],
+				'settings' => $updateArray['settings'],
+				'filter' => $updateArray['filter'],
+				'status' => $updateArray['status']
+			])
+			->save();
+	}
+
+	/**
+	 * delete the group by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $groupId identifier of the group
+	 *
+	 * @return bool
+	 */
+
+	public function deleteById(int $groupId = null) : bool
+	{
+		return $this->query()->whereIdIs($groupId)->deleteMany();
+	}
 }

@@ -48,4 +48,54 @@ class Category extends BaseModel\Category
 			])
 			->save();
 	}
+
+	/**
+	 * update the category by id and array
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $categoryId identifier of the category
+	 * @param array $updateArray
+	 *
+	 * @return bool
+	 */
+
+	public function updateByIdAndArray(int $categoryId = null, array $updateArray = []) : bool
+	{
+		return $this->query()
+			->whereIdIs($categoryId)
+			->set(
+			[
+				'title' => $updateArray['title'],
+				'alias' => $updateArray['alias'],
+				'author' => $updateArray['author'],
+				'description' => $updateArray['description'],
+				'keywords' => $updateArray['keywords'],
+				'robots' => $updateArray['robots'],
+				'language' => $updateArray['language'],
+				'template' => $updateArray['template'],
+				'sibling' => $updateArray['sibling'],
+				'parent' => $updateArray['parent'],
+				'status' => $updateArray['status'],
+				'rank' => $updateArray['rank'],
+				'access' => $updateArray['access'],
+				'date' => $updateArray['date']
+			])
+			->save();
+	}
+
+	/**
+	 * delete the category by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $categoryId identifier of the category
+	 *
+	 * @return bool
+	 */
+
+	public function deleteById(int $categoryId = null) : bool
+	{
+		return $this->query()->whereIdIs($categoryId)->deleteMany();
+	}
 }

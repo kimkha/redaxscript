@@ -16,28 +16,26 @@ use Redaxscript\Model as BaseModel;
 class Module extends BaseModel\Module
 {
 	/**
-	 * create the module by array
+	 * update the module by id and array
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param array $createArray
+	 * @param int $moduleId identifier of the module
+	 * @param array $updateArray
 	 *
 	 * @return bool
 	 */
 
-	public function createByArray(array $createArray = []) : bool
+	public function updateByIdAndArray(int $moduleId = null, array $updateArray = []) : bool
 	{
 		return $this->query()
-			->create()
+			->whereIdIs($moduleId)
 			->set(
 			[
-				'name' => $createArray['name'],
-				'alias' => $createArray['alias'],
-				'author' => $createArray['author'],
-				'description' => $createArray['description'],
-				'version' => $createArray['version'],
-				'status' => $createArray['status'],
-				'access' => $createArray['access']
+				'name' => $updateArray['name'],
+				'description' => $updateArray['description'],
+				'status' => $updateArray['status'],
+				'access' => $updateArray['access']
 			])
 			->save();
 	}

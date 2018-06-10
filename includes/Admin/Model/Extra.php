@@ -47,4 +47,53 @@ class Extra extends BaseModel\Extra
 			])
 			->save();
 	}
+
+	/**
+	 * update the extra by id and array
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $extraId identifier of the extra
+	 * @param array $updateArray
+	 *
+	 * @return bool
+	 */
+
+	public function updateByIdAndArray(int $extraId = null, array $updateArray = []) : bool
+	{
+		return $this->query()
+			->whereIdIs($extraId)
+			->set(
+			[
+				'title' => $updateArray['title'],
+				'alias' => $updateArray['alias'],
+				'author' => $updateArray['author'],
+				'text' => $updateArray['text'],
+				'language' => $updateArray['language'],
+				'sibling' => $updateArray['sibling'],
+				'category' => $updateArray['category'],
+				'article' => $updateArray['article'],
+				'headline' => $updateArray['headline'],
+				'status' => $updateArray['status'],
+				'rank' => $updateArray['rank'],
+				'access' => $updateArray['access'],
+				'date' => $updateArray['date']
+			])
+			->save();
+	}
+
+	/**
+	 * delete the extra by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $extraId identifier of the extra
+	 *
+	 * @return bool
+	 */
+
+	public function deleteById(int $extraId = null) : bool
+	{
+		return $this->query()->whereIdIs($extraId)->deleteMany();
+	}
 }
