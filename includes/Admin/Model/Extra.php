@@ -43,7 +43,6 @@ class Extra extends BaseModel\Extra
 				'status' => $createArray['status'],
 				'rank' => $createArray['rank'],
 				'access' => $createArray['access'],
-				'author' => $createArray['author'],
 				'date' => $createArray['date']
 			])
 			->save();
