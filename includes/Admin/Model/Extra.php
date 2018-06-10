@@ -81,7 +81,43 @@ class Extra extends BaseModel\Extra
 			])
 			->save();
 	}
+	
+	/**
+	 * publish the extra by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $extraId identifier of the extra
+	 *
+	 * @return bool
+	 */
 
+	public function publishById(int $extraId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($extraId)
+			->set('status', 1)
+			->save();
+	}
+
+	/**
+	 * unpublish the extra by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $extraId identifier of the extra
+	 *
+	 * @return bool
+	 */
+
+	public function unpublishById(int $extraId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($extraId)
+			->set('status', 0)
+			->save();
+	}
+	
 	/**
 	 * delete the extra by id
 	 *

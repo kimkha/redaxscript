@@ -93,6 +93,42 @@ class Article extends BaseModel\Article
 	}
 
 	/**
+	 * publish the article by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $articleId identifier of the article
+	 *
+	 * @return bool
+	 */
+
+	public function publishById(int $articleId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($articleId)
+			->set('status', 1)
+			->save();
+	}
+
+	/**
+	 * unpublish the article by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $articleId identifier of the article
+	 *
+	 * @return bool
+	 */
+
+	public function unpublishById(int $articleId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($articleId)
+			->set('status', 0)
+			->save();
+	}
+
+	/**
 	 * delete the article by id
 	 *
 	 * @since 4.0.0

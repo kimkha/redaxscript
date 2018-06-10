@@ -83,6 +83,42 @@ class Group extends BaseModel\Group
 	}
 
 	/**
+	 * enable the group by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $groupId identifier of the group
+	 *
+	 * @return bool
+	 */
+
+	public function enableById(int $groupId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($groupId)
+			->set('status', 1)
+			->save();
+	}
+
+	/**
+	 * disable the group by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $groupId identifier of the group
+	 *
+	 * @return bool
+	 */
+
+	public function disableById(int $groupId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($groupId)
+			->set('status', 0)
+			->save();
+	}
+	
+	/**
 	 * delete the group by id
 	 *
 	 * @since 4.0.0

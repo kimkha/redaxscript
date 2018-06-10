@@ -85,6 +85,42 @@ class Category extends BaseModel\Category
 	}
 
 	/**
+	 * publish the category by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $categoryId identifier of the category
+	 *
+	 * @return bool
+	 */
+
+	public function publishById(int $categoryId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($categoryId)
+			->set('status', 1)
+			->save();
+	}
+
+	/**
+	 * unpublish the category by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $categoryId identifier of the category
+	 *
+	 * @return bool
+	 */
+
+	public function unpublishById(int $categoryId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($categoryId)
+			->set('status', 0)
+			->save();
+	}
+
+	/**
 	 * delete the category by id
 	 *
 	 * @since 4.0.0

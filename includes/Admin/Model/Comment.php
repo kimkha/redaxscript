@@ -73,7 +73,43 @@ class Comment extends BaseModel\Comment
 			])
 			->save();
 	}
+	
+	/**
+	 * publish the comment by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $commentId identifier of the comment
+	 *
+	 * @return bool
+	 */
 
+	public function publishById(int $commentId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($commentId)
+			->set('status', 1)
+			->save();
+	}
+
+	/**
+	 * unpublish the comment by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $commentId identifier of the comment
+	 *
+	 * @return bool
+	 */
+
+	public function unpublishById(int $commentId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($commentId)
+			->set('status', 0)
+			->save();
+	}
+	
 	/**
 	 * delete the comment by id
 	 *

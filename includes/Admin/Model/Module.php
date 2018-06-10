@@ -39,4 +39,40 @@ class Module extends BaseModel\Module
 			])
 			->save();
 	}
+	
+	/**
+	 * enable the module by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $moduleId identifier of the module
+	 *
+	 * @return bool
+	 */
+
+	public function enableById(int $moduleId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($moduleId)
+			->set('status', 1)
+			->save();
+	}
+
+	/**
+	 * disable the module by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $moduleId identifier of the module
+	 *
+	 * @return bool
+	 */
+
+	public function disableById(int $moduleId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($moduleId)
+			->set('status', 0)
+			->save();
+	}
 }

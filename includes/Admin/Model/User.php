@@ -91,7 +91,43 @@ class User extends BaseModel\User
 			->set('last', $date)
 			->save();
 	}
+	
+	/**
+	 * enable the user by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $userId identifier of the user
+	 *
+	 * @return bool
+	 */
 
+	public function enableById(int $userId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($userId)
+			->set('status', 1)
+			->save();
+	}
+
+	/**
+	 * disable the user by id
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int $userId identifier of the user
+	 *
+	 * @return bool
+	 */
+
+	public function disableById(int $userId = null) : bool
+	{
+		return $this->query()
+			->whereIdIs($userId)
+			->set('status', 0)
+			->save();
+	}
+	
 	/**
 	 * delete the user by id
 	 *
