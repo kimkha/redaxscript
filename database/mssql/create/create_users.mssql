@@ -3,10 +3,10 @@ BEGIN
 	CREATE TABLE /* %PREFIX% */users (
 		id int PRIMARY KEY IDENTITY,
 		name nvarchar(255) NULL,
+		description nvarchar(255) NULL,
 		"user" nvarchar(255) NULL,
 		password nvarchar(255) NULL,
 		email nvarchar(255) NULL,
-		description nvarchar(255) NULL,
 		language char(2) NULL,
 		status int DEFAULT 1,
 		groups nvarchar(255) NULL,

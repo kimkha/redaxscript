@@ -77,7 +77,7 @@ class Article extends NavigationAbstract
 			{
 				$outputItem .= $itemElement
 					->copy()
-					->addClass(intval($this->_registry->get('articleId')) === intval($value->id) ? $this->_optionArray['className']['active'] : null)
+					->addClass((int)$this->_registry->get('articleId') === (int)$value->id ? $this->_optionArray['className']['active'] : null)
 					->html($linkElement
 						->copy()
 						->attr(

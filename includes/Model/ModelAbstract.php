@@ -35,7 +35,7 @@ abstract class ModelAbstract
 
 	public function getById(int $id = null)
 	{
-		return $this->_query()->whereIdIs($id)->findMany();
+		return $this->query()->whereIdIs($id)->findOne();
 	}
 
 	/**
@@ -48,7 +48,7 @@ abstract class ModelAbstract
 
 	public function getAll()
 	{
-		return $this->_query()->findMany();
+		return $this->query()->findMany();
 	}
 
 	/**
@@ -59,7 +59,7 @@ abstract class ModelAbstract
 	 * @return object
 	 */
 
-	protected function _query()
+	public function query()
 	{
 		return Db::forTablePrefix($this->_table);
 	}

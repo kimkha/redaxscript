@@ -2,7 +2,6 @@
 namespace Redaxscript\Admin\View;
 
 use Redaxscript\Admin;
-use Redaxscript\Db;
 use Redaxscript\Html;
 use Redaxscript\Module;
 
@@ -31,7 +30,8 @@ class UserForm extends ViewAbstract
 	public function render(int $userId = null) : string
 	{
 		$output = Module\Hook::trigger('adminUserFormStart');
-		$user = Db::forTablePrefix('users')->whereIdIs($userId)->findOne();
+		$userModel = new Admin\Model\User();
+		$user = $userModel->getById($userId);
 		$helperOption = new Helper\Option($this->_language);
 
 		/* html element */
@@ -126,6 +126,19 @@ class UserForm extends ViewAbstract
 		}
 		$formElement
 			->append('<li>')
+			->label($this->_language->get('description'),
+			[
+				'for' => 'description'
+			])
+			->textarea(
+			[
+				'class' => 'rs-admin-js-textarea rs-admin-field-textarea rs-admin-field-small',
+				'id' => 'description',
+				'name' => 'description',
+				'rows' => 1,
+				'value' => $user->description
+			])
+			->append('</li><li>')
 			->label($this->_language->get('password'),
 			[
 				'for' => 'password'
@@ -158,19 +171,6 @@ class UserForm extends ViewAbstract
 				'name' => 'email',
 				'required' => 'required',
 				'value' => $user->email
-			])
-			->append('</li><li>')
-			->label($this->_language->get('description'),
-			[
-				'for' => 'description'
-			])
-			->textarea(
-			[
-				'class' => 'rs-admin-js-textarea rs-admin-field-textarea rs-admin-field-small',
-				'id' => 'description',
-				'name' => 'description',
-				'rows' => 1,
-				'value' => $user->description
 			])
 			->append('</li></ul>')
 
@@ -225,7 +225,7 @@ class UserForm extends ViewAbstract
 				])
 				->select($helperOption->getToggleArray(),
 				[
-					$user->id ? intval($user->status) : 1
+					$user->id ? (int)$user->status : 1
 				],
 				[
 					'id' => 'status',

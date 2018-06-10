@@ -15,4 +15,30 @@ use Redaxscript\Model as BaseModel;
 
 class Module extends BaseModel\Module
 {
+	/**
+	 * create the module by array
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $createArray
+	 *
+	 * @return bool
+	 */
+
+	public function createByArray(array $createArray = []) : bool
+	{
+		return $this->query()
+			->create()
+			->set(
+			[
+				'name' => $createArray['name'],
+				'alias' => $createArray['alias'],
+				'author' => $createArray['author'],
+				'description' => $createArray['description'],
+				'version' => $createArray['version'],
+				'status' => $createArray['status'],
+				'access' => $createArray['access']
+			])
+			->save();
+	}
 }

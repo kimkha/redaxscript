@@ -163,7 +163,7 @@ class Article extends ViewAbstract
 			if ($accessValidator->validate($value->access, $myGroups) === Validator\ValidatorInterface::PASSED)
 			{
 				$output .= Module\Hook::trigger('articleFragmentStart', $value);
-				if (intval($value->headline) === 1)
+				if ((int)$value->headline === 1)
 				{
 					$output .= $titleElement
 						->attr('id', 'article-' . $value->alias)

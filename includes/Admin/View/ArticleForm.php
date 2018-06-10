@@ -2,7 +2,6 @@
 namespace Redaxscript\Admin\View;
 
 use Redaxscript\Admin;
-use Redaxscript\Db;
 use Redaxscript\Html;
 use Redaxscript\Module;
 
@@ -31,7 +30,8 @@ class ArticleForm extends ViewAbstract
 	public function render(int $articleId = null) : string
 	{
 		$output = Module\Hook::trigger('adminArticleFormStart');
-		$article = Db::forTablePrefix('articles')->whereIdIs($articleId)->findOne();
+		$articleModel = new Admin\Model\Article();
+		$article = $articleModel->getById($articleId);
 		$helperOption = new Helper\Option($this->_language);
 
 		/* html element */
@@ -220,10 +220,10 @@ class ArticleForm extends ViewAbstract
 			])
 			->select($helperOption->getContentArray('articles',
 			[
-				intval($article->id)
+				(int)$article->id
 			]),
 			[
-				intval($article->sibling)
+				(int)$article->sibling
 			],
 			[
 				'id' => 'sibling',
@@ -236,7 +236,7 @@ class ArticleForm extends ViewAbstract
 			])
 			->select($helperOption->getContentArray('categories'),
 			[
-				intval($article->category)
+				(int)$article->category
 			],
 			[
 				'id' => 'category',
@@ -264,7 +264,7 @@ class ArticleForm extends ViewAbstract
 			])
 			->select($helperOption->getToggleArray(),
 			[
-				$article->id ? intval($article->headline) : 1
+				$article->id ? (int)$article->headline : 1
 			],
 			[
 				'id' => 'headline',
@@ -277,7 +277,7 @@ class ArticleForm extends ViewAbstract
 			])
 			->select($helperOption->getToggleArray(),
 			[
-				$article->id ? intval($article->byline) : 1
+				$article->id ? (int)$article->byline : 1
 			],
 			[
 				'id' => 'byline',
@@ -290,7 +290,7 @@ class ArticleForm extends ViewAbstract
 			])
 			->select($helperOption->getToggleArray(),
 			[
-				intval($article->comments)
+				(int)$article->comments
 			],
 			[
 				'id' => 'comments',
@@ -303,7 +303,7 @@ class ArticleForm extends ViewAbstract
 			])
 			->select($helperOption->getVisibleArray(),
 			[
-				$article->id ? intval($article->status) : 1
+				$article->id ? (int)$article->status : 1
 			],
 			[
 				'id' => 'status',
@@ -318,7 +318,7 @@ class ArticleForm extends ViewAbstract
 			[
 				'id' => 'rank',
 				'name' => 'rank',
-				'value' => $article->id ? intval($article->rank) : Db::forTablePrefix('articles')->max('rank') + 1
+				'value' => $article->id ? (int)$article->rank : $articleModel->query()->max('rank') + 1
 			])
 			->append('</li>');
 		if ($this->_registry->get('groupsEdit'))

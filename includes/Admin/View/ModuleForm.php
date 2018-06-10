@@ -2,7 +2,6 @@
 namespace Redaxscript\Admin\View;
 
 use Redaxscript\Admin;
-use Redaxscript\Db;
 use Redaxscript\Filesystem;
 use Redaxscript\Html;
 use Redaxscript\Module;
@@ -32,7 +31,8 @@ class ModuleForm extends ViewAbstract
 	public function render(int $moduleId = null) : string
 	{
 		$output = Module\Hook::trigger('adminModuleFormStart');
-		$module = Db::forTablePrefix('modules')->whereIdIs($moduleId)->findOne();
+		$moduleModel = new Admin\Model\Module();
+		$module = $moduleModel->getById($moduleId);
 		$helperOption = new Helper\Option($this->_language);
 
 		/* html element */
@@ -169,7 +169,7 @@ class ModuleForm extends ViewAbstract
 			])
 			->select($helperOption->getToggleArray(),
 			[
-				intval($module->status)
+				(int)$module->status
 			],
 			[
 				'id' => 'status',

@@ -25,7 +25,7 @@ abstract class ContentAbstract extends ModelAbstract
 
 	public function getByLanguage(string $language = null)
 	{
-		return $this->_query()
+		return $this->query()
 			->whereLanguageIs($language)
 			->where('status', 1)
 			->findMany();
@@ -44,7 +44,7 @@ abstract class ContentAbstract extends ModelAbstract
 
 	public function getByIdAndLanguage(int $id = null, string $language = null)
 	{
-		return $this->_query()
+		return $this->query()
 			->whereIdIs($id)
 			->whereLanguageIs($language)
 			->findMany();
@@ -62,7 +62,7 @@ abstract class ContentAbstract extends ModelAbstract
 
 	public function publishByDate(string $date = null) : int
 	{
-		return $this->_query()
+		return $this->query()
 			->where('status', 2)
 			->whereLt('date', $date)
 			->findMany()

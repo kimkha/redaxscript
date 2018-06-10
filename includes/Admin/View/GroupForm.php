@@ -2,7 +2,6 @@
 namespace Redaxscript\Admin\View;
 
 use Redaxscript\Admin;
-use Redaxscript\Db;
 use Redaxscript\Html;
 use Redaxscript\Module;
 
@@ -31,7 +30,8 @@ class GroupForm extends ViewAbstract
 	public function render(int $groupId = null) : string
 	{
 		$output = Module\Hook::trigger('adminGroupFormStart');
-		$group = Db::forTablePrefix('groups')->whereIdIs($groupId)->findOne();
+		$groupModel = new Admin\Model\Group();
+		$group = $groupModel->getById($groupId);
 		$helperOption = new Helper\Option($this->_language);
 
 		/* html element */
@@ -261,7 +261,7 @@ class GroupForm extends ViewAbstract
 				])
 				->select($helperOption->getPermissionArray('settings'),
 				[
-					intval($group->settings)
+					(int)$group->settings
 				],
 				[
 					'id' => 'settings',
@@ -302,7 +302,7 @@ class GroupForm extends ViewAbstract
 				])
 				->select($helperOption->getToggleArray(),
 				[
-					$group->id ? intval($group->status) : 1
+					$group->id ? (int)$group->status : 1
 				],
 				[
 					'id' => 'status',

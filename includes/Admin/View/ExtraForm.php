@@ -2,7 +2,6 @@
 namespace Redaxscript\Admin\View;
 
 use Redaxscript\Admin;
-use Redaxscript\Db;
 use Redaxscript\Html;
 use Redaxscript\Module;
 
@@ -31,7 +30,8 @@ class ExtraForm extends ViewAbstract
 	public function render(int $extraId = null) : string
 	{
 		$output = Module\Hook::trigger('adminExtraFormStart');
-		$extra = Db::forTablePrefix('extras')->whereIdIs($extraId)->findOne();
+		$extraModel = new Admin\Model\Extra();
+		$extra = $extraModel->getById($extraId);
 		$helperOption = new Helper\Option($this->_language);
 
 		/* html element */
@@ -168,10 +168,10 @@ class ExtraForm extends ViewAbstract
 			])
 			->select($helperOption->getContentArray('extras',
 			[
-				intval($extra->id)
+				(int)$extra->id
 			]),
 			[
-				intval($extra->sibling)
+				(int)$extra->sibling
 			],
 			[
 				'id' => 'sibling',
@@ -184,7 +184,7 @@ class ExtraForm extends ViewAbstract
 			])
 			->select($helperOption->getContentArray('categories'),
 			[
-				intval($extra->category)
+				(int)$extra->category
 			],
 			[
 				'id' => 'category',
@@ -197,7 +197,7 @@ class ExtraForm extends ViewAbstract
 			])
 			->select($helperOption->getContentArray('articles'),
 			[
-				intval($extra->article)
+				(int)$extra->article
 			],
 			[
 				'id' => 'article',
@@ -225,7 +225,7 @@ class ExtraForm extends ViewAbstract
 			])
 			->select($helperOption->getToggleArray(),
 			[
-				$extra->id ? intval($extra->headline) : 1
+				$extra->id ? (int)$extra->headline : 1
 			],
 			[
 				'id' => 'headline',
@@ -238,7 +238,7 @@ class ExtraForm extends ViewAbstract
 			])
 			->select($helperOption->getVisibleArray(),
 			[
-				$extra->id ? intval($extra->status) : 1
+				$extra->id ? (int)$extra->status : 1
 			],
 			[
 				'id' => 'status',
@@ -253,7 +253,7 @@ class ExtraForm extends ViewAbstract
 			[
 				'id' => 'rank',
 				'name' => 'rank',
-				'value' => $extra->id ? intval($extra->rank) : Db::forTablePrefix('extras')->max('rank') + 1
+				'value' => $extra->id ? (int)$extra->rank : $extraModel->query()->max('rank') + 1
 			])
 			->append('</li>');
 		if ($this->_registry->get('groupsEdit'))

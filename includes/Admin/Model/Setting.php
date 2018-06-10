@@ -29,7 +29,7 @@ class Setting extends BaseModel\Setting
 	{
 		foreach ($updateArray as $key => $value)
 		{
-			return $this->_query()
+			return $this->query()
 				->where('name', $key)
 				->findOne()
 				->set('value', $value === 'select' ? null : $value)

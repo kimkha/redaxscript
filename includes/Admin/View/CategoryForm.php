@@ -2,7 +2,6 @@
 namespace Redaxscript\Admin\View;
 
 use Redaxscript\Admin;
-use Redaxscript\Db;
 use Redaxscript\Html;
 use Redaxscript\Module;
 
@@ -31,7 +30,8 @@ class CategoryForm extends ViewAbstract
 	public function render(int $categoryId = null) : string
 	{
 		$output = Module\Hook::trigger('adminCategoryFormStart');
-		$category = Db::forTablePrefix('categories')->whereIdIs($categoryId)->findOne();
+		$categoryModel = new Admin\Model\Category();
+		$category = $categoryModel->getById($categoryId);
 		$helperOption = new Helper\Option($this->_language);
 
 		/* html element */
@@ -207,10 +207,10 @@ class CategoryForm extends ViewAbstract
 			])
 			->select($helperOption->getContentArray('categories',
 			[
-				intval($category->id)
+				(int)$category->id
 			]),
 			[
-				intval($category->sibling)
+				(int)$category->sibling
 			],
 			[
 				'id' => 'sibling',
@@ -223,10 +223,10 @@ class CategoryForm extends ViewAbstract
 			])
 			->select($helperOption->getContentArray('categories',
 			[
-				intval($category->id)
+				(int)$category->id
 			]),
 			[
-				intval($category->parent)
+				(int)$category->parent
 			],
 			[
 				'id' => 'parent',
@@ -254,7 +254,7 @@ class CategoryForm extends ViewAbstract
 			])
 			->select($helperOption->getVisibleArray(),
 			[
-				$category->id ? intval($category->status) : 1
+				$category->id ? (int)$category->status : 1
 			],
 			[
 				'id' => 'status',
@@ -269,7 +269,7 @@ class CategoryForm extends ViewAbstract
 			[
 				'id' => 'rank',
 				'name' => 'rank',
-				'value' => $category->id ? intval($category->rank) : Db::forTablePrefix('categories')->max('rank') + 1
+				'value' => $category->id ? (int)$category->rank : $categoryModel->query()->max('rank') + 1
 			])
 			->append('</li>');
 		if ($this->_registry->get('groupsEdit'))

@@ -37,7 +37,16 @@ class UserTableTest extends TestCaseAbstract
 			->set(
 			[
 				'name' => 'User One',
-				'user' => 'user-one'
+				'user' => 'user-one',
+				'groups' => '1'
+			])
+			->save();
+		Db::forTablePrefix('groups')
+			->create()
+			->set(
+			[
+				'name' => 'Administrators',
+				'alias' => 'administrators'
 			])
 			->save();
 	}

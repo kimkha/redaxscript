@@ -238,7 +238,7 @@ class SettingForm extends ViewAbstract
 			])
 			->select($helperOption->getToggleArray(),
 			[
-				intval($settingModel->get('notification'))
+				(int)$settingModel->get('notification')
 			],
 			[
 				'id' => 'notification',
@@ -366,7 +366,7 @@ class SettingForm extends ViewAbstract
 			])
 			->select($helperOption->getToggleArray(),
 			[
-				intval($settingModel->get('pagination'))
+				(int)$settingModel->get('pagination')
 			],
 			[
 				'id' => 'pagination',
@@ -394,7 +394,7 @@ class SettingForm extends ViewAbstract
 			])
 			->select($helperOption->getToggleArray(),
 			[
-				intval($settingModel->get('registration'))
+				(int)$settingModel->get('registration')
 			],
 			[
 				'id' => 'registration',
@@ -407,7 +407,7 @@ class SettingForm extends ViewAbstract
 			])
 			->select($helperOption->getToggleArray(),
 			[
-				intval($settingModel->get('verification'))
+				(int)$settingModel->get('verification')
 			],
 			[
 				'id' => 'verification',
@@ -420,7 +420,7 @@ class SettingForm extends ViewAbstract
 			])
 			->select($helperOption->getToggleArray(),
 			[
-				intval($settingModel->get('recovery'))
+				(int)$settingModel->get('recovery')
 			],
 			[
 				'id' => 'recovery',
@@ -448,7 +448,7 @@ class SettingForm extends ViewAbstract
 			])
 			->select($helperOption->getToggleArray(),
 			[
-				intval($settingModel->get('moderation'))
+				(int)$settingModel->get('moderation')
 			],
 			[
 				'id' => 'moderation',
@@ -461,7 +461,7 @@ class SettingForm extends ViewAbstract
 			])
 			->select($helperOption->getCaptchaArray(),
 			[
-				intval($settingModel->get('captcha'))
+				(int)$settingModel->get('captcha')
 			],
 			[
 				'id' => 'captcha',

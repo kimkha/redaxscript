@@ -63,7 +63,7 @@ class Setting extends ModelAbstract
 
 	public function set(string $key = null, string $value = null) : bool
 	{
-		return $this->_query()
+		return $this->query()
 			->where('name', $key)
 			->findOne()
 			->set('value', $value)

@@ -33,7 +33,7 @@ class Module extends ModelAbstract
 
 	public function createByArray(array $createArray = []) : bool
 	{
-		return $this->_query()
+		return $this->query()
 			->create()
 			->set(
 			[
@@ -59,6 +59,6 @@ class Module extends ModelAbstract
 
 	public function deleteByAlias(string $moduleAlias = null) : bool
 	{
-		return $this->_query()->where('alias', $moduleAlias)->deleteMany();
+		return $this->query()->where('alias', $moduleAlias)->deleteMany();
 	}
 }

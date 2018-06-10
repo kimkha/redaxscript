@@ -85,7 +85,8 @@ class UserTable extends ViewAbstract
 		$tableArray =
 		[
 			'name' => $this->_language->get('name'),
-			'user' => $this->_language->get('user')
+			'user' => $this->_language->get('user'),
+			'groups' => $this->_language->get('groups')
 		];
 		$adminControl = new Helper\Control($this->_registry, $this->_language);
 		$userModel = new Admin\Model\User();
@@ -128,13 +129,15 @@ class UserTable extends ViewAbstract
 		{
 			foreach ($users as $key => $value)
 			{
+				$groupArray = array_map('intval', explode(',', $value->groups));
 				$outputBody .= $trElement
 					->copy()
 					->addClass(!$value->status ? 'rs-admin-is-disabled' : null)
 					->html(
 						$tdElement->copy()->html($value->name . $adminControl->render('users', $value->id, $value->alias, $value->status)) .
-						$tdElement->copy()->text($value->user)
-				);
+						$tdElement->copy()->text($value->user) .
+						$tdElement->copy()->html($this->_renderGroup($groupArray))
+					);
 			}
 		}
 		else
@@ -161,6 +164,41 @@ class UserTable extends ViewAbstract
 		$output .= $wrapperElement->copy()->html(
 			$tableElement->html($outputHead . $outputBody . $outputFoot)
 		);
+		return $output;
+	}
+
+	/**
+	 * render the group
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $groupArray
+	 *
+	 * @return string
+	 */
+
+	protected function _renderGroup(array $groupArray = []) : string
+	{
+		$output = null;
+		$groupModel = new Admin\Model\Group();
+
+		/* html element */
+
+		$linkElement = new Html\Element();
+		$linkElement->init('a',
+		[
+			'class' => 'rs-admin-link-default'
+		]);
+
+		/* process groups */
+
+		foreach ($groupArray as $groupId)
+		{
+			$output .= $linkElement
+				->copy()
+				->attr('href', $this->_registry->get('parameterRoute') . 'admin/edit/groups/' . $groupId)
+				->text($groupModel->getById($groupId)->name);
+		}
 		return $output;
 	}
 }

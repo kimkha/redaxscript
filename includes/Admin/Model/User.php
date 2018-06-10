@@ -16,6 +16,36 @@ use Redaxscript\Model as BaseModel;
 class User extends BaseModel\User
 {
 	/**
+	 * create the user by array
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $createArray
+	 *
+	 * @return bool
+	 */
+
+	public function createByArray(array $createArray = []) : bool
+	{
+		return $this->query()
+			->create()
+			->set(
+			[
+				'name' => $createArray['name'],
+				'user' => $createArray['user'],
+				'description' => $createArray['description'],
+				'password' => $createArray['password'],
+				'email' => $createArray['email'],
+				'language' => $createArray['language'],
+				'status' => $createArray['status'],
+				'groups' => $createArray['groups'],
+				'first' => $createArray['first'],
+				'last' => $createArray['last']
+			])
+			->save();
+	}
+
+	/**
 	 * update last by id
 	 *
 	 * @since 4.0.0
@@ -28,7 +58,7 @@ class User extends BaseModel\User
 
 	public function updateLastById(string $userId = null, string $date = null)
 	{
-		return $this->_query()
+		return $this->query()
 			->where('id', $userId)
 			->findOne()
 			->set('last', $date)

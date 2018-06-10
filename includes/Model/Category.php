@@ -33,7 +33,7 @@ class Category extends ContentAbstract
 
 	public function getByAlias(string $categoryAlias = null)
 	{
-		return $this->_query()->where('alias', $categoryAlias)->findMany();
+		return $this->query()->where('alias', $categoryAlias)->findMany();
 	}
 
 	/**
@@ -49,7 +49,7 @@ class Category extends ContentAbstract
 	public function getRouteById(int $categoryId = null) : ?string
 	{
 		$route = null;
-		$categoryArray = $this->_query()
+		$categoryArray = $this->query()
 			->tableAlias('c')
 			->leftJoinPrefix('categories', 'c.parent = p.id', 'p')
 			->select('p.alias', 'parent_alias')

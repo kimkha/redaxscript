@@ -98,11 +98,11 @@ class Category extends NavigationAbstract
 
 		foreach ($categories as $value)
 		{
-			if ($accessValidator->validate($value->access, $this->_registry->get('myGroups')) === Validator\ValidatorInterface::PASSED && $optionArray['parent'] === intval($value->parent))
+			if ($accessValidator->validate($value->access, $this->_registry->get('myGroups')) === Validator\ValidatorInterface::PASSED && $optionArray['parent'] === (int)$value->parent)
 			{
 				$outputItem .= $itemElement
 					->copy()
-					->addClass(intval($this->_registry->get('categoryId')) === intval($value->id) ? $this->_optionArray['className']['active'] : null)
+					->addClass((int)$this->_registry->get('categoryId') === (int)$value->id ? $this->_optionArray['className']['active'] : null)
 					->html($linkElement
 						->copy()
 						->attr(
@@ -118,7 +118,7 @@ class Category extends NavigationAbstract
 							'list' => $value->parent ? $optionArray['className']['list'] : $optionArray['className']['children'],
 							'active' => $optionArray['className']['active'],
 						],
-						'parent' => intval($value->id),
+						'parent' => (int)$value->id,
 						'children' => $optionArray['children']
 					]) : null);
 			}

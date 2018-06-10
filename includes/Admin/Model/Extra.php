@@ -15,4 +15,37 @@ use Redaxscript\Model as BaseModel;
 
 class Extra extends BaseModel\Extra
 {
+	/**
+	 * create the extra by array
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $createArray
+	 *
+	 * @return bool
+	 */
+
+	public function createByArray(array $createArray = []) : bool
+	{
+		return $this->query()
+			->create()
+			->set(
+			[
+				'title' => $createArray['title'],
+				'alias' => $createArray['alias'],
+				'author' => $createArray['author'],
+				'text' => $createArray['text'],
+				'language' => $createArray['language'],
+				'sibling' => $createArray['sibling'],
+				'category' => $createArray['category'],
+				'article' => $createArray['article'],
+				'headline' => $createArray['headline'],
+				'status' => $createArray['status'],
+				'rank' => $createArray['rank'],
+				'access' => $createArray['access'],
+				'author' => $createArray['author'],
+				'date' => $createArray['date']
+			])
+			->save();
+	}
 }

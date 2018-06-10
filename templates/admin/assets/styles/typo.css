@@ -6,11 +6,11 @@
 
 /** @section 1. link */
 
-.rs-link-default
+.rs-admin-link-default
 {
 	text-decoration: underline;
 
-	& + .rs-link-default
+	& + .rs-admin-link-default
 	{
 		margin-left: 0.5em;
 	}

@@ -1,7 +1,6 @@
 <?php
 namespace Redaxscript\Controller;
 
-use Redaxscript\Db;
 use Redaxscript\Html;
 use Redaxscript\Mailer;
 use Redaxscript\Messenger;
@@ -73,7 +72,7 @@ class Comment extends ControllerAbstract
 			'email' => $postArray['email'],
 			'url' => $postArray['url'],
 			'text' => $postArray['text'],
-			'language' => Db::forTablePrefix('articles')->whereIdIs($postArray['article'])->findOne()->language,
+			'language' => $articleModel->getById($postArray['article'])->language,
 			'article' => $postArray['article'],
 			'status' => $settingModel->get('verification') ? 0 : 1
 		];
@@ -84,7 +83,7 @@ class Comment extends ControllerAbstract
 			'route' => $route,
 			'author' => $postArray['author'],
 			'text' => $postArray['text'],
-			'article' => Db::forTablePrefix('articles')->whereIdIs($postArray['article'])->findOne()->title
+			'article' => $articleModel->getById($postArray['article'])->title
 		];
 
 		/* create */

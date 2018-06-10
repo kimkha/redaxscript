@@ -33,7 +33,7 @@ class Article extends ContentAbstract
 
 	public function getByAlias(string $articleAlias = null)
 	{
-		return $this->_query()->where('alias', $articleAlias)->findMany();
+		return $this->query()->where('alias', $articleAlias)->findMany();
 	}
 
 	/**
@@ -49,7 +49,7 @@ class Article extends ContentAbstract
 
 	public function getByCategoryAndLanguage(int $categoryId = null, string $language = null)
 	{
-		return $this->_query()
+		return $this->query()
 			->where('category', $categoryId)
 			->whereLanguageIs($language)
 			->findMany();
@@ -68,7 +68,7 @@ class Article extends ContentAbstract
 	public function getRouteById(int $articleId = null) : ?string
 	{
 		$route = null;
-		$articleArray = $this->_query()
+		$articleArray = $this->query()
 			->tableAlias('a')
 			->leftJoinPrefix('categories', 'a.category = c.id', 'c')
 			->leftJoinPrefix('categories', 'c.parent = p.id', 'p')

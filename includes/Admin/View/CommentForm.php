@@ -2,7 +2,6 @@
 namespace Redaxscript\Admin\View;
 
 use Redaxscript\Admin;
-use Redaxscript\Db;
 use Redaxscript\Html;
 use Redaxscript\Module;
 
@@ -31,7 +30,8 @@ class CommentForm extends ViewAbstract
 	public function render(int $commentId = null) : string
 	{
 		$output = Module\Hook::trigger('adminCommentFormStart');
-		$comment = Db::forTablePrefix('comments')->whereIdIs($commentId)->findOne();
+		$commentModel = new Admin\Model\Comment();
+		$comment = $commentModel->getById($commentId);
 		$helperOption = new Helper\Option($this->_language);
 
 		/* html element */
@@ -176,7 +176,7 @@ class CommentForm extends ViewAbstract
 			])
 			->select($helperOption->getContentArray('articles'),
 			[
-				intval($comment->article)
+				(int)$comment->article
 			],
 			[
 				'id' => 'article',
@@ -204,7 +204,7 @@ class CommentForm extends ViewAbstract
 			])
 			->select($helperOption->getVisibleArray(),
 			[
-				$comment->id ? intval($comment->status) : 1
+				$comment->id ? (int)$comment->status : 1
 			],
 			[
 				'id' => 'status',
@@ -219,7 +219,7 @@ class CommentForm extends ViewAbstract
 			[
 				'id' => 'rank',
 				'name' => 'rank',
-				'value' => $comment->id ? intval($comment->rank) : Db::forTablePrefix('comments')->max('rank') + 1
+				'value' => $comment->id ? (int)$comment->rank : $commentModel->query()->max('rank') + 1
 			])
 			->append('</li>');
 		if ($this->_registry->get('groupsEdit'))

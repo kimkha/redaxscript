@@ -34,7 +34,7 @@ class Comment extends ContentAbstract
 
 	public function getByArticleAndLanguage(int $articleId = null, string $language = null)
 	{
-		return $this->_query()
+		return $this->query()
 			->where('article', $articleId)
 			->whereLanguageIs($language)
 			->findMany();
@@ -53,7 +53,7 @@ class Comment extends ContentAbstract
 	public function getRouteById(int $commentId = null) : ?string
 	{
 		$route = null;
-		$commentArray = $this->_query()
+		$commentArray = $this->query()
 			->tableAlias('d')
 			->leftJoinPrefix('articles', 'd.article = a.id', 'a')
 			->leftJoinPrefix('categories', 'a.category = c.id', 'c')
@@ -85,7 +85,7 @@ class Comment extends ContentAbstract
 
 	public function createByArray(array $createArray = []) : bool
 	{
-		return $this->_query()
+		return $this->query()
 			->create()
 			->set(
 			[
@@ -94,8 +94,7 @@ class Comment extends ContentAbstract
 				'url' => $createArray['url'],
 				'text' => $createArray['text'],
 				'language' => $createArray['language'],
-				'article' => $createArray['article'],
-				'access' => $createArray['access']
+				'article' => $createArray['article']
 			])
 			->save();
 	}

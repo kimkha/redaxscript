@@ -12,7 +12,6 @@
 @import '_variable.css';
 @import '_button.css';
 @import '_icon.css';
-@import 'typo.css';
 @import 'accordion.css';
 @import 'breadcrumb.css';
 @import 'button.css';
@@ -34,4 +33,5 @@
 @import 'tab.css';
 @import 'table.css';
 @import 'teaser.css';
+@import 'typo.css';
 @import 'note.css';
