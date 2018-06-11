@@ -189,17 +189,9 @@ class Helper
 	 * @return string
 	 */
 
-	public static function getClass($prefix = null)
+	public static function getClass(string $prefix = null)
 	{
 		$client = new Helper\Client(Registry::getInstance());
-		$clientArray = $client->process();
-
-		/* process client */
-
-		foreach ($clientArray as $key => $value)
-		{
-			$clientArray[$key] = $prefix . $value;
-		}
-		return implode(' ', $clientArray);
+		return $client->process($prefix);
 	}
 }
