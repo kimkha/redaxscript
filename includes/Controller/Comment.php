@@ -104,6 +104,7 @@ class Comment extends ControllerAbstract
 			return $this->_warning(
 			[
 				'route' => $route,
+				'timeout' => $settingModel->get('notification') ? 2 : 0,
 				'message' => $this->_language->get('email_failed')
 			]);
 		}
