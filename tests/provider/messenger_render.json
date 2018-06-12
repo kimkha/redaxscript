@@ -8,7 +8,7 @@
 		{
 			"text": null,
 			"url": null,
-			"timeout": null
+			"timeout": 2
 		},
 		"<h2 class=\"rs-title-note rs-is-success\">Title</h2><div class=\"rs-box-note rs-fn-clearfix rs-is-success\">Message One</div>"
 	],
@@ -25,7 +25,7 @@
 		{
 			"text": null,
 			"url": null,
-			"timeout": null
+			"timeout": 2
 		},
 		"<div class=\"rs-box-note rs-fn-clearfix rs-is-warning\"><ul class=\"rs-list-note\"><li>Message One</li><li>Message Two</li></ul></div>"
 	],

@@ -108,7 +108,7 @@ class Messenger
 		if (strlen($text) && strlen($url))
 		{
 			$this->_actionArray['text'] = $text;
-			$this->_actionArray['route'] = false;
+			$this->_actionArray['route'] = null;
 			$this->_actionArray['url'] = $url;
 		}
 		return $this;
@@ -131,7 +131,7 @@ class Messenger
 		{
 			$this->_actionArray['text'] = $text;
 			$this->_actionArray['route'] = $route;
-			$this->_actionArray['url'] = $this->_registry->get('root') . '/' . $this->_registry->get('parameterRoute') . $this->_actionArray['route'];
+			$this->_actionArray['url'] = null;
 		}
 		return $this;
 	}
@@ -141,12 +141,12 @@ class Messenger
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param int|null $timeout timeout of the redirect
+	 * @param int $timeout timeout of the redirect
 	 *
 	 * @return self
 	 */
 
-	public function doRedirect($timeout = 2) : self
+	public function doRedirect(int $timeout = 2) : self
 	{
 		$this->_actionArray['redirect'] = $timeout;
 		return $this;
@@ -323,7 +323,7 @@ class Messenger
 					->init('meta',
 					[
 						'class' => $this->_actionArray['redirect'] === 0 ? $this->_optionArray['className']['redirect'] : null,
-						'content' => $this->_actionArray['redirect'] . ';url=' . $this->_actionArray['url'] ,
+						'content' => $this->_actionArray['redirect'] . ';url=' . ($this->_actionArray['route'] ? $this->_registry->get('root') . '/' . $this->_registry->get('parameterRoute') . $this->_actionArray['route'] : $this->_actionArray['url']),
 						'http-equiv' => 'refresh'
 					]);
 			}
