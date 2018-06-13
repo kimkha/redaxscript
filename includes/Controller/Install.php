@@ -181,13 +181,13 @@ class Install extends ControllerAbstract
 		{
 			return $this->_warning(
 			[
-				'url' => $this->_registry->get('root'),
+				'url' => 'index.php',
 				'message' => $this->_language->get('email_failed')
 			]);
 		}
 		return $this->_success(
 		[
-			'url' => $this->_registry->get('root'),
+			'url' => 'index.php',
 			'message' => $this->_language->get('installation_completed')
 		]);
 	}

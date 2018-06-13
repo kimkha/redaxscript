@@ -45,6 +45,6 @@
 			"admin-password": "test",
 			"admin-email": "test@test.com"
 		},
-		"<div class=\"rs-box-note rs-fn-clearfix rs-is-success\">Installation completed successfully</div>"
+		"<div class=\"rs-box-note rs-fn-clearfix rs-is-success\">Installation completed successfully</div><a href=\"index.php\" class=\"rs-button-note rs-is-success\">Home</a><meta content=\"2;url=index.php\" http-equiv=\"refresh\" />"
 	]
 ]

@@ -47,6 +47,6 @@
 			"admin-email": "test@test.com"
 		},
 		"_mail",
-		"<div class=\"rs-box-note rs-fn-clearfix rs-is-warning\">Email sending failed</div>"
+		"<div class=\"rs-box-note rs-fn-clearfix rs-is-warning\">Email sending failed</div><a href=\"index.php\" class=\"rs-button-note rs-is-warning\">Home</a><meta content=\"2;url=index.php\" http-equiv=\"refresh\" />"
 	]
 ]
