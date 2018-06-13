@@ -68,6 +68,7 @@ class Article extends BaseModel\Article
 	{
 		return $this->query()
 			->whereIdIs($articleId)
+			->findOne()
 			->set(
 			[
 				'title' => $updateArray['title'],
@@ -106,6 +107,7 @@ class Article extends BaseModel\Article
 	{
 		return $this->query()
 			->whereIdIs($articleId)
+			->findOne()
 			->set('status', 1)
 			->save();
 	}
@@ -124,6 +126,7 @@ class Article extends BaseModel\Article
 	{
 		return $this->query()
 			->whereIdIs($articleId)
+			->findOne()
 			->set('status', 0)
 			->save();
 	}

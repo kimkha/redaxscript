@@ -354,6 +354,11 @@ class ArticleForm extends ViewAbstract
 				'value' => $article->date ? $article->date : null
 			])
 			->append('</li></ul>')
+			->hidden(
+			[
+				'name' => 'article',
+				'value' => $article->id
+			])
 			->token()
 			->cancel();
 		if ($article->id)

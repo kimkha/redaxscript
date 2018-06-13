@@ -64,6 +64,7 @@ class Category extends BaseModel\Category
 	{
 		return $this->query()
 			->whereIdIs($categoryId)
+			->findOne()
 			->set(
 			[
 				'title' => $updateArray['title'],
@@ -98,6 +99,7 @@ class Category extends BaseModel\Category
 	{
 		return $this->query()
 			->whereIdIs($categoryId)
+			->findOne()
 			->set('status', 1)
 			->save();
 	}
@@ -116,6 +118,7 @@ class Category extends BaseModel\Category
 	{
 		return $this->query()
 			->whereIdIs($categoryId)
+			->findOne()
 			->set('status', 0)
 			->save();
 	}

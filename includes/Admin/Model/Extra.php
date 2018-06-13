@@ -63,6 +63,7 @@ class Extra extends BaseModel\Extra
 	{
 		return $this->query()
 			->whereIdIs($extraId)
+			->findOne()
 			->set(
 			[
 				'title' => $updateArray['title'],
@@ -96,6 +97,7 @@ class Extra extends BaseModel\Extra
 	{
 		return $this->query()
 			->whereIdIs($extraId)
+			->findOne()
 			->set('status', 1)
 			->save();
 	}
@@ -114,6 +116,7 @@ class Extra extends BaseModel\Extra
 	{
 		return $this->query()
 			->whereIdIs($extraId)
+			->findOne()
 			->set('status', 0)
 			->save();
 	}

@@ -58,6 +58,7 @@ class User extends BaseModel\User
 	{
 		return $this->query()
 			->whereIdIs($userId)
+			->findOne()
 			->set(
 			[
 				'name' => $updateArray['name'],
@@ -106,6 +107,7 @@ class User extends BaseModel\User
 	{
 		return $this->query()
 			->whereIdIs($userId)
+			->findOne()
 			->set('status', 1)
 			->save();
 	}
@@ -124,6 +126,7 @@ class User extends BaseModel\User
 	{
 		return $this->query()
 			->whereIdIs($userId)
+			->findOne()
 			->set('status', 0)
 			->save();
 	}

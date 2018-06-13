@@ -60,6 +60,7 @@ class Comment extends BaseModel\Comment
 	{
 		return $this->query()
 			->whereIdIs($commentId)
+			->findOne()
 			->set(
 			[
 				'url' => $updateArray['url'],
@@ -88,6 +89,7 @@ class Comment extends BaseModel\Comment
 	{
 		return $this->query()
 			->whereIdIs($commentId)
+			->findOne()
 			->set('status', 1)
 			->save();
 	}
@@ -106,6 +108,7 @@ class Comment extends BaseModel\Comment
 	{
 		return $this->query()
 			->whereIdIs($commentId)
+			->findOne()
 			->set('status', 0)
 			->save();
 	}

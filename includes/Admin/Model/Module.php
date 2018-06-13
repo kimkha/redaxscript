@@ -30,6 +30,7 @@ class Module extends BaseModel\Module
 	{
 		return $this->query()
 			->whereIdIs($moduleId)
+			->findOne()
 			->set(
 			[
 				'name' => $updateArray['name'],
@@ -54,6 +55,7 @@ class Module extends BaseModel\Module
 	{
 		return $this->query()
 			->whereIdIs($moduleId)
+			->findOne()
 			->set('status', 1)
 			->save();
 	}
@@ -72,6 +74,7 @@ class Module extends BaseModel\Module
 	{
 		return $this->query()
 			->whereIdIs($moduleId)
+			->findOne()
 			->set('status', 0)
 			->save();
 	}

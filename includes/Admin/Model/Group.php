@@ -63,6 +63,7 @@ class Group extends BaseModel\Group
 	{
 		return $this->query()
 			->whereIdIs($groupId)
+			->findOne()
 			->set(
 			[
 				'name' => $updateArray['name'],
@@ -96,6 +97,7 @@ class Group extends BaseModel\Group
 	{
 		return $this->query()
 			->whereIdIs($groupId)
+			->findOne()
 			->set('status', 1)
 			->save();
 	}
@@ -114,6 +116,7 @@ class Group extends BaseModel\Group
 	{
 		return $this->query()
 			->whereIdIs($groupId)
+			->findOne()
 			->set('status', 0)
 			->save();
 	}
