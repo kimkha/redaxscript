@@ -39,7 +39,7 @@ class Module extends BaseModel\Module
 			])
 			->save();
 	}
-	
+
 	/**
 	 * enable the module by id
 	 *

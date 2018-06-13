@@ -73,7 +73,7 @@ class Comment extends BaseModel\Comment
 			])
 			->save();
 	}
-	
+
 	/**
 	 * publish the comment by id
 	 *
@@ -109,7 +109,7 @@ class Comment extends BaseModel\Comment
 			->set('status', 0)
 			->save();
 	}
-	
+
 	/**
 	 * delete the comment by id
 	 *

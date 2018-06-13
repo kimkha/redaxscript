@@ -91,7 +91,7 @@ class User extends BaseModel\User
 			->set('last', $date)
 			->save();
 	}
-	
+
 	/**
 	 * enable the user by id
 	 *
@@ -127,7 +127,7 @@ class User extends BaseModel\User
 			->set('status', 0)
 			->save();
 	}
-	
+
 	/**
 	 * delete the user by id
 	 *

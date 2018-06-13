@@ -81,7 +81,7 @@ class Extra extends BaseModel\Extra
 			])
 			->save();
 	}
-	
+
 	/**
 	 * publish the extra by id
 	 *
@@ -117,7 +117,7 @@ class Extra extends BaseModel\Extra
 			->set('status', 0)
 			->save();
 	}
-	
+
 	/**
 	 * delete the extra by id
 	 *

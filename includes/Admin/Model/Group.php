@@ -117,7 +117,7 @@ class Group extends BaseModel\Group
 			->set('status', 0)
 			->save();
 	}
-	
+
 	/**
 	 * delete the group by id
 	 *
