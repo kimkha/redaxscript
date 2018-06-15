@@ -52,19 +52,6 @@ class BylineTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerRender
-	 *
-	 * @since 4.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRender() : array
-	{
-		return $this->getProvider('tests/provider/View/Helper/byline_render.json');
-	}
-
-	/**
 	 * testRender
 	 *
 	 * @since 4.0.0
@@ -74,7 +61,7 @@ class BylineTest extends TestCaseAbstract
 	 * @param array $optionArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerRender
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRender(string $author = null, string $date = null, array $optionArray = [], string $expect = null)

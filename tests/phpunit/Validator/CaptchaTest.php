@@ -53,19 +53,6 @@ class CaptchaTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerCaptcha
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerCaptcha() : array
-	{
-		return $this->getProvider('tests/provider/Validator/captcha.json');
-	}
-
-	/**
 	 * testCaptcha
 	 *
 	 * @since 2.6.0
@@ -74,7 +61,7 @@ class CaptchaTest extends TestCaseAbstract
 	 * @param string $hash
 	 * @param int $expect
 	 *
-	 * @dataProvider providerCaptcha
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testCaptcha(string $task = null, string $hash = null, int $expect = null)

@@ -44,19 +44,6 @@ class HookTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerCollect
-	 *
-	 * @since 4.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerCollect() : array
-	{
-		return $this->getProvider('tests/provider/Module/hook_collect.json');
-	}
-
-	/**
 	 * testGetModuleArray
 	 *
 	 * @since 2.4.0
@@ -108,7 +95,7 @@ class HookTest extends TestCaseAbstract
 	 *
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerCollect
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testCollect(array $expectArray = [])

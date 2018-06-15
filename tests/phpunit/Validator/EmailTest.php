@@ -20,19 +20,6 @@ use Redaxscript\Validator;
 class EmailTest extends TestCaseAbstract
 {
 	/**
-	 * providerEmail
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerEmail()
-	{
-		return $this->getProvider('tests/provider/Validator/email.json');
-	}
-
-	/**
 	 * testEmail
 	 *
 	 * @since 2.2.0
@@ -40,7 +27,7 @@ class EmailTest extends TestCaseAbstract
 	 * @param string $email
 	 * @param int $expect
 	 *
-	 * @dataProvider providerEmail
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testEmail(string $email = null, int $expect = null)

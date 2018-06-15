@@ -19,19 +19,6 @@ use Redaxscript\Tests\TestCaseAbstract;
 class ParameterTest extends TestCaseAbstract
 {
 	/**
-	 * providerParameter
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerParameter() : array
-	{
-		return $this->getProvider('tests/provider/Router/parameter.json');
-	}
-
-	/**
 	 * testGetFirst
 	 *
 	 * @since 3.1.0
@@ -39,7 +26,7 @@ class ParameterTest extends TestCaseAbstract
 	 * @param string $route
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerParameter
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetFirst(string $route = null, array $expectArray = [])
@@ -72,7 +59,7 @@ class ParameterTest extends TestCaseAbstract
 	 * @param string $route
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerParameter
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetSecond(string $route = null, array $expectArray = [])
@@ -105,7 +92,7 @@ class ParameterTest extends TestCaseAbstract
 	 * @param string $route
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerParameter
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetThird(string $route = null, array $expectArray = [])
@@ -138,7 +125,7 @@ class ParameterTest extends TestCaseAbstract
 	 * @param string $route
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerParameter
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetFourth(string $route = null, array $expectArray = [])
@@ -171,7 +158,7 @@ class ParameterTest extends TestCaseAbstract
 	 * @param string $route
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerParameter
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetLast(string $route = null, array $expectArray = [])
@@ -205,7 +192,7 @@ class ParameterTest extends TestCaseAbstract
 	 * @param string $route
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerParameter
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetAdmin(string $route = null, array $expectArray = [])
@@ -233,7 +220,7 @@ class ParameterTest extends TestCaseAbstract
 	 * @param string $route
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerParameter
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetTable(string $route = null, array $expectArray = [])
@@ -261,7 +248,7 @@ class ParameterTest extends TestCaseAbstract
 	 * @param string $route
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerParameter
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetAlias(string $route = null, array $expectArray = [])
@@ -289,7 +276,7 @@ class ParameterTest extends TestCaseAbstract
 	 * @param string $route
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerParameter
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetId(string $route = null, array $expectArray = [])
@@ -317,7 +304,7 @@ class ParameterTest extends TestCaseAbstract
 	 * @param string $route
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerParameter
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetToken(string $route = null, array $expectArray = [])

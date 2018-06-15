@@ -20,19 +20,6 @@ use Redaxscript\Validator;
 class UrlTest extends TestCaseAbstract
 {
 	/**
-	 * providerUrl
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerUrl() : array
-	{
-		return $this->getProvider('tests/provider/Validator/url.json');
-	}
-
-	/**
 	 * testUrl
 	 *
 	 * @since 2.2.0
@@ -40,7 +27,7 @@ class UrlTest extends TestCaseAbstract
 	 * @param string $url
 	 * @param int $expect
 	 *
-	 * @dataProvider providerUrl
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testUrl(string $url = null, int $expect = null)

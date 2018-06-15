@@ -20,19 +20,6 @@ use Redaxscript\Validator;
 class AliasTest extends TestCaseAbstract
 {
 	/**
-	 * providerAlias
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerAlias() : array
-	{
-		return $this->getProvider('tests/provider/Validator/alias.json');
-	}
-
-	/**
 	 * testAlias
 	 *
 	 * @since 2.2.0
@@ -41,7 +28,7 @@ class AliasTest extends TestCaseAbstract
 	 * @param int $mode
 	 * @param int $expect
 	 *
-	 * @dataProvider providerAlias
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testAlias(string $alias = null, int $mode = null, int $expect = null)

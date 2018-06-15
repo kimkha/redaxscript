@@ -105,19 +105,6 @@ class ArticleTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerRender
-	 *
-	 * @since 3.3.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRender() : array
-	{
-		return $this->getProvider('tests/provider/Navigation/article_render.json');
-	}
-
-	/**
 	 * testRender
 	 *
 	 * @since 3.3.0
@@ -126,7 +113,7 @@ class ArticleTest extends TestCaseAbstract
 	 * @param array $optionArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerRender
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRender(array $registryArray = [], array $optionArray = [], string $expect = null)

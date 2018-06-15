@@ -20,19 +20,6 @@ use Redaxscript\View;
 class ConsoleFormTest extends TestCaseAbstract
 {
 	/**
-	 * providerRender
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRender() : array
-	{
-		return $this->getProvider('tests/provider/View/console_form_render.json');
-	}
-
-	/**
 	 * testRender
 	 *
 	 * @since 3.0.0
@@ -40,7 +27,7 @@ class ConsoleFormTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerRender
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRender(array $registryArray = [], string $expect = null)

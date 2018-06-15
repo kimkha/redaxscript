@@ -29,7 +29,7 @@ class LoaderTest extends TestCaseAbstract
 	public function setUp()
 	{
 		parent::setUp();
-		Stream::setup('root', 0777, $this->getProvider('tests' . DIRECTORY_SEPARATOR . 'provider' . DIRECTORY_SEPARATOR . 'Asset' . DIRECTORY_SEPARATOR . 'LoaderTest_setUp.json'));
+		Stream::setup('root', 0777, $this->getJSON('tests' . DIRECTORY_SEPARATOR . 'provider' . DIRECTORY_SEPARATOR . 'Asset' . DIRECTORY_SEPARATOR . 'LoaderTest_setUp.json'));
 	}
 
 	/**

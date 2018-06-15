@@ -135,110 +135,6 @@ class HelperTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerGetTitle
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerGetTitle() : array
-	{
-		return $this->getProvider('tests/provider/Template/helper_get_title.json');
-	}
-
-	/**
-	 * providerGetCanonical
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerGetCanonical() : array
-	{
-		return $this->getProvider('tests/provider/Template/helper_get_canonical.json');
-	}
-
-	/**
-	 * providerGetDescription
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerGetDescription() : array
-	{
-		return $this->getProvider('tests/provider/Template/helper_get_description.json');
-	}
-
-	/**
-	 * providerGetKeywords
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerGetKeywords() : array
-	{
-		return $this->getProvider('tests/provider/Template/helper_get_keywords.json');
-	}
-
-	/**
-	 * providerGetRobots
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerGetRobots() : array
-	{
-		return $this->getProvider('tests/provider/Template/helper_get_robots.json');
-	}
-
-	/**
-	 * providerGetSubset
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerGetSubset() : array
-	{
-		return $this->getProvider('tests/provider/Template/helper_get_subset.json');
-	}
-
-	/**
-	 * providerGetDirection
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerGetDirection() : array
-	{
-		return $this->getProvider('tests/provider/Template/helper_get_direction.json');
-	}
-
-	/**
-	 * providerGetDirection
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerGetClass() : array
-	{
-		return $this->getProvider('tests/provider/Template/helper_get_class.json');
-	}
-
-	/**
 	 * testGetRegistry
 	 *
 	 * @since 2.6.0
@@ -305,7 +201,7 @@ class HelperTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerGetTitle
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetTitle(array $registryArray = [], string $expect = null)
@@ -331,10 +227,10 @@ class HelperTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerGetCanonical
+	 * @dataProvider providerAutoloader
 	 */
 
-	public function testCanonical(array $registryArray = [], string $expect = null)
+	public function testGetCanonical(array $registryArray = [], string $expect = null)
 	{
 		/* setup */
 
@@ -357,7 +253,7 @@ class HelperTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerGetDescription
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetDescription(array $registryArray = [], string $expect = null)
@@ -383,7 +279,7 @@ class HelperTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerGetKeywords
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetKeywords(array $registryArray = [], string $expect = null)
@@ -409,7 +305,7 @@ class HelperTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerGetRobots
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetRobots(array $registryArray = [], string $expect = null)
@@ -456,7 +352,7 @@ class HelperTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerGetSubset
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetSubset(array $registryArray = [], string $expect = null)
@@ -482,7 +378,7 @@ class HelperTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerGetDirection
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetDirection(array $registryArray = [], string $expect = null)
@@ -508,7 +404,7 @@ class HelperTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerGetClass
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetClass(array $registryArray = [], string $expect = null)

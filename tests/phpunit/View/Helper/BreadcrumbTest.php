@@ -89,32 +89,6 @@ class BreadcrumbTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerGetArray
-	 *
-	 * @since 2.1.0
-	 *
-	 * @return array
-	 */
-
-	public function providerGetArray() : array
-	{
-		return $this->getProvider('tests/provider/View/Helper/breadcrumb_get_array.json');
-	}
-
-	/**
-	 * providerRender
-	 *
-	 * @since 2.1.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRender() : array
-	{
-		return $this->getProvider('tests/provider/View/Helper/breadcrumb_render.json');
-	}
-
-	/**
 	 * testGetArray
 	 *
 	 * @since 2.1.0
@@ -122,7 +96,7 @@ class BreadcrumbTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerGetArray
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetArray(array $registryArray = [], array $expectArray = [])
@@ -150,7 +124,7 @@ class BreadcrumbTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerRender
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRender(array $registryArray = [], string $expect = null)

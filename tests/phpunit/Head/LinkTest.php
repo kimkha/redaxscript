@@ -29,7 +29,7 @@ class LinkTest extends TestCaseAbstract
 
 	public function setUp()
 	{
-		Stream::setup('root', 0777, $this->getProvider('tests' . DIRECTORY_SEPARATOR. 'provider' . DIRECTORY_SEPARATOR. 'Head' . DIRECTORY_SEPARATOR. 'LinkTest_setUp.json'));
+		Stream::setup('root', 0777, $this->getJSON('tests' . DIRECTORY_SEPARATOR. 'provider' . DIRECTORY_SEPARATOR. 'Head' . DIRECTORY_SEPARATOR. 'LinkTest_setUp.json'));
 	}
 
 	/**

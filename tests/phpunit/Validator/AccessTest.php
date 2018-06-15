@@ -20,19 +20,6 @@ use Redaxscript\Validator;
 class AccessTest extends TestCaseAbstract
 {
 	/**
-	 * providerAccess
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerAccess() : array
-	{
-		return $this->getProvider('tests/provider/Validator/access.json');
-	}
-
-	/**
 	 * testAccess
 	 *
 	 * @since 2.2.0
@@ -41,7 +28,7 @@ class AccessTest extends TestCaseAbstract
 	 * @param string $groups
 	 * @param int $expect
 	 *
-	 * @dataProvider providerAccess
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testAccess(string $access = null, string $groups = null, int $expect = null)

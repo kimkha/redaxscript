@@ -19,19 +19,6 @@ use Redaxscript\Validator;
 class PasswordTest extends TestCaseAbstract
 {
 	/**
-	 * providerPassword
-	 *
-	 * @since 2.6.0
-	 *
-	 * @return array
-	 */
-
-	public function providerPassword() : array
-	{
-		return $this->getProvider('tests/provider/Validator/password.json');
-	}
-
-	/**
 	 * testPassword
 	 *
 	 * @since 2.6.0
@@ -40,7 +27,7 @@ class PasswordTest extends TestCaseAbstract
 	 * @param string $hash
 	 * @param int $expect
 	 *
-	 * @dataProvider providerPassword
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testPassword(string $password = null, string $hash = null, int $expect = null)

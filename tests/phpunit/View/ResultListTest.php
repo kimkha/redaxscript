@@ -85,19 +85,6 @@ class ResultListTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerRender
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRender() : array
-	{
-		return $this->getProvider('tests/provider/View/result_list_render.json');
-	}
-
-	/**
 	 * testRender
 	 *
 	 * @since 3.0.0
@@ -105,7 +92,7 @@ class ResultListTest extends TestCaseAbstract
 	 * @param array $searchArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerRender
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRender($searchArray = [], string $expect = null)

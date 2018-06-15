@@ -90,8 +90,6 @@ class InstallTest extends TestCaseAbstract
 	 * @param array $postArray
 	 * @param array $expectArray
 	 *
-	 * @throws \ReflectionException
-	 *
 	 * @dataProvider providerAutoloader
 	 */
 
@@ -176,8 +174,6 @@ class InstallTest extends TestCaseAbstract
 	 * @param array $postArray
 	 * @param array $expectArray
 	 *
-	 * @throws \ReflectionException
-	 *
 	 * @dataProvider providerAutoloader
 	 */
 
@@ -206,8 +202,6 @@ class InstallTest extends TestCaseAbstract
 	 *
 	 * @param array $installArray
 	 * @param bool $expect
-	 *
-	 * @throws \ReflectionException
 	 *
 	 * @dataProvider providerAutoloader
 	 */

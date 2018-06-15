@@ -18,19 +18,6 @@ use Redaxscript\View\Helper\Pagination;
 
 class PaginationTest extends TestCaseAbstract
 {
-    /**
-     * providerRender
-     *
-     * @since 4.0.0
-     *
-     * @return array
-     */
-
-    public function providerRender() : array
-    {
-        return $this->getProvider('tests/provider/View/Helper/pagination_render.json');
-    }
-
 	/**
 	 * testRender
 	 *
@@ -43,7 +30,7 @@ class PaginationTest extends TestCaseAbstract
 	 * @param array $optionArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerRender
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRender(string $route = null, int $current = null, int $total = null, int $range = null, array $optionArray = [], string $expect = null)

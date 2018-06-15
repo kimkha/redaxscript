@@ -1,6 +1,7 @@
 <?php
 namespace Redaxscript\Tests;
 
+use function file_exists;
 use PHPUnitProviderAutoloader;
 use Redaxscript\Config;
 use Redaxscript\Db;
@@ -160,19 +161,22 @@ abstract class TestCaseAbstract extends PHPUnitProviderAutoloader\TestCaseAbstra
 	}
 
 	/**
-	 * getProvider
+	 * getJSON
 	 *
-	 * @since 2.2.0
+	 * @since 4.0.0
 	 *
 	 * @param string $file
 	 *
-	 * @return array
+	 * @return array|null
 	 */
 
-	public function getProvider(string $file = null) : array
+	public function getJSON(string $file = null)
 	{
-		$content = file_get_contents($file);
-		return json_decode($content, true);
+		if (file_exists($file))
+		{
+			$content = file_get_contents($file);
+			return json_decode($content, true);
+		}
 	}
 
 	/**
@@ -182,8 +186,6 @@ abstract class TestCaseAbstract extends PHPUnitProviderAutoloader\TestCaseAbstra
 	 *
 	 * @param object $object
 	 * @param string $property
-	 *
-	 * @throws \ReflectionException
 	 *
 	 * @return mixed
 	 */
@@ -204,8 +206,6 @@ abstract class TestCaseAbstract extends PHPUnitProviderAutoloader\TestCaseAbstra
 	 * @param object $object
 	 * @param string $method
 	 * @param array $argumentArray
-	 *
-	 * @throws \ReflectionException
 	 *
 	 * @return mixed
 	 */
