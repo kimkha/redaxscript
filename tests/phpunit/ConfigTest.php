@@ -132,7 +132,7 @@ class ConfigTest extends TestCaseAbstract
 	{
 		/* setup */
 
-		$this->_config->init(Stream::url('root/config.php'));
+		$this->_config->init(Stream::url('root' . DIRECTORY_SEPARATOR . 'config.php'));
 		$this->_config->parse($dbUrl);
 
 		/* actual */
@@ -154,7 +154,7 @@ class ConfigTest extends TestCaseAbstract
 	{
 		/* setup */
 
-		$this->_config->init(Stream::url('root/config.php'));
+		$this->_config->init(Stream::url('root' . DIRECTORY_SEPARATOR . 'config.php'));
 
 		/* actual */
 

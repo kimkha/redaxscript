@@ -89,7 +89,7 @@ class LoaderTest extends TestCaseAbstract
 
 		$optionArray =
 		[
-			'directory' => Stream::url('root/cache/styles'),
+			'directory' => Stream::url('root' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'styles'),
 			'extension' => 'css',
 			'attribute' => 'href',
 			'lifetime' => 86400

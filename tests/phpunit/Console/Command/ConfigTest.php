@@ -123,7 +123,7 @@ class ConfigTest extends TestCaseAbstract
 	{
 		/* setup */
 
-		$this->_config->init(Stream::url('root/config.php'));
+		$this->_config->init(Stream::url('root' . DIRECTORY_SEPARATOR . 'config.php'));
 		$this->_request->setServer('argv',
 		[
 			'console.php',
@@ -155,7 +155,7 @@ class ConfigTest extends TestCaseAbstract
 	{
 		/* setup */
 
-		$this->_config->init(Stream::url('root/config.php'));
+		$this->_config->init(Stream::url('root' . DIRECTORY_SEPARATOR . 'config.php'));
 		$this->_request->setServer('argv',
 		[
 			'console.php',
@@ -184,7 +184,7 @@ class ConfigTest extends TestCaseAbstract
 	{
 		/* setup */
 
-		$this->_config->init(Stream::url('root/config.php'));
+		$this->_config->init(Stream::url('root' . DIRECTORY_SEPARATOR . 'config.php'));
 		$this->_request->setServer('argv',
 		[
 			'console.php',
@@ -216,7 +216,7 @@ class ConfigTest extends TestCaseAbstract
 
 		$dbUrl = getenv('DB_URL');
 		putenv('DB_URL=mysql://root:test@127.0.0.1/test');
-		$this->_config->init(Stream::url('root/config.php'));
+		$this->_config->init(Stream::url('root' . DIRECTORY_SEPARATOR . 'config.php'));
 		$this->_request->setServer('argv',
 		[
 			'console.php',
@@ -254,7 +254,7 @@ class ConfigTest extends TestCaseAbstract
 	{
 		/* setup */
 
-		$this->_config->init(Stream::url('root/config.php'));
+		$this->_config->init(Stream::url('root' . DIRECTORY_SEPARATOR . 'config.php'));
 		$this->_request->setServer('argv',
 		[
 			'console.php',
@@ -283,7 +283,7 @@ class ConfigTest extends TestCaseAbstract
 	{
 		/* setup */
 
-		$this->_config->init(Stream::url('root/config.php'));
+		$this->_config->init(Stream::url('root' . DIRECTORY_SEPARATOR . 'config.php'));
 		$this->_request->setServer('argv',
 		[
 			'console.php',

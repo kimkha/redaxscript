@@ -318,7 +318,7 @@ class ScriptTest extends TestCaseAbstract
 
 		$optionArray =
 		[
-			'directory' => Stream::url('root/cache/scripts')
+			'directory' => Stream::url('root' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'scripts')
 		];
 		$script = Head\Script::getInstance();
 		$script->init('concat');

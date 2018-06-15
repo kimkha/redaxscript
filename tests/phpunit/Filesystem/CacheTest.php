@@ -59,7 +59,7 @@ class CacheTest extends TestCaseAbstract
 		/* setup */
 
 		$cache = new Filesystem\Cache();
-		$cache->init(Stream::url('root/test'), 'cache');
+		$cache->init(Stream::url('root' . DIRECTORY_SEPARATOR . 'test'), 'cache');
 
 		/* process bundle */
 
@@ -70,7 +70,7 @@ class CacheTest extends TestCaseAbstract
 
 		/* actual */
 
-		$actualArray = scandir(Stream::url('root/test'));
+		$actualArray = scandir(Stream::url('root' . DIRECTORY_SEPARATOR . 'test'));
 
 		/* compare */
 

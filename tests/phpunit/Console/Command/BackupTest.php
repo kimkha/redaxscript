@@ -83,7 +83,7 @@ class BackupTest extends TestCaseAbstract
 			'backup',
 			'database',
 			'--directory',
-			Stream::url('root/build')
+			Stream::url('root' . DIRECTORY_SEPARATOR . 'build')
 		]);
 		$backupCommand = new Command\Backup($this->_registry, $this->_request, $this->_language, $this->_config);
 

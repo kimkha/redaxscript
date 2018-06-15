@@ -106,7 +106,7 @@ class MailerTest extends TestCaseAbstract
 
 		$attachmentArray =
 		[
-			Stream::url('root/attachment.zip')
+			Stream::url('root' . DIRECTORY_SEPARATOR . 'attachment.zip')
 		];
 		$mailer = new Mailer();
 		$mailer->init($toArray, $fromArray, $subject, $body, $attachmentArray);

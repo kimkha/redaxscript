@@ -135,7 +135,7 @@ class InstallTest extends TestCaseAbstract
 		$postArray['db-password'] = $postArray['db-password'] === '%CURRENT%' ? $this->_config->get('dbPassword') : $postArray['db-password'];
 		$postArray['db-prefix'] = $postArray['db-prefix'] === '%CURRENT%' ? $this->_config->get('dbPrefix') : $postArray['db-prefix'];
 		$this->_request->set('post', $postArray);
-		$this->_config->init(Stream::url('root/config.php'));
+		$this->_config->init(Stream::url('root' . DIRECTORY_SEPARATOR . 'config.php'));
 		$controllerInstall = new Controller\Install($this->_registry, $this->_request, $this->_language, $this->_config);
 
 		/* actual */
@@ -170,7 +170,7 @@ class InstallTest extends TestCaseAbstract
 		$postArray['db-password'] = $this->_config->get('dbPassword');
 		$postArray['db-prefix'] = $this->_config->get('dbPrefix');
 		$this->_request->set('post', $postArray);
-		$this->_config->init(Stream::url('root/config.php'));
+		$this->_config->init(Stream::url('root' . DIRECTORY_SEPARATOR . 'config.php'));
 		$stub = $this
 			->getMockBuilder('Redaxscript\Controller\Install')
 			->setConstructorArgs(

@@ -221,7 +221,7 @@ class LinkTest extends TestCaseAbstract
 
 		$optionArray =
 		[
-			'directory' => Stream::url('root/cache/styles')
+			'directory' => Stream::url('root' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'styles')
 		];
 		$link = Head\Link::getInstance();
 		$link->init('concat');

@@ -192,7 +192,7 @@ class TagTest extends TestCaseAbstract
 
 		/* actual */
 
-		$actual = Template\Tag::partial(Stream::url('root/partial.phtml'));
+		$actual = Template\Tag::partial(Stream::url('root' . DIRECTORY_SEPARATOR . 'partial.phtml'));
 
 		/* compare */
 

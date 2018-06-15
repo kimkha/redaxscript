@@ -83,7 +83,7 @@ class RestoreTest extends TestCaseAbstract
 			'restore',
 			'database',
 			'--directory',
-			Stream::url('root/build'),
+			Stream::url('root' . DIRECTORY_SEPARATOR . 'build'),
 			'--file',
 			'test.sql'
 		]);
