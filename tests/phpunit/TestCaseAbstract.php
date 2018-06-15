@@ -11,7 +11,6 @@ use Redaxscript\Modules\TestDummy;
 use Redaxscript\Registry;
 use Redaxscript\Request;
 use ReflectionClass;
-use ReflectionException;
 
 /**
  * TestCaseAbstract
@@ -184,8 +183,6 @@ abstract class TestCaseAbstract extends PHPUnitProviderAutoloader\TestCaseAbstra
 	 * @param object $object
 	 * @param string $property
 	 *
-	 * @throws ReflectionException
-	 *
 	 * @return mixed
 	 */
 
@@ -205,8 +202,6 @@ abstract class TestCaseAbstract extends PHPUnitProviderAutoloader\TestCaseAbstra
 	 * @param object $object
 	 * @param string $method
 	 * @param array $argumentArray
-	 *
-	 * @throws ReflectionException
 	 *
 	 * @return mixed
 	 */
