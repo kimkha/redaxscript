@@ -19,45 +19,6 @@ use Redaxscript\Tests\TestCaseAbstract;
 class HtmlTest extends TestCaseAbstract
 {
 	/**
-	 * providerHtml
-	 *
-	 * @since 2.6.0
-	 *
-	 * @return array
-	 */
-
-	public function providerHtml() : array
-	{
-		return $this->getProvider('tests/provider/Html/html_html.json');
-	}
-
-	/**
-	 * providerAppend
-	 *
-	 * @since 2.6.0
-	 *
-	 * @return array
-	 */
-
-	public function providerAppend() : array
-	{
-		return $this->getProvider('tests/provider/Html/html_append.json');
-	}
-
-	/**
-	 * providerPrepend
-	 *
-	 * @since 2.6.0
-	 *
-	 * @return array
-	 */
-
-	public function providerPrepend() : array
-	{
-		return $this->getProvider('tests/provider/Html/html_prepend.json');
-	}
-
-	/**
 	 * testHtml
 	 *
 	 * @since 2.6.0
@@ -65,7 +26,7 @@ class HtmlTest extends TestCaseAbstract
 	 * @param string $html
 	 * @param string $expect
 	 *
-	 * @dataProvider providerHtml
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testHtml(string $html = null, string $expect = null)
@@ -93,7 +54,7 @@ class HtmlTest extends TestCaseAbstract
 	 * @param string $append
 	 * @param string $expect
 	 *
-	 * @dataProvider providerAppend
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testAppend(string $html = null, string $append = null, string $expect = null)
@@ -121,7 +82,7 @@ class HtmlTest extends TestCaseAbstract
 	 * @param string $prepend
 	 * @param string $expect
 	 *
-	 * @dataProvider providerPrepend
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testPrepend(string $html = null, string $prepend = null, string $expect = null)

@@ -1,5 +1,5 @@
 <?php
-namespace Redaxscript\Tests\Filter;
+namespace Redaxscript\Tests\Html;
 
 use Redaxscript\Html;
 use Redaxscript\Tests\TestCaseAbstract;
@@ -52,30 +52,17 @@ class PurifierTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerPurifier
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerPurifier() : array
-	{
-		return $this->getProvider('tests/provider/Html/purifier.json');
-	}
-
-	/**
-	 * testPurifier
+	 * testPurify
 	 *
 	 * @since 3.0.0
 	 *
 	 * @param string $html
 	 * @param string $expect
 	 *
-	 * @dataProvider providerPurifier
+	 * @dataProvider providerAutoloader
 	 */
 
-	public function testPurifier(string $html = null, string $expect = null)
+	public function testPurify(string $html = null, string $expect = null)
 	{
 		/* setup */
 

@@ -19,71 +19,6 @@ use Redaxscript\Tests\TestCaseAbstract;
 class ElementTest extends TestCaseAbstract
 {
 	/**
-	 * providerCreate
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerCreate() : array
-	{
-		return $this->getProvider('tests/provider/Html/element_create.json');
-	}
-
-	/**
-	 * providerAttr
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerAttr() : array
-	{
-		return $this->getProvider('tests/provider/Html/element_attr.json');
-	}
-
-	/**
-	 * providerClass
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerClass() : array
-	{
-		return $this->getProvider('tests/provider/Html/element_class.json');
-	}
-
-	/**
-	 * providerVal
-	 *
-	 * @since 2.6.0
-	 *
-	 * @return array
-	 */
-
-	public function providerVal() : array
-	{
-		return $this->getProvider('tests/provider/Html/element_val.json');
-	}
-
-	/**
-	 * providerText
-	 *
-	 * @since 2.6.0
-	 *
-	 * @return array
-	 */
-
-	public function providerText() : array
-	{
-		return $this->getProvider('tests/provider/Html/element_text.json');
-	}
-
-	/**
 	 * testCreate
 	 *
 	 * @since 2.2.0
@@ -92,7 +27,7 @@ class ElementTest extends TestCaseAbstract
 	 * @param array $attributeArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerCreate
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testCreate(string $tag = null, array $attributeArray = [], string $expect = null)
@@ -143,7 +78,7 @@ class ElementTest extends TestCaseAbstract
 	 * @param array $attributeArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerAttr
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testAttr(array $attributeArray = [], string $expect = null)
@@ -170,7 +105,7 @@ class ElementTest extends TestCaseAbstract
 	 * @param array $classNameArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerClass
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testClass(array $classNameArray = [], string $expect = null)
@@ -197,7 +132,7 @@ class ElementTest extends TestCaseAbstract
 	 * @param string $value
 	 * @param string $expect
 	 *
-	 * @dataProvider providerVal
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testVal(string $value = null, string $expect = null)
@@ -224,7 +159,7 @@ class ElementTest extends TestCaseAbstract
 	 * @param array $text
 	 * @param string $expect
 	 *
-	 * @dataProvider providerText
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testText($text = null, string $expect = null)
