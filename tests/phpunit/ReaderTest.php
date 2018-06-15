@@ -28,7 +28,7 @@ class ReaderTest extends TestCaseAbstract
 		/* setup */
 
 		$reader = new Reader();
-		$reader->loadJSON('tests/provider/reader.json');
+		$reader->loadJSON('tests' . DIRECTORY_SEPARATOR . 'provider' . DIRECTORY_SEPARATOR . 'ReaderTest.json');
 
 		/* actual */
 
@@ -62,7 +62,7 @@ class ReaderTest extends TestCaseAbstract
 		/* setup */
 
 		$reader = new Reader();
-		$reader->loadXML('tests/provider/reader.xml');
+		$reader->loadXML('tests' . DIRECTORY_SEPARATOR . 'provider' . DIRECTORY_SEPARATOR . 'ReaderTest.xml');
 
 		/* actual */
 

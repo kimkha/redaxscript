@@ -45,19 +45,6 @@ class ModuleTableTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerRender
-	 *
-	 * @since 4.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRender() : array
-	{
-		return $this->getProvider('tests/provider/Admin/View/module_table_render.json');
-	}
-
-	/**
 	 * testRender
 	 *
 	 * @since 4.0.0
@@ -65,7 +52,7 @@ class ModuleTableTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerRender
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRender(array $registryArray = [], array $expectArray = [])

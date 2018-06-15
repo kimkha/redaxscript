@@ -18,20 +18,6 @@ use Redaxscript\Tests\TestCaseAbstract;
 
 class ControlTest extends TestCaseAbstract
 {
-
-	/**
-	 * providerRender
-	 *
-	 * @since 4.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRender() : array
-	{
-		return $this->getProvider('tests/provider/Admin/View/Helper/control_render.json');
-	}
-
 	/**
 	 * testRender
 	 *
@@ -41,7 +27,7 @@ class ControlTest extends TestCaseAbstract
 	 * @param array $renderArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerRender
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRender(array $registryArray = [], array $renderArray = [], string $expect = null)

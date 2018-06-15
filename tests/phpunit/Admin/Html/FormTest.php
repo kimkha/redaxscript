@@ -52,19 +52,6 @@ class FormTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerCreate
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerCreate() : array
-	{
-		return $this->getProvider('tests/provider/Admin/Html/form_create.json');
-	}
-
-	/**
 	 * testCreate
 	 *
 	 * @since 3.0.0
@@ -73,7 +60,7 @@ class FormTest extends TestCaseAbstract
 	 * @param array $optionArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerCreate
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testCreate(array $attributeArray = [], array $optionArray = [], string $expect = null)

@@ -57,19 +57,6 @@ class MailerTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerMailer
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerMailer() : array
-	{
-		return $this->getProvider('tests/provider/mailer.json');
-	}
-
-	/**
 	 * testSend
 	 *
 	 * @since 2.2.0
@@ -79,7 +66,7 @@ class MailerTest extends TestCaseAbstract
 	 * @param string $subject
 	 * @param string|array $body
 	 *
-	 * @dataProvider providerMailer
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testSend(array $toArray = [], array $fromArray = [], string $subject = null, $body = null)
@@ -109,7 +96,8 @@ class MailerTest extends TestCaseAbstract
 	 * @param string|array $body
 	 *
 	 * @requires OS Linux
-	 * @dataProvider providerMailer
+	 *
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testSendAttachment(array $toArray = [], array $fromArray = [], string $subject = null, $body = null)

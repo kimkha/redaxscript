@@ -53,32 +53,6 @@ class RouterTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerHeader
-	 *
-	 * @since 3.3.0
-	 *
-	 * @return array
-	 */
-
-	public function providerHeader() : array
-	{
-		return $this->getProvider('tests/provider/Admin/Router/router_header.json');
-	}
-
-	/**
-	 * providerContent
-	 *
-	 * @since 3.3.0
-	 *
-	 * @return array
-	 */
-
-	public function providerContent() : array
-	{
-		return $this->getProvider('tests/provider/Admin/Router/router_content.json');
-	}
-
-	/**
 	 * testHeader
 	 *
 	 * @since 3.3.0
@@ -87,7 +61,7 @@ class RouterTest extends TestCaseAbstract
 	 * @param array $postArray
 	 * @param bool $expect
 	 *
-	 * @dataProvider providerHeader
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testHeader(array $registryArray = [], array $postArray = [], bool $expect = null)
@@ -124,7 +98,7 @@ class RouterTest extends TestCaseAbstract
 	 * @param array $postArray
 	 * @param bool $expect
 	 *
-	 * @dataProvider providerContent
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testContent(array $registryArray = [], array $queryArray = [], array $postArray = [], bool $expect = null)

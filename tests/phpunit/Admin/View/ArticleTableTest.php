@@ -54,19 +54,6 @@ class ArticleTableTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerRender
-	 *
-	 * @since 4.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRender() : array
-	{
-		return $this->getProvider('tests/provider/Admin/View/article_table_render.json');
-	}
-
-	/**
 	 * testRender
 	 *
 	 * @since 4.0.0
@@ -74,7 +61,7 @@ class ArticleTableTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerRender
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRender(array $registryArray = [], string $expect = null)

@@ -54,19 +54,6 @@ class CategoryFormTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerRender
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRender() : array
-	{
-		return $this->getProvider('tests/provider/Admin/View/category_form_render.json');
-	}
-
-	/**
 	 * testRender
 	 *
 	 * @since 3.0.0
@@ -75,7 +62,7 @@ class CategoryFormTest extends TestCaseAbstract
 	 * @param int $categoryId
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerRender
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRender(array $registryArray = [], int $categoryId = null, array $expectArray = [])
