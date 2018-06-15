@@ -55,19 +55,6 @@ class LogoutTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerProcess
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerProcess() : array
-	{
-		return $this->getProvider('tests/provider/Controller/logout_process.json');
-	}
-
-	/**
 	 * testProcess
 	 *
 	 * @since 3.0.0
@@ -75,7 +62,7 @@ class LogoutTest extends TestCaseAbstract
 	 * @param array $authArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerProcess
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testProcess(array $authArray = [], string $expect = null)

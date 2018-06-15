@@ -29,7 +29,7 @@ class ScriptTest extends TestCaseAbstract
 
 	public function setUp()
 	{
-		Stream::setup('root', 0777, $this->getProvider('tests/provider/Head/script_setup.json'));
+		Stream::setup('root', 0777, $this->getProvider('tests' . DIRECTORY_SEPARATOR. 'provider' . DIRECTORY_SEPARATOR. 'Head' . DIRECTORY_SEPARATOR. 'script_setup.json'));
 	}
 
 	/**

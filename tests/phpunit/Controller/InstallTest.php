@@ -49,71 +49,6 @@ class InstallTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerProcess
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerProcess() : array
-	{
-		return $this->getProvider('tests/provider/Controller/install_process.json');
-	}
-
-	/**
-	 * providerProcessFailure
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerProcessFailure() : array
-	{
-		return $this->getProvider('tests/provider/Controller/install_process_failure.json');
-	}
-
-	/**
-	 * providerValidateDatabase
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerValidateDatabase() : array
-	{
-		return $this->getProvider('tests/provider/Controller/install_validate_database.json');
-	}
-
-	/**
-	 * providerValidateAccount
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerValidateAccount() : array
-	{
-		return $this->getProvider('tests/provider/Controller/install_validate_account.json');
-	}
-
-	/**
-	 * providerInstall
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerInstall() : array
-	{
-		return $this->getProvider('tests/provider/Controller/install_install.json');
-	}
-
-	/**
 	 * testProcess
 	 *
 	 * @since 3.0.0
@@ -121,7 +56,7 @@ class InstallTest extends TestCaseAbstract
 	 * @param array $postArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerProcess
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testProcess(array $postArray = [], string $expect = null)
@@ -148,6 +83,37 @@ class InstallTest extends TestCaseAbstract
 	}
 
 	/**
+	 * testValidateDatabase
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $postArray
+	 * @param array $expectArray
+	 *
+	 * @throws \ReflectionException
+	 *
+	 * @dataProvider providerAutoloader
+	 */
+
+	public function testValidateDatabase(array $postArray = [], array $expectArray = [])
+	{
+		/* setup */
+
+		$controllerInstall = new Controller\Install($this->_registry, $this->_request, $this->_language, $this->_config);
+
+		/* actual */
+
+		$actualArray = $this->callMethod($controllerInstall, '_validateDatabase',
+		[
+			$postArray
+		]);
+
+		/* compare */
+
+		$this->assertEquals($expectArray, $actualArray);
+	}
+
+	/**
 	 * testProcessFailure
 	 *
 	 * @since 3.0.0
@@ -156,7 +122,7 @@ class InstallTest extends TestCaseAbstract
 	 * @param string $method
 	 * @param string $expect
 	 *
-	 * @dataProvider providerProcessFailure
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testProcessFailure(array $postArray = [], string $method = null, string $expect = null)
@@ -203,35 +169,6 @@ class InstallTest extends TestCaseAbstract
 	}
 
 	/**
-	 * testValidateDatabase
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $postArray
-	 * @param array $expectArray
-	 *
-	 * @dataProvider providerValidateDatabase
-	 */
-
-	public function testValidateDatabase(array $postArray = [], array $expectArray = [])
-	{
-		/* setup */
-
-		$controllerInstall = new Controller\Install($this->_registry, $this->_request, $this->_language, $this->_config);
-
-		/* actual */
-
-		$actualArray = $this->callMethod($controllerInstall, '_validateDatabase',
-		[
-			$postArray
-		]);
-
-		/* compare */
-
-		$this->assertEquals($expectArray, $actualArray);
-	}
-
-	/**
 	 * testValidateAccount
 	 *
 	 * @since 3.0.0
@@ -239,7 +176,9 @@ class InstallTest extends TestCaseAbstract
 	 * @param array $postArray
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerValidateAccount
+	 * @throws \ReflectionException
+	 *
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testValidateAccount(array $postArray = [], array $expectArray = [])
@@ -268,7 +207,9 @@ class InstallTest extends TestCaseAbstract
 	 * @param array $installArray
 	 * @param bool $expect
 	 *
-	 * @dataProvider providerInstall
+	 * @throws \ReflectionException
+	 *
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testInstall(array $installArray = [], bool $expect = null)

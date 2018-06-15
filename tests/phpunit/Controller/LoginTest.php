@@ -58,32 +58,6 @@ class LoginTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerProcess
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerProcess() : array
-	{
-		return $this->getProvider('tests/provider/Controller/login_process.json');
-	}
-
-	/**
-	 * providerProcessFailure
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerProcessFailure() : array
-	{
-		return $this->getProvider('tests/provider/Controller/login_process_failure.json');
-	}
-
-	/**
 	 * testProcess
 	 *
 	 * @since 3.0.0
@@ -92,7 +66,7 @@ class LoginTest extends TestCaseAbstract
 	 * @param array $userArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerProcess
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testProcess(array $postArray = [], array $userArray = [], string $expect = null)
@@ -126,7 +100,7 @@ class LoginTest extends TestCaseAbstract
 	 * @param string $method
 	 * @param string $expect
 	 *
-	 * @dataProvider providerProcessFailure
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testProcessFailure(array $postArray = [], array $userArray = [], string $method = null, string $expect = null)

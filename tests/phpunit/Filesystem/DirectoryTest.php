@@ -27,7 +27,7 @@ class DirectoryTest extends TestCaseAbstract
 
 	public function setUp()
 	{
-		Stream::setup('root', 0777, $this->getProvider('tests/provider/Filesystem/filesystem_setup.json'));
+		Stream::setup('root', 0777, $this->getProvider('tests' . DIRECTORY_SEPARATOR. 'provider' . DIRECTORY_SEPARATOR. 'Filesystem' . DIRECTORY_SEPARATOR. 'filesystem_setup.json'));
 	}
 
 	/**

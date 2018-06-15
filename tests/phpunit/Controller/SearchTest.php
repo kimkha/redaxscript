@@ -136,19 +136,6 @@ class SearchTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerProcess
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerProcess() : array
-	{
-		return $this->getProvider('tests/provider/Controller/search_process.json');
-	}
-
-	/**
 	 * testProcess
 	 *
 	 * @since 3.0.0
@@ -156,7 +143,7 @@ class SearchTest extends TestCaseAbstract
 	 * @param array $registryArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerProcess
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testProcess(array $registryArray = [], string $expect = null)

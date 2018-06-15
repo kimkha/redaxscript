@@ -75,32 +75,6 @@ class CommentTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerProcess
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerProcess() : array
-	{
-		return $this->getProvider('tests/provider/Controller/comment_process.json');
-	}
-
-	/**
-	 * providerProcessFailure
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerProcessFailure() : array
-	{
-		return $this->getProvider('tests/provider/Controller/comment_process_failure.json');
-	}
-
-	/**
 	 * testProcess
 	 *
 	 * @since 3.0.0
@@ -109,7 +83,7 @@ class CommentTest extends TestCaseAbstract
 	 * @param array $settingArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerProcess
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testProcess(array $postArray = [], array $settingArray = [], string $expect = null)
@@ -141,7 +115,7 @@ class CommentTest extends TestCaseAbstract
 	 * @param string $method
 	 * @param string $expect
 	 *
-	 * @dataProvider providerProcessFailure
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testProcessFailure(array $postArray = [], array $settingArray = [], string $method = null, string $expect = null)
