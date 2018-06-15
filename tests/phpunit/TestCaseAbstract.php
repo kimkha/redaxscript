@@ -1,7 +1,7 @@
 <?php
 namespace Redaxscript\Tests;
 
-use PHPUnit;
+use PHPUnitProviderAutoloader;
 use Redaxscript\Config;
 use Redaxscript\Db;
 use Redaxscript\Installer;
@@ -11,6 +11,7 @@ use Redaxscript\Modules\TestDummy;
 use Redaxscript\Registry;
 use Redaxscript\Request;
 use ReflectionClass;
+use ReflectionException;
 
 /**
  * TestCaseAbstract
@@ -22,7 +23,7 @@ use ReflectionClass;
  * @author Henry Ruhs
  */
 
-abstract class TestCaseAbstract extends PHPUnit\Framework\TestCase
+abstract class TestCaseAbstract extends PHPUnitProviderAutoloader\TestCaseAbstract
 {
 	/**
 	 * instance of the registry class
@@ -55,6 +56,14 @@ abstract class TestCaseAbstract extends PHPUnit\Framework\TestCase
 	 */
 
 	protected $_config;
+
+	/**
+	 * namespace of the testing suite
+	 *
+	 * @var string
+	 */
+
+	protected $_testNamespace = __NAMESPACE__;
 
 	/**
 	 * setUp
@@ -156,14 +165,14 @@ abstract class TestCaseAbstract extends PHPUnit\Framework\TestCase
 	 *
 	 * @since 2.2.0
 	 *
-	 * @param string $url
+	 * @param string $file
 	 *
 	 * @return array
 	 */
 
-	public function getProvider(string $url = null) : array
+	public function getProvider(string $file = null) : array
 	{
-		$content = file_get_contents($url);
+		$content = file_get_contents($file);
 		return json_decode($content, true);
 	}
 
@@ -174,6 +183,8 @@ abstract class TestCaseAbstract extends PHPUnit\Framework\TestCase
 	 *
 	 * @param object $object
 	 * @param string $property
+	 *
+	 * @throws ReflectionException
 	 *
 	 * @return mixed
 	 */
@@ -194,6 +205,8 @@ abstract class TestCaseAbstract extends PHPUnit\Framework\TestCase
 	 * @param object $object
 	 * @param string $method
 	 * @param array $argumentArray
+	 *
+	 * @throws ReflectionException
 	 *
 	 * @return mixed
 	 */

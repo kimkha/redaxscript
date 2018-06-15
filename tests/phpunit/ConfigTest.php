@@ -59,19 +59,6 @@ class ConfigTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerParse
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerParse() : array
-	{
-		return $this->getProvider('tests/provider/config_parse.json');
-	}
-
-	/**
 	 * testInit
 	 *
 	 * @since 2.4.0
@@ -138,7 +125,7 @@ class ConfigTest extends TestCaseAbstract
 	 * @param string $dbUrl
 	 * @param array $configArray
 	 *
-	 * @dataProvider providerParse
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testParse(string $dbUrl = null, $configArray = [])

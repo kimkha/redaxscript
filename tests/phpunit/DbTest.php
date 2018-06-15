@@ -90,39 +90,13 @@ class DbTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerInit
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerInit() : array
-	{
-		return $this->getProvider('tests/provider/db_init.json');
-	}
-
-	/**
-	 * providerLanguage
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerLanguage() : array
-	{
-		return $this->getProvider('tests/provider/db_language.json');
-	}
-
-	/**
 	 * testInit
 	 *
 	 * @since 3.0.0
 	 *
 	 * @param array $configArray
 	 *
-	 * @dataProvider providerInit
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testInit($configArray = [])
@@ -254,7 +228,7 @@ class DbTest extends TestCaseAbstract
 	 * @param string $language
 	 * @param string $expect
 	 *
-	 * @dataProvider providerLanguage
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testWhereLanguageIs(string $language = null, string $expect = null)
