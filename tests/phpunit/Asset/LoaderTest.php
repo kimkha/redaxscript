@@ -29,33 +29,7 @@ class LoaderTest extends TestCaseAbstract
 	public function setUp()
 	{
 		parent::setUp();
-		Stream::setup('root', 0777, $this->getProvider('tests/provider/Asset/loader_setup.json'));
-	}
-
-	/**
-	 * providerConcat
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerConcat() : array
-	{
-		return $this->getProvider('tests/provider/Asset/loader_concat.json');
-	}
-
-	/**
-	 * providerRewrite
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRewrite() : array
-	{
-		return $this->getProvider('tests/provider/Asset/loader_rewrite.json');
+		Stream::setup('root', 0777, $this->getProvider('tests' . DIRECTORY_SEPARATOR . 'provider' . DIRECTORY_SEPARATOR . 'Asset' . DIRECTORY_SEPARATOR . 'LoaderTest.json'));
 	}
 
 	/**
@@ -67,7 +41,7 @@ class LoaderTest extends TestCaseAbstract
 	 * @param array $collectionArray
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerConcat
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testConcat(array $registryArray = [], array $collectionArray = [], array $expectArray = [])
@@ -76,7 +50,7 @@ class LoaderTest extends TestCaseAbstract
 
 		$optionArray =
 		[
-			'directory' => Stream::url('root/cache/styles'),
+			'directory' => Stream::url('root' . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'styles'),
 			'extension' => 'css',
 			'attribute' => 'href',
 			'lifetime' => 86400
@@ -106,7 +80,7 @@ class LoaderTest extends TestCaseAbstract
 	 * @param array $rewriteArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerRewrite
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRewrite(array $collectionArray = [], array $rewriteArray = [], string $expect = null)
