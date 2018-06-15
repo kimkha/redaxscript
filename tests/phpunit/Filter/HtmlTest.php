@@ -52,19 +52,6 @@ class HtmlTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerHtml
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerHtml() : array
-	{
-		return $this->getProvider('tests/provider/Filter/html.json');
-	}
-
-	/**
 	 * testHtml
 	 *
 	 * @since 2.2.0
@@ -72,7 +59,7 @@ class HtmlTest extends TestCaseAbstract
 	 * @param string $html
 	 * @param string $expect
 	 *
-	 * @dataProvider providerHtml
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testHtml(string $html = null, string $expect = null)

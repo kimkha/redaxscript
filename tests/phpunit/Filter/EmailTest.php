@@ -19,19 +19,6 @@ use Redaxscript\Tests\TestCaseAbstract;
 class EmailTest extends TestCaseAbstract
 {
 	/**
-	 * providerEmail
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerEmail() : array
-	{
-		return $this->getProvider('tests/provider/Filter/email.json');
-	}
-
-	/**
 	 * testEmail
 	 *
 	 * @since 2.2.0
@@ -39,7 +26,7 @@ class EmailTest extends TestCaseAbstract
 	 * @param string $email
 	 * @param string $expect
 	 *
-	 * @dataProvider providerEmail
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testEmail(string $email = null, string $expect = null)

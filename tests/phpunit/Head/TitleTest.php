@@ -20,19 +20,6 @@ use Redaxscript\Tests\TestCaseAbstract;
 class TitleTest extends TestCaseAbstract
 {
 	/**
-	 * providerRender
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRender() : array
-	{
-		return $this->getProvider('tests/provider/Head/title_render.json');
-	}
-
-	/**
 	 * testRender
 	 *
 	 * @since 3.0.0
@@ -40,7 +27,7 @@ class TitleTest extends TestCaseAbstract
 	 * @param string $text
 	 * @param string $expect
 	 *
-	 * @dataProvider providerRender
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRender(string $text= null, string $expect = null)

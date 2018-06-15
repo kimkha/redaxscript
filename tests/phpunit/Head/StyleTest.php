@@ -20,20 +20,7 @@ use Redaxscript\Tests\TestCaseAbstract;
 class StyleTest extends TestCaseAbstract
 {
 	/**
-	 * providerInline
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerInline() : array
-	{
-		return $this->getProvider('tests/provider/Head/style_inline.json');
-	}
-
-	/**
-	 * testRender
+	 * testInline
 	 *
 	 * @since 3.0.0
 	 *
@@ -41,10 +28,10 @@ class StyleTest extends TestCaseAbstract
 	 * @param string $prepend
 	 * @param string $expect
 	 *
-	 * @dataProvider providerInline
+	 * @dataProvider providerAutoloader
 	 */
 
-	public function testRender(string $append = null, string $prepend = null, string $expect = null)
+	public function testInline(string $append = null, string $prepend = null, string $expect = null)
 	{
 		/* setup */
 

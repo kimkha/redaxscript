@@ -29,85 +29,7 @@ class ScriptTest extends TestCaseAbstract
 
 	public function setUp()
 	{
-		Stream::setup('root', 0777, $this->getProvider('tests' . DIRECTORY_SEPARATOR. 'provider' . DIRECTORY_SEPARATOR. 'Head' . DIRECTORY_SEPARATOR. 'script_setup.json'));
-	}
-
-	/**
-	 * providerAppend
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerAppend() : array
-	{
-		return $this->getProvider('tests/provider/Head/script_append.json');
-	}
-
-	/**
-	 * providerPrepend
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerPrepend() : array
-	{
-		return $this->getProvider('tests/provider/Head/script_prepend.json');
-	}
-
-	/**
-	 * providerInline
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerInline() : array
-	{
-		return $this->getProvider('tests/provider/Head/script_inline.json');
-	}
-
-	/**
-	 * providerRemove
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRemove() : array
-	{
-		return $this->getProvider('tests/provider/Head/script_remove.json');
-	}
-
-	/**
-	 * providerTransportVar
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerTransportVar() : array
-	{
-		return $this->getProvider('tests/provider/Head/script_transport_var.json');
-	}
-
-	/**
-	 * providerConcat
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerConcat() : array
-	{
-		return $this->getProvider('tests/provider/Head/script_concat.json');
+		Stream::setup('root', 0777, $this->getProvider('tests' . DIRECTORY_SEPARATOR. 'provider' . DIRECTORY_SEPARATOR. 'Head' . DIRECTORY_SEPARATOR. 'ScriptTest_setUp.json'));
 	}
 
 	/**
@@ -119,7 +41,7 @@ class ScriptTest extends TestCaseAbstract
 	 * @param array $moduleArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerAppend
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testAppend(array $coreArray = [], array $moduleArray = [], string $expect = null)
@@ -161,7 +83,7 @@ class ScriptTest extends TestCaseAbstract
 	 * @param array $moduleArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerPrepend
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testPrepend(array $coreArray = [], array $moduleArray = [], string $expect = null)
@@ -203,7 +125,7 @@ class ScriptTest extends TestCaseAbstract
 	 * @param array $moduleArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerInline
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testInline(array $coreArray = [], array $moduleArray = [], string $expect = null)
@@ -245,7 +167,7 @@ class ScriptTest extends TestCaseAbstract
 	 * @param string $deleteFile
 	 * @param string $expect
 	 *
-	 * @dataProvider providerRemove
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRemove(array $coreArray = [], string $deleteFile = null, string $expect = null)
@@ -280,7 +202,7 @@ class ScriptTest extends TestCaseAbstract
 	 * @param array $transportArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerTransportVar
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testTransportVar(array $transportArray = [], string $expect = null)
@@ -309,7 +231,7 @@ class ScriptTest extends TestCaseAbstract
 	 * @param array $concatArray
 	 * @param string $expect
 	 *
-	 * @dataProvider providerConcat
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testConcat(array $concatArray = [], string $expect = null)

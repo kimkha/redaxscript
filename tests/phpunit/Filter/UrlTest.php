@@ -19,19 +19,6 @@ use Redaxscript\Tests\TestCaseAbstract;
 class UrlTest extends TestCaseAbstract
 {
 	/**
-	 * providerUrl
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerUrl() : array
-	{
-		return $this->getProvider('tests/provider/Filter/url.json');
-	}
-
-	/**
 	 * testUrl
 	 *
 	 * @since 2.2.0
@@ -39,7 +26,7 @@ class UrlTest extends TestCaseAbstract
 	 * @param string $url
 	 * @param string $expect
 	 *
-	 * @dataProvider providerUrl
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testUrl(string $url = null, string $expect = null)

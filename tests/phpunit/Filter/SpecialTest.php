@@ -19,19 +19,6 @@ use Redaxscript\Tests\TestCaseAbstract;
 class SpecialTest extends TestCaseAbstract
 {
 	/**
-	 * providerSpecial
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerSpecial() : array
-	{
-		return $this->getProvider('tests/provider/Filter/special.json');
-	}
-
-	/**
 	 * testSpecial
 	 *
 	 * @since 2.2.0
@@ -39,7 +26,7 @@ class SpecialTest extends TestCaseAbstract
 	 * @param string $special
 	 * @param string $expect
 	 *
-	 * @dataProvider providerSpecial
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testSpecial(string $special = null, string $expect = null)

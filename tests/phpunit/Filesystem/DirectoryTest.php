@@ -27,46 +27,7 @@ class DirectoryTest extends TestCaseAbstract
 
 	public function setUp()
 	{
-		Stream::setup('root', 0777, $this->getProvider('tests' . DIRECTORY_SEPARATOR. 'provider' . DIRECTORY_SEPARATOR. 'Filesystem' . DIRECTORY_SEPARATOR. 'filesystem_setup.json'));
-	}
-
-	/**
-	 * providerCreate
-	 *
-	 * @since 3.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerCreate() : array
-	{
-		return $this->getProvider('tests/provider/Filesystem/directory_create.json');
-	}
-
-	/**
-	 * providerRemove
-	 *
-	 * @since 3.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRemove() : array
-	{
-		return $this->getProvider('tests/provider/Filesystem/directory_remove.json');
-	}
-
-	/**
-	 * providerRemove
-	 *
-	 * @since 3.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerClear() : array
-	{
-		return $this->getProvider('tests/provider/Filesystem/directory_clear.json');
+		Stream::setup('root', 0777, $this->getProvider('tests' . DIRECTORY_SEPARATOR. 'provider' . DIRECTORY_SEPARATOR. 'Filesystem' . DIRECTORY_SEPARATOR. 'FilesystemTest_setUp.json'));
 	}
 
 	/**
@@ -79,7 +40,7 @@ class DirectoryTest extends TestCaseAbstract
 	 * @param string $directory
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerCreate
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testCreate(string $root = null, bool $recursive = null, string $directory = null, array $expectArray = [])
@@ -109,7 +70,7 @@ class DirectoryTest extends TestCaseAbstract
 	 * @param string $directory
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerRemove
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRemove(string $root = null, bool $recursive = null, string $directory = null, array $expectArray = [])
@@ -139,7 +100,7 @@ class DirectoryTest extends TestCaseAbstract
 	 * @param bool $recursive
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerClear
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testClear(string $root = null, bool $recursive = null, array $expectArray = [])

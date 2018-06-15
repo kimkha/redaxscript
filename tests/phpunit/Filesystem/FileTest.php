@@ -27,46 +27,7 @@ class FileTest extends TestCaseAbstract
 
 	public function setUp()
 	{
-		Stream::setup('root', 0777, $this->getProvider('tests' . DIRECTORY_SEPARATOR. 'provider' . DIRECTORY_SEPARATOR. 'Filesystem' . DIRECTORY_SEPARATOR. 'filesystem_setup.json'));
-	}
-
-	/**
-	 * providerCreate
-	 *
-	 * @since 3.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerCreate() : array
-	{
-		return $this->getProvider('tests/provider/Filesystem/file_create.json');
-	}
-
-	/**
-	 * providerWrite
-	 *
-	 * @since 3.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerReadAndWrite() : array
-	{
-		return $this->getProvider('tests/provider/Filesystem/file_read_and_write.json');
-	}
-
-	/**
-	 * providerRemove
-	 *
-	 * @since 3.2.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRemove() : array
-	{
-		return $this->getProvider('tests/provider/Filesystem/file_remove.json');
+		Stream::setup('root', 0777, $this->getProvider('tests' . DIRECTORY_SEPARATOR. 'provider' . DIRECTORY_SEPARATOR. 'Filesystem' . DIRECTORY_SEPARATOR. 'FilesystemTest_setUp.json'));
 	}
 
 	/**
@@ -79,7 +40,7 @@ class FileTest extends TestCaseAbstract
 	 * @param string $file
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerCreate
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testCreate(string $root = null, bool $recursive = null, string $file = null, array $expectArray = [])
@@ -110,7 +71,7 @@ class FileTest extends TestCaseAbstract
 	 * @param string $content
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerReadAndWrite
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testReadAndWrite(string $root = null, bool $recursive = null, string $file = null, string $content = null, array $expectArray = [])
@@ -144,7 +105,7 @@ class FileTest extends TestCaseAbstract
 	 * @param string $file
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerRemove
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRemove(string $root = null, bool $recursive = null, string $file = null, array $expectArray = [])
