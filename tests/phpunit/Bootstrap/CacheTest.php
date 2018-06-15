@@ -22,19 +22,6 @@ use Redaxscript\Tests\TestCaseAbstract;
 class CacheTest extends TestCaseAbstract
 {
 	/**
-	 * providerCache
-	 *
-	 * @since 3.1.0
-	 *
-	 * @return array
-	 */
-
-	public function providerCache() : array
-	{
-		return $this->getProvider('tests/provider/Bootstrap/cache.json');
-	}
-
-	/**
 	 * testCache
 	 *
 	 * @since 3.1.0
@@ -43,7 +30,7 @@ class CacheTest extends TestCaseAbstract
 	 * @param array $queryArray
 	 * @param bool $expect
 	 *
-	 * @dataProvider providerCache
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testCache(array $registryArray = [], array $queryArray = [], bool $expect = null)

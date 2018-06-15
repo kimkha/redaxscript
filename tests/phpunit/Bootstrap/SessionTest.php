@@ -22,26 +22,13 @@ use Redaxscript\Tests\TestCaseAbstract;
 class SessionTest extends TestCaseAbstract
 {
 	/**
-	 * providerSession
-	 *
-	 * @since 3.1.0
-	 *
-	 * @return array
-	 */
-
-	public function providerSession() : array
-	{
-		return $this->getProvider('tests/provider/Bootstrap/session.json');
-	}
-
-	/**
 	 * testSession
 	 *
 	 * @since 3.1.0
 	 *
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerSession
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testSession(array $expectArray = [])

@@ -57,19 +57,6 @@ class AuthTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerAuth
-	 *
-	 * @since 3.1.0
-	 *
-	 * @return array
-	 */
-
-	public function providerAuth() : array
-	{
-		return $this->getProvider('tests/provider/Bootstrap/auth.json');
-	}
-
-	/**
 	 * testAuth
 	 *
 	 * @since 3.1.0
@@ -77,7 +64,7 @@ class AuthTest extends TestCaseAbstract
 	 * @param int $userId
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerAuth
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testAuth(int $userId = null, array $expectArray = [])

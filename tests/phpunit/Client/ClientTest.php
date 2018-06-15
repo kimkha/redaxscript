@@ -25,19 +25,6 @@ use Redaxscript\Tests\TestCaseAbstract;
 class ClientTest extends TestCaseAbstract
 {
 	/**
-	 * providerClient
-	 *
-	 * @since 2.4.0
-	 *
-	 * @return array
-	 */
-
-	public function providerClient() : array
-	{
-		return $this->getProvider('tests/provider/Client/client.json');
-	}
-
-	/**
 	 * testBrowser
 	 *
 	 * @since 2.4.0
@@ -45,7 +32,7 @@ class ClientTest extends TestCaseAbstract
 	 * @param string $userAgent
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerClient
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testBrowser(string $userAgent = null, array $expectArray = [])
@@ -72,7 +59,7 @@ class ClientTest extends TestCaseAbstract
 	 * @param string $userAgent
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerClient
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testDesktop(string $userAgent = null, array $expectArray = [])
@@ -99,7 +86,7 @@ class ClientTest extends TestCaseAbstract
 	 * @param string $userAgent
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerClient
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testEngine(string $userAgent = null, array $expectArray = [])
@@ -126,7 +113,7 @@ class ClientTest extends TestCaseAbstract
 	 * @param string $userAgent
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerClient
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testMobile(string $userAgent = null, array $expectArray = [])
@@ -153,7 +140,7 @@ class ClientTest extends TestCaseAbstract
 	 * @param string $userAgent
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerClient
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testTablet(string $userAgent = null, array $expectArray = [])
@@ -180,7 +167,7 @@ class ClientTest extends TestCaseAbstract
 	 * @param string $userAgent
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerClient
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testVersion(string $userAgent = null, array $expectArray = [])

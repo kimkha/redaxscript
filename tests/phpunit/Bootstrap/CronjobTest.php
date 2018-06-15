@@ -45,19 +45,6 @@ class CronjobTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerCronjob
-	 *
-	 * @since 3.1.0
-	 *
-	 * @return array
-	 */
-
-	public function providerCronjob() : array
-	{
-		return $this->getProvider('tests/provider/Bootstrap/cronjob.json');
-	}
-
-	/**
 	 * testCronjob
 	 *
 	 * @since 3.1.0
@@ -66,7 +53,7 @@ class CronjobTest extends TestCaseAbstract
 	 * @param array $sessionArray
 	 * @param bool $expect
 	 *
-	 * @dataProvider providerCronjob
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testCronjob(array $registryArray = [], array $sessionArray = [], bool $expect = null)

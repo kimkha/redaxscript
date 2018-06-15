@@ -98,19 +98,6 @@ class ContentTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerContent
-	 *
-	 * @since 3.1.0
-	 *
-	 * @return array
-	 */
-
-	public function providerContent() : array
-	{
-		return $this->getProvider('tests/provider/Bootstrap/content.json');
-	}
-
-	/**
 	 * testContent
 	 *
 	 * @since 3.1.0
@@ -119,7 +106,7 @@ class ContentTest extends TestCaseAbstract
 	 * @param array $settingArray
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerContent
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testContent(array $registryArray = [], array $settingArray = [], array $expectArray = [])

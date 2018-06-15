@@ -30,32 +30,6 @@ class ParserTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerGetArgument
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerGetArgument() : array
-	{
-		return $this->getProvider('tests/provider/Console/parser_get_argument.json');
-	}
-
-	/**
-	 * providerGetOption
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerGetOption() : array
-	{
-		return $this->getProvider('tests/provider/Console/parser_get_option.json');
-	}
-
-	/**
 	 * testInit
 	 *
 	 * @since 3.0.0
@@ -103,7 +77,7 @@ class ParserTest extends TestCaseAbstract
 	 * @param array $argumentArray
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerGetArgument
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetArgument($argumentArray = [], array $expectArray = [])
@@ -175,7 +149,7 @@ class ParserTest extends TestCaseAbstract
 	 * @param array $argumentArray
 	 * @param array $expectArray
 	 *
-	 * @dataProvider providerGetOption
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testGetOption($argumentArray = [], array $expectArray = [])

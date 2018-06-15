@@ -64,84 +64,6 @@ class ParserTest extends TestCaseAbstract
 	}
 
 	/**
-	 * providerCode
-	 *
-	 * @since 2.5.0
-	 *
-	 * @return array
-	 */
-
-	public function providerCode() : array
-	{
-		return $this->getProvider('tests/provider/Content/parser_code.json');
-	}
-
-	/**
-	 * providerLanguage
-	 *
-	 * @since 2.5.0
-	 *
-	 * @return array
-	 */
-
-	public function providerLanguage() : array
-	{
-		return $this->getProvider('tests/provider/Content/parser_language.json');
-	}
-
-	/**
-	 * providerModule
-	 *
-	 * @since 2.5.0
-	 *
-	 * @return array
-	 */
-
-	public function providerModule() : array
-	{
-		return $this->getProvider('tests/provider/Content/parser_module.json');
-	}
-
-	/**
-	 * providerMore
-	 *
-	 * @since 2.5.0
-	 *
-	 * @return array
-	 */
-
-	public function providerMore() : array
-	{
-		return $this->getProvider('tests/provider/Content/parser_more.json');
-	}
-
-	/**
-	 * providerRegistry
-	 *
-	 * @since 2.5.0
-	 *
-	 * @return array
-	 */
-
-	public function providerRegistry() : array
-	{
-		return $this->getProvider('tests/provider/Content/parser_registry.json');
-	}
-
-	/**
-	 * providerTemplate
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-
-	public function providerTemplate() : array
-	{
-		return $this->getProvider('tests/provider/Content/parser_template.json');
-	}
-
-	/**
 	 * testCode
 	 *
 	 * @since 3.0.0
@@ -149,7 +71,7 @@ class ParserTest extends TestCaseAbstract
 	 * @param string $content
 	 * @param string $expect
 	 *
-	 * @dataProvider providerCode
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testCode(string $content = null, string $expect = null)
@@ -177,7 +99,7 @@ class ParserTest extends TestCaseAbstract
 	 * @param string $content
 	 * @param string $expect
 	 *
-	 * @dataProvider providerLanguage
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testLanguage(string $language = null, string $content = null, string $expect = null)
@@ -205,7 +127,7 @@ class ParserTest extends TestCaseAbstract
 	 * @param string $content
 	 * @param string $expect
 	 *
-	 * @dataProvider providerModule
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testModule(string $content = null, string $expect = null)
@@ -236,7 +158,7 @@ class ParserTest extends TestCaseAbstract
 	 * @param string $route
 	 * @param string $expect
 	 *
-	 * @dataProvider providerMore
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testMore(array $registryArray = [], string $content = null, string $route = null, string $expect = null)
@@ -265,7 +187,7 @@ class ParserTest extends TestCaseAbstract
 	 * @param string $content
 	 * @param string $expect
 	 *
-	 * @dataProvider providerRegistry
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testRegistry(array $registryArray = [], string $content = null, string $expect = null)
@@ -293,7 +215,7 @@ class ParserTest extends TestCaseAbstract
 	 * @param string $content
 	 * @param string $expect
 	 *
-	 * @dataProvider providerTemplate
+	 * @dataProvider providerAutoloader
 	 */
 
 	public function testTemplate(string $content = null, string $expect = null)
