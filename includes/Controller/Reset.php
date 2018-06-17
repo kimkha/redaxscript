@@ -33,13 +33,12 @@ class Reset extends ControllerAbstract
 	{
 		$passwordHash = new Hash();
 		$passwordHash->init(uniqid());
-		$userModel = new Model\User();
 		$postArray = $this->_sanitizePost();
-		$user = $userModel->getById($postArray['id']);
+		$validateArray = $this->_validatePost($postArray);
+		$user = $this->_getUser($postArray);
 
 		/* validate post */
 
-		$validateArray = $this->_validatePost($postArray);
 		if ($validateArray)
 		{
 			return $this->_error(
@@ -128,8 +127,7 @@ class Reset extends ControllerAbstract
 	protected function _validatePost(array $postArray = []) : array
 	{
 		$captchaValidator = new Validator\Captcha();
-		$userModel = new Model\User();
-		$user = $userModel->getById($postArray['id']);
+		$user = $this->_getUser($postArray);
 		$validateArray = [];
 
 		/* validate post */
@@ -155,6 +153,22 @@ class Reset extends ControllerAbstract
 			$validateArray[] = $this->_language->get('captcha_incorrect');
 		}
 		return $validateArray;
+	}
+
+	/**
+	 * get the user
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $postArray array of the post
+	 *
+	 * @return object
+	 */
+
+	protected function _getUser(array $postArray = [])
+	{
+		$userModel = new Model\User();
+		return $userModel->getById($postArray['id']);
 	}
 
 	/**

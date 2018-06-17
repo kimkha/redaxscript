@@ -29,13 +29,12 @@ class Login extends ControllerAbstract
 
 	public function process() : string
 	{
-		$userModel = new Model\User();
 		$postArray = $this->_sanitizePost();
-		$user = $userModel->getByUserOrEmail($postArray['user'], $postArray['email']);
+		$validateArray = $this->_validatePost($postArray);
+		$user = $this->_getUser($postArray);
 
 		/* validate post */
 
-		$validateArray = $this->_validatePost($postArray);
 		if ($validateArray)
 		{
 			return $this->_error(
@@ -111,8 +110,7 @@ class Login extends ControllerAbstract
 		$passwordValidator = new Validator\Password();
 		$captchaValidator = new Validator\Captcha();
 		$settingModel = new Model\Setting();
-		$userModel = new Model\User();
-		$user = $userModel->getByUserOrEmail($postArray['user'], $postArray['email']);
+		$user = $this->_getUser($postArray);
 		$validateArray = [];
 
 		/* validate post */
@@ -138,6 +136,22 @@ class Login extends ControllerAbstract
 			$validateArray[] = $this->_language->get('captcha_incorrect');
 		}
 		return $validateArray;
+	}
+
+	/**
+	 * get the user
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $postArray array of the post
+	 *
+	 * @return object
+	 */
+
+	protected function _getUser(array $postArray = [])
+	{
+		$userModel = new Model\User();
+		return $userModel->getByUserOrEmail($postArray['user'], $postArray['email']);
 	}
 
 	/**

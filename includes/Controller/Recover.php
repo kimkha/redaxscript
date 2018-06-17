@@ -1,7 +1,6 @@
 <?php
 namespace Redaxscript\Controller;
 
-use Redaxscript\Db;
 use Redaxscript\Filter;
 use Redaxscript\Html;
 use Redaxscript\Mailer;
@@ -31,17 +30,9 @@ class Recover extends ControllerAbstract
 
 	public function process() : string
 	{
-		$userModel = new Model\User();
 		$postArray = $this->_sanitizePost();
 		$validateArray = $this->_validatePost($postArray);
-		$users = $userModel
-			->query()
-			->where(
-			[
-				'email' => $postArray['email'],
-				'status' => 1
-			])
-			->findMany();
+		$users = $this->_getUsers($postArray);
 
 		/* validate post */
 
@@ -132,6 +123,7 @@ class Recover extends ControllerAbstract
 	{
 		$emailValidator = new Validator\Email();
 		$captchaValidator = new Validator\Captcha();
+		$userModel = new Model\User();
 		$settingModel = new Model\Setting();
 		$validateArray = [];
 
@@ -145,7 +137,7 @@ class Recover extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('email_incorrect');
 		}
-		else if (!Db::forTablePrefix('users')->where('email', $postArray['email'])->findOne()->id)
+		else if (!$userModel->query()->where('email', $postArray['email'])->findOne()->id)
 		{
 			$validateArray[] = $this->_language->get('email_unknown');
 		}
@@ -154,6 +146,29 @@ class Recover extends ControllerAbstract
 			$validateArray[] = $this->_language->get('captcha_incorrect');
 		}
 		return $validateArray;
+	}
+
+	/**
+	 * get the users
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $postArray array of the post
+	 *
+	 * @return object
+	 */
+
+	protected function _getUsers(array $postArray = [])
+	{
+		$userModel = new Model\User();
+		return  $userModel
+			->query()
+			->where(
+			[
+				'email' => $postArray['email'],
+				'status' => 1
+			])
+			->findMany();
 	}
 
 	/**
