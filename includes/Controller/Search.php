@@ -43,24 +43,68 @@ class Search extends ControllerAbstract
 
 	public function process() : string
 	{
+		$queryArray = $this->_sanitizeQuery();
+
+		/* validate query */
+
+		$validateArray = $this->_validateQuery($queryArray);
+		if ($validateArray)
+		{
+			return $this->_info(
+			[
+				'message' => $validateArray
+			]);
+		}
+
+		/* handle search */
+
+		$resultArray = $this->_search(
+		[
+			'table' => $queryArray['table'],
+			'search' => $queryArray['search'],
+			'language' => $this->_registry->get('language')
+		]);
+		$output = $resultArray ? $this->_renderResult($resultArray) : null;
+		if ($output)
+		{
+			return $output;
+		}
+
+		/* handle info */
+
+		return $this->_info(
+		[
+			'message' => $this->_language->get('search_no')
+		]);
+	}
+
+	/**
+	 * sanitize the query
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return array
+	 */
+
+	protected function _sanitizeQuery() : array
+	{
 		$searchFilter = new Filter\Search();
 		$secondParameter = $searchFilter->sanitize($this->_registry->get('secondParameter'));
 		$thirdParameter = $searchFilter->sanitize($this->_registry->get('thirdParameter'));
 
 		/* process query */
 
-		$queryArray = [];
 		if (!$thirdParameter)
 		{
-			$queryArray =
+			return
 			[
 				'table' => $this->tableArray,
 				'search' => str_replace('-', ' ', $secondParameter)
 			];
 		}
-		else if (in_array($secondParameter, $this->tableArray))
+		if (in_array($secondParameter, $this->tableArray))
 		{
-			$queryArray =
+			return
 			[
 				'table' =>
 				[
@@ -69,38 +113,58 @@ class Search extends ControllerAbstract
 				'search' => str_replace('-', ' ', $thirdParameter)
 			];
 		}
+		return [];
+	}
 
-		/* process search */
+	/**
+	 * validate the query
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $queryArray array of the query
+	 *
+	 * @return array
+	 */
 
-		$resultArray = $this->_search(
-		[
-			'table' => $queryArray['table'],
-			'search' => $queryArray['search'],
-			'language' => $this->_registry->get('language')
-		]);
+	protected function _validateQuery(array $queryArray = []) : array
+	{
+		$searchValidator = new Validator\Search();
+		$validateArray = [];
 
-		/* handle info */
+		/* validate query */
 
-		$messageArray = $this->_validate($queryArray, $resultArray);
-		if ($messageArray)
+		if ($searchValidator->validate($queryArray['search'], $this->_language->get('search')) === Validator\ValidatorInterface::FAILED)
 		{
-			return $this->_info(
-			[
-				'message' => $messageArray
-			]);
+			$validateArray[] = $this->_language->get('input_incorrect');
 		}
+		return $validateArray;
+	}
 
-		/* handle result */
+	/**
+	 * search in tables
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $searchArray array of the search
+	 *
+	 * @return array
+	 */
 
-		$output = $this->_renderResult($resultArray);
-		if ($output)
+	protected function _search(array $searchArray = []) : array
+	{
+		$searchModel = new Model\Search();
+		$resultArray = [];
+
+		/* process table */
+
+		if (is_array($searchArray['table']))
 		{
-			return $output;
+			foreach ($searchArray['table'] as $table)
+			{
+				$resultArray[$table] = $searchModel->getByTable($table, $searchArray['search'], $searchArray['language']);
+			}
 		}
-		return $this->_info(
-		[
-			'message' => $this->_language->get('search_no')
-		]);
+		return $resultArray;
 	}
 
 	/**
@@ -137,62 +201,4 @@ class Search extends ControllerAbstract
 			->info($infoArray['message'], $this->_language->get('something_wrong'));
 	}
 
-	/**
-	 * validate
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $queryArray array of the query
-	 * @param array $resultArray array of the result
-	 *
-	 * @return array
-	 */
-
-	protected function _validate(array $queryArray = [], array $resultArray = []) : array
-	{
-		$searchValidator = new Validator\Search();
-
-		/* validate query */
-
-		$messageArray = [];
-		if ($searchValidator->validate($queryArray['search'], $this->_language->get('search')) === Validator\ValidatorInterface::FAILED)
-		{
-			$messageArray[] = $this->_language->get('input_incorrect');
-		}
-
-		/* validate result */
-
-		if (!$resultArray)
-		{
-			$messageArray[] = $this->_language->get('search_no');
-		}
-		return $messageArray;
-	}
-
-	/**
-	 * search in tables
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $searchArray array of the search
-	 *
-	 * @return array
-	 */
-
-	protected function _search(array $searchArray = []) : array
-	{
-		$searchModel = new Model\Search();
-		$resultArray = [];
-
-		/* process table */
-
-		if (is_array($searchArray['table']))
-		{
-			foreach ($searchArray['table'] as $table)
-			{
-				$resultArray[$table] = $searchModel->getByTable($table, $searchArray['search'], $searchArray['language']);
-			}
-		}
-		return $resultArray;
-	}
 }

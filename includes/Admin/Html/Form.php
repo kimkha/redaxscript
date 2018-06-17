@@ -179,7 +179,8 @@ class Form extends BaseForm
 			'submit' =>
 			[
 				'class' => 'rs-admin-js-submit rs-admin-button-default rs-admin-button-submit rs-admin-button-large',
-				'type' => 'submit'
+				'type' => 'submit',
+				'value' => 'submit'
 			],
 			'save' =>
 			[

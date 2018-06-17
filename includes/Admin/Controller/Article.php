@@ -3,7 +3,6 @@ namespace Redaxscript\Admin\Controller;
 
 use Redaxscript\Admin;
 use Redaxscript\Filter;
-use Redaxscript\Messenger;
 use Redaxscript\Validator;
 
 /**
@@ -28,29 +27,18 @@ class Article extends ControllerAbstract
 
 	public function process() : string
 	{
-		$aliasFilter = new Filter\Alias();
-		$htmlFilter = new Filter\Html();
+		$postArray = $this->_sanitizePost();
+		$validateArray = $this->_validatePost($postArray);
 		$route = 'admin/view/articles';
-
-		/* process post */
-
-		$postArray =
-		[
-			'article' => $this->_request->getPost('article'),
-			'title' => $this->_request->getPost('title'),
-			'alias' => $aliasFilter->sanitize($this->_request->getPost('alias')),
-			'text' => $htmlFilter->sanitize($this->_request->getPost('text')),
-			'status' => $this->_request->getPost('status')
-		];
 
 		/* validate post */
 
-		$messageArray = $this->_validate($postArray);
-		if ($messageArray)
+		if ($validateArray)
 		{
 			return $this->_error(
 			[
-				'message' => $messageArray
+				'route' => $route,
+				'message' => $validateArray
 			]);
 		}
 
@@ -63,12 +51,30 @@ class Article extends ControllerAbstract
 			[
 				'title' => $postArray['title'],
 				'alias' => $postArray['alias'],
+				'author' => $postArray['author'],
+				'description' => $postArray['description'],
+				'keywords' => $postArray['keywords'],
+				'robots' => $postArray['robots'],
 				'text' => $postArray['text'],
-				'status' => $postArray['status']
+				'language' => $postArray['language'],
+				'template' => $postArray['template'],
+				'sibling' => $postArray['sibling'],
+				'category' => $postArray['category'],
+				'headline' => $postArray['headline'],
+				'byline' => $postArray['byline'],
+				'comments' => $postArray['comments'],
+				'status' => $postArray['status'],
+				'rank' => $postArray['rank'],
+				'access' => $postArray['access'],
+				'date' => $postArray['date']
 			];
 			if ($this->_create($createArray))
 			{
-				return $this->_success();
+				return $this->_success(
+				[
+					'route' => $route,
+					'timeout' => 2
+				]);
 			}
 		}
 
@@ -81,12 +87,30 @@ class Article extends ControllerAbstract
 			[
 				'title' => $postArray['title'],
 				'alias' => $postArray['alias'],
+				'author' => $postArray['author'],
+				'description' => $postArray['description'],
+				'keywords' => $postArray['keywords'],
+				'robots' => $postArray['robots'],
 				'text' => $postArray['text'],
-				'status' => $postArray['status']
+				'language' => $postArray['language'],
+				'template' => $postArray['template'],
+				'sibling' => $postArray['sibling'],
+				'category' => $postArray['category'],
+				'headline' => $postArray['headline'],
+				'byline' => $postArray['byline'],
+				'comments' => $postArray['comments'],
+				'status' => $postArray['status'],
+				'rank' => $postArray['rank'],
+				'access' => $postArray['access'],
+				'date' => $postArray['date']
 			];
 			if ($this->_update($postArray['article'], $updateArray))
 			{
-				return $this->_success();
+				return $this->_success(
+				[
+					'route' => $route,
+					'timeout' => 2
+				]);
 			}
 		}
 
@@ -100,42 +124,47 @@ class Article extends ControllerAbstract
 	}
 
 	/**
-	 * show the success
+	 * sanitize the post
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return string
+	 * @return array
 	 */
 
-	protected function _success() : string
+	protected function _sanitizePost() : array
 	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setRoute($this->_language->get('continue'), 'admin/view/articles')
-			->doRedirect()
-			->success($this->_language->get('operation_completed'));
+		$aliasFilter = new Filter\Alias();
+		$specialFilter = new Filter\Special();
+		$htmlFilter = new Filter\Html();
+
+		/* sanitize post */
+
+		return
+		[
+			'article' => $specialFilter->sanitize($this->_request->getPost('article')),
+			'title' => $this->_request->getPost('title'),
+			'alias' => $aliasFilter->sanitize($this->_request->getPost('alias')),
+			'author' => $this->_request->getPost('author'),
+			'description' => $this->_request->getPost('description'),
+			'keywords' => $this->_request->getPost('keywords'),
+			'robots' => $specialFilter->sanitize($this->_request->getPost('robots')),
+			'text' => $htmlFilter->sanitize($this->_request->getPost('text'), $this->_registry->get('filter')),
+			'language' => $this->_request->getPost('language'),
+			'template' => $specialFilter->sanitize($this->_request->getPost('template')),
+			'sibling' => $specialFilter->sanitize($this->_request->getPost('sibling')),
+			'category' => $specialFilter->sanitize($this->_request->getPost('category')),
+			'headline' => $specialFilter->sanitize($this->_request->getPost('headline')),
+			'byline' => $specialFilter->sanitize($this->_request->getPost('byline')),
+			'comments' => $specialFilter->sanitize($this->_request->getPost('comments')),
+			'status' => $specialFilter->sanitize($this->_request->getPost('status')),
+			'rank' => $specialFilter->sanitize($this->_request->getPost('rank')),
+			'access' => $specialFilter->sanitize($this->_request->getPost('access')),
+			'date' => $this->_request->getPost('date')
+		];
 	}
 
 	/**
-	 * show the error
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param array $errorArray array of the error
-	 *
-	 * @return string
-	 */
-
-	protected function _error(array $errorArray = []) : string
-	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setRoute($this->_language->get('back'), $errorArray['route'])
-			->error($errorArray['message'], $this->_language->get('error_occurred'));
-	}
-
-	/**
-	 * validate
+	 * validate the post
 	 *
 	 * @since 4.0.0
 	 *
@@ -144,27 +173,27 @@ class Article extends ControllerAbstract
 	 * @return array
 	 */
 
-	protected function _validate(array $postArray = []) : array
+	protected function _validatePost(array $postArray = []) : array
 	{
 		$aliasValidator = new Validator\Alias();
 		$articleModel = new Admin\Model\Article();
+		$validateArray = [];
 
 		/* validate post */
 
-		$messageArray = [];
 		if (!$postArray['alias'])
 		{
-			$messageArray[] = $this->_language->get('alias_empty');
+			$validateArray[] = $this->_language->get('alias_empty');
 		}
 		else if ($articleModel->getByAlias($postArray['alias'])->count())
 		{
-			$messageArray[] = $this->_language->get('alias_exists');
+			$validateArray[] = $this->_language->get('alias_exists');
 		}
-		else if ($aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_GENERAL) == Validator\ValidatorInterface::PASSED || $aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_DEFAULT) == Validator\ValidatorInterface::PASSED)
+		else if ($aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_GENERAL) === Validator\ValidatorInterface::PASSED || $aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_DEFAULT) === Validator\ValidatorInterface::PASSED)
 		{
-			$messageArray[] = $this->_language->get('alias_incorrect');
+			$validateArray[] = $this->_language->get('alias_incorrect');
 		}
-		return $messageArray;
+		return $validateArray;
 	}
 
 	/**

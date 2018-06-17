@@ -208,7 +208,7 @@ class Router extends RouterAbstract
 	 * @return string
 	 */
 
-	protected function _processCategory(): string
+	protected function _processCategory() : string
 	{
 		$categoryController = new Admin\Controller\Category($this->_registry, $this->_request, $this->_language);
 		return $categoryController->process();

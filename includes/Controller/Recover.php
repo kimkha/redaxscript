@@ -5,7 +5,6 @@ use Redaxscript\Db;
 use Redaxscript\Filter;
 use Redaxscript\Html;
 use Redaxscript\Mailer;
-use Redaxscript\Messenger;
 use Redaxscript\Model;
 use Redaxscript\Validator;
 
@@ -32,40 +31,32 @@ class Recover extends ControllerAbstract
 
 	public function process() : string
 	{
-		$emailFilter = new Filter\Email();
+		$userModel = new Model\User();
+		$postArray = $this->_sanitizePost();
+		$validateArray = $this->_validatePost($postArray);
+		$users = $userModel
+			->query()
+			->where(
+			[
+				'email' => $postArray['email'],
+				'status' => 1
+			])
+			->findMany();
 
-		/* process post */
+		/* validate post */
 
-		$postArray =
-		[
-			'email' => $emailFilter->sanitize($this->_request->getPost('email')),
-			'task' => $this->_request->getPost('task'),
-			'solution' => $this->_request->getPost('solution')
-		];
-
-		/* handle error */
-
-		$messageArray = $this->_validate($postArray);
-		if ($messageArray)
+		if ($validateArray)
 		{
 			return $this->_error(
 			[
-				'message' => $messageArray
+				'route' => 'login/recover',
+				'message' => $validateArray
 			]);
 		}
 
-		/* handle success */
+		/* handle mail and validate user */
 
-		$messageArray = [];
-		$users = Db::forTablePrefix('users')->where(
-		[
-			'email' => $postArray['email'],
-			'status' => 1
-		])
-		->findMany();
-
-		/* process users */
-
+		$validateArray = [];
 		foreach ($users as $user)
 		{
 			$mailArray =
@@ -80,66 +71,55 @@ class Recover extends ControllerAbstract
 			{
 				return $this->_error(
 				[
+					'route' => 'login/recover',
 					'message' => $this->_language->get('email_failed')
 				]);
 			}
-			else
-			{
-				$messageArray[] = $user->name . $this->_language->get('colon') . ' ' . $this->_language->get('recovery_sent');
-			}
+			$validateArray[] = $user->name . $this->_language->get('colon') . ' ' . $this->_language->get('recovery_sent');
 		}
-		if ($messageArray)
+		if ($validateArray)
 		{
 			return $this->_success(
 			[
-				'message' => $messageArray
+				'route' => 'login',
+				'timeout' => 2,
+				'message' => $validateArray
 			]);
 		}
+
+		/* handle error */
+
 		return $this->_error(
 		[
+			'route' => 'login/recover',
 			'message' => $this->_language->get('something_wrong')
 		]);
 	}
 
 	/**
-	 * show the success
+	 * sanitize the post
 	 *
-	 * @since 3.0.0
+	 * @since 4.0.0
 	 *
-	 * @param array $successArray
-	 *
-	 * @return string
+	 * @return array
 	 */
 
-	protected function _success(array $successArray = []) : string
+	protected function _sanitizePost() : array
 	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setRoute($this->_language->get('login'), 'login')
-			->doRedirect()
-			->success($successArray['message'], $this->_language->get('operation_completed'));
+		$emailFilter = new Filter\Email();
+
+		/* sanitize post */
+
+		return
+		[
+			'email' => $emailFilter->sanitize($this->_request->getPost('email')),
+			'task' => $this->_request->getPost('task'),
+			'solution' => $this->_request->getPost('solution')
+		];
 	}
 
 	/**
-	 * show the error
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $errorArray array of the error
-	 *
-	 * @return string
-	 */
-
-	protected function _error(array $errorArray = []) : string
-	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setRoute($this->_language->get('back'), 'login/recover')
-			->error($errorArray['message'], $this->_language->get('error_occurred'));
-	}
-
-	/**
-	 * validate
+	 * validate the post
 	 *
 	 * @since 3.0.0
 	 *
@@ -148,32 +128,32 @@ class Recover extends ControllerAbstract
 	 * @return array
 	 */
 
-	protected function _validate(array $postArray = []) : array
+	protected function _validatePost(array $postArray = []) : array
 	{
 		$emailValidator = new Validator\Email();
 		$captchaValidator = new Validator\Captcha();
 		$settingModel = new Model\Setting();
+		$validateArray = [];
 
 		/* validate post */
 
-		$messageArray = [];
 		if (!$postArray['email'])
 		{
-			$messageArray[] = $this->_language->get('email_empty');
+			$validateArray[] = $this->_language->get('email_empty');
 		}
 		else if ($emailValidator->validate($postArray['email']) === Validator\ValidatorInterface::FAILED)
 		{
-			$messageArray[] = $this->_language->get('email_incorrect');
+			$validateArray[] = $this->_language->get('email_incorrect');
 		}
 		else if (!Db::forTablePrefix('users')->where('email', $postArray['email'])->findOne()->id)
 		{
-			$messageArray[] = $this->_language->get('email_unknown');
+			$validateArray[] = $this->_language->get('email_unknown');
 		}
 		if ($settingModel->get('captcha') > 0 && $captchaValidator->validate($postArray['task'], $postArray['solution']) === Validator\ValidatorInterface::FAILED)
 		{
-			$messageArray[] = $this->_language->get('captcha_incorrect');
+			$validateArray[] = $this->_language->get('captcha_incorrect');
 		}
-		return $messageArray;
+		return $validateArray;
 	}
 
 	/**

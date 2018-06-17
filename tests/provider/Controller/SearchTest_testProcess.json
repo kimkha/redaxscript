@@ -15,7 +15,7 @@
 			"thirdParameter": "One",
 			"root": "http://localhost"
 		},
-		"<h2 class=\"rs-title-note rs-is-info\">Something went wrong</h2><div class=\"rs-box-note rs-fn-clearfix rs-is-info\"><ul class=\"rs-list-note\"><li>Input is incorrect</li><li>No results for your search query</li></ul></div><a href=\"http://localhost\" class=\"rs-button-note rs-is-info\">Back</a>"
+		"<h2 class=\"rs-title-note rs-is-info\">Something went wrong</h2><div class=\"rs-box-note rs-fn-clearfix rs-is-info\">Input is incorrect</div><a href=\"http://localhost\" class=\"rs-button-note rs-is-info\">Back</a>"
 	],
 	[
 		{

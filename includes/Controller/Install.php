@@ -62,50 +62,35 @@ class Install extends ControllerAbstract
 
 	public function process() : string
 	{
-		$specialFilter = new Filter\Special();
-		$emailFilter = new Filter\Email();
+		$postArray = $this->_sanitizePost();
 
-		/* process post */
+		/* validate database */
 
-		$postArray =
-		[
-			'dbType' => $this->_request->getPost('db-type'),
-			'dbHost' => $this->_request->getPost('db-host'),
-			'dbName' => $this->_request->getPost('db-name'),
-			'dbUser' => $this->_request->getPost('db-user'),
-			'dbPassword' => $this->_request->getPost('db-password'),
-			'dbPrefix' => $this->_request->getPost('db-prefix'),
-			'adminName' => $specialFilter->sanitize($this->_request->getPost('admin-name')),
-			'adminUser' => $specialFilter->sanitize($this->_request->getPost('admin-user')),
-			'adminPassword' => $specialFilter->sanitize($this->_request->getPost('admin-password')),
-			'adminEmail' => $emailFilter->sanitize($this->_request->getPost('admin-email')),
-			'refreshConnection' => $this->_request->getPost('refresh-connection')
-		];
-
-		/* handle error */
-
-		$messageArray = $this->_validateDatabase($postArray);
-		if ($messageArray)
+		$validateArray = $this->_validateDatabase($postArray);
+		if ($validateArray)
 		{
 			return $this->_error(
 			[
 				'url' => 'install.php',
 				'title' => $this->_language->get('database'),
-				'message' => $messageArray
+				'message' => $validateArray
 			]);
 		}
-		$messageArray = $this->_validateAccount($postArray);
-		if ($messageArray)
+
+		/* validate account */
+
+		$validateArray = $this->_validateAccount($postArray);
+		if ($validateArray)
 		{
 			return $this->_error(
 			[
 				'url' => 'install.php',
 				'title' => $this->_language->get('account'),
-				'message' => $messageArray
+				'message' => $validateArray
 			]);
 		}
 
-		/* handle success */
+		/* touch config */
 
 		$configArray =
 		[
@@ -116,16 +101,6 @@ class Install extends ControllerAbstract
 			'dbPassword' => $postArray['dbPassword'],
 			'dbPrefix' => $postArray['dbPrefix']
 		];
-		$adminArray =
-		[
-			'adminUser' => $postArray['adminUser'],
-			'adminName' => $postArray['adminName'],
-			'adminEmail' => $postArray['adminEmail'],
-			'adminPassword' => $postArray['adminPassword']
-		];
-
-		/* touch file */
-
 		if (!$this->_touch($configArray))
 		{
 			return $this->_error(
@@ -153,7 +128,7 @@ class Install extends ControllerAbstract
 			$this->_refreshConnection();
 		}
 
-		/* get the status */
+		/* handle database */
 
 		if (!$this->_getStatus())
 		{
@@ -164,8 +139,15 @@ class Install extends ControllerAbstract
 			]);
 		}
 
-		/* install */
+		/* handle install */
 
+		$adminArray =
+		[
+			'adminUser' => $postArray['adminUser'],
+			'adminName' => $postArray['adminName'],
+			'adminEmail' => $postArray['adminEmail'],
+			'adminPassword' => $postArray['adminPassword']
+		];
 		if (!$this->_install($adminArray))
 		{
 			return $this->_error(
@@ -175,7 +157,7 @@ class Install extends ControllerAbstract
 			]);
 		}
 
-		/* mail */
+		/* handle mail */
 
 		if (!$this->_mail($adminArray))
 		{
@@ -185,6 +167,9 @@ class Install extends ControllerAbstract
 				'message' => $this->_language->get('email_failed')
 			]);
 		}
+
+		/* handle success */
+
 		return $this->_success(
 		[
 			'url' => 'index.php',
@@ -193,59 +178,34 @@ class Install extends ControllerAbstract
 	}
 
 	/**
-	 * show the success
+	 * sanitize the post
 	 *
-	 * @since 3.0.0
+	 * @since 4.0.0
 	 *
-	 * @param array $successArray array of the success
-	 *
-	 * @return string
+	 * @return array
 	 */
 
-	protected function _success(array $successArray = []) : string
+	protected function _sanitizePost() : array
 	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setUrl($this->_language->get('home'), $successArray['url'])
-			->doRedirect()
-			->success($successArray['message'], $successArray['title']);
-	}
+		$emailFilter = new Filter\Email();
+		$specialFilter = new Filter\Special();
 
-	/**
-	 * show the warning
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $warningArray array of the warning
-	 *
-	 * @return string
-	 */
+		/* sanitize post */
 
-	protected function _warning(array $warningArray = []) : string
-	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setUrl($this->_language->get('home'), $warningArray['url'])
-			->doRedirect()
-			->warning($warningArray['message'], $warningArray['title']);
-	}
-
-	/**
-	 * show the error
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $errorArray array of the error
-	 *
-	 * @return string
-	 */
-
-	protected function _error(array $errorArray = []) : string
-	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setUrl($this->_language->get('back'), $errorArray['url'])
-			->error($errorArray['message'], $errorArray['title']);
+		return
+		[
+			'dbType' => $this->_request->getPost('db-type'),
+			'dbHost' => $this->_request->getPost('db-host'),
+			'dbName' => $this->_request->getPost('db-name'),
+			'dbUser' => $this->_request->getPost('db-user'),
+			'dbPassword' => $this->_request->getPost('db-password'),
+			'dbPrefix' => $this->_request->getPost('db-prefix'),
+			'adminName' => $specialFilter->sanitize($this->_request->getPost('admin-name')),
+			'adminUser' => $specialFilter->sanitize($this->_request->getPost('admin-user')),
+			'adminPassword' => $specialFilter->sanitize($this->_request->getPost('admin-password')),
+			'adminEmail' => $emailFilter->sanitize($this->_request->getPost('admin-email')),
+			'refreshConnection' => $this->_request->getPost('refresh-connection')
+		];
 	}
 
 	/**
@@ -253,34 +213,34 @@ class Install extends ControllerAbstract
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param array $postArray array to be validated
+	 * @param array $postArray array of the post
 	 *
 	 * @return array
 	 */
 
 	protected function _validateDatabase(array $postArray = []) : array
 	{
-		$messageArray = [];
+		$validateArray = [];
 		if (!$postArray['dbType'])
 		{
-			$messageArray[] = $this->_language->get('type_empty');
+			$validateArray[] = $this->_language->get('type_empty');
 		}
 		if (!$postArray['dbHost'])
 		{
-			$messageArray[] = $this->_language->get('host_empty');
+			$validateArray[] = $this->_language->get('host_empty');
 		}
 		if ($postArray['dbType'] !== 'sqlite')
 		{
 			if (!$postArray['dbName'])
 			{
-				$messageArray[] = $this->_language->get('name_empty');
+				$validateArray[] = $this->_language->get('name_empty');
 			}
 			if (!$postArray['dbUser'])
 			{
-				$messageArray[] = $this->_language->get('user_empty');
+				$validateArray[] = $this->_language->get('user_empty');
 			}
 		}
-		return $messageArray;
+		return $validateArray;
 	}
 
 	/**
@@ -288,7 +248,7 @@ class Install extends ControllerAbstract
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param array $postArray array to be validated
+	 * @param array $postArray array of the post
 	 *
 	 * @return array
 	 */
@@ -297,39 +257,39 @@ class Install extends ControllerAbstract
 	{
 		$emailValidator = new Validator\Email();
 		$loginValidator = new Validator\Login();
+		$validateArray = [];
 
 		/* validate post */
 
-		$messageArray = [];
 		if (!$postArray['adminName'])
 		{
-			$messageArray[] = $this->_language->get('name_empty');
+			$validateArray[] = $this->_language->get('name_empty');
 		}
 		if (!$postArray['adminUser'])
 		{
-			$messageArray[] = $this->_language->get('user_empty');
+			$validateArray[] = $this->_language->get('user_empty');
 		}
 		else if ($loginValidator->validate($postArray['adminUser']) === Validator\ValidatorInterface::FAILED)
 		{
-			$messageArray[] = $this->_language->get('user_incorrect');
+			$validateArray[] = $this->_language->get('user_incorrect');
 		}
 		if (!$postArray['adminPassword'])
 		{
-			$messageArray[] = $this->_language->get('password_empty');
+			$validateArray[] = $this->_language->get('password_empty');
 		}
 		else if ($loginValidator->validate($postArray['adminPassword']) === Validator\ValidatorInterface::FAILED)
 		{
-			$messageArray[] = $this->_language->get('password_incorrect');
+			$validateArray[] = $this->_language->get('password_incorrect');
 		}
 		if (!$postArray['adminEmail'])
 		{
-			$messageArray[] = $this->_language->get('email_empty');
+			$validateArray[] = $this->_language->get('email_empty');
 		}
 		else if ($emailValidator->validate($postArray['adminEmail']) === Validator\ValidatorInterface::FAILED)
 		{
-			$messageArray[] = $this->_language->get('email_incorrect');
+			$validateArray[] = $this->_language->get('email_incorrect');
 		}
-		return $messageArray;
+		return $validateArray;
 	}
 
 	/**
@@ -481,5 +441,61 @@ class Install extends ControllerAbstract
 		$mailer = new Mailer();
 		$mailer->init($toArray, $fromArray, $subject, $bodyArray);
 		return $mailer->send();
+	}
+
+	/**
+	 * show the success
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $successArray array of the success
+	 *
+	 * @return string
+	 */
+
+	protected function _success(array $successArray = []) : string
+	{
+		$messenger = new Messenger($this->_registry);
+		return $messenger
+			->setUrl($this->_language->get('home'), $successArray['url'])
+			->doRedirect()
+			->success($successArray['message'], $successArray['title']);
+	}
+
+	/**
+	 * show the warning
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $warningArray array of the warning
+	 *
+	 * @return string
+	 */
+
+	protected function _warning(array $warningArray = []) : string
+	{
+		$messenger = new Messenger($this->_registry);
+		return $messenger
+			->setUrl($this->_language->get('home'), $warningArray['url'])
+			->doRedirect()
+			->warning($warningArray['message'], $warningArray['title']);
+	}
+
+	/**
+	 * show the error
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $errorArray array of the error
+	 *
+	 * @return string
+	 */
+
+	protected function _error(array $errorArray = []) : string
+	{
+		$messenger = new Messenger($this->_registry);
+		return $messenger
+			->setUrl($this->_language->get('back'), $errorArray['url'])
+			->error($errorArray['message'], $errorArray['title']);
 	}
 }

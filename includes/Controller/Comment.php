@@ -3,7 +3,6 @@ namespace Redaxscript\Controller;
 
 use Redaxscript\Html;
 use Redaxscript\Mailer;
-use Redaxscript\Messenger;
 use Redaxscript\Model;
 use Redaxscript\Filter;
 use Redaxscript\Validator;
@@ -31,40 +30,24 @@ class Comment extends ControllerAbstract
 
 	public function process() : string
 	{
-		$specialFilter = new Filter\Special();
-		$emailFilter = new Filter\Email();
-		$urlFilter = new Filter\Url();
-		$htmlFilter = new Filter\Html();
 		$articleModel = new Model\Article();
 		$settingModel = new Model\Setting();
-
-		/* process post */
-
-		$postArray =
-		[
-			'author' => $specialFilter->sanitize($this->_request->getPost('author')),
-			'email' => $emailFilter->sanitize($this->_request->getPost('email')),
-			'url' => $urlFilter->sanitize($this->_request->getPost('url')),
-			'text' => $htmlFilter->sanitize($this->_request->getPost('text')),
-			'article' => $specialFilter->sanitize($this->_request->getPost('article')),
-			'task' => $this->_request->getPost('task'),
-			'solution' => $this->_request->getPost('solution')
-		];
+		$postArray = $this->_sanitizePost();
+		$validateArray = $this->_validatePost($postArray);
 		$route = $postArray['article'] ? $articleModel->getRouteById($postArray['article']) : null;
 
-		/* handle error */
+		/* handle validate */
 
-		$messageArray = $this->_validate($postArray);
-		if ($messageArray)
+		if ($validateArray)
 		{
 			return $this->_error(
 			[
 				'route' => $route,
-				'message' => $messageArray
+				'message' => $validateArray
 			]);
 		}
 
-		/* handle success */
+		/* handle create */
 
 		$createArray =
 		[
@@ -76,18 +59,6 @@ class Comment extends ControllerAbstract
 			'article' => $postArray['article'],
 			'status' => $settingModel->get('verification') ? 0 : 1
 		];
-		$mailArray =
-		[
-			'email' => $postArray['email'],
-			'url' => $postArray['url'],
-			'route' => $route,
-			'author' => $postArray['author'],
-			'text' => $postArray['text'],
-			'article' => $articleModel->getById($postArray['article'])->title
-		];
-
-		/* create */
-
 		if (!$this->_create($createArray))
 		{
 			return $this->_error(
@@ -97,8 +68,17 @@ class Comment extends ControllerAbstract
 			]);
 		}
 
-		/* mail */
+		/* handle mail */
 
+		$mailArray =
+		[
+			'email' => $postArray['email'],
+			'url' => $postArray['url'],
+			'route' => $route,
+			'author' => $postArray['author'],
+			'text' => $postArray['text'],
+			'article' => $articleModel->getById($postArray['article'])->title
+		];
 		if (!$this->_mail($mailArray))
 		{
 			return $this->_warning(
@@ -108,6 +88,9 @@ class Comment extends ControllerAbstract
 				'message' => $this->_language->get('email_failed')
 			]);
 		}
+
+		/* handle success */
+
 		return $this->_success(
 		[
 			'route' => $route,
@@ -117,63 +100,36 @@ class Comment extends ControllerAbstract
 	}
 
 	/**
-	 * show the success
+	 * sanitize the post
 	 *
-	 * @since 3.0.0
+	 * @since 4.0.0
 	 *
-	 * @param array $successArray array of the success
-	 *
-	 * @return string
+	 * @return array
 	 */
 
-	protected function _success(array $successArray = []) : string
+	protected function _sanitizePost() : array
 	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setRoute($this->_language->get('continue'), $successArray['route'])
-			->doRedirect($successArray['timeout'])
-			->success($successArray['message'], $this->_language->get('operation_completed'));
+		$specialFilter = new Filter\Special();
+		$emailFilter = new Filter\Email();
+		$urlFilter = new Filter\Url();
+		$htmlFilter = new Filter\Html();
+
+		/* sanitize post */
+
+		return
+		[
+			'author' => $specialFilter->sanitize($this->_request->getPost('author')),
+			'email' => $emailFilter->sanitize($this->_request->getPost('email')),
+			'url' => $urlFilter->sanitize($this->_request->getPost('url')),
+			'text' => $htmlFilter->sanitize($this->_request->getPost('text')),
+			'article' => $specialFilter->sanitize($this->_request->getPost('article')),
+			'task' => $this->_request->getPost('task'),
+			'solution' => $this->_request->getPost('solution')
+		];
 	}
 
 	/**
-	 * show the warning
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $warningArray array of the warning
-	 *
-	 * @return string
-	 */
-
-	protected function _warning(array $warningArray = []) : string
-	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setRoute($this->_language->get('continue'), $warningArray['route'])
-			->doRedirect($warningArray['timeout'])
-			->warning($warningArray['message'], $this->_language->get('operation_completed'));
-	}
-
-	/**
-	 * show the error
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $errorArray array of the error
-	 *
-	 * @return string
-	 */
-
-	protected function _error(array $errorArray = []) : string
-	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setRoute($this->_language->get('back'), $errorArray['route'])
-			->error($errorArray['message'], $this->_language->get('error_occurred'));
-	}
-
-	/**
-	 * validate
+	 * validate the post
 	 *
 	 * @since 3.3.0
 	 *
@@ -182,45 +138,45 @@ class Comment extends ControllerAbstract
 	 * @return array
 	 */
 
-	protected function _validate(array $postArray = []) : array
+	protected function _validatePost(array $postArray = []) : array
 	{
 		$emailValidator = new Validator\Email();
 		$captchaValidator = new Validator\Captcha();
 		$urlValidator = new Validator\Url();
 		$settingModel = new Model\Setting();
+		$validateArray = [];
 
 		/* validate post */
 
-		$messageArray = [];
 		if (!$postArray['author'])
 		{
-			$messageArray[] = $this->_language->get('author_empty');
+			$validateArray[] = $this->_language->get('author_empty');
 		}
 		if (!$postArray['email'])
 		{
-			$messageArray[] = $this->_language->get('email_empty');
+			$validateArray[] = $this->_language->get('email_empty');
 		}
 		else if ($emailValidator->validate($postArray['email']) === Validator\ValidatorInterface::FAILED)
 		{
-			$messageArray[] = $this->_language->get('email_incorrect');
+			$validateArray[] = $this->_language->get('email_incorrect');
 		}
 		if ($postArray['url'] && $urlValidator->validate($postArray['url']) === Validator\ValidatorInterface::FAILED)
 		{
-			$messageArray[] = $this->_language->get('url_incorrect');
+			$validateArray[] = $this->_language->get('url_incorrect');
 		}
 		if (!$postArray['text'])
 		{
-			$messageArray[] = $this->_language->get('comment_empty');
+			$validateArray[] = $this->_language->get('comment_empty');
 		}
 		if (!$postArray['article'])
 		{
-			$messageArray[] = $this->_language->get('input_incorrect');
+			$validateArray[] = $this->_language->get('input_incorrect');
 		}
 		if ($settingModel->get('captcha') > 0 && $captchaValidator->validate($postArray['task'], $postArray['solution']) === Validator\ValidatorInterface::FAILED)
 		{
-			$messageArray[] = $this->_language->get('captcha_incorrect');
+			$validateArray[] = $this->_language->get('captcha_incorrect');
 		}
-		return $messageArray;
+		return $validateArray;
 	}
 
 	/**

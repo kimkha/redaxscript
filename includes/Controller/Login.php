@@ -2,9 +2,7 @@
 namespace Redaxscript\Controller;
 
 use Redaxscript\Auth;
-use Redaxscript\Db;
 use Redaxscript\Filter;
-use Redaxscript\Messenger;
 use Redaxscript\Model;
 use Redaxscript\Validator;
 
@@ -31,134 +29,115 @@ class Login extends ControllerAbstract
 
 	public function process() : string
 	{
-		$specialFilter = new Filter\Special();
-		$emailFilter = new Filter\Email();
-		$emailValidator = new Validator\Email();
-		$loginValidator = new Validator\Login();
+		$userModel = new Model\User();
+		$postArray = $this->_sanitizePost();
+		$user = $userModel->getByUserOrEmail($postArray['user'], $postArray['email']);
 
-		/* process post */
+		/* validate post */
 
-		$postArray =
-		[
-			'password' => $specialFilter->sanitize($this->_request->getPost('password')),
-			'task' => $this->_request->getPost('task'),
-			'solution' => $this->_request->getPost('solution')
-		];
-
-		/* user and email */
-
-		$users = Db::forTablePrefix('users');
-		if ($emailValidator->validate($this->_request->getPost('user')) === Validator\ValidatorInterface::PASSED)
-		{
-			$postArray['user'] = $emailFilter->sanitize($this->_request->getPost('user'));
-			$users->where('email', $postArray['user']);
-		}
-		else if ($loginValidator->validate($this->_request->getPost('user')) === Validator\ValidatorInterface::PASSED)
-		{
-			$postArray['user'] = $specialFilter->sanitize($this->_request->getPost('user'));
-			$users->where('user', $postArray['user']);
-		}
-		$user = $users->where('status', 1)->findOne();
-
-		/* handle error */
-
-		$messageArray = $this->_validate($postArray, $user);
-		if ($messageArray)
+		$validateArray = $this->_validatePost($postArray);
+		if ($validateArray)
 		{
 			return $this->_error(
 			[
-				'message' => $messageArray
+				'route' => 'login',
+				'message' => $validateArray
 			]);
 		}
 
-		/* handle success */
+		/* handle login */
 
 		if ($this->_login($user->id))
 		{
-			return $this->_success();
+			return $this->_success(
+			[
+				'route' => 'admin',
+				'timeout' => 0,
+				'message' => $this->_language->get('logged_in'),
+				'title' => $this->_language->get('welcome')
+			]);
 		}
+
+		/* handle error */
+
 		return $this->_error(
 		[
+			'route' => 'login',
 			'message' => $this->_language->get('something_wrong')
 		]);
 	}
 
 	/**
-	 * show the success
+	 * sanitize the post
 	 *
-	 * @since 3.0.0
-	 *
-	 * @return string
-	 */
-
-	protected function _success() : string
-	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setRoute($this->_language->get('continue'), 'admin')
-			->doRedirect(0)
-			->success($this->_language->get('logged_in'), $this->_language->get('welcome'));
-	}
-
-	/**
-	 * show the error
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $errorArray array of the error
-	 *
-	 * @return string
-	 */
-
-	protected function _error(array $errorArray = []) : string
-	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setRoute($this->_language->get('back'), 'login')
-			->error($errorArray['message'], $this->_language->get('error_occurred'));
-	}
-
-	/**
-	 * validate
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $postArray array of the post
-	 * @param object $user object of the user
+	 * @since 4.0.0
 	 *
 	 * @return array
 	 */
 
-	protected function _validate(array $postArray = [], $user = null) : array
+	protected function _sanitizePost() : array
+	{
+		$specialFilter = new Filter\Special();
+		$emailFilter = new Filter\Email();
+		$emailValidator = new Validator\Email();
+		$loginValidator = new Validator\Login();
+		$isEmail = $emailValidator->validate($this->_request->getPost('user')) === Validator\ValidatorInterface::PASSED;
+		$isUser = $loginValidator->validate($this->_request->getPost('user')) === Validator\ValidatorInterface::PASSED;
+
+		/* sanitize post */
+
+		return
+		[
+			'email' => $isEmail ? $emailFilter->sanitize($this->_request->getPost('user')) : null,
+			'user' => $isUser ? $specialFilter->sanitize($this->_request->getPost('user')) : null,
+			'password' => $specialFilter->sanitize($this->_request->getPost('password')),
+			'task' => $this->_request->getPost('task'),
+			'solution' => $this->_request->getPost('solution')
+		];
+	}
+
+	/**
+	 * validate the post
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $postArray array of the post
+	 *
+	 * @return array
+	 */
+
+	protected function _validatePost(array $postArray = []) : array
 	{
 		$passwordValidator = new Validator\Password();
 		$captchaValidator = new Validator\Captcha();
 		$settingModel = new Model\Setting();
+		$userModel = new Model\User();
+		$user = $userModel->getByUserOrEmail($postArray['user'], $postArray['email']);
+		$validateArray = [];
 
 		/* validate post */
 
-		$messageArray = [];
-		if (!$postArray['user'])
+		if (!$postArray['user'] && !$postArray['email'])
 		{
-			$messageArray[] = $this->_language->get('user_empty');
+			$validateArray[] = $this->_language->get('user_empty');
 		}
 		else if (!$user->id)
 		{
-			$messageArray[] = $this->_language->get('user_incorrect');
+			$validateArray[] = $this->_language->get('user_incorrect');
 		}
 		if (!$postArray['password'])
 		{
-			$messageArray[] = $this->_language->get('password_empty');
+			$validateArray[] = $this->_language->get('password_empty');
 		}
 		else if ($user->password && $passwordValidator->validate($postArray['password'], $user->password) === Validator\ValidatorInterface::FAILED)
 		{
-			$messageArray[] = $this->_language->get('password_incorrect');
+			$validateArray[] = $this->_language->get('password_incorrect');
 		}
 		if ($settingModel->get('captcha') > 0 && $captchaValidator->validate($postArray['task'], $postArray['solution']) === Validator\ValidatorInterface::FAILED)
 		{
-			$messageArray[] = $this->_language->get('captcha_incorrect');
+			$validateArray[] = $this->_language->get('captcha_incorrect');
 		}
-		return $messageArray;
+		return $validateArray;
 	}
 
 	/**

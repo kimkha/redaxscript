@@ -47,6 +47,7 @@ abstract class ContentAbstract extends ModelAbstract
 		return $this->query()
 			->whereIdIs($id)
 			->whereLanguageIs($language)
+			->where('status', 1)
 			->findMany();
 	}
 

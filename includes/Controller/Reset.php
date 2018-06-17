@@ -1,11 +1,9 @@
 <?php
 namespace Redaxscript\Controller;
 
-use Redaxscript\Db;
 use Redaxscript\Hash;
 use Redaxscript\Html\Element;
 use Redaxscript\Mailer;
-use Redaxscript\Messenger;
 use Redaxscript\Model;
 use Redaxscript\Filter;
 use Redaxscript\Validator;
@@ -33,150 +31,130 @@ class Reset extends ControllerAbstract
 
 	public function process() : string
 	{
-		$specialFilter = new Filter\Special();
+		$passwordHash = new Hash();
+		$passwordHash->init(uniqid());
+		$userModel = new Model\User();
+		$postArray = $this->_sanitizePost();
+		$user = $userModel->getById($postArray['id']);
 
-		/* process post */
+		/* validate post */
 
-		$postArray =
-		[
-			'id' => $specialFilter->sanitize($this->_request->getPost('id')),
-			'password' => $specialFilter->sanitize($this->_request->getPost('password')),
-			'task' => $this->_request->getPost('task'),
-			'solution' => $this->_request->getPost('solution')
-		];
-
-		/* query user */
-
-		$user = Db::forTablePrefix('users')->where(
-		[
-			'id' => $postArray['id'],
-			'status' => 1
-		])
-		->findOne();
-
-		/* handle error */
-
-		$messageArray = $this->_validate($postArray, $user);
-		if ($messageArray)
+		$validateArray = $this->_validatePost($postArray);
+		if ($validateArray)
 		{
 			return $this->_error(
 			[
-				'message' => $messageArray
+				'route' => 'login/recover',
+				'message' => $validateArray
 			]);
 		}
 
-		/* handle success */
+		/* handle reset */
 
-		$passwordHash = new Hash();
-		$passwordHash->init(uniqid());
 		$resetArray =
 		[
 			'id' => $user->id,
 			'password' => $passwordHash->getHash()
 		];
+		if (!$this->_reset($resetArray))
+		{
+			return $this->_error(
+			[
+				'route' => 'login/recover',
+				'message' => $this->_language->get('something_wrong')
+			]);
+		}
+
+		/* handle mail */
+
 		$mailArray =
 		[
 			'name' => $user->name,
 			'email' => $user->email,
 			'password' => $passwordHash->getRaw()
 		];
-
-		/* reset */
-
-		if (!$this->_reset($resetArray))
-		{
-			return $this->_error(
-			[
-				'message' => $this->_language->get('something_wrong')
-			]);
-		}
-
-		/* mail */
-
 		if (!$this->_mail($mailArray))
 		{
 			return $this->_error(
 			[
+				'route' => 'login/recover',
 				'message' => $this->_language->get('email_failed')
 			]);
 		}
-		return $this->_success();
+
+		/* handle success */
+
+		return $this->_success(
+		[
+			'route' => 'login',
+			'timeout' => 2,
+			'message' => $this->_language->get('password_sent')
+		]);
 	}
 
 	/**
-	 * show the success
+	 * sanitize the post
 	 *
-	 * @since 3.0.0
-	 *
-	 * @return string
-	 */
-
-	protected function _success() : string
-	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setRoute($this->_language->get('login'), 'login')
-			->doRedirect()
-			->success($this->_language->get('password_sent'), $this->_language->get('operation_completed'));
-	}
-
-	/**
-	 * show the error
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $errorArray array of the error
-	 *
-	 * @return string
-	 */
-
-	protected function _error(array $errorArray = []) : string
-	{
-		$messenger = new Messenger($this->_registry);
-		return $messenger
-			->setRoute($this->_language->get('back'), 'login/recover')
-			->error($errorArray['message'], $this->_language->get('error_occurred'));
-	}
-
-	/**
-	 * validate
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $postArray array of the post
-	 * @param object $user object of the user
+	 * @since 4.0.0
 	 *
 	 * @return array
 	 */
 
-	protected function _validate(array $postArray = [], $user = null) : array
+	protected function _sanitizePost() : array
+	{
+		$specialFilter = new Filter\Special();
+
+		/* sanitize post */
+
+		return
+		[
+			'id' => $specialFilter->sanitize($this->_request->getPost('id')),
+			'password' => $specialFilter->sanitize($this->_request->getPost('password')),
+			'task' => $this->_request->getPost('task'),
+			'solution' => $this->_request->getPost('solution')
+		];
+	}
+
+	/**
+	 * validate the post
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $postArray array of the post
+	 *
+	 * @return array
+	 */
+
+	protected function _validatePost(array $postArray = []) : array
 	{
 		$captchaValidator = new Validator\Captcha();
+		$userModel = new Model\User();
+		$user = $userModel->getById($postArray['id']);
+		$validateArray = [];
 
 		/* validate post */
 
-		$messageArray = [];
 		if (!$postArray['id'])
 		{
-			$messageArray[] = $this->_language->get('user_empty');
+			$validateArray[] = $this->_language->get('user_empty');
 		}
 		else if (!$user->id)
 		{
-			$messageArray[] = $this->_language->get('user_incorrect');
+			$validateArray[] = $this->_language->get('user_incorrect');
 		}
 		if (!$postArray['password'])
 		{
-			$messageArray[] = $this->_language->get('password_empty');
+			$validateArray[] = $this->_language->get('password_empty');
 		}
 		else if (sha1($user->password) !== $postArray['password'])
 		{
-			$messageArray[] = $this->_language->get('password_incorrect');
+			$validateArray[] = $this->_language->get('password_incorrect');
 		}
 		if ($captchaValidator->validate($postArray['task'], $postArray['solution']) === Validator\ValidatorInterface::FAILED)
 		{
-			$messageArray[] = $this->_language->get('captcha_incorrect');
+			$validateArray[] = $this->_language->get('captcha_incorrect');
 		}
-		return $messageArray;
+		return $validateArray;
 	}
 
 	/**
