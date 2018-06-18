@@ -8,7 +8,7 @@ use Redaxscript\Html;
 use Redaxscript\Model;
 
 /**
- * simple directory lister
+ * list the files of a directory
  *
  * @since 2.6.0
  *
@@ -30,7 +30,7 @@ class DirectoryLister extends Config
 		'name' => 'Directory Lister',
 		'alias' => 'DirectoryLister',
 		'author' => 'Redaxmedia',
-		'description' => 'Simple directory lister',
+		'description' => 'List the files of a directory',
 		'version' => '4.0.0'
 	];
 

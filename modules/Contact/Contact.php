@@ -10,7 +10,7 @@ use Redaxscript\Module;
 use Redaxscript\Validator;
 
 /**
- * simple contact form
+ * offer the visitors to get in touch
  *
  * @since 2.6.0
  *
@@ -32,7 +32,7 @@ class Contact extends Module\Module
 		'name' => 'Contact',
 		'alias' => 'Contact',
 		'author' => 'Redaxmedia',
-		'description' => 'Simple contact form',
+		'description' => 'Offer the visitors to get in touch',
 		'version' => '4.0.0'
 	];
 
@@ -78,10 +78,6 @@ class Contact extends Module\Module
 		$formElement = new Html\Form($this->_registry, $this->_language);
 		$formElement->init(
 		[
-			'textarea' =>
-			[
-				'class' => 'rs-js-auto-resize rs-js-editor-textarea rs-field-textarea'
-			],
 			'button' =>
 			[
 				'submit' =>
@@ -141,6 +137,7 @@ class Contact extends Module\Module
 			])
 			->textarea(
 			[
+				'class' => 'rs-js-textarea rs-field-textarea',
 				'id' => 'text',
 				'name' => 'text',
 				'required' => 'required'

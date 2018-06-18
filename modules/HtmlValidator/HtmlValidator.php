@@ -1,5 +1,5 @@
 <?php
-namespace Redaxscript\Modules\Validator;
+namespace Redaxscript\Modules\HtmlValidator;
 
 use Redaxscript\Reader;
 
@@ -13,7 +13,7 @@ use Redaxscript\Reader;
  * @author Henry Ruhs
  */
 
-class Validator extends Config
+class HtmlValidator extends Config
 {
 	/**
 	 * array of the module
@@ -23,8 +23,8 @@ class Validator extends Config
 
 	protected static $_moduleArray =
 	[
-		'name' => 'Validator',
-		'alias' => 'Validator',
+		'name' => 'Html Validator',
+		'alias' => 'HtmlValidator',
 		'author' => 'Redaxmedia',
 		'description' => 'HTML validator for developers',
 		'version' => '4.0.0',

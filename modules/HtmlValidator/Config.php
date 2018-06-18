@@ -1,5 +1,5 @@
 <?php
-namespace Redaxscript\Modules\Validator;
+namespace Redaxscript\Modules\HtmlValidator;
 
 use Redaxscript\Module;
 

@@ -4,7 +4,7 @@ namespace Redaxscript\Modules\PageCache;
 use Redaxscript\Filesystem;
 
 /**
- * simple page cache
+ * high performance caching for pages
  *
  * @since 3.0.0
  *
@@ -26,7 +26,7 @@ class PageCache extends Config
 		'name' => 'Page Cache',
 		'alias' => 'PageCache',
 		'author' => 'Redaxmedia',
-		'description' => 'Simple page cache',
+		'description' => 'High performance caching for pages',
 		'version' => '4.0.0'
 	];
 
