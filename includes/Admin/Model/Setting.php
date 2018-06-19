@@ -25,7 +25,7 @@ class Setting extends BaseModel\Setting
 	 * @return bool
 	 */
 
-	protected function updateByArray(array $updateArray = []) : bool
+	public function updateByArray(array $updateArray = []) : bool
 	{
 		foreach ($updateArray as $key => $value)
 		{

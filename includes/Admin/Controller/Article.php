@@ -83,7 +83,7 @@ class Article extends ControllerAbstract
 
 		if ($this->_request->getPost('Redaxscript\Admin\View\ArticleForm') === 'update')
 		{
-			$route = 'admin/new/articles/' . $postArray['article'];
+			$route = 'admin/edit/articles/' . $postArray['article'];
 			$updateArray =
 			[
 				'title' => $postArray['title'],
@@ -182,7 +182,7 @@ class Article extends ControllerAbstract
 
 		/* validate post */
 
-		if (!!$postArray['title'])
+		if (!$postArray['title'])
 		{
 			$validateArray[] = $this->_language->get('title_empty');
 		}
@@ -198,7 +198,7 @@ class Article extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('alias_exists');
 		}
-		if (!!$postArray['text'])
+		if (!$postArray['text'])
 		{
 			$validateArray[] = $this->_language->get('text_empty');
 		}
