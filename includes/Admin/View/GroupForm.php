@@ -106,9 +106,9 @@ class GroupForm extends ViewAbstract
 				'value' => $group->name
 			])
 			->append('</li><li>')
-			->label($this->_language->get('user'),
+			->label($this->_language->get('alias'),
 			[
-				'for' => 'user'
+				'for' => 'alias'
 			])
 			->text(
 			[
