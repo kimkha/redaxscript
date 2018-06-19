@@ -99,7 +99,6 @@ class Comment extends ControllerAbstract
 
 	protected function _sanitizePost() : array
 	{
-		$aliasFilter = new Filter\Alias();
 		$specialFilter = new Filter\Special();
 
 		/* sanitize post */

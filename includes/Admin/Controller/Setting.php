@@ -30,6 +30,7 @@ class Setting extends ControllerAbstract
 		$postArray = $this->_sanitizePost();
 		$validateArray = $this->_validatePost($postArray);
 		$now = $this->_registry->get('now');
+		$route = 'admin';
 
 		/* validate post */
 
@@ -46,15 +47,16 @@ class Setting extends ControllerAbstract
 
 		if ($this->_request->getPost('Redaxscript\Admin\View\SettingForm') === 'update')
 		{
+			$route = 'admin/edit/settings';
 			$updateArray =
 			[
 
 			];
-			if ($this->_update($postArray['setting'], $updateArray))
+			if ($this->_update($updateArray))
 			{
 				return $this->_success(
 				[
-					'route' => 'admin/edit/settings',
+					'route' => $route,
 					'timeout' => 2
 				]);
 			}
@@ -64,7 +66,7 @@ class Setting extends ControllerAbstract
 
 		return $this->_error(
 		[
-			'route' => 'admin',
+			'route' => $route,
 			'message' => $this->_language->get('something_wrong')
 		]);
 	}
@@ -79,7 +81,6 @@ class Setting extends ControllerAbstract
 
 	protected function _sanitizePost() : array
 	{
-		$aliasFilter = new Filter\Alias();
 		$specialFilter = new Filter\Special();
 
 		/* sanitize post */
