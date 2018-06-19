@@ -29,6 +29,7 @@ class Article extends ControllerAbstract
 	{
 		$postArray = $this->_sanitizePost();
 		$validateArray = $this->_validatePost($postArray);
+		$now = $this->_registry->get('now');
 		$route = 'admin/view/articles';
 
 		/* validate post */
@@ -63,7 +64,7 @@ class Article extends ControllerAbstract
 				'headline' => $postArray['headline'],
 				'byline' => $postArray['byline'],
 				'comments' => $postArray['comments'],
-				'status' => $postArray['status'],
+				'status' => $postArray['date'] > $now ? 2 : $postArray['status'],
 				'rank' => $postArray['rank'],
 				'access' => $postArray['access'],
 				'date' => $postArray['date']
@@ -99,7 +100,7 @@ class Article extends ControllerAbstract
 				'headline' => $postArray['headline'],
 				'byline' => $postArray['byline'],
 				'comments' => $postArray['comments'],
-				'status' => $postArray['status'],
+				'status' => $postArray['date'] > $now ? 2 : $postArray['status'],
 				'rank' => $postArray['rank'],
 				'access' => $postArray['access'],
 				'date' => $postArray['date']
@@ -181,17 +182,25 @@ class Article extends ControllerAbstract
 
 		/* validate post */
 
+		if (!!$postArray['title'])
+		{
+			$validateArray[] = $this->_language->get('title_empty');
+		}
 		if (!$postArray['alias'])
 		{
 			$validateArray[] = $this->_language->get('alias_empty');
+		}
+		else if ($aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_GENERAL) === Validator\ValidatorInterface::PASSED || $aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_DEFAULT) === Validator\ValidatorInterface::PASSED)
+		{
+			$validateArray[] = $this->_language->get('alias_incorrect');
 		}
 		else if ($articleModel->getByAlias($postArray['alias'])->count())
 		{
 			$validateArray[] = $this->_language->get('alias_exists');
 		}
-		else if ($aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_GENERAL) === Validator\ValidatorInterface::PASSED || $aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_DEFAULT) === Validator\ValidatorInterface::PASSED)
+		if (!!$postArray['text'])
 		{
-			$validateArray[] = $this->_language->get('alias_incorrect');
+			$validateArray[] = $this->_language->get('text_empty');
 		}
 		return $validateArray;
 	}
