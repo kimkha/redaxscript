@@ -34,37 +34,24 @@ class Alias implements ValidatorInterface
 	/**
 	 * validate the alias
 	 *
-	 * @since 2.2.0
+	 * @since 4.0.0
 	 *
 	 * @param string $alias alias for routes and users
-	 * @param int $mode switch between general and default validation
+	 * @param string $mode switch between general and default validation
 	 *
 	 * @return bool
 	 */
 
-	public function validate($alias = null, $mode = 'general')
+	public function validate(string $alias = null, string $mode = 'general') : bool
 	{
-		$output = false;
-
-		/* validate general */
-
 		if ($mode === 'general')
 		{
-			if (preg_match('/[^a-z0-9-]/i', $alias) || is_numeric($alias))
-			{
-				$output = true;
-			}
+			return is_numeric($alias) || preg_match('/[^a-z0-9-]/i', $alias);
 		}
-
-		/* validate system */
-
 		if ($mode === 'system')
 		{
-			if (in_array($alias, $this->_systemArray))
-			{
-				$output = true;
-			}
+			return in_array($alias, $this->_systemArray);
 		}
-		return $output;
+		return false;
 	}
 }

@@ -17,7 +17,7 @@ class Email implements ValidatorInterface
 	/**
 	 * validate the email
 	 *
-	 * @since 2.2.0
+	 * @since 4.0.0
 	 *
 	 * @param string $email email address
 	 * @param bool $dns optional validate dns
@@ -25,25 +25,14 @@ class Email implements ValidatorInterface
 	 * @return bool
 	 */
 
-	public function validate($email = null, $dns = true)
+	public function validate(string $email = null, bool $dns = true) : bool
 	{
-		$output = false;
-
-		/* validate email */
-
-		if (filter_var($email, FILTER_VALIDATE_EMAIL) !== false)
+		if (filter_var($email, FILTER_VALIDATE_EMAIL))
 		{
-			$output = true;
+			$dnsValidator = new Dns();
 			$emailArray = array_filter(explode('@', $email));
-
-			/* validate dns */
-
-			if ($dns)
-			{
-				$dnsValidator = new Dns();
-				$output = $dnsValidator->validate($emailArray[1], 'MX');
-			}
+			return $dns ? $dnsValidator->validate($emailArray[1], 'mx') : true;
 		}
-		return $output;
+		return false;
 	}
 }

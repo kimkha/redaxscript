@@ -133,7 +133,7 @@ class Search extends ControllerAbstract
 
 		/* validate query */
 
-		if (!$searchValidator->validate($queryArray['search'], $this->_language->get('search')))
+		if (!$searchValidator->validate($queryArray['search']))
 		{
 			$validateArray[] = $this->_language->get('input_incorrect');
 		}
