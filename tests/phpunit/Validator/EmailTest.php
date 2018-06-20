@@ -25,12 +25,12 @@ class EmailTest extends TestCaseAbstract
 	 * @since 2.2.0
 	 *
 	 * @param string $email
-	 * @param int $expect
+	 * @param bool $expect
 	 *
 	 * @dataProvider providerAutoloader
 	 */
 
-	public function testEmail(string $email = null, int $expect = null)
+	public function testEmail(string $email = null, bool $expect = null)
 	{
 		/* setup */
 

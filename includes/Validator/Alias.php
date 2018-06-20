@@ -15,28 +15,12 @@ namespace Redaxscript\Validator;
 class Alias implements ValidatorInterface
 {
 	/**
-	 * general validate mode
-	 *
-	 * @const integer
-	 */
-
-	const MODE_GENERAL = 0;
-
-	/**
-	 * default validate mode
-	 *
-	 * @const integer
-	 */
-
-	const MODE_DEFAULT = 1;
-
-	/**
-	 * array of default alias
+	 * array of system alias
 	 *
 	 * @var array
 	 */
 
-	protected $_defaultArray =
+	protected $_systemArray =
 	[
 		'admin',
 		'login',
@@ -58,13 +42,13 @@ class Alias implements ValidatorInterface
 	 * @return bool
 	 */
 
-	public function validate($alias = null, $mode = 0)
+	public function validate($alias = null, $mode = 'general')
 	{
 		$output = false;
 
-		/* validate general alias */
+		/* validate general */
 
-		if ($mode === self::MODE_GENERAL)
+		if ($mode === 'general')
 		{
 			if (preg_match('/[^a-z0-9-]/i', $alias) || is_numeric($alias))
 			{
@@ -72,11 +56,11 @@ class Alias implements ValidatorInterface
 			}
 		}
 
-		/* validate default alias */
+		/* validate system */
 
-		else if ($mode === self::MODE_DEFAULT)
+		if ($mode === 'system')
 		{
-			if (in_array($alias, $this->_defaultArray))
+			if (in_array($alias, $this->_systemArray))
 			{
 				$output = true;
 			}

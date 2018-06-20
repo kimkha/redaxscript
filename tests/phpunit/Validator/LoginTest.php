@@ -25,12 +25,12 @@ class LoginTest extends TestCaseAbstract
 	 * @since 2.2.0
 	 *
 	 * @param string $login
-	 * @param int $expect
+	 * @param bool $expect
 	 *
 	 * @dataProvider providerAutoloader
 	 */
 
-	public function testLogin(string $login = null, int $expect = null)
+	public function testLogin(string $login = null, bool $expect = null)
 	{
 		/* setup */
 

@@ -134,7 +134,7 @@ class User extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('user_empty');
 		}
-		else if ($loginValidator->validate($postArray['user'], Validator\Alias::MODE_GENERAL))
+		else if ($loginValidator->validate($postArray['user'], 'general'))
 		{
 			$validateArray[] = $this->_language->get('user_incorrect');
 		}

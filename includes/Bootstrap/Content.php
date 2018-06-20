@@ -129,7 +129,7 @@ class Content extends BootstrapAbstract
 
 		/* set the registry */
 
-		if ($firstParameter === 'admin' || !$aliasValidator->validate($firstParameter, Validator\Alias::MODE_DEFAULT))
+		if ($firstParameter === 'admin' || !$aliasValidator->validate($firstParameter, 'system'))
 		{
 			if ($lastTable === 'categories')
 			{
@@ -212,7 +212,7 @@ class Content extends BootstrapAbstract
 		$aliasValidator = new Validator\Alias();
 		$lastId = $this->_registry->get('lastId');
 		$firstParameter = $this->_registry->get('firstParameter');
-		$contentError = !$lastId && !$aliasValidator->validate($firstParameter, Validator\Alias::MODE_DEFAULT);
+		$contentError = !$lastId && !$aliasValidator->validate($firstParameter, 'system');
 		$this->_registry->set('contentError', $contentError);
 	}
 }

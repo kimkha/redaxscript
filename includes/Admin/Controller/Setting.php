@@ -118,7 +118,7 @@ class Setting extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('alias_empty');
 		}
-		else if ($aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_GENERAL))
+		else if ($aliasValidator->validate($postArray['alias'], 'general'))
 		{
 			$validateArray[] = $this->_language->get('alias_incorrect');
 		}

@@ -25,12 +25,12 @@ class UrlTest extends TestCaseAbstract
 	 * @since 2.2.0
 	 *
 	 * @param string $url
-	 * @param int $expect
+	 * @param bool $expect
 	 *
 	 * @dataProvider providerAutoloader
 	 */
 
-	public function testUrl(string $url = null, int $expect = null)
+	public function testUrl(string $url = null, bool $expect = null)
 	{
 		/* setup */
 

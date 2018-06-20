@@ -25,12 +25,12 @@ class PasswordTest extends TestCaseAbstract
 	 *
 	 * @param string $password
 	 * @param string $hash
-	 * @param int $expect
+	 * @param bool $expect
 	 *
 	 * @dataProvider providerAutoloader
 	 */
 
-	public function testPassword(string $password = null, string $hash = null, int $expect = null)
+	public function testPassword(string $password = null, string $hash = null, bool $expect = null)
 	{
 		/* setup */
 

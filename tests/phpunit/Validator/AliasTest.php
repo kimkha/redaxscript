@@ -25,13 +25,13 @@ class AliasTest extends TestCaseAbstract
 	 * @since 2.2.0
 	 *
 	 * @param string $alias
-	 * @param int $mode
-	 * @param int $expect
+	 * @param string $mode
+	 * @param bool $expect
 	 *
 	 * @dataProvider providerAutoloader
 	 */
 
-	public function testAlias(string $alias = null, int $mode = null, int $expect = null)
+	public function testAlias(string $alias = null, string $mode = null, bool $expect = null)
 	{
 		/* setup */
 

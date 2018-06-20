@@ -1,37 +1,37 @@
 [
 	[
 		"123",
-		0,
+		"general",
 		true
 	],
 	[
 		"abc",
-		0,
+		"general",
 		false
 	],
 	[
 		"abc ",
-		0,
+		"general",
 		true
 	],
 	[
 		"ab-c",
-		1,
+		"system",
 		false
 	],
 	[
 		"ab_c",
-		1,
+		"system",
 		false
 	],
 	[
 		"login",
-		1,
+		"system",
 		true
 	],
 	[
 		"invalid",
-		1,
+		"system",
 		false
 	]
 ]
