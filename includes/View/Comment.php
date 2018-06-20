@@ -115,7 +115,7 @@ class Comment extends ViewAbstract
 
 		foreach ($comments as $value)
 		{
-			if ($accessValidator->validate($value->access, $myGroups) === Validator\ValidatorInterface::PASSED)
+			if ($accessValidator->validate($value->access, $myGroups))
 			{
 				$output .= Module\Hook::trigger('commentFragmentStart', $value);
 				$output .= $titleElement

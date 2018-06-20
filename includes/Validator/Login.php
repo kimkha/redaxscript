@@ -33,19 +33,19 @@ class Login implements ValidatorInterface
 	 *
 	 * @param string $login login
 	 *
-	 * @return int
+	 * @return bool
 	 */
 
 	public function validate($login = null)
 	{
-		$output = ValidatorInterface::FAILED;
+		$output = false;
 		$length = strlen($login);
 
 		/* validate login */
 
 		if (ctype_alnum($login) && $length >= $this->_rangeArray['min'] && $length <= $this->_rangeArray['max'])
 		{
-			$output = ValidatorInterface::PASSED;
+			$output = true;
 		}
 		return $output;
 	}

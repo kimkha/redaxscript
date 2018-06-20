@@ -80,15 +80,13 @@ class Login extends ControllerAbstract
 		$emailFilter = new Filter\Email();
 		$emailValidator = new Validator\Email();
 		$loginValidator = new Validator\Login();
-		$isEmail = $emailValidator->validate($this->_request->getPost('user')) === Validator\ValidatorInterface::PASSED;
-		$isUser = $loginValidator->validate($this->_request->getPost('user')) === Validator\ValidatorInterface::PASSED;
 
 		/* sanitize post */
 
 		return
 		[
-			'email' => $isEmail ? $emailFilter->sanitize($this->_request->getPost('user')) : null,
-			'user' => $isUser ? $specialFilter->sanitize($this->_request->getPost('user')) : null,
+			'email' => $emailValidator->validate($this->_request->getPost('user')) ? $emailFilter->sanitize($this->_request->getPost('user')) : null,
+			'user' => $loginValidator->validate($this->_request->getPost('user')) ? $specialFilter->sanitize($this->_request->getPost('user')) : null,
 			'password' => $specialFilter->sanitize($this->_request->getPost('password')),
 			'task' => $this->_request->getPost('task'),
 			'solution' => $this->_request->getPost('solution')
@@ -127,11 +125,11 @@ class Login extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('password_empty');
 		}
-		else if ($user->password && $passwordValidator->validate($postArray['password'], $user->password) === Validator\ValidatorInterface::FAILED)
+		else if ($user->password && !$passwordValidator->validate($postArray['password'], $user->password))
 		{
 			$validateArray[] = $this->_language->get('password_incorrect');
 		}
-		if ($settingModel->get('captcha') > 0 && $captchaValidator->validate($postArray['task'], $postArray['solution']) === Validator\ValidatorInterface::FAILED)
+		if ($settingModel->get('captcha') > 0 && !$captchaValidator->validate($postArray['task'], $postArray['solution']))
 		{
 			$validateArray[] = $this->_language->get('captcha_incorrect');
 		}

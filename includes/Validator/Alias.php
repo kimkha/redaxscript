@@ -55,12 +55,12 @@ class Alias implements ValidatorInterface
 	 * @param string $alias alias for routes and users
 	 * @param int $mode switch between general and default validation
 	 *
-	 * @return int
+	 * @return bool
 	 */
 
 	public function validate($alias = null, $mode = 0)
 	{
-		$output = ValidatorInterface::FAILED;
+		$output = false;
 
 		/* validate general alias */
 
@@ -68,7 +68,7 @@ class Alias implements ValidatorInterface
 		{
 			if (preg_match('/[^a-z0-9-]/i', $alias) || is_numeric($alias))
 			{
-				$output = ValidatorInterface::PASSED;
+				$output = true;
 			}
 		}
 
@@ -78,7 +78,7 @@ class Alias implements ValidatorInterface
 		{
 			if (in_array($alias, $this->_defaultArray))
 			{
-				$output = ValidatorInterface::PASSED;
+				$output = true;
 			}
 		}
 		return $output;

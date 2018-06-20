@@ -27,13 +27,13 @@ class Url implements ValidatorInterface
 
 	public function validate($url = null, $dns = true)
 	{
-		$output = ValidatorInterface::FAILED;
+		$output = false;
 
 		/* validate url */
 
 		if (filter_var($url, FILTER_VALIDATE_URL) !== false)
 		{
-			$output = ValidatorInterface::PASSED;
+			$output = true;
 
 			/* validate dns */
 

@@ -148,7 +148,7 @@ class Reset extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('password_incorrect');
 		}
-		if ($captchaValidator->validate($postArray['task'], $postArray['solution']) === Validator\ValidatorInterface::FAILED)
+		if (!$captchaValidator->validate($postArray['task'], $postArray['solution']))
 		{
 			$validateArray[] = $this->_language->get('captcha_incorrect');
 		}

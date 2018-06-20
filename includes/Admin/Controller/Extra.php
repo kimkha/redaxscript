@@ -136,7 +136,7 @@ class Extra extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('alias_empty');
 		}
-		else if ($aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_GENERAL) === Validator\ValidatorInterface::PASSED || $aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_DEFAULT) === Validator\ValidatorInterface::PASSED)
+		else if ($aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_GENERAL) || $aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_DEFAULT))
 		{
 			$validateArray[] = $this->_language->get('alias_incorrect');
 		}

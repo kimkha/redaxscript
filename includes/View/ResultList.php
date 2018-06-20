@@ -77,7 +77,7 @@ class ResultList extends ViewAbstract
 
 				foreach ($result as $value)
 				{
-					if ($accessValidator->validate($result->access, $this->_registry->get('myGroups')) === Validator\ValidatorInterface::PASSED)
+					if ($accessValidator->validate($result->access, $this->_registry->get('myGroups')))
 					{
 						$textDate = date($settingModel->get('date'), strtotime($value->date));
 						$linkElement

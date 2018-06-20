@@ -134,7 +134,7 @@ class User extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('user_empty');
 		}
-		else if ($loginValidator->validate($postArray['user'], Validator\Alias::MODE_GENERAL) === Validator\ValidatorInterface::PASSED)
+		else if ($loginValidator->validate($postArray['user'], Validator\Alias::MODE_GENERAL))
 		{
 			$validateArray[] = $this->_language->get('user_incorrect');
 		}
@@ -142,11 +142,11 @@ class User extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('password_empty');
 		}
-		else if ($loginValidator->validate($postArray['password']) === Validator\ValidatorInterface::FAILED)
+		else if (!$loginValidator->validate($postArray['password']))
 		{
 			$validateArray[] = $this->_language->get('password_incorrect');
 		}
-		if ($emailValidator->validate($postArray['email']) === Validator\ValidatorInterface::FAILED)
+		if (!$emailValidator->validate($postArray['email']))
 		{
 			$validateArray[] = $this->_language->get('email_incorrect');
 		}

@@ -22,18 +22,18 @@ class Email implements ValidatorInterface
 	 * @param string $email email address
 	 * @param bool $dns optional validate dns
 	 *
-	 * @return int
+	 * @return bool
 	 */
 
 	public function validate($email = null, $dns = true)
 	{
-		$output = ValidatorInterface::FAILED;
+		$output = false;
 
 		/* validate email */
 
 		if (filter_var($email, FILTER_VALIDATE_EMAIL) !== false)
 		{
-			$output = ValidatorInterface::PASSED;
+			$output = true;
 			$emailArray = array_filter(explode('@', $email));
 
 			/* validate dns */

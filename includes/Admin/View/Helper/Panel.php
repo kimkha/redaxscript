@@ -185,7 +185,7 @@ class Panel extends ViewAbstract
 		{
 			$permissionArray['profile'] = true;
 		}
-		if ($accessValidator->validate(1, $this->_registry->get('myGroups')) === Validator\ValidatorInterface::PASSED)
+		if ($accessValidator->validate(1, $this->_registry->get('myGroups')))
 		{
 			$permissionArray['notification'] = true;
 		}

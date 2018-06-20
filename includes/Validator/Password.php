@@ -28,14 +28,14 @@ class Password implements ValidatorInterface
 
 	public function validate($password = null, $hash = null)
 	{
-		$output = ValidatorInterface::FAILED;
+		$output = false;
 		$passwordHash = new Hash();
 
 		/* validate password */
 
 		if ($password && $passwordHash->validate($password, $hash))
 		{
-			$output = ValidatorInterface::PASSED;
+			$output = true;
 		}
 		return $output;
 	}

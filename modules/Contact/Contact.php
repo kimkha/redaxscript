@@ -266,11 +266,11 @@ class Contact extends Module\Module
 		{
 			$validateArray[] = $this->_language->get('email_empty');
 		}
-		else if ($emailValidator->validate($postArray['email']) === Validator\ValidatorInterface::FAILED)
+		else if (!$emailValidator->validate($postArray['email']))
 		{
 			$validateArray['email'] = $this->_language->get('email_incorrect');
 		}
-		if ($postArray['url'] && $urlValidator->validate($postArray['url']) === Validator\ValidatorInterface::FAILED)
+		if ($postArray['url'] && !$urlValidator->validate($postArray['url']))
 		{
 			$validateArray[] = $this->_language->get('url_incorrect');
 		}
@@ -278,7 +278,7 @@ class Contact extends Module\Module
 		{
 			$validateArray[] = $this->_language->get('message_empty');
 		}
-		if ($settingModel->get('captcha') > 0 && $captchaValidator->validate($postArray['task'], $postArray['solution']) === Validator\ValidatorInterface::FAILED)
+		if ($settingModel->get('captcha') > 0 && !$captchaValidator->validate($postArray['task'], $postArray['solution']))
 		{
 			$validateArray[] = $this->_language->get('captcha_incorrect');
 		}

@@ -73,7 +73,7 @@ class Article extends NavigationAbstract
 
 		foreach ($articles as $value)
 		{
-			if ($accessValidator->validate($value->access, $this->_registry->get('myGroups')) === Validator\ValidatorInterface::PASSED)
+			if ($accessValidator->validate($value->access, $this->_registry->get('myGroups')))
 			{
 				$outputItem .= $itemElement
 					->copy()

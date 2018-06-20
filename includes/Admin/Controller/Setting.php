@@ -118,7 +118,7 @@ class Setting extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('alias_empty');
 		}
-		else if ($aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_GENERAL) === Validator\ValidatorInterface::PASSED)
+		else if ($aliasValidator->validate($postArray['alias'], Validator\Alias::MODE_GENERAL))
 		{
 			$validateArray[] = $this->_language->get('alias_incorrect');
 		}
@@ -130,11 +130,11 @@ class Setting extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('password_empty');
 		}
-		else if ($loginValidator->validate($postArray['password']) === Validator\ValidatorInterface::FAILED)
+		else if (!$loginValidator->validate($postArray['password']))
 		{
 			$validateArray[] = $this->_language->get('password_incorrect');
 		}
-		if ($emailValidator->validate($postArray['email']) === Validator\ValidatorInterface::FAILED)
+		if (!$emailValidator->validate($postArray['email']))
 		{
 			$validateArray[] = $this->_language->get('email_incorrect');
 		}

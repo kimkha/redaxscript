@@ -22,12 +22,12 @@ class Dns implements ValidatorInterface
 	 * @param string $host host of the domain
 	 * @param string $type optional domain type
 	 *
-	 * @return int
+	 * @return bool
 	 */
 
 	public function validate($host = null, $type = 'A')
 	{
-		$output = ValidatorInterface::FAILED;
+		$output = false;
 
 		/* validate dns */
 
@@ -35,11 +35,11 @@ class Dns implements ValidatorInterface
 		{
 			if (function_exists('checkdnsrr') && !checkdnsrr($host, $type))
 			{
-				$output = ValidatorInterface::FAILED;
+				$output = false;
 			}
 			else
 			{
-				$output = ValidatorInterface::PASSED;
+				$output = true;
 			}
 		}
 		return $output;

@@ -133,7 +133,7 @@ class Recover extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('email_empty');
 		}
-		else if ($emailValidator->validate($postArray['email']) === Validator\ValidatorInterface::FAILED)
+		else if (!$emailValidator->validate($postArray['email']))
 		{
 			$validateArray[] = $this->_language->get('email_incorrect');
 		}
@@ -141,7 +141,7 @@ class Recover extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('email_unknown');
 		}
-		if ($settingModel->get('captcha') > 0 && $captchaValidator->validate($postArray['task'], $postArray['solution']) === Validator\ValidatorInterface::FAILED)
+		if ($settingModel->get('captcha') > 0 && !$captchaValidator->validate($postArray['task'], $postArray['solution']))
 		{
 			$validateArray[] = $this->_language->get('captcha_incorrect');
 		}

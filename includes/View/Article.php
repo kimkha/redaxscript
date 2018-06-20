@@ -160,7 +160,7 @@ class Article extends ViewAbstract
 
 		foreach ($articles as $value)
 		{
-			if ($accessValidator->validate($value->access, $myGroups) === Validator\ValidatorInterface::PASSED)
+			if ($accessValidator->validate($value->access, $myGroups))
 			{
 				$output .= Module\Hook::trigger('articleFragmentStart', $value);
 				if ((int)$value->headline === 1)

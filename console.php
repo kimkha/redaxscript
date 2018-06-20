@@ -31,7 +31,7 @@ if (php_sapi_name() === 'cli')
 
 /* restrict access */
 
-else if ($config->get('env') !== 'production' || $accessValidator->validate('1', $registry->get('myGroups')) === Validator\ValidatorInterface::PASSED)
+else if ($config->get('env') !== 'production' || $accessValidator->validate('1', $registry->get('myGroups')))
 {
 	/* ajax request */
 

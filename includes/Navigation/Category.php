@@ -98,7 +98,7 @@ class Category extends NavigationAbstract
 
 		foreach ($categories as $value)
 		{
-			if ($accessValidator->validate($value->access, $this->_registry->get('myGroups')) === Validator\ValidatorInterface::PASSED && $optionArray['parent'] === (int)$value->parent)
+			if ($accessValidator->validate($value->access, $this->_registry->get('myGroups')) && $optionArray['parent'] === (int)$value->parent)
 			{
 				$outputItem .= $itemElement
 					->copy()

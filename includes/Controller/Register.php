@@ -152,7 +152,7 @@ class Register extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('user_empty');
 		}
-		else if ($loginValidator->validate($postArray['user']) === Validator\ValidatorInterface::FAILED)
+		else if (!$loginValidator->validate($postArray['user']))
 		{
 			$validateArray[] = $this->_language->get('user_incorrect');
 		}
@@ -164,11 +164,11 @@ class Register extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('email_empty');
 		}
-		else if ($emailValidator->validate($postArray['email']) === Validator\ValidatorInterface::FAILED)
+		else if (!$emailValidator->validate($postArray['email']))
 		{
 			$validateArray[] = $this->_language->get('email_incorrect');
 		}
-		if ($settingModel->get('captcha') > 0 && $captchaValidator->validate($postArray['task'], $postArray['solution']) === Validator\ValidatorInterface::FAILED)
+		if ($settingModel->get('captcha') > 0 && !$captchaValidator->validate($postArray['task'], $postArray['solution']))
 		{
 			$validateArray[] = $this->_language->get('captcha_incorrect');
 		}

@@ -116,7 +116,7 @@ class Hook
 		{
 			/* validate access */
 
-			if (in_array($module->alias, $modulesFilesystemArray) && $accessValidator->validate($module->access, self::$_registry->get('myGroups')) === Validator\ValidatorInterface::PASSED)
+			if (in_array($module->alias, $modulesFilesystemArray) && $accessValidator->validate($module->access, self::$_registry->get('myGroups')))
 			{
 				self::$_moduleArray[$module->alias] = $module->alias;
 			}

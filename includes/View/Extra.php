@@ -155,7 +155,7 @@ class Extra extends ViewAbstract
 
 		foreach ($extras as $value)
 		{
-			if ($accessValidator->validate($value->access, $myGroups) === Validator\ValidatorInterface::PASSED)
+			if ($accessValidator->validate($value->access, $myGroups))
 			{
 				$output .= Module\Hook::trigger('extraFragmentStart', $value);
 				if ((int)$value->headline === 1)

@@ -269,7 +269,7 @@ class Install extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('user_empty');
 		}
-		else if ($loginValidator->validate($postArray['adminUser']) === Validator\ValidatorInterface::FAILED)
+		else if (!$loginValidator->validate($postArray['adminUser']))
 		{
 			$validateArray[] = $this->_language->get('user_incorrect');
 		}
@@ -277,7 +277,7 @@ class Install extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('password_empty');
 		}
-		else if ($loginValidator->validate($postArray['adminPassword']) === Validator\ValidatorInterface::FAILED)
+		else if (!$loginValidator->validate($postArray['adminPassword']))
 		{
 			$validateArray[] = $this->_language->get('password_incorrect');
 		}
@@ -285,7 +285,7 @@ class Install extends ControllerAbstract
 		{
 			$validateArray[] = $this->_language->get('email_empty');
 		}
-		else if ($emailValidator->validate($postArray['adminEmail']) === Validator\ValidatorInterface::FAILED)
+		else if (!$emailValidator->validate($postArray['adminEmail']))
 		{
 			$validateArray[] = $this->_language->get('email_incorrect');
 		}

@@ -72,7 +72,7 @@ class Comment extends NavigationAbstract
 
 		foreach ($comments as $value)
 		{
-			if ($accessValidator->validate($value->access, $this->_registry->get('myGroups')) === Validator\ValidatorInterface::PASSED)
+			if ($accessValidator->validate($value->access, $this->_registry->get('myGroups')))
 			{
 				$outputItem .= $itemElement
 					->copy()

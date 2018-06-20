@@ -38,14 +38,14 @@ class Search implements ValidatorInterface
 
 	public function validate($search = null, $placeholder = null)
 	{
-		$output = ValidatorInterface::FAILED;
+		$output = false;
 		$length = strlen($search);
 
 		/* validate search */
 
 		if ($search !== $placeholder && $length >= $this->_rangeArray['min'] && $length <= $this->_rangeArray['max'])
 		{
-			$output = ValidatorInterface::PASSED;
+			$output = true;
 		}
 		return $output;
 	}
