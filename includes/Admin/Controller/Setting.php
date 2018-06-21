@@ -152,6 +152,10 @@ class Setting extends ControllerAbstract
 
 		/* validate post */
 
+		if (!$postArray['charset'] || !$postArray['limit'])
+		{
+			$validateArray[] = $this->_language->get('input_empty');
+		}
 		return $validateArray;
 	}
 
