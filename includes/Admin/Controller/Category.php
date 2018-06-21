@@ -127,12 +127,27 @@ class Category extends ControllerAbstract
 	protected function _sanitizePost() : array
 	{
 		$specialFilter = new Filter\Special();
+		$aliasFilter = new Filter\Alias();
 
 		/* sanitize post */
 
 		return
 		[
-			'id' => $specialFilter->sanitize($this->_request->getPost('id'))
+			'id' => $specialFilter->sanitize($this->_request->getPost('id')),
+			'title' => $this->_request->getPost('title'),
+			'alias' => $aliasFilter->sanitize($this->_request->getPost('alias')),
+			'author' => $this->_request->getPost('author'),
+			'description' => $this->_request->getPost('description'),
+			'keywords' => $this->_request->getPost('keywords'),
+			'robots' => $specialFilter->sanitize($this->_request->getPost('robots')),
+			'language' => $specialFilter->sanitize($this->_request->getPost('language')),
+			'template' => $specialFilter->sanitize($this->_request->getPost('template')),
+			'sibling' => $specialFilter->sanitize($this->_request->getPost('sibling')),
+			'parent' => $specialFilter->sanitize($this->_request->getPost('parent')),
+			'status' => $specialFilter->sanitize($this->_request->getPost('date')),
+			'rank' => $specialFilter->sanitize($this->_request->getPost('rank')),
+			'access' => $specialFilter->sanitize($this->_request->getPost('access')),
+			'date' => $this->_request->getPost('date')
 		];
 	}
 

@@ -116,12 +116,25 @@ class Comment extends ControllerAbstract
 	protected function _sanitizePost() : array
 	{
 		$specialFilter = new Filter\Special();
+		$emailFilter = new Filter\Email();
+		$urlFilter = new Filter\Url();
+		$htmlFilter = new Filter\Html();
 
 		/* sanitize post */
 
 		return
 		[
-			'id' => $specialFilter->sanitize($this->_request->getPost('id'))
+			'id' => $specialFilter->sanitize($this->_request->getPost('id')),
+			'author' => $this->_request->getPost('author'),
+			'email' => $emailFilter->sanitize($this->_request->getPost('email')),
+			'url' => $urlFilter->sanitize($this->_request->getPost('url')),
+			'text' => $htmlFilter->sanitize($this->_request->getPost('text'), $this->_registry->get('filter')),
+			'language' => $specialFilter->sanitize($this->_request->getPost('language')),
+			'article' => $specialFilter->sanitize($this->_request->getPost('article')),
+			'status' => $specialFilter->sanitize($this->_request->getPost('date')),
+			'rank' => $specialFilter->sanitize($this->_request->getPost('rank')),
+			'access' => $specialFilter->sanitize($this->_request->getPost('access')),
+			'date' => $this->_request->getPost('date')
 		];
 	}
 

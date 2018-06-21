@@ -125,12 +125,27 @@ class Extra extends ControllerAbstract
 	protected function _sanitizePost() : array
 	{
 		$specialFilter = new Filter\Special();
+		$aliasFilter = new Filter\Alias();
+		$htmlFilter = new Filter\Html();
 
 		/* sanitize post */
 
 		return
 		[
-			'id' => $specialFilter->sanitize($this->_request->getPost('id'))
+			'id' => $specialFilter->sanitize($this->_request->getPost('id')),
+			'title' => $this->_request->getPost('title'),
+			'alias' => $aliasFilter->sanitize($this->_request->getPost('alias')),
+			'author' => $this->_request->getPost('author'),
+			'text' => $htmlFilter->sanitize($this->_request->getPost('text'), $this->_registry->get('filter')),
+			'language' => $specialFilter->sanitize($this->_request->getPost('language')),
+			'sibling' => $specialFilter->sanitize($this->_request->getPost('sibling')),
+			'category' => $specialFilter->sanitize($this->_request->getPost('category')),
+			'article' => $specialFilter->sanitize($this->_request->getPost('article')),
+			'headline' => $specialFilter->sanitize($this->_request->getPost('headline')),
+			'status' => $specialFilter->sanitize($this->_request->getPost('date')),
+			'rank' => $specialFilter->sanitize($this->_request->getPost('rank')),
+			'access' => $specialFilter->sanitize($this->_request->getPost('access')),
+			'date' => $this->_request->getPost('date')
 		];
 	}
 

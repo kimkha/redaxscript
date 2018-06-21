@@ -103,11 +103,36 @@ class Setting extends ControllerAbstract
 	protected function _sanitizePost() : array
 	{
 		$specialFilter = new Filter\Special();
+		$emailFilter = new Filter\Email();
 
 		/* sanitize post */
 
 		return
 		[
+			'language' => $specialFilter->sanitize($this->_request->getPost('language')),
+			'template' => $specialFilter->sanitize($this->_request->getPost('template')),
+			'title' => $this->_request->getPost('title'),
+			'author' => $this->_request->getPost('author'),
+			'copyright' => $this->_request->getPost('copyright'),
+			'description' => $this->_request->getPost('description'),
+			'keywords' => $this->_request->getPost('keywords'),
+			'robots' => $specialFilter->sanitize($this->_request->getPost('robots')),
+			'email' => $emailFilter->sanitize($this->_request->getPost('email')),
+			'subject' => $this->_request->getPost('subject'),
+			'notification' => $specialFilter->sanitize($this->_request->getPost('notification')),
+			'charset' => $this->_request->getPost('charset'),
+			'divider' => $this->_request->getPost('divider'),
+			'time' => $this->_request->getPost('time'),
+			'date' => $this->_request->getPost('date'),
+			'homepage' => $specialFilter->sanitize($this->_request->getPost('homepage')),
+			'limit' => $specialFilter->sanitize($this->_request->getPost('limit')),
+			'order' => $specialFilter->sanitize($this->_request->getPost('order')),
+			'pagination' => $specialFilter->sanitize($this->_request->getPost('pagination')),
+			'moderation' => $specialFilter->sanitize($this->_request->getPost('moderation')),
+			'registration' => $specialFilter->sanitize($this->_request->getPost('registration')),
+			'verification' => $specialFilter->sanitize($this->_request->getPost('verification')),
+			'recovery' => $specialFilter->sanitize($this->_request->getPost('recovery')),
+			'captcha' => $specialFilter->sanitize($this->_request->getPost('captcha'))
 		];
 	}
 

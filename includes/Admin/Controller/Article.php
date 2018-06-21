@@ -150,7 +150,7 @@ class Article extends ControllerAbstract
 			'keywords' => $this->_request->getPost('keywords'),
 			'robots' => $specialFilter->sanitize($this->_request->getPost('robots')),
 			'text' => $htmlFilter->sanitize($this->_request->getPost('text'), $this->_registry->get('filter')),
-			'language' => $this->_request->getPost('language'),
+			'language' => $specialFilter->sanitize($this->_request->getPost('language')),
 			'template' => $specialFilter->sanitize($this->_request->getPost('template')),
 			'sibling' => $specialFilter->sanitize($this->_request->getPost('sibling')),
 			'category' => $specialFilter->sanitize($this->_request->getPost('category')),

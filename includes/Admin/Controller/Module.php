@@ -88,7 +88,11 @@ class Module extends ControllerAbstract
 
 		return
 		[
-			'id' => $specialFilter->sanitize($this->_request->getPost('id'))
+			'id' => $specialFilter->sanitize($this->_request->getPost('id')),
+			'name' => $this->_request->getPost('name'),
+			'description' => $this->_request->getPost('description'),
+			'status' => $specialFilter->sanitize($this->_request->getPost('status')),
+			'access' => $specialFilter->sanitize($this->_request->getPost('access'))
 		];
 	}
 

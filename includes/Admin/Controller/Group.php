@@ -124,12 +124,26 @@ class Group extends ControllerAbstract
 	protected function _sanitizePost() : array
 	{
 		$specialFilter = new Filter\Special();
+		$aliasFilter = new Filter\Alias();
 
 		/* sanitize post */
 
 		return
 		[
-			'id' => $specialFilter->sanitize($this->_request->getPost('id'))
+			'id' => $specialFilter->sanitize($this->_request->getPost('id')),
+			'name' => $this->_request->getPost('name'),
+			'alias' => $aliasFilter->sanitize($this->_request->getPost('alias')),
+			'description' => $this->_request->getPost('description'),
+			'categories' => $specialFilter->sanitize($this->_request->getPost('categories')),
+			'articles' => $specialFilter->sanitize($this->_request->getPost('articles')),
+			'extras' => $specialFilter->sanitize($this->_request->getPost('extras')),
+			'comments' => $specialFilter->sanitize($this->_request->getPost('comments')),
+			'groups' => $specialFilter->sanitize($this->_request->getPost('groups')),
+			'users' => $specialFilter->sanitize($this->_request->getPost('users')),
+			'modules' => $specialFilter->sanitize($this->_request->getPost('modules')),
+			'settings' => $specialFilter->sanitize($this->_request->getPost('settings')),
+			'filter' => $specialFilter->sanitize($this->_request->getPost('filter')),
+			'status' => $specialFilter->sanitize($this->_request->getPost('status'))
 		];
 	}
 

@@ -114,12 +114,21 @@ class User extends ControllerAbstract
 	protected function _sanitizePost() : array
 	{
 		$specialFilter = new Filter\Special();
+		$emailFilter = new Filter\Email();
 
 		/* sanitize post */
 
 		return
 		[
-			'id' => $specialFilter->sanitize($this->_request->getPost('id'))
+			'id' => $specialFilter->sanitize($this->_request->getPost('id')),
+			'name' => $this->_request->getPost('name'),
+			'user' => $this->_request->getPost('user'),
+			'description' => $this->_request->getPost('description'),
+			'password' => $this->_request->getPost('password'),
+			'email' => $emailFilter->sanitize($this->_request->getPost('email')),
+			'language' => $specialFilter->sanitize($this->_request->getPost('language')),
+			'status' => $specialFilter->sanitize($this->_request->getPost('status')),
+			'groups' => $this->_request->getPost('groups')
 		];
 	}
 
