@@ -255,6 +255,11 @@ class UserForm extends ViewAbstract
 			$formElement->append('</ul>');
 		}
 		$formElement
+			->hidden(
+			[
+				'name' => 'id',
+				'value' => $user->id
+			])
 			->token()
 			->cancel();
 		if ($user->id)

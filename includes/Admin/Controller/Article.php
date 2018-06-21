@@ -83,7 +83,7 @@ class Article extends ControllerAbstract
 
 		if ($this->_request->getPost('Redaxscript\Admin\View\ArticleForm') === 'update')
 		{
-			$route = 'admin/edit/articles/' . $postArray['article'];
+			$route = 'admin/edit/articles/' . $postArray['id'];
 			$updateArray =
 			[
 				'title' => $postArray['title'],
@@ -105,7 +105,7 @@ class Article extends ControllerAbstract
 				'access' => $postArray['access'],
 				'date' => $postArray['date']
 			];
-			if ($this->_update($postArray['article'], $updateArray))
+			if ($this->_update($postArray['id'], $updateArray))
 			{
 				return $this->_success(
 				[
@@ -142,7 +142,7 @@ class Article extends ControllerAbstract
 
 		return
 		[
-			'article' => $specialFilter->sanitize($this->_request->getPost('article')),
+			'id' => $specialFilter->sanitize($this->_request->getPost('id')),
 			'title' => $this->_request->getPost('title'),
 			'alias' => $aliasFilter->sanitize($this->_request->getPost('alias')),
 			'author' => $this->_request->getPost('author'),

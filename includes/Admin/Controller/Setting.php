@@ -3,7 +3,6 @@ namespace Redaxscript\Admin\Controller;
 
 use Redaxscript\Admin;
 use Redaxscript\Filter;
-use Redaxscript\Validator;
 
 /**
  * children class to process the admin setting request
@@ -29,7 +28,6 @@ class Setting extends ControllerAbstract
 	{
 		$postArray = $this->_sanitizePost();
 		$validateArray = $this->_validatePost($postArray);
-		$now = $this->_registry->get('now');
 		$route = 'admin';
 
 		/* validate post */
@@ -50,7 +48,30 @@ class Setting extends ControllerAbstract
 			$route = 'admin/edit/settings';
 			$updateArray =
 			[
-
+				'language' => $postArray['language'],
+				'template' => $postArray['template'],
+				'title' => $postArray['title'],
+				'author' => $postArray['author'],
+				'copyright' => $postArray['copyright'],
+				'description' => $postArray['description'],
+				'keywords' => $postArray['keywords'],
+				'robots' => $postArray['robots'],
+				'email' => $postArray['email'],
+				'subject' => $postArray['subject'],
+				'notification' => $postArray['notification'],
+				'charset' => $postArray['charset'],
+				'divider' => $postArray['divider'],
+				'time' => $postArray['time'],
+				'date' => $postArray['date'],
+				'homepage' => $postArray['homepage'],
+				'limit' => $postArray['limit'],
+				'order' => $postArray['order'],
+				'pagination' => $postArray['pagination'],
+				'moderation' => $postArray['moderation'],
+				'registration' => $postArray['registration'],
+				'verification' => $postArray['verification'],
+				'recovery' => $postArray['recovery'],
+				'captcha' => $postArray['captcha']
 			];
 			if ($this->_update($updateArray))
 			{
@@ -102,42 +123,10 @@ class Setting extends ControllerAbstract
 
 	protected function _validatePost(array $postArray = []) : array
 	{
-		$aliasValidator = new Validator\Alias();
-		$loginValidator = new Validator\Login();
-		$emailValidator = new Validator\Email();
-		$settingModel = new Admin\Model\Setting();
 		$validateArray = [];
 
 		/* validate post */
 
-		if (!$postArray['name'])
-		{
-			$validateArray[] = $this->_language->get('name_empty');
-		}
-		if (!$postArray['alias'])
-		{
-			$validateArray[] = $this->_language->get('alias_empty');
-		}
-		else if ($aliasValidator->validate($postArray['alias'], 'general'))
-		{
-			$validateArray[] = $this->_language->get('alias_incorrect');
-		}
-		else if ($settingModel->getByAlias($postArray['alias'])->count())
-		{
-			$validateArray[] = $this->_language->get('alias_exists');
-		}
-		if (!$postArray['password'])
-		{
-			$validateArray[] = $this->_language->get('password_empty');
-		}
-		else if (!$loginValidator->validate($postArray['password']))
-		{
-			$validateArray[] = $this->_language->get('password_incorrect');
-		}
-		if (!$emailValidator->validate($postArray['email']))
-		{
-			$validateArray[] = $this->_language->get('email_incorrect');
-		}
 		return $validateArray;
 	}
 

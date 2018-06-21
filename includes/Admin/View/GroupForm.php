@@ -311,6 +311,11 @@ class GroupForm extends ViewAbstract
 				->append('</li></ul>');
 		}
 		$formElement
+			->hidden(
+			[
+				'name' => 'id',
+				'value' => $group->id
+			])
 			->token()
 			->cancel();
 		if ($group->id)

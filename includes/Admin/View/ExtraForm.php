@@ -289,6 +289,11 @@ class ExtraForm extends ViewAbstract
 				'value' => $extra->date ? $extra->date : null
 			])
 			->append('</li></ul>')
+			->hidden(
+			[
+				'name' => 'id',
+				'value' => $extra->id
+			])
 			->token()
 			->cancel();
 		if ($extra->id)

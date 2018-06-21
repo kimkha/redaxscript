@@ -28,7 +28,6 @@ class Module extends ControllerAbstract
 	{
 		$postArray = $this->_sanitizePost();
 		$validateArray = $this->_validatePost($postArray);
-		$now = $this->_registry->get('now');
 		$route = 'admin/view/modules';
 
 		/* validate post */
@@ -46,9 +45,13 @@ class Module extends ControllerAbstract
 
 		if ($this->_request->getPost('Redaxscript\Admin\View\ModuleForm') === 'update')
 		{
-			$route = 'admin/edit/modules/' . $postArray['module'];
+			$route = 'admin/edit/modules/' . $postArray['id'];
 			$updateArray =
 			[
+				'name' => $postArray['name'],
+				'description' => $postArray['description'],
+				'status' => $postArray['status'],
+				'access' => $postArray['access']
 			];
 			if ($this->_update($postArray['module'], $updateArray))
 			{
@@ -85,6 +88,7 @@ class Module extends ControllerAbstract
 
 		return
 		[
+			'id' => $specialFilter->sanitize($this->_request->getPost('id'))
 		];
 	}
 

@@ -255,6 +255,11 @@ class CommentForm extends ViewAbstract
 				'value' => $comment->date ? $comment->date : null
 			])
 			->append('</li></ul>')
+			->hidden(
+			[
+				'name' => 'id',
+				'value' => $comment->id
+			])
 			->token()
 			->cancel();
 		if ($comment->id)

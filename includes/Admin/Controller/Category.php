@@ -50,7 +50,20 @@ class Category extends ControllerAbstract
 			$route = 'admin/new/categories';
 			$createArray =
 			[
-
+				'title' => $postArray['title'],
+				'alias' => $postArray['alias'],
+				'author' => $postArray['author'],
+				'description' => $postArray['description'],
+				'keywords' => $postArray['keywords'],
+				'robots' => $postArray['robots'],
+				'language' => $postArray['language'],
+				'template' => $postArray['template'],
+				'sibling' => $postArray['sibling'],
+				'parent' => $postArray['parent'],
+				'status' => $postArray['date'] > $now ? 2 : $postArray['status'],
+				'rank' => $postArray['rank'],
+				'access' => $postArray['access'],
+				'date' => $postArray['date']
 			];
 			if ($this->_create($createArray))
 			{
@@ -66,12 +79,25 @@ class Category extends ControllerAbstract
 
 		if ($this->_request->getPost('Redaxscript\Admin\View\CategoryForm') === 'update')
 		{
-			$route = 'admin/edit/categories/' . $postArray['category'];
+			$route = 'admin/edit/categories/' . $postArray['id'];
 			$updateArray =
 			[
-
+				'title' => $postArray['title'],
+				'alias' => $postArray['alias'],
+				'author' => $postArray['author'],
+				'description' => $postArray['description'],
+				'keywords' => $postArray['keywords'],
+				'robots' => $postArray['robots'],
+				'language' => $postArray['language'],
+				'template' => $postArray['template'],
+				'sibling' => $postArray['sibling'],
+				'parent' => $postArray['parent'],
+				'status' => $postArray['date'] > $now ? 2 : $postArray['status'],
+				'rank' => $postArray['rank'],
+				'access' => $postArray['access'],
+				'date' => $postArray['date']
 			];
-			if ($this->_update($postArray['category'], $updateArray))
+			if ($this->_update($postArray['id'], $updateArray))
 			{
 				return $this->_success(
 				[
@@ -100,13 +126,13 @@ class Category extends ControllerAbstract
 
 	protected function _sanitizePost() : array
 	{
-		$aliasFilter = new Filter\Alias();
 		$specialFilter = new Filter\Special();
 
 		/* sanitize post */
 
 		return
 		[
+			'id' => $specialFilter->sanitize($this->_request->getPost('id'))
 		];
 	}
 

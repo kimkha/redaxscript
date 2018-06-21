@@ -356,7 +356,7 @@ class ArticleForm extends ViewAbstract
 			->append('</li></ul>')
 			->hidden(
 			[
-				'name' => 'article',
+				'name' => 'id',
 				'value' => $article->id
 			])
 			->token()

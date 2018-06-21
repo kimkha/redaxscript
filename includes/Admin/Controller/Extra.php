@@ -50,7 +50,19 @@ class Extra extends ControllerAbstract
 			$route = 'admin/new/extras';
 			$createArray =
 			[
-
+				'title' => $postArray['title'],
+				'alias' => $postArray['alias'],
+				'author' => $postArray['author'],
+				'text' => $postArray['text'],
+				'language' => $postArray['language'],
+				'sibling' => $postArray['sibling'],
+				'category' => $postArray['category'],
+				'article' => $postArray['article'],
+				'headline' => $postArray['headline'],
+				'status' => $postArray['date'] > $now ? 2 : $postArray['status'],
+				'rank' => $postArray['rank'],
+				'access' => $postArray['access'],
+				'date' => $postArray['date']
 			];
 			if ($this->_create($createArray))
 			{
@@ -66,12 +78,24 @@ class Extra extends ControllerAbstract
 
 		if ($this->_request->getPost('Redaxscript\Admin\View\ExtraForm') === 'update')
 		{
-			$route = 'admin/edit/extras/' . $postArray['extra'];
+			$route = 'admin/edit/extras/' . $postArray['id'];
 			$updateArray =
 			[
-
+				'title' => $postArray['title'],
+				'alias' => $postArray['alias'],
+				'author' => $postArray['author'],
+				'text' => $postArray['text'],
+				'language' => $postArray['language'],
+				'sibling' => $postArray['sibling'],
+				'category' => $postArray['category'],
+				'article' => $postArray['article'],
+				'headline' => $postArray['headline'],
+				'status' => $postArray['date'] > $now ? 2 : $postArray['status'],
+				'rank' => $postArray['rank'],
+				'access' => $postArray['access'],
+				'date' => $postArray['date']
 			];
-			if ($this->_update($postArray['extra'], $updateArray))
+			if ($this->_update($postArray['id'], $updateArray))
 			{
 				return $this->_success(
 				[
@@ -100,13 +124,13 @@ class Extra extends ControllerAbstract
 
 	protected function _sanitizePost() : array
 	{
-		$aliasFilter = new Filter\Alias();
 		$specialFilter = new Filter\Special();
 
 		/* sanitize post */
 
 		return
 		[
+			'id' => $specialFilter->sanitize($this->_request->getPost('id'))
 		];
 	}
 

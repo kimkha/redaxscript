@@ -29,7 +29,6 @@ class User extends ControllerAbstract
 	{
 		$postArray = $this->_sanitizePost();
 		$validateArray = $this->_validatePost($postArray);
-		$now = $this->_registry->get('now');
 		$route = 'admin/view/users';
 
 		/* validate post */
@@ -50,7 +49,14 @@ class User extends ControllerAbstract
 			$route = 'admin/new/users';
 			$createArray =
 			[
-
+				'name' => $postArray['name'],
+				'user' => $postArray['user'],
+				'description' => $postArray['description'],
+				'password' => $postArray['password'],
+				'email' => $postArray['email'],
+				'language' => $postArray['language'],
+				'status' => $postArray['status'],
+				'groups' => $postArray['groups']
 			];
 			if ($this->_create($createArray))
 			{
@@ -66,11 +72,19 @@ class User extends ControllerAbstract
 
 		if ($this->_request->getPost('Redaxscript\Admin\View\UserForm') === 'update')
 		{
-			$route = 'admin/new/users/' . $postArray['user'];
+			$route = 'admin/new/users/' . $postArray['id'];
 			$updateArray =
 			[
+				'name' => $postArray['name'],
+				'user' => $postArray['user'],
+				'description' => $postArray['description'],
+				'password' => $postArray['password'],
+				'email' => $postArray['email'],
+				'language' => $postArray['language'],
+				'status' => $postArray['status'],
+				'groups' => $postArray['groups']
 			];
-			if ($this->_update($postArray['user'], $updateArray))
+			if ($this->_update($postArray['id'], $updateArray))
 			{
 				return $this->_success(
 				[
@@ -105,6 +119,7 @@ class User extends ControllerAbstract
 
 		return
 		[
+			'id' => $specialFilter->sanitize($this->_request->getPost('id'))
 		];
 	}
 

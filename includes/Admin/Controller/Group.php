@@ -29,7 +29,6 @@ class Group extends ControllerAbstract
 	{
 		$postArray = $this->_sanitizePost();
 		$validateArray = $this->_validatePost($postArray);
-		$now = $this->_registry->get('now');
 		$route = 'admin/view/groups';
 
 		/* validate post */
@@ -50,7 +49,19 @@ class Group extends ControllerAbstract
 			$route = 'admin/new/groups';
 			$createArray =
 			[
-
+				'name' => $postArray['name'],
+				'alias' => $postArray['alias'],
+				'description' => $postArray['description'],
+				'categories' => $postArray['categories'],
+				'articles' => $postArray['articles'],
+				'extras' => $postArray['extras'],
+				'comments' => $postArray['comments'],
+				'groups' => $postArray['groups'],
+				'users' => $postArray['users'],
+				'modules' => $postArray['modules'],
+				'settings' => $postArray['settings'],
+				'filter' => $postArray['filter'],
+				'status' => $postArray['status']
 			];
 			if ($this->_create($createArray))
 			{
@@ -66,12 +77,24 @@ class Group extends ControllerAbstract
 
 		if ($this->_request->getPost('Redaxscript\Admin\View\GroupForm') === 'update')
 		{
-			$route = 'admin/edit/groups/' . $postArray['group'];
+			$route = 'admin/edit/groups/' . $postArray['id'];
 			$updateArray =
 			[
-
+				'name' => $postArray['name'],
+				'alias' => $postArray['alias'],
+				'description' => $postArray['description'],
+				'categories' => $postArray['categories'],
+				'articles' => $postArray['articles'],
+				'extras' => $postArray['extras'],
+				'comments' => $postArray['comments'],
+				'groups' => $postArray['groups'],
+				'users' => $postArray['users'],
+				'modules' => $postArray['modules'],
+				'settings' => $postArray['settings'],
+				'filter' => $postArray['filter'],
+				'status' => $postArray['status']
 			];
-			if ($this->_update($postArray['group'], $updateArray))
+			if ($this->_update($postArray['id'], $updateArray))
 			{
 				return $this->_success(
 				[
@@ -100,13 +123,13 @@ class Group extends ControllerAbstract
 
 	protected function _sanitizePost() : array
 	{
-		$aliasFilter = new Filter\Alias();
 		$specialFilter = new Filter\Special();
 
 		/* sanitize post */
 
 		return
 		[
+			'id' => $specialFilter->sanitize($this->_request->getPost('id'))
 		];
 	}
 

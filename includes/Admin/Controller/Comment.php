@@ -49,7 +49,16 @@ class Comment extends ControllerAbstract
 			$route = 'admin/new/comments';
 			$createArray =
 			[
-
+				'author' => $postArray['author'],
+				'email' => $postArray['email'],
+				'url' => $postArray['url'],
+				'text' => $postArray['text'],
+				'language' => $postArray['language'],
+				'article' => $postArray['article'],
+				'status' => $postArray['date'] > $now ? 2 : $postArray['status'],
+				'rank' => $postArray['rank'],
+				'access' => $postArray['access'],
+				'date' => $postArray['date']
 			];
 			if ($this->_create($createArray))
 			{
@@ -65,12 +74,19 @@ class Comment extends ControllerAbstract
 
 		if ($this->_request->getPost('Redaxscript\Admin\View\CommentForm') === 'update')
 		{
-			$route = 'admin/edit/comments/' . $postArray['comment'];
+			$route = 'admin/edit/comments/' . $postArray['id'];
 			$updateArray =
 			[
-
+				'url' => $postArray['url'],
+				'text' => $postArray['text'],
+				'language' => $postArray['language'],
+				'article' => $postArray['article'],
+				'status' => $postArray['date'] > $now ? 2 : $postArray['status'],
+				'rank' => $postArray['rank'],
+				'access' => $postArray['access'],
+				'date' => $postArray['date']
 			];
-			if ($this->_update($postArray['comment'], $updateArray))
+			if ($this->_update($postArray['id'], $updateArray))
 			{
 				return $this->_success(
 				[
@@ -105,6 +121,7 @@ class Comment extends ControllerAbstract
 
 		return
 		[
+			'id' => $specialFilter->sanitize($this->_request->getPost('id'))
 		];
 	}
 

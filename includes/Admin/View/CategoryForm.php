@@ -305,6 +305,11 @@ class CategoryForm extends ViewAbstract
 				'value' => $category->date ? $category->date : null
 			])
 			->append('</li></ul>')
+			->hidden(
+			[
+				'name' => 'id',
+				'value' => $category->id
+			])
 			->token()
 			->cancel();
 		if ($category->id)

@@ -198,6 +198,11 @@ class ModuleForm extends ViewAbstract
 		}
 		$formElement
 			->append('</ul>')
+			->hidden(
+			[
+				'name' => 'id',
+				'value' => $module->id
+			])
 			->token()
 			->cancel();
 		if ($this->_registry->get('modulesUninstall'))
