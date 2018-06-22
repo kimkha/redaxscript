@@ -41,12 +41,6 @@ class UserTable extends ViewAbstract
 				'class' => 'rs-admin-title-content',
 			])
 			->text($this->_language->get('users'));
-		$wrapperElement = $element
-			->copy()
-			->init('div',
-			[
-				'class' => 'rs-admin-wrapper-button'
-			]);
 		$linkElement = $element
 			->copy()
 			->init('a',
@@ -61,7 +55,7 @@ class UserTable extends ViewAbstract
 		$output .= $titleElement;
 		if ($usersNew)
 		{
-			$output .= $wrapperElement->html($linkElement);
+			$output .= $linkElement;
 		}
 		$output .= $this->_renderTable();
 		$output .= Module\Hook::trigger('adminUserTableEnd');

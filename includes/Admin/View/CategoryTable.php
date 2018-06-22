@@ -41,12 +41,6 @@ class CategoryTable extends ViewAbstract
 				'class' => 'rs-admin-title-content',
 			])
 			->text($this->_language->get('categories'));
-		$wrapperElement = $element
-			->copy()
-			->init('div',
-			[
-				'class' => 'rs-admin-wrapper-button'
-			]);
 		$linkElement = $element
 			->copy()
 			->init('a',
@@ -61,7 +55,7 @@ class CategoryTable extends ViewAbstract
 		$output .= $titleElement;
 		if ($categoriesNew)
 		{
-			$output .= $wrapperElement->html($linkElement);
+			$output .= $linkElement;
 		}
 		$output .= $this->_renderTable();
 		$output .= Module\Hook::trigger('adminCategoryTableEnd');

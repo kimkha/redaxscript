@@ -261,6 +261,7 @@ class CommentForm extends ViewAbstract
 				'value' => $comment->id
 			])
 			->token()
+			->append('<div class="rs-admin-wrapper-button">')
 			->cancel();
 		if ($comment->id)
 		{
@@ -277,6 +278,7 @@ class CommentForm extends ViewAbstract
 		{
 			$formElement->create();
 		}
+		$formElement->append('</div>');
 
 		/* collect output */
 

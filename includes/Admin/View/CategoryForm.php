@@ -311,6 +311,7 @@ class CategoryForm extends ViewAbstract
 				'value' => $category->id
 			])
 			->token()
+			->append('<div class="rs-admin-wrapper-button">')
 			->cancel();
 		if ($category->id)
 		{
@@ -327,6 +328,7 @@ class CategoryForm extends ViewAbstract
 		{
 			$formElement->create();
 		}
+		$formElement->append('</div>');
 
 		/* collect output */
 

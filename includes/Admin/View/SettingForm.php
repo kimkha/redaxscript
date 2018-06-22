@@ -469,8 +469,10 @@ class SettingForm extends ViewAbstract
 			])
 			->append('</li></ul>')
 			->token()
+			->append('<div class="rs-admin-wrapper-button">')
 			->cancel()
-			->save();
+			->save()
+			->append('</div>');
 
 		/* collect output */
 

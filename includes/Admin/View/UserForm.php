@@ -261,6 +261,7 @@ class UserForm extends ViewAbstract
 				'value' => $user->id
 			])
 			->token()
+			->append('<div class="rs-admin-wrapper-button">')
 			->cancel();
 		if ($user->id)
 		{
@@ -277,6 +278,7 @@ class UserForm extends ViewAbstract
 		{
 			$formElement->create();
 		}
+		$formElement->append('</div>');
 
 		/* collect output */
 

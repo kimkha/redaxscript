@@ -317,6 +317,7 @@ class GroupForm extends ViewAbstract
 				'value' => $group->id
 			])
 			->token()
+			->append('<div class="rs-admin-wrapper-button">')
 			->cancel();
 		if ($group->id)
 		{
@@ -333,6 +334,7 @@ class GroupForm extends ViewAbstract
 		{
 			$formElement->create();
 		}
+		$formElement->append('</div>');
 
 		/* collect output */
 

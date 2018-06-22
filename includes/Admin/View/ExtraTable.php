@@ -41,12 +41,6 @@ class ExtraTable extends ViewAbstract
 				'class' => 'rs-admin-title-content',
 			])
 			->text($this->_language->get('extras'));
-		$wrapperElement = $element
-			->copy()
-			->init('div',
-			[
-				'class' => 'rs-admin-wrapper-button'
-			]);
 		$linkElement = $element
 			->copy()
 			->init('a',
@@ -61,7 +55,7 @@ class ExtraTable extends ViewAbstract
 		$output .= $titleElement;
 		if ($extrasNew)
 		{
-			$output .= $wrapperElement->html($linkElement);
+			$output .= $linkElement;
 		}
 		$output .= $this->_renderTable();
 		$output .= Module\Hook::trigger('adminExtraTableEnd');

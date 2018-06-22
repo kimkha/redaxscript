@@ -204,6 +204,7 @@ class ModuleForm extends ViewAbstract
 				'value' => $module->id
 			])
 			->token()
+			->append('<div class="rs-admin-wrapper-button">')
 			->cancel();
 		if ($this->_registry->get('modulesUninstall'))
 		{
@@ -213,6 +214,7 @@ class ModuleForm extends ViewAbstract
 		{
 			$formElement->save();
 		}
+		$formElement->append('</div>');
 
 		/* collect output */
 

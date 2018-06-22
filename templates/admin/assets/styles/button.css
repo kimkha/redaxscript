@@ -59,9 +59,9 @@
 	}
 }
 
-.rs-admin-wrapper-button
+.rs-admin-button-default + .rs-admin-wrapper-table
 {
-	margin-bottom: 1em;
+	margin-top: 1em;
 }
 
 /** @section 2. query */
@@ -83,5 +83,16 @@
 	.rs-admin-button-default + .rs-admin-button-default
 	{
 		margin-left: 1em;
+	}
+
+	.rs-admin-wrapper-button
+	{
+		display: flex;
+		flex: 1;
+
+		& .rs-admin-button-default + .rs-admin-button-default:last-child
+		{
+			margin-left: auto;
+		}
 	}
 }

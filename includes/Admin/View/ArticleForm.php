@@ -360,6 +360,7 @@ class ArticleForm extends ViewAbstract
 				'value' => $article->id
 			])
 			->token()
+			->append('<div class="rs-admin-wrapper-button">')
 			->cancel();
 		if ($article->id)
 		{
@@ -376,6 +377,7 @@ class ArticleForm extends ViewAbstract
 		{
 			$formElement->create();
 		}
+		$formElement->append('</div>');
 
 		/* collect output */
 

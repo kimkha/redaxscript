@@ -295,6 +295,7 @@ class ExtraForm extends ViewAbstract
 				'value' => $extra->id
 			])
 			->token()
+			->append('<div class="rs-admin-wrapper-button">')
 			->cancel();
 		if ($extra->id)
 		{
@@ -311,6 +312,7 @@ class ExtraForm extends ViewAbstract
 		{
 			$formElement->create();
 		}
+		$formElement->append('</div>');
 
 		/* collect output */
 
