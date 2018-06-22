@@ -26,6 +26,6 @@ class Common extends ControllerAbstract
 
 	public function process(string $table = null, string $action = null) : string
 	{
-		return 'to be implemented: ' . __CLASS__ . ' ' . $action;
+		return 'to be implemented: ' . __CLASS__ . ' ' . $action . ' for ' . $table;
 	}
 }
