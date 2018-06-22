@@ -62,7 +62,7 @@ class Setting extends BaseModel\Setting
 			return $this->query()
 				->where('name', $key)
 				->findOne()
-				->set('value', $value === 'select' ? null : $value)
+				->set('value', $value)
 				->save();
 		}
 	}

@@ -35,7 +35,7 @@ class Register extends ControllerAbstract
 		$passwordHash->init(uniqid());
 		$groupModel = new Model\Group();
 		$settingModel = new Model\Setting();
-		$postArray = $this->_sanitizePost();
+		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
 
 		/* validate post */

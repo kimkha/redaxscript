@@ -172,7 +172,7 @@ class Contact extends Module\Module
 
 	public function process()
 	{
-		$postArray = $this->_sanitizePost();
+		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
 
 		/* handle validate */
@@ -208,6 +208,24 @@ class Contact extends Module\Module
 		[
 			'message' => $this->_language->get('email_failed')
 		]);
+	}
+
+	/**
+	 * normalize the post
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $postArray array of the post
+	 *
+	 * @return array
+	 */
+
+	protected function _normalizePost(array $postArray = [])
+	{
+		return array_map(function($value)
+		{
+			return $value === '' ? null : $value;
+		}, $postArray);
 	}
 
 	/**

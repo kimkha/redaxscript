@@ -26,7 +26,7 @@ class Setting extends ControllerAbstract
 
 	public function process() : string
 	{
-		$postArray = $this->_sanitizePost();
+		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
 		$route = 'admin';
 

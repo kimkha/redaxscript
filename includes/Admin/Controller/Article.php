@@ -27,8 +27,9 @@ class Article extends ControllerAbstract
 
 	public function process() : string
 	{
-		$postArray = $this->_sanitizePost();
+		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
+		$myUser = $this->_registry->get('myUser');
 		$now = $this->_registry->get('now');
 		$route = 'admin/view/articles';
 
@@ -52,7 +53,7 @@ class Article extends ControllerAbstract
 			[
 				'title' => $postArray['title'],
 				'alias' => $postArray['alias'],
-				'author' => $postArray['author'],
+				'author' => $myUser,
 				'description' => $postArray['description'],
 				'keywords' => $postArray['keywords'],
 				'robots' => $postArray['robots'],
@@ -88,7 +89,7 @@ class Article extends ControllerAbstract
 			[
 				'title' => $postArray['title'],
 				'alias' => $postArray['alias'],
-				'author' => $postArray['author'],
+				'author' => $myUser,
 				'description' => $postArray['description'],
 				'keywords' => $postArray['keywords'],
 				'robots' => $postArray['robots'],
@@ -145,7 +146,6 @@ class Article extends ControllerAbstract
 			'id' => $specialFilter->sanitize($this->_request->getPost('id')),
 			'title' => $this->_request->getPost('title'),
 			'alias' => $aliasFilter->sanitize($this->_request->getPost('alias')),
-			'author' => $this->_request->getPost('author'),
 			'description' => $this->_request->getPost('description'),
 			'keywords' => $this->_request->getPost('keywords'),
 			'robots' => $specialFilter->sanitize($this->_request->getPost('robots')),

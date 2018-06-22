@@ -63,6 +63,8 @@ class Comment extends BaseModel\Comment
 			->findOne()
 			->set(
 			[
+				'author' => $updateArray['author'],
+				'email' => $updateArray['email'],
 				'url' => $updateArray['url'],
 				'text' => $updateArray['text'],
 				'language' => $updateArray['language'],

@@ -32,7 +32,7 @@ class Comment extends ControllerAbstract
 	{
 		$articleModel = new Model\Article();
 		$settingModel = new Model\Setting();
-		$postArray = $this->_sanitizePost();
+		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
 		$route = $postArray['article'] ? $articleModel->getRouteById($postArray['article']) : null;
 

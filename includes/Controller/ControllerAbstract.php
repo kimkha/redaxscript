@@ -60,6 +60,24 @@ abstract class ControllerAbstract implements ControllerInterface
 	}
 
 	/**
+	 * normalize the post
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $postArray array of the post
+	 *
+	 * @return array
+	 */
+
+	protected function _normalizePost(array $postArray = [])
+	{
+		return array_map(function($value)
+		{
+			return $value === 'select' || $value === '' ? null : $value;
+		}, $postArray);
+	}
+
+	/**
 	 * show the success
 	 *
 	 * @since 4.0.0

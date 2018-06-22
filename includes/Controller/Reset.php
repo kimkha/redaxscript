@@ -33,7 +33,7 @@ class Reset extends ControllerAbstract
 	{
 		$passwordHash = new Hash();
 		$passwordHash->init(uniqid());
-		$postArray = $this->_sanitizePost();
+		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
 		$user = $this->_getUser($postArray);
 

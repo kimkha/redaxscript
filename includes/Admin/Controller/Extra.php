@@ -27,8 +27,9 @@ class Extra extends ControllerAbstract
 
 	public function process() : string
 	{
-		$postArray = $this->_sanitizePost();
+		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
+		$myUser = $this->_registry->get('myUser');
 		$now = $this->_registry->get('now');
 		$route = 'admin/view/extras';
 
@@ -52,7 +53,7 @@ class Extra extends ControllerAbstract
 			[
 				'title' => $postArray['title'],
 				'alias' => $postArray['alias'],
-				'author' => $postArray['author'],
+				'author' => $myUser,
 				'text' => $postArray['text'],
 				'language' => $postArray['language'],
 				'sibling' => $postArray['sibling'],
@@ -83,7 +84,7 @@ class Extra extends ControllerAbstract
 			[
 				'title' => $postArray['title'],
 				'alias' => $postArray['alias'],
-				'author' => $postArray['author'],
+				'author' => $myUser,
 				'text' => $postArray['text'],
 				'language' => $postArray['language'],
 				'sibling' => $postArray['sibling'],
@@ -135,7 +136,6 @@ class Extra extends ControllerAbstract
 			'id' => $specialFilter->sanitize($this->_request->getPost('id')),
 			'title' => $this->_request->getPost('title'),
 			'alias' => $aliasFilter->sanitize($this->_request->getPost('alias')),
-			'author' => $this->_request->getPost('author'),
 			'text' => $htmlFilter->sanitize($this->_request->getPost('text'), $this->_registry->get('filter')),
 			'language' => $specialFilter->sanitize($this->_request->getPost('language')),
 			'sibling' => $specialFilter->sanitize($this->_request->getPost('sibling')),

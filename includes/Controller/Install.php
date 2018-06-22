@@ -62,7 +62,7 @@ class Install extends ControllerAbstract
 
 	public function process() : string
 	{
-		$postArray = $this->_sanitizePost();
+		$postArray = $this->_normalizePost($this->_sanitizePost());
 
 		/* validate database */
 

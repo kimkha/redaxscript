@@ -26,7 +26,7 @@ class Comment extends ControllerAbstract
 
 	public function process() : string
 	{
-		$postArray = $this->_sanitizePost();
+		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
 		$now = $this->_registry->get('now');
 		$route = 'admin/view/comments';
@@ -77,6 +77,8 @@ class Comment extends ControllerAbstract
 			$route = 'admin/edit/comments/' . $postArray['id'];
 			$updateArray =
 			[
+				'author' => $postArray['author'],
+				'email' => $postArray['email'],
 				'url' => $postArray['url'],
 				'text' => $postArray['text'],
 				'language' => $postArray['language'],
@@ -125,7 +127,6 @@ class Comment extends ControllerAbstract
 		return
 		[
 			'id' => $specialFilter->sanitize($this->_request->getPost('id')),
-			'author' => $this->_request->getPost('author'),
 			'email' => $emailFilter->sanitize($this->_request->getPost('email')),
 			'url' => $urlFilter->sanitize($this->_request->getPost('url')),
 			'text' => $htmlFilter->sanitize($this->_request->getPost('text'), $this->_registry->get('filter')),

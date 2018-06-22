@@ -27,7 +27,7 @@ class Group extends ControllerAbstract
 
 	public function process() : string
 	{
-		$postArray = $this->_sanitizePost();
+		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
 		$route = 'admin/view/groups';
 
@@ -134,14 +134,14 @@ class Group extends ControllerAbstract
 			'name' => $this->_request->getPost('name'),
 			'alias' => $aliasFilter->sanitize($this->_request->getPost('alias')),
 			'description' => $this->_request->getPost('description'),
-			'categories' => $specialFilter->sanitize($this->_request->getPost('categories')),
-			'articles' => $specialFilter->sanitize($this->_request->getPost('articles')),
-			'extras' => $specialFilter->sanitize($this->_request->getPost('extras')),
-			'comments' => $specialFilter->sanitize($this->_request->getPost('comments')),
-			'groups' => $specialFilter->sanitize($this->_request->getPost('groups')),
-			'users' => $specialFilter->sanitize($this->_request->getPost('users')),
-			'modules' => $specialFilter->sanitize($this->_request->getPost('modules')),
-			'settings' => $specialFilter->sanitize($this->_request->getPost('settings')),
+			'categories' => $this->_request->getPost('categories'),
+			'articles' => $this->_request->getPost('articles'),
+			'extras' => $this->_request->getPost('extras'),
+			'comments' => $this->_request->getPost('comments'),
+			'groups' => $this->_request->getPost('groups'),
+			'users' => $this->_request->getPost('users'),
+			'modules' => $this->_request->getPost('modules'),
+			'settings' => $this->_request->getPost('settings'),
 			'filter' => $specialFilter->sanitize($this->_request->getPost('filter')),
 			'status' => $specialFilter->sanitize($this->_request->getPost('status'))
 		];
