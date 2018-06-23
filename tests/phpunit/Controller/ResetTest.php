@@ -78,7 +78,7 @@ class ResetTest extends TestCaseAbstract
 		/* setup */
 
 		$this->_request->set('post', $postArray);
-		$resetController = new Controller\Reset($this->_registry, $this->_request, $this->_language);
+		$resetController = new Controller\Reset($this->_registry, $this->_request, $this->_language, $this->_config);
 
 		/* actual */
 
@@ -112,7 +112,8 @@ class ResetTest extends TestCaseAbstract
 			[
 				$this->_registry,
 				$this->_request,
-				$this->_language
+				$this->_language,
+				$this->_config
 			])
 			->setMethods(
 			[

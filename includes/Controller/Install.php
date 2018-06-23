@@ -1,17 +1,13 @@
 <?php
 namespace Redaxscript\Controller;
 
-use Redaxscript\Config;
 use Redaxscript\Db;
 use Redaxscript\Filter;
 use Redaxscript\Html;
 use Redaxscript\Installer;
-use Redaxscript\Language;
 use Redaxscript\Mailer;
 use Redaxscript\Messenger;
 use Redaxscript\Model;
-use Redaxscript\Registry;
-use Redaxscript\Request;
 use Redaxscript\Validator;
 
 /**
@@ -27,31 +23,6 @@ use Redaxscript\Validator;
 
 class Install extends ControllerAbstract
 {
-	/**
-	 * instance of the config class
-	 *
-	 * @var Config
-	 */
-
-	protected $_config;
-
-	/**
-	 * construct of the class
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param Registry $registry
-	 * @param Request $request
-	 * @param Language $language
-	 * @param Config $config
-	 */
-
-	public function __construct(Registry $registry, Request $request, Language $language, Config $config)
-	{
-		parent::__construct($registry, $request, $language);
-		$this->_config = $config;
-	}
-
 	/**
 	 * process the class
 	 *

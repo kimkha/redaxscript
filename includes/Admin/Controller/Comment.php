@@ -154,10 +154,6 @@ class Comment extends ControllerAbstract
 
 		/* validate post */
 
-		if (!$postArray['author'])
-		{
-			$validateArray[] = $this->_language->get('author_empty');
-		}
 		if (!$postArray['text'])
 		{
 			$validateArray[] = $this->_language->get('text_empty');

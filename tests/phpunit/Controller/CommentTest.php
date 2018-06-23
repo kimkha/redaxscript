@@ -94,7 +94,7 @@ class CommentTest extends TestCaseAbstract
 		$setting = $this->settingFactory();
 		$setting->set('notification', $settingArray['notification']);
 		$setting->set('moderation', $settingArray['moderation']);
-		$commentController = new Controller\Comment($this->_registry, $this->_request, $this->_language);
+		$commentController = new Controller\Comment($this->_registry, $this->_request, $this->_language, $this->_config);
 
 		/* actual */
 
@@ -132,7 +132,8 @@ class CommentTest extends TestCaseAbstract
 			[
 				$this->_registry,
 				$this->_request,
-				$this->_language
+				$this->_language,
+				$this->_config
 			])
 			->setMethods(
 			[

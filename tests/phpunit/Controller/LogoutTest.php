@@ -70,7 +70,7 @@ class LogoutTest extends TestCaseAbstract
 		/* setup */
 
 		$auth = new Auth($this->_request);
-		$logoutController = new Controller\Logout($this->_registry, $this->_request, $this->_language);
+		$logoutController = new Controller\Logout($this->_registry, $this->_request, $this->_language, $this->_config);
 		if ($authArray['login'])
 		{
 			$auth->login(1);

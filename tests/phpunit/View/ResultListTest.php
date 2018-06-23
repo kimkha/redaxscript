@@ -100,7 +100,7 @@ class ResultListTest extends TestCaseAbstract
 		/* setup */
 
 		$resultList = new View\ResultList($this->_registry, $this->_language);
-		$controllerSearch = new Controller\Search($this->_registry, $this->_request, $this->_language);
+		$controllerSearch = new Controller\Search($this->_registry, $this->_request, $this->_language, $this->_config);
 		$resultArray = $this->callMethod($controllerSearch, '_search',
 		[
 			$searchArray

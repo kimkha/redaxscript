@@ -79,7 +79,7 @@ class LoginTest extends TestCaseAbstract
 			->set('status', $userArray['status'])
 			->save();
 		$this->_request->set('post', $postArray);
-		$loginController = new Controller\Login($this->_registry, $this->_request, $this->_language);
+		$loginController = new Controller\Login($this->_registry, $this->_request, $this->_language, $this->_config);
 
 		/* actual */
 
@@ -119,7 +119,8 @@ class LoginTest extends TestCaseAbstract
 			[
 				$this->_registry,
 				$this->_request,
-				$this->_language
+				$this->_language,
+				$this->_config
 			])
 			->setMethods(
 			[

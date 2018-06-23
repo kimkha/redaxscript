@@ -72,7 +72,7 @@ class RecoverTest extends TestCaseAbstract
 		/* setup */
 
 		$this->_request->set('post', $postArray);
-		$recoverController = new Controller\Recover($this->_registry, $this->_request, $this->_language);
+		$recoverController = new Controller\Recover($this->_registry, $this->_request, $this->_language, $this->_config);
 
 		/* actual */
 
@@ -106,7 +106,8 @@ class RecoverTest extends TestCaseAbstract
 			[
 				$this->_registry,
 				$this->_request,
-				$this->_language
+				$this->_language,
+				$this->_config
 			])
 			->setMethods(
 			[

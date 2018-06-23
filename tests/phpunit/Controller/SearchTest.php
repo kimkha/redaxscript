@@ -151,7 +151,7 @@ class SearchTest extends TestCaseAbstract
 		/* setup */
 
 		$this->_registry->init($registryArray);
-		$searchController = new Controller\Search($this->_registry, $this->_request, $this->_language);
+		$searchController = new Controller\Search($this->_registry, $this->_request, $this->_language, $this->_config);
 
 		/* actual */
 

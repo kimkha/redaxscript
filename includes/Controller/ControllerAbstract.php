@@ -1,6 +1,7 @@
 <?php
 namespace Redaxscript\Controller;
 
+use Redaxscript\Config;
 use Redaxscript\Language;
 use Redaxscript\Messenger;
 use Redaxscript\Registry;
@@ -43,6 +44,14 @@ abstract class ControllerAbstract implements ControllerInterface
 	protected $_language;
 
 	/**
+	 * instance of the config class
+	 *
+	 * @var Config
+	 */
+
+	protected $_config;
+
+	/**
 	 * constructor of the class
 	 *
 	 * @since 3.0.0
@@ -50,13 +59,15 @@ abstract class ControllerAbstract implements ControllerInterface
 	 * @param Registry $registry instance of the registry class
 	 * @param Request $request instance of the request class
 	 * @param Language $language instance of the language class
+	 * @param Config $config instance of the config class
 	 */
 
-	public function __construct(Registry $registry, Request $request, Language $language)
+	public function __construct(Registry $registry, Request $request, Language $language, Config $config)
 	{
 		$this->_registry = $registry;
 		$this->_request = $request;
 		$this->_language = $language;
+		$this->_config = $config;
 	}
 
 	/**

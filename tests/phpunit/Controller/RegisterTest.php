@@ -73,7 +73,7 @@ class RegisterTest extends TestCaseAbstract
 		/* setup */
 
 		$this->_request->set('post', $postArray);
-		$registerController = new Controller\Register($this->_registry, $this->_request, $this->_language);
+		$registerController = new Controller\Register($this->_registry, $this->_request, $this->_language, $this->_config);
 
 		/* actual */
 
@@ -107,7 +107,8 @@ class RegisterTest extends TestCaseAbstract
 			[
 				$this->_registry,
 				$this->_request,
-				$this->_language
+				$this->_language,
+				$this->_config
 			])
 			->setMethods(
 			[
