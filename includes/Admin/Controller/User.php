@@ -22,14 +22,15 @@ class User extends ControllerAbstract
 	 *
 	 * @since 4.0.0
 	 *
+	 * @param string $action action to process
+	 *
 	 * @return string
 	 */
 
-	public function process() : string
+	public function process(string $action = null) : string
 	{
 		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
-		$route = 'admin/view/users';
 
 		/* validate post */
 
@@ -37,16 +38,15 @@ class User extends ControllerAbstract
 		{
 			return $this->_error(
 			[
-				'route' => $route,
+				'route' => $postArray['id'] ? 'admin/edit/users/' . $postArray['id'] : 'admin/new/users',
 				'message' => $validateArray
 			]);
 		}
 
 		/* handle create */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\UserForm') === 'create')
+		if ($action === 'create')
 		{
-			$route = 'admin/new/users';
 			$createArray =
 			[
 				'name' => $postArray['name'],
@@ -62,7 +62,7 @@ class User extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin/view/users#' . $postArray['user'],
 					'timeout' => 2
 				]);
 			}
@@ -70,9 +70,8 @@ class User extends ControllerAbstract
 
 		/* handle update */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\UserForm') === 'update')
+		if ($action === 'update')
 		{
-			$route = 'admin/new/users/' . $postArray['id'];
 			$updateArray =
 			[
 				'name' => $postArray['name'],
@@ -88,7 +87,7 @@ class User extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin/view/users#' . $postArray['user'],
 					'timeout' => 2
 				]);
 			}
@@ -98,7 +97,7 @@ class User extends ControllerAbstract
 
 		return $this->_error(
 		[
-			'route' => $route,
+			'route' => $postArray['id'] ? 'admin/edit/users/' . $postArray['id'] : 'admin/new/users',
 			'message' => $this->_language->get('something_wrong')
 		]);
 	}

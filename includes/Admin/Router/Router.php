@@ -211,7 +211,7 @@ class Router extends RouterAbstract
 	protected function _processCategory() : string
 	{
 		$categoryController = new Admin\Controller\Category($this->_registry, $this->_request, $this->_language);
-		return $categoryController->process();
+		return $categoryController->process($this->_request->getPost('Redaxscript\Admin\View\CategoryForm'));
 	}
 
 	/**
@@ -225,7 +225,7 @@ class Router extends RouterAbstract
 	protected function _processArticle() : string
 	{
 		$articleController = new Admin\Controller\Article($this->_registry, $this->_request, $this->_language);
-		return $articleController->process();
+		return $articleController->process($this->_request->getPost('Redaxscript\Admin\View\ArticleForm'));
 	}
 
 	/**
@@ -239,7 +239,7 @@ class Router extends RouterAbstract
 	protected function _processExtra() : string
 	{
 		$extraController = new Admin\Controller\Extra($this->_registry, $this->_request, $this->_language);
-		return $extraController->process();
+		return $extraController->process($this->_request->getPost('Redaxscript\Admin\View\ExtraForm'));
 	}
 
 	/**
@@ -253,7 +253,7 @@ class Router extends RouterAbstract
 	protected function _processComment() : string
 	{
 		$commentController = new Admin\Controller\Comment($this->_registry, $this->_request, $this->_language);
-		return $commentController->process();
+		return $commentController->process($this->_request->getPost('Redaxscript\Admin\View\CommentForm'));
 	}
 
 	/**
@@ -267,7 +267,7 @@ class Router extends RouterAbstract
 	protected function _processUser() : string
 	{
 		$userController = new Admin\Controller\User($this->_registry, $this->_request, $this->_language);
-		return $userController->process();
+		return $userController->process($this->_request->getPost('Redaxscript\Admin\View\UserForm'));
 	}
 
 	/**
@@ -281,7 +281,7 @@ class Router extends RouterAbstract
 	protected function _processGroup() : string
 	{
 		$groupController = new Admin\Controller\Group($this->_registry, $this->_request, $this->_language);
-		return $groupController->process();
+		return $groupController->process($this->_request->getPost('Redaxscript\Admin\View\GroupForm'));
 	}
 
 	/**
@@ -295,7 +295,7 @@ class Router extends RouterAbstract
 	protected function _processModule() : string
 	{
 		$moduleController = new Admin\Controller\Module($this->_registry, $this->_request, $this->_language);
-		return $moduleController->process();
+		return $moduleController->process($this->_request->getPost('Redaxscript\Admin\View\ModuleForm'));
 	}
 
 	/**
@@ -309,7 +309,7 @@ class Router extends RouterAbstract
 	protected function _processSetting() : string
 	{
 		$settingController = new Admin\Controller\Setting($this->_registry, $this->_request, $this->_language);
-		return $settingController->process();
+		return $settingController->process($this->_request->getPost('Redaxscript\Admin\View\SettingForm'));
 	}
 
 	/**

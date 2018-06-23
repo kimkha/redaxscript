@@ -22,14 +22,15 @@ class Group extends ControllerAbstract
 	 *
 	 * @since 4.0.0
 	 *
+	 * @param string $action action to process
+	 *
 	 * @return string
 	 */
 
-	public function process() : string
+	public function process(string $action = null) : string
 	{
 		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
-		$route = 'admin/view/groups';
 
 		/* validate post */
 
@@ -37,16 +38,15 @@ class Group extends ControllerAbstract
 		{
 			return $this->_error(
 			[
-				'route' => $route,
+				'route' => $postArray['id'] ? 'admin/edit/groups/' . $postArray['id'] : 'admin/new/groups',
 				'message' => $validateArray
 			]);
 		}
 
 		/* handle create */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\GroupForm') === 'create')
+		if ($action === 'create')
 		{
-			$route = 'admin/new/groups';
 			$createArray =
 			[
 				'name' => $postArray['name'],
@@ -67,7 +67,7 @@ class Group extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin/view/groups#' . $postArray['alias'],
 					'timeout' => 2
 				]);
 			}
@@ -75,9 +75,8 @@ class Group extends ControllerAbstract
 
 		/* handle update */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\GroupForm') === 'update')
+		if ($action === 'update')
 		{
-			$route = 'admin/edit/groups/' . $postArray['id'];
 			$updateArray =
 			[
 				'name' => $postArray['name'],
@@ -98,7 +97,7 @@ class Group extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin/view/groups#' . $postArray['alias'],
 					'timeout' => 2
 				]);
 			}
@@ -108,7 +107,7 @@ class Group extends ControllerAbstract
 
 		return $this->_error(
 		[
-			'route' => $route,
+			'route' => $postArray['id'] ? 'admin/edit/groups/' . $postArray['id'] : 'admin/new/groups',
 			'message' => $this->_language->get('something_wrong')
 		]);
 	}

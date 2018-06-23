@@ -21,14 +21,15 @@ class Setting extends ControllerAbstract
 	 *
 	 * @since 4.0.0
 	 *
+	 * @param string $action action to process
+	 *
 	 * @return string
 	 */
 
-	public function process() : string
+	public function process(string $action = null) : string
 	{
 		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
-		$route = 'admin';
 
 		/* validate post */
 
@@ -36,16 +37,15 @@ class Setting extends ControllerAbstract
 		{
 			return $this->_error(
 			[
-				'route' => 'admin',
+				'route' => 'admin/edit/settings',
 				'message' => $validateArray
 			]);
 		}
 
 		/* handle update */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\SettingForm') === 'update')
+		if ($action === 'update')
 		{
-			$route = 'admin/edit/settings';
 			$updateArray =
 			[
 				'language' => $postArray['language'],
@@ -77,7 +77,7 @@ class Setting extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin',
 					'timeout' => 2
 				]);
 			}
@@ -87,7 +87,7 @@ class Setting extends ControllerAbstract
 
 		return $this->_error(
 		[
-			'route' => $route,
+			'route' => 'admin/edit/settings',
 			'message' => $this->_language->get('something_wrong')
 		]);
 	}

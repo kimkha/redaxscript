@@ -22,16 +22,17 @@ class Category extends ControllerAbstract
 	 *
 	 * @since 4.0.0
 	 *
+	 * @param string $action action to process
+	 *
 	 * @return string
 	 */
 
-	public function process() : string
+	public function process(string $action = null) : string
 	{
 		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
 		$myUser = $this->_registry->get('myUser');
 		$now = $this->_registry->get('now');
-		$route = 'admin/view/categories';
 
 		/* validate post */
 
@@ -39,16 +40,15 @@ class Category extends ControllerAbstract
 		{
 			return $this->_error(
 			[
-				'route' => $route,
+				'route' => $postArray['id'] ? 'admin/edit/categories/' . $postArray['id'] : 'admin/new/categories',
 				'message' => $validateArray
 			]);
 		}
 
 		/* handle create */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\CategoryForm') === 'create')
+		if ($action === 'create')
 		{
-			$route = 'admin/new/categories';
 			$createArray =
 			[
 				'title' => $postArray['title'],
@@ -70,7 +70,7 @@ class Category extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin/view/categories#' . $postArray['alias'],
 					'timeout' => 2
 				]);
 			}
@@ -78,9 +78,8 @@ class Category extends ControllerAbstract
 
 		/* handle update */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\CategoryForm') === 'update')
+		if ($action === 'update')
 		{
-			$route = 'admin/edit/categories/' . $postArray['id'];
 			$updateArray =
 			[
 				'title' => $postArray['title'],
@@ -102,7 +101,7 @@ class Category extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin/view/categories#' . $postArray['alias'],
 					'timeout' => 2
 				]);
 			}
@@ -112,7 +111,7 @@ class Category extends ControllerAbstract
 
 		return $this->_error(
 		[
-			'route' => $route,
+			'route' => $postArray['id'] ? 'admin/edit/categories/' . $postArray['id'] : 'admin/new/categories',
 			'message' => $this->_language->get('something_wrong')
 		]);
 	}

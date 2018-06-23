@@ -22,16 +22,17 @@ class Article extends ControllerAbstract
 	 *
 	 * @since 4.0.0
 	 *
+	 * @param string $action action to process
+	 *
 	 * @return string
 	 */
 
-	public function process() : string
+	public function process(string $action = null) : string
 	{
 		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
 		$myUser = $this->_registry->get('myUser');
 		$now = $this->_registry->get('now');
-		$route = 'admin/view/articles';
 
 		/* validate post */
 
@@ -39,16 +40,15 @@ class Article extends ControllerAbstract
 		{
 			return $this->_error(
 			[
-				'route' => $route,
+				'route' => $postArray['id'] ? 'admin/edit/articles/' . $postArray['id'] : 'admin/new/articles',
 				'message' => $validateArray
 			]);
 		}
 
 		/* handle create */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\ArticleForm') === 'create')
+		if ($action === 'create')
 		{
-			$route = 'admin/new/articles';
 			$createArray =
 			[
 				'title' => $postArray['title'],
@@ -74,7 +74,7 @@ class Article extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin/view/articles#' . $postArray['alias'],
 					'timeout' => 2
 				]);
 			}
@@ -82,9 +82,8 @@ class Article extends ControllerAbstract
 
 		/* handle update */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\ArticleForm') === 'update')
+		if ($action === 'update')
 		{
-			$route = 'admin/edit/articles/' . $postArray['id'];
 			$updateArray =
 			[
 				'title' => $postArray['title'],
@@ -110,7 +109,7 @@ class Article extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin/view/articles#' . $postArray['alias'],
 					'timeout' => 2
 				]);
 			}
@@ -120,7 +119,7 @@ class Article extends ControllerAbstract
 
 		return $this->_error(
 		[
-			'route' => $route,
+			'route' => $postArray['id'] ? 'admin/edit/articles/' . $postArray['id'] : 'admin/new/articles',
 			'message' => $this->_language->get('something_wrong')
 		]);
 	}

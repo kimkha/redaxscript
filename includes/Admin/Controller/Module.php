@@ -21,14 +21,15 @@ class Module extends ControllerAbstract
 	 *
 	 * @since 4.0.0
 	 *
+	 * @param string $action action to process
+	 *
 	 * @return string
 	 */
 
-	public function process() : string
+	public function process(string $action = null) : string
 	{
 		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
-		$route = 'admin/view/modules';
 
 		/* validate post */
 
@@ -36,16 +37,15 @@ class Module extends ControllerAbstract
 		{
 			return $this->_error(
 			[
-				'route' => $route,
+				'route' => $postArray['id'] ? 'admin/edit/modules/' . $postArray['id'] : 'admin/view/modules',
 				'message' => $validateArray
 			]);
 		}
 
 		/* handle update */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\ModuleForm') === 'update')
+		if ($action === 'update')
 		{
-			$route = 'admin/edit/modules/' . $postArray['id'];
 			$updateArray =
 			[
 				'name' => $postArray['name'],
@@ -57,7 +57,7 @@ class Module extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin/view/modules#' . $postArray['alias'],
 					'timeout' => 2
 				]);
 			}
@@ -67,7 +67,7 @@ class Module extends ControllerAbstract
 
 		return $this->_error(
 		[
-			'route' => $route,
+			'route' => $postArray['id'] ? 'admin/edit/modules/' . $postArray['id'] : 'admin/view/modules',
 			'message' => $this->_language->get('something_wrong')
 		]);
 	}

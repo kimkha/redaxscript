@@ -22,16 +22,17 @@ class Extra extends ControllerAbstract
 	 *
 	 * @since 4.0.0
 	 *
+	 * @param string $action action to process
+	 *
 	 * @return string
 	 */
 
-	public function process() : string
+	public function process(string $action = null) : string
 	{
 		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
 		$myUser = $this->_registry->get('myUser');
 		$now = $this->_registry->get('now');
-		$route = 'admin/view/extras';
 
 		/* validate post */
 
@@ -39,16 +40,15 @@ class Extra extends ControllerAbstract
 		{
 			return $this->_error(
 			[
-				'route' => $route,
+				'route' => $postArray['id'] ? 'admin/edit/extras/' . $postArray['id'] : 'admin/new/extras',
 				'message' => $validateArray
 			]);
 		}
 
 		/* handle create */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\ExtraForm') === 'create')
+		if ($action === 'create')
 		{
-			$route = 'admin/new/extras';
 			$createArray =
 			[
 				'title' => $postArray['title'],
@@ -69,7 +69,7 @@ class Extra extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin/view/extras#' . $postArray['alias'],
 					'timeout' => 2
 				]);
 			}
@@ -77,9 +77,8 @@ class Extra extends ControllerAbstract
 
 		/* handle update */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\ExtraForm') === 'update')
+		if ($action === 'update')
 		{
-			$route = 'admin/edit/extras/' . $postArray['id'];
 			$updateArray =
 			[
 				'title' => $postArray['title'],
@@ -100,7 +99,7 @@ class Extra extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin/view/extras#' . $postArray['alias'],
 					'timeout' => 2
 				]);
 			}
@@ -110,7 +109,7 @@ class Extra extends ControllerAbstract
 
 		return $this->_error(
 		[
-			'route' => $route,
+			'route' =>  $postArray['id'] ? 'admin/edit/extras/' . $postArray['id'] : 'admin/new/extras',
 			'message' => $this->_language->get('something_wrong')
 		]);
 	}

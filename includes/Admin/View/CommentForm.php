@@ -93,32 +93,6 @@ class CommentForm extends ViewAbstract
 				'for' => get_class() . '\Comment'
 			])
 			->append('<ul class="rs-admin-fn-content-tab rs-admin-box-tab"><li>')
-			->label('* ' . $this->_language->get('author'),
-			[
-				'for' => 'author'
-			])
-			->text(
-			[
-				'id' => 'author',
-				'name' => 'author',
-				'readonly' => 'readonly',
-				'required' => 'required',
-				'value' => $comment->author ? $comment->author : $this->_registry->get('myName')
-			])
-			->append('</li><li>')
-			->label('* ' . $this->_language->get('email'),
-			[
-				'for' => 'email'
-			])
-			->email(
-			[
-				'id' => 'email',
-				'name' => 'email',
-				'readonly' => 'readonly',
-				'required' => 'required',
-				'value' => $comment->email ? $comment->email : $this->_registry->get('myEmail')
-			])
-			->append('</li><li>')
 			->label($this->_language->get('url'),
 			[
 				'for' => 'url'

@@ -21,15 +21,18 @@ class Comment extends ControllerAbstract
 	 *
 	 * @since 4.0.0
 	 *
+	 * @param string $action action to process
+	 *
 	 * @return string
 	 */
 
-	public function process() : string
+	public function process(string $action = null) : string
 	{
 		$postArray = $this->_normalizePost($this->_sanitizePost());
 		$validateArray = $this->_validatePost($postArray);
+		$myUser = $this->_registry->get('myUser');
+		$myEmail = $this->_registry->get('myEmail');
 		$now = $this->_registry->get('now');
-		$route = 'admin/view/comments';
 
 		/* validate post */
 
@@ -37,20 +40,19 @@ class Comment extends ControllerAbstract
 		{
 			return $this->_error(
 			[
-				'route' => $route,
+				'route' => $postArray['id'] ? 'admin/edit/comments/' . $postArray['id'] : 'admin/new/comments',
 				'message' => $validateArray
 			]);
 		}
 
 		/* handle create */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\CommentForm') === 'create')
+		if ($action === 'create')
 		{
-			$route = 'admin/new/comments';
 			$createArray =
 			[
-				'author' => $postArray['author'],
-				'email' => $postArray['email'],
+				'author' => $myUser,
+				'email' => $myEmail,
 				'url' => $postArray['url'],
 				'text' => $postArray['text'],
 				'language' => $postArray['language'],
@@ -64,7 +66,7 @@ class Comment extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin/view/comments#' . $postArray['alias'],
 					'timeout' => 2
 				]);
 			}
@@ -72,13 +74,12 @@ class Comment extends ControllerAbstract
 
 		/* handle update */
 
-		if ($this->_request->getPost('Redaxscript\Admin\View\CommentForm') === 'update')
+		if ($action === 'update')
 		{
-			$route = 'admin/edit/comments/' . $postArray['id'];
 			$updateArray =
 			[
-				'author' => $postArray['author'],
-				'email' => $postArray['email'],
+				'author' => $myUser,
+				'email' => $myEmail,
 				'url' => $postArray['url'],
 				'text' => $postArray['text'],
 				'language' => $postArray['language'],
@@ -92,7 +93,7 @@ class Comment extends ControllerAbstract
 			{
 				return $this->_success(
 				[
-					'route' => $route,
+					'route' => 'admin/view/comments#' . $postArray['alias'],
 					'timeout' => 2
 				]);
 			}
@@ -102,7 +103,7 @@ class Comment extends ControllerAbstract
 
 		return $this->_error(
 		[
-			'route' => $route,
+			'route' => $postArray['id'] ? 'admin/edit/comments/' . $postArray['id'] : 'admin/new/comments',
 			'message' => $this->_language->get('something_wrong')
 		]);
 	}
@@ -118,7 +119,6 @@ class Comment extends ControllerAbstract
 	protected function _sanitizePost() : array
 	{
 		$specialFilter = new Filter\Special();
-		$emailFilter = new Filter\Email();
 		$urlFilter = new Filter\Url();
 		$htmlFilter = new Filter\Html();
 
@@ -127,7 +127,6 @@ class Comment extends ControllerAbstract
 		return
 		[
 			'id' => $specialFilter->sanitize($this->_request->getPost('id')),
-			'email' => $emailFilter->sanitize($this->_request->getPost('email')),
 			'url' => $urlFilter->sanitize($this->_request->getPost('url')),
 			'text' => $htmlFilter->sanitize($this->_request->getPost('text'), $this->_registry->get('filter')),
 			'language' => $specialFilter->sanitize($this->_request->getPost('language')),
