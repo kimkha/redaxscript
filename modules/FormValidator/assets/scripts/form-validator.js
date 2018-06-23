@@ -1,12 +1,26 @@
-document.querySelectorAll('form.rs-js-validate-form input').forEach(fieldValue =>
+rs.modules.FormValidator.validate = config =>
 {
-	fieldValue.classList.add('rs-field-note');
-	fieldValue.addEventListener('input', () =>
+	if (config.init)
 	{
-		fieldValue.validity.valid ? fieldValue.classList.remove('rs-is-error') : fieldValue.classList.add('rs-is-error');
-	});
-	fieldValue.addEventListener('invalid', () =>
-	{
-		fieldValue.classList.add('rs-is-error');
-	});
-});
+		document.querySelectorAll(config.selector).forEach(fieldValue =>
+		{
+			fieldValue.classList.add(config.className.fieldNote);
+			fieldValue.addEventListener('input', () =>
+			{
+				fieldValue.validity.valid ? fieldValue.classList.remove(config.className.isError) : fieldValue.classList.add(config.className.isError);
+			});
+			fieldValue.addEventListener('invalid', () =>
+			{
+				fieldValue.classList.add(config.className.isError);
+			});
+		});
+	}
+};
+
+/* run as needed */
+
+rs.modules.FormValidator.validate(rs.modules.FormValidator.config.frontend);
+if (rs.registry.loggedIn === rs.registry.token)
+{
+	rs.modules.FormValidator.validate(rs.modules.FormValidator.config.backend);
+}
