@@ -3,7 +3,7 @@ rs.modules.Maps =
 	init: !rs.registry.adminParameter,
 	dependency: typeof window.google === 'object' && typeof window.google.maps === 'object',
 	selector: 'div.rs-js-map',
-	options:
+	config:
 	{
 		general:
 		{
