@@ -2,7 +2,7 @@ rs.modules.Tinymce =
 {
 	init: rs.registry.lastTable === 'articles' || rs.registry.adminParameter === 'new' || rs.registry.adminParameter === 'edit' && rs.registry.tableParameter === 'articles' || rs.registry.tableParameter === 'extras' || rs.registry.tableParameter === 'comments',
 	dependency: typeof window.tinymce === 'object',
-	options:
+	config:
 	{
 		selector: 'form textarea.rs-admin-js-editor-textarea',
 		plugins: 'autolink code fullscreen image imagetools link media table visualblocks',

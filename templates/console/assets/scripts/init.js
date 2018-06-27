@@ -4,7 +4,7 @@ rs.templates.console =
 	{
 		init: true,
 		selector: 'form.rs-console-js-form',
-		options:
+		config:
 		{
 			element:
 			{

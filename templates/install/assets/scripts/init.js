@@ -4,7 +4,7 @@ rs.templates.install =
 	{
 		init: true,
 		selector: 'form.rs-install-js-form',
-		options:
+		config:
 		{
 			element:
 			{

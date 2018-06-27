@@ -4,6 +4,6 @@ rs.modules.LightGallery =
 	selector: 'ul.rs-js-light-gallery',
 	options:
 	{
-		selector: 'a'
+		element: 'a'
 	}
 };
